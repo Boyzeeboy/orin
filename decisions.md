@@ -58,6 +58,26 @@ and version-controlled, or GitHub starts being edited as scratch space.
 
 ---
 
+## 2026-07-02 — Locked one-liner (v1)
+
+**Decision:** Orin's one-liner is: "For teams shipping product without a
+full design department: Orin builds the design system your developers
+ship from."
+
+**Reasoning:** Names the buyer directly (teams shipping without a full
+design department), names the deliverable in the buyer's language
+(design system), and names the outcome (developers shipping from it).
+Rides the market shift toward developer-led product delivery rather than
+resisting it. Filters out teams with full design capacity, which
+aren't Orin's clients anyway.
+
+**Revisit if:** Real client conversations consistently reveal that the
+buyer doesn't recognise themselves in "teams shipping product without a
+full design department" — meaning the buyer framing is wrong, not the
+words.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]
