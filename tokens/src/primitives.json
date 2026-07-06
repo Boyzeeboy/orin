@@ -1,0 +1,35 @@
+{
+  "neutral": {
+    "$type": "color",
+    "0":   { "$value": "#ffffff" },
+    "50":  { "$value": "#faf8f4" },
+    "100": { "$value": "#f0ede6" },
+    "200": { "$value": "#ded9cf" },
+    "300": { "$value": "#bdb6a8" },
+    "400": { "$value": "#8f8878" },
+    "500": { "$value": "#6b655a" },
+    "600": { "$value": "#4e4a42" },
+    "700": { "$value": "#37342e" },
+    "800": { "$value": "#232019" },
+    "900": { "$value": "#1b1a17" }
+  },
+  "accent": {
+    "$type": "color",
+    "400": { "$value": "#5c7c91" },
+    "500": { "$value": "#3e6076" },
+    "600": { "$value": "#304e60" },
+    "700": { "$value": "#264050" }
+  },
+  "family": {
+    "$type": "fontFamily",
+    "display":    { "$value": ["Inter Tight", "system-ui", "sans-serif"] },
+    "serif-body": { "$value": ["Source Serif 4", "Georgia", "serif"] },
+    "base":       { "$value": ["Inter", "system-ui", "sans-serif"] }
+  },
+  "weight": {
+    "$type": "fontWeight",
+    "regular":  { "$value": 400 },
+    "medium":   { "$value": 500 },
+    "semibold": { "$value": 600 }
+  }
+}

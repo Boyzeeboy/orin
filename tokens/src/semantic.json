@@ -1,0 +1,21 @@
+{
+  "colour": {
+    "$type": "color",
+    "text": {
+      "default":    { "$value": "{neutral.900}" },
+      "muted":      { "$value": "{neutral.500}" },
+      "inverse":    { "$value": "{neutral.50}" },
+      "link":       { "$value": "{accent.500}" },
+      "link-hover": { "$value": "{accent.600}" }
+    },
+    "background": {
+      "default": { "$value": "{neutral.50}" },
+      "raised":  { "$value": "{neutral.0}" },
+      "inverse": { "$value": "{neutral.900}" }
+    },
+    "border": {
+      "divider": { "$value": "{neutral.200}" },
+      "strong":  { "$value": "{neutral.300}" }
+    }
+  }
+}

@@ -1,0 +1,89 @@
+/* Orin site styles.
+ *
+ * THE LAW: no literal colour, size, or family value lives in this file, in any
+ * page, or in any inline style. :root below maps the semantic vendor tokens to
+ * short ergonomic names; everything downstream uses those or the --orin-* token
+ * directly. A value the design needs but doesn't have is a TOKEN PROPOSAL —
+ * edit the JSON, rebuild, sync — never a literal added here.
+ */
+
+:root {
+  /* semantic colour aliases (onto vendor tokens — never onto primitives) */
+  --ink:          var(--orin-colour-text-default);
+  --ink-muted:    var(--orin-colour-text-muted);
+  --ink-inverse:  var(--orin-colour-text-inverse);
+  --link:         var(--orin-colour-text-link);
+  --link-hover:   var(--orin-colour-text-link-hover);
+  --paper:        var(--orin-colour-background-default);
+  --paper-raised: var(--orin-colour-background-raised);
+  --paper-inverse:var(--orin-colour-background-inverse);
+  --rule:         var(--orin-colour-border-divider);
+  --rule-strong:  var(--orin-colour-border-strong);
+
+  /* type role aliases */
+  --font-display: var(--orin-font-family-display);
+  --font-body:    var(--orin-font-family-serif-body);
+  --font-ui:      var(--orin-font-family-base);
+
+  /* purely-local layout mechanics — not values-that-should-be-tokens */
+  --measure: 68ch;
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--orin-font-size-body-m);
+  line-height: var(--orin-font-leading-regular);
+  font-weight: var(--orin-font-weight-regular);
+}
+
+.wrap { max-width: var(--measure); margin-inline: auto; padding: var(--orin-space-12) var(--orin-space-6); }
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: var(--orin-font-leading-tight);
+  font-weight: var(--orin-font-weight-semibold);
+  margin: 0 0 var(--orin-space-4);
+}
+h1 { font-size: var(--orin-font-size-display-m); }
+h2 { font-size: var(--orin-font-size-headline-l); margin-top: var(--orin-space-12); }
+h3 { font-size: var(--orin-font-size-headline-m); }
+
+p { margin: 0 0 var(--orin-space-4); max-width: var(--measure); }
+
+a { color: var(--link); text-underline-offset: 0.15em; transition: color 120ms var(--ease); }
+a:hover { color: var(--link-hover); }
+a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+
+.eyebrow {
+  font-family: var(--font-ui);
+  font-size: var(--orin-font-size-meta);
+  font-weight: var(--orin-font-weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+/* --- shared chrome --- */
+.site-nav, .site-footer { font-family: var(--font-ui); font-size: var(--orin-font-size-label); }
+.site-nav { display: flex; gap: var(--orin-space-6); padding: var(--orin-space-6); border-bottom: 1px solid var(--rule); }
+.site-nav a { text-decoration: none; color: var(--ink); }
+.site-nav a:hover { color: var(--link); }
+.site-footer { padding: var(--orin-space-8) var(--orin-space-6); border-top: 1px solid var(--rule); color: var(--ink-muted); }
+
+/* --- specimen: first-commit proof the pipeline renders; delete when real pages land --- */
+.swatches { display: flex; flex-wrap: wrap; gap: var(--orin-space-3); margin: var(--orin-space-6) 0; }
+.swatch { width: var(--orin-space-16); height: var(--orin-space-16); border-radius: var(--orin-radius-md); border: 1px solid var(--rule-strong); }
+.swatch--ink     { background: var(--orin-colour-text-default); }
+.swatch--inverse { background: var(--orin-colour-background-inverse); }
+.swatch--paper   { background: var(--orin-colour-background-raised); }
+.swatch--link    { background: var(--orin-colour-text-link); }
+.swatch--border  { background: var(--orin-colour-border-strong); }
+.specimen-row { display: flex; align-items: baseline; gap: var(--orin-space-4); padding: var(--orin-space-2) 0; border-bottom: 1px solid var(--rule); }
+.specimen-row .label { font-family: var(--font-ui); font-size: var(--orin-font-size-meta); color: var(--ink-muted); min-width: 9rem; }

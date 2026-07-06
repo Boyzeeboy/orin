@@ -1,0 +1,17 @@
+{
+  "name": "orin-tokens",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Orin token pipeline — DTCG source of truth for the Orin site. No CSS value is ever hand-written.",
+  "scripts": {
+    "build": "style-dictionary build --config sd.config.mjs",
+    "sync": "bash scripts/sync-tokens.sh",
+    "verify": "node scripts/verify-build.mjs",
+    "report": "node scripts/report.mjs",
+    "test": "npm run build && npm run sync && npm run verify && npm run report"
+  },
+  "devDependencies": {
+    "style-dictionary": "^4.3.0"
+  }
+}

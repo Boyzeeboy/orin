@@ -1,0 +1,69 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --orin-space-0: 0rem;
+  --orin-space-1: 0.25rem;
+  --orin-space-2: 0.5rem;
+  --orin-space-3: 0.75rem;
+  --orin-space-4: 1rem;
+  --orin-space-6: 1.5rem;
+  --orin-space-8: 2rem;
+  --orin-space-12: 3rem;
+  --orin-space-16: 4rem;
+  --orin-space-24: 6rem;
+  --orin-radius-none: 0rem;
+  --orin-radius-sm: 0.25rem;
+  --orin-radius-md: 0.5rem;
+  --orin-radius-lg: 1rem;
+  --orin-neutral-0: #ffffff;
+  --orin-neutral-50: #faf8f4;
+  --orin-neutral-100: #f0ede6;
+  --orin-neutral-200: #ded9cf;
+  --orin-neutral-300: #bdb6a8;
+  --orin-neutral-400: #8f8878;
+  --orin-neutral-500: #6b655a;
+  --orin-neutral-600: #4e4a42;
+  --orin-neutral-700: #37342e;
+  --orin-neutral-800: #232019;
+  --orin-neutral-900: #1b1a17;
+  --orin-accent-400: #5c7c91;
+  --orin-accent-500: #3e6076;
+  --orin-accent-600: #304e60;
+  --orin-accent-700: #264050;
+  --orin-family-display: 'Inter Tight', system-ui, sans-serif;
+  --orin-family-serif-body: 'Source Serif 4', Georgia, serif;
+  --orin-family-base: Inter, system-ui, sans-serif;
+  --orin-weight-regular: 400;
+  --orin-weight-medium: 500;
+  --orin-weight-semibold: 600;
+  --orin-font-size-display-l: 3.25rem;
+  --orin-font-size-display-m: 2.5rem;
+  --orin-font-size-headline-l: 2rem;
+  --orin-font-size-headline-m: 1.5rem;
+  --orin-font-size-title: 1.25rem;
+  --orin-font-size-body-l: 1.125rem;
+  --orin-font-size-body-m: 1rem;
+  --orin-font-size-label: 0.9375rem;
+  --orin-font-size-meta: 0.8125rem;
+  --orin-font-leading-tight: 1.15;
+  --orin-font-leading-snug: 1.3;
+  --orin-font-leading-regular: 1.55;
+  --orin-colour-text-default: var(--orin-neutral-900);
+  --orin-colour-text-muted: var(--orin-neutral-500);
+  --orin-colour-text-inverse: var(--orin-neutral-50);
+  --orin-colour-text-link: var(--orin-accent-500);
+  --orin-colour-text-link-hover: var(--orin-accent-600);
+  --orin-colour-background-default: var(--orin-neutral-50);
+  --orin-colour-background-raised: var(--orin-neutral-0);
+  --orin-colour-background-inverse: var(--orin-neutral-900);
+  --orin-colour-border-divider: var(--orin-neutral-200);
+  --orin-colour-border-strong: var(--orin-neutral-300);
+  --orin-font-family-display: var(--orin-family-display);
+  --orin-font-family-serif-body: var(--orin-family-serif-body);
+  --orin-font-family-base: var(--orin-family-base);
+  --orin-font-weight-regular: var(--orin-weight-regular);
+  --orin-font-weight-medium: var(--orin-weight-medium);
+  --orin-font-weight-semibold: var(--orin-weight-semibold);
+}
