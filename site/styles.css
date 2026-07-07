@@ -38,7 +38,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--font-body);
-  font-size: var(--orin-font-size-body-m);
+  font-size: var(--orin-font-size-400);
   line-height: var(--orin-font-leading-regular);
   font-weight: var(--orin-font-weight-regular);
 }
@@ -51,9 +51,9 @@ h1, h2, h3 {
   font-weight: var(--orin-font-weight-semibold);
   margin: 0 0 var(--orin-space-4);
 }
-h1 { font-size: var(--orin-font-size-display-m); }
-h2 { font-size: var(--orin-font-size-headline-l); margin-top: var(--orin-space-12); }
-h3 { font-size: var(--orin-font-size-headline-m); }
+h1 { font-size: var(--orin-font-size-1000); }
+h2 { font-size: var(--orin-font-size-800); margin-top: var(--orin-space-12); }
+h3 { font-size: var(--orin-font-size-600); }
 
 p { margin: 0 0 var(--orin-space-4); max-width: var(--measure); }
 
@@ -63,7 +63,7 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 
 .eyebrow {
   font-family: var(--font-ui);
-  font-size: var(--orin-font-size-meta);
+  font-size: var(--orin-font-size-200);
   font-weight: var(--orin-font-weight-medium);
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -71,7 +71,7 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 }
 
 /* --- shared chrome --- */
-.site-nav, .site-footer { font-family: var(--font-ui); font-size: var(--orin-font-size-label); }
+.site-nav, .site-footer { font-family: var(--font-ui); font-size: var(--orin-font-size-300); }
 .site-nav { display: flex; gap: var(--orin-space-6); padding: var(--orin-space-6); border-bottom: 1px solid var(--rule); }
 .site-nav a { text-decoration: none; color: var(--ink); }
 .site-nav a:hover { color: var(--link); }
@@ -86,4 +86,4 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 .swatch--link    { background: var(--orin-colour-text-link); }
 .swatch--border  { background: var(--orin-colour-border-strong); }
 .specimen-row { display: flex; align-items: baseline; gap: var(--orin-space-4); padding: var(--orin-space-2) 0; border-bottom: 1px solid var(--rule); }
-.specimen-row .label { font-family: var(--font-ui); font-size: var(--orin-font-size-meta); color: var(--ink-muted); min-width: 9rem; }
+.specimen-row .label { font-family: var(--font-ui); font-size: var(--orin-font-size-200); color: var(--ink-muted); min-width: 9rem; }

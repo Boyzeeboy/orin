@@ -7,15 +7,17 @@
     },
     "size": {
       "$type": "dimension",
-      "display-l":  { "$value": "3.25rem" },
-      "display-m":  { "$value": "2.5rem" },
-      "headline-l": { "$value": "2rem" },
-      "headline-m": { "$value": "1.5rem" },
-      "title":      { "$value": "1.25rem" },
-      "body-l":     { "$value": "1.125rem" },
-      "body-m":     { "$value": "1rem" },
-      "label":      { "$value": "0.9375rem" },
-      "meta":       { "$value": "0.8125rem" }
+      "100":  { "$value": "0.6875rem" },
+      "200":  { "$value": "0.75rem" },
+      "300":  { "$value": "0.875rem" },
+      "400":  { "$value": "1rem" },
+      "500":  { "$value": "1.125rem" },
+      "600":  { "$value": "1.5rem" },
+      "700":  { "$value": "1.75rem" },
+      "800":  { "$value": "2rem" },
+      "900":  { "$value": "2.25rem" },
+      "1000": { "$value": "2.75rem" },
+      "1100": { "$value": "3.5rem" }
     },
     "leading": {
       "$type": "number",

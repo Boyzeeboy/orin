@@ -253,6 +253,26 @@ date.
 
 ---
 
+## 2026-07-06 — Adopted IDEM's numeric type scale (100–1100)
+
+**Decision:** Replaced the named M3-style size scale with IDEM's numeric scale:
+`font/size/100`–`1100` = 11/12/14/16/18/24/28/32/36/44/56px, authored in rem
+(px ÷ 16) so the sizes respect user zoom. Site references remapped — body 400,
+h3 600, h2 800, hero 1000; eyebrow/meta 200; nav/footer label 300. Line-height
+and letter-spacing scales were left as-is (not in scope of this change).
+
+**Reasoning:** Chosen over the named scale for strict 1:1 parity with the IDEM
+Figma variables, so a future JSON→Figma mirror syncs by identical paths. rem
+rather than IDEM's raw px keeps the web build accessible; the numeric values
+correspond 1:1 at base 16, so visual parity holds. Supersedes the open question
+flagged in the two-family entry above.
+
+**Revisit if:** the numeric names prove harder to read in code than
+self-documenting role names would (unlikely now the site is small); or IDEM's
+line-height/letter-spacing scales are also wanted for full parity.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]
