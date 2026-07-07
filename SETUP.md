@@ -99,7 +99,7 @@ style guide.
 rebuild, then re-mirror into Figma. Never edit these Figma variables as the
 origin, or the two drift.
 
-Known gap: **Inter Tight is not installed in the Figma environment**, so display
-samples in the specimen render in Inter as a stand-in (labels still name the
-true token). The web build uses real Inter Tight via Google Fonts. Add Inter
-Tight to the Figma org to make the specimen exact.
+The specimen's display text renders in real **Inter Tight** (Figma added it to
+its hosted library — if a machine shows it missing, apply it once via the font
+picker to activate it). Body and UI render in Inter. Note the style-name quirk:
+Inter Tight uses `SemiBold` (no space), whereas Inter uses `Semi Bold`.
