@@ -22,7 +22,7 @@
 
   /* type role aliases */
   --font-display: var(--orin-font-family-display);
-  --font-body:    var(--orin-font-family-serif-body);
+  --font-body:    var(--orin-font-family-base);
   --font-ui:      var(--orin-font-family-base);
 
   /* purely-local layout mechanics — not values-that-should-be-tokens */

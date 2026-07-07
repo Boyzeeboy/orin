@@ -230,6 +230,29 @@ placeholder Inter Tight / Source Serif 4 / Inter seed as of this date).
 
 ---
 
+## 2026-07-06 — Two-family type system: Inter Tight + Inter (dropped serif)
+
+**Decision:** Orin uses two families — `family/display` = Inter Tight
+(headlines), `family/base` = Inter (body prose AND all UI). Removed the
+`family/serif-body` role (Source Serif 4) entirely; body text now resolves to
+base. The named size scale (display/headline/title/body/label/meta) is
+unchanged.
+
+**Reasoning:** An all-Inter-family system reads engineered rather than
+editorial, which suits the technical buyer and the "systems, not a studio"
+positioning. Both families are Google Fonts variable faces with the full
+400/500/600 weights the tokens use, verified against the fonts link by report
+check 8. Collapsing three roles to two removes a whole family from the load
+and keeps the type system honest to how it's actually used.
+
+**Revisit if:** long-form pages (the Manifesto) read poorly in sans at body
+length and want a serif back — that would reintroduce a `serif-body` role and
+its own Google Fonts weight; or Orin adopts IDEM's numeric size scale
+(100–1100) for strict Figma parity, which is still an open choice as of this
+date.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]

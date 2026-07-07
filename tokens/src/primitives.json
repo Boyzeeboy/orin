@@ -31,9 +31,8 @@
   },
   "family": {
     "$type": "fontFamily",
-    "display":    { "$value": ["Inter Tight", "system-ui", "sans-serif"] },
-    "serif-body": { "$value": ["Source Serif 4", "Georgia", "serif"] },
-    "base":       { "$value": ["Inter", "system-ui", "sans-serif"] }
+    "display": { "$value": ["Inter Tight", "system-ui", "sans-serif"] },
+    "base":    { "$value": ["Inter", "system-ui", "sans-serif"] }
   },
   "weight": {
     "$type": "fontWeight",

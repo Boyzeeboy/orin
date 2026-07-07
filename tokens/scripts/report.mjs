@@ -33,7 +33,7 @@ const CONSUMABLE = ['colour-', 'font-', 'space-', 'radius-'];
 // …and the raw primitives it must NEVER reference directly.
 const PRIMITIVE = ['neutral-', 'teal-', 'family-', 'weight-'];
 // Canonical font facts, derived from the tokens (see primitives.json).
-const TOKEN_FAMILIES = ['Inter', 'Inter Tight', 'Source Serif 4'];
+const TOKEN_FAMILIES = ['Inter', 'Inter Tight'];
 const TOKEN_WEIGHTS = ['400', '500', '600'];
 
 const read = (p) => (existsSync(p) ? readFileSync(p, 'utf8') : null);

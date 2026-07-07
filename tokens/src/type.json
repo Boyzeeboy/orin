@@ -2,9 +2,8 @@
   "font": {
     "family": {
       "$type": "fontFamily",
-      "display":    { "$value": "{family.display}" },
-      "serif-body": { "$value": "{family.serif-body}" },
-      "base":       { "$value": "{family.base}" }
+      "display": { "$value": "{family.display}" },
+      "base":    { "$value": "{family.base}" }
     },
     "size": {
       "$type": "dimension",

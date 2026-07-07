@@ -42,7 +42,6 @@
   --orin-teal-900: #041f24;
   --orin-teal-950: #021316;
   --orin-family-display: 'Inter Tight', system-ui, sans-serif;
-  --orin-family-serif-body: 'Source Serif 4', Georgia, serif;
   --orin-family-base: Inter, system-ui, sans-serif;
   --orin-weight-regular: 400;
   --orin-weight-medium: 500;
@@ -70,7 +69,6 @@
   --orin-colour-border-divider: var(--orin-neutral-200);
   --orin-colour-border-strong: var(--orin-neutral-300);
   --orin-font-family-display: var(--orin-family-display);
-  --orin-font-family-serif-body: var(--orin-family-serif-body);
   --orin-font-family-base: var(--orin-family-base);
   --orin-font-weight-regular: var(--orin-weight-regular);
   --orin-font-weight-medium: var(--orin-weight-medium);
