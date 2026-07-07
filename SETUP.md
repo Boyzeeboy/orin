@@ -78,3 +78,28 @@ end-to-end. Each is a JSON edit + rebuild to change — cheap, by design.
   Deliberately not KR's teal. Refine in `primitives.json`; semantics don't move.
 - **Dark mode** — out for v1, but the site consumes semantics only, so adding
   `tokens.dark.json` later is authoring, not a retrofit.
+
+## Figma mirror
+
+A synced Figma view of the tokens lives in the Orin team:
+
+- **File:** Orin-Token-Pipeline
+- **File key:** `b0iEr8pYmfepSj4YkzFsoY`
+- **URL:** https://www.figma.com/design/b0iEr8pYmfepSj4YkzFsoY
+
+Five variable collections mirror the JSON 1:1 (light mode): **Primitives**
+(neutral, teal — zero-scoped), **Semantic** (aliased to primitives, scoped by
+role), **Fonts** (family, weight, size 100–1100, line-height), **Spacing**,
+**Radius**. Every variable carries WEB code syntax (e.g.
+`var(--orin-colour-text-link)`). A specimen frame in the file doubles as the
+style guide.
+
+**Direction of truth: JSON → Figma, never the reverse.** The JSON in
+`tokens/src/` is the source; Figma is a synced view. Change tokens in the JSON,
+rebuild, then re-mirror into Figma. Never edit these Figma variables as the
+origin, or the two drift.
+
+Known gap: **Inter Tight is not installed in the Figma environment**, so display
+samples in the specimen render in Inter as a stand-in (labels still name the
+true token). The web build uses real Inter Tight via Google Fonts. Add Inter
+Tight to the Figma org to make the specimen exact.
