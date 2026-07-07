@@ -31,7 +31,7 @@ const INDEX = join(SITE, 'index.html');
 // Prefixes the site is ALLOWED to consume (the semantic + system layers)…
 const CONSUMABLE = ['colour-', 'font-', 'space-', 'radius-'];
 // …and the raw primitives it must NEVER reference directly.
-const PRIMITIVE = ['neutral-', 'accent-', 'family-', 'weight-'];
+const PRIMITIVE = ['neutral-', 'teal-', 'family-', 'weight-'];
 // Canonical font facts, derived from the tokens (see primitives.json).
 const TOKEN_FAMILIES = ['Inter', 'Inter Tight', 'Source Serif 4'];
 const TOKEN_WEIGHTS = ['400', '500', '600'];

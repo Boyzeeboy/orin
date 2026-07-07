@@ -205,6 +205,31 @@ out for v1 but semantics-only so it stays cheap to add. Each is a JSON edit away
 
 ---
 
+## 2026-07-06 — Adopted the IDEM teal/neutral palette (light only)
+
+**Decision:** Replaced the placeholder seed palette with the IDEM Revised
+primitives — the full 12-step `neutral` (cool blue-grey) and `teal` ramps,
+light-mode values only. Semantic layer unchanged in shape; it now resolves
+onto teal for links and neutral for text/surfaces. Orin stays single-theme
+(no dark) by choice.
+
+**Reasoning:** IDEM is Warren's own design system, so teal is a deliberate
+brand choice, not the accidental "teal-leftover" the playbook warns about.
+Reusing the IDEM ramps verbatim (same step names) gives 1:1 parity with the
+Figma variables, which makes a future JSON→Figma mirror a clean sync. Because
+the site consumes only semantic tokens, this was a primitives-only edit — the
+rebrand touched no page. One evidence-based change: `text/muted` moved from
+neutral/500 to neutral/700, because 500 on the paper background measured
+3.04:1 (fails WCAG AA for normal text) and 700 measures 5.97:1. AA is the
+manifesto's baseline, so the guardrail-adjacent choice follows the contrast
+maths, not taste.
+
+**Revisit if:** dark mode comes into scope (author the dark column from the
+same IDEM ramps into tokens.dark.json); or fonts are chosen (still the
+placeholder Inter Tight / Source Serif 4 / Inter seed as of this date).
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]

@@ -3,10 +3,10 @@
     "$type": "color",
     "text": {
       "default":    { "$value": "{neutral.900}" },
-      "muted":      { "$value": "{neutral.500}" },
+      "muted":      { "$value": "{neutral.700}" },
       "inverse":    { "$value": "{neutral.50}" },
-      "link":       { "$value": "{accent.500}" },
-      "link-hover": { "$value": "{accent.600}" }
+      "link":       { "$value": "{teal.500}" },
+      "link-hover": { "$value": "{teal.600}" }
     },
     "background": {
       "default": { "$value": "{neutral.50}" },
