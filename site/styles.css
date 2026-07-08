@@ -40,6 +40,7 @@ body {
   font-family: var(--font-body);
   font-size: var(--orin-font-size-400);
   line-height: var(--orin-font-line-height-body-large);
+  letter-spacing: var(--orin-font-letter-spacing-body-large);
   font-weight: var(--orin-font-weight-regular);
 }
 
@@ -47,13 +48,25 @@ body {
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  line-height: var(--orin-font-line-height-display-large);
   font-weight: var(--orin-font-weight-semibold);
   margin: 0 0 var(--orin-space-4);
 }
-h1 { font-size: var(--orin-font-size-1000); }
-h2 { font-size: var(--orin-font-size-800); margin-top: var(--orin-space-12); }
-h3 { font-size: var(--orin-font-size-600); }
+h1 {
+  font-size: var(--orin-font-size-1000);
+  line-height: var(--orin-font-line-height-display-medium);
+  letter-spacing: var(--orin-font-letter-spacing-display-medium);
+}
+h2 {
+  font-size: var(--orin-font-size-800);
+  margin-top: var(--orin-space-12);
+  line-height: var(--orin-font-line-height-headline-large);
+  letter-spacing: var(--orin-font-letter-spacing-headline-large);
+}
+h3 {
+  font-size: var(--orin-font-size-600);
+  line-height: var(--orin-font-line-height-headline-medium);
+  letter-spacing: var(--orin-font-letter-spacing-headline-medium);
+}
 
 p { margin: 0 0 var(--orin-space-4); max-width: var(--measure); }
 

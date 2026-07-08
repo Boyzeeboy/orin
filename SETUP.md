@@ -89,10 +89,14 @@ A synced Figma view of the tokens lives in the Orin team:
 
 Five variable collections mirror the JSON 1:1 (light mode): **Primitives**
 (neutral, teal — zero-scoped), **Semantic** (aliased to primitives, scoped by
-role), **Fonts** (family, weight, size 100–1100, line-height), **Spacing**,
-**Radius**. Every variable carries WEB code syntax (e.g.
-`var(--orin-colour-text-link)`). A specimen frame in the file doubles as the
-style guide.
+role), **Fonts** (family, weight, size 100–1100, role-based line-height, and
+letter-spacing — a 7-step scale plus role aliases), **Spacing**, **Radius**.
+Line-height and letter-spacing follow IDEM's Material-3 role model
+(display/headline/title/body/label × large/medium/small); in Figma both are
+stored as percent (line-height = ratio×100, letter-spacing = em×100). Every
+variable carries WEB code syntax (e.g. `var(--orin-colour-text-link)`). A
+specimen frame in the file doubles as the style guide (currently a type-size
+specimen; it does not yet showcase the line-height/letter-spacing roles).
 
 **Direction of truth: JSON → Figma, never the reverse.** The JSON in
 `tokens/src/` is the source; Figma is a synced view. Change tokens in the JSON,

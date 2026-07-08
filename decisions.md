@@ -301,15 +301,20 @@ for zoom accessibility). Chose em over verbatim px for that same
 zoom-scaling reason, accepting the loss of byte-identical parity with IDEM's
 raw numbers — path parity, not byte parity, has been the standard since the
 size-scale entry. In Figma both are stored as percent (ratio×100, em×100) to
-match the file's existing convention (the old `leading` was stored `115`).
+match the file's existing convention (the old `leading` was stored `115`). The
+letter-spacing role→scale mappings were read from IDEM's live Figma variables —
+a clean symmetric ramp (body 0.5/0.25/0.1, label 0.1/0.25/0.5) — confirmed
+canonical over a later M3-idealized IDEM type-scale doc that had drifted on two
+cells (`body/small` shown as 0.4, `label/medium` as 0.5). The live Figma file
+wins; the doc is the thing that drifted. `label/small`'s line-height was later
+confirmed against the same live file at 11/16 = 1.455 (not an inference).
 
 **Revisit if:** the roles are wanted as fully-composed styles (they carry only
 line-height + letter-spacing today, not size/weight — a DTCG `typography`
 composite layer could sit on top, though it can't mirror to per-property Figma
-variables); or `label/small`'s line-height (inferred as M3 16/11 = 1.455, since
-IDEM's node didn't expose it) turns out to differ from the source; or the site
-outgrows the minimal `leading`→role remap and wants real per-role type styles
-instead of borrowing `display-large`'s line-height for all headings.
+variables); or the site outgrows the minimal `leading`→role remap and wants
+real per-role type styles instead of borrowing `display-large`'s line-height
+for all headings.
 
 ---
 
