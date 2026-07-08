@@ -318,6 +318,42 @@ for all headings.
 
 ---
 
+## 2026-07-08 — Chose source-driven composed type styles (Option A), deferred
+
+**Decision:** When composed type styles are eventually built — one named thing
+per role/size bundling family + size + weight + line-height + letter-spacing
+(what IDEM expresses as its `NEW Text/Title/lg` composites) — they will be
+authored **source-first** as DTCG `typography` composite tokens in
+`tokens/src/`, built out to CSS via a custom Style Dictionary format, and
+mirrored into Figma as **text styles**. Explicitly rejected the lighter
+alternative of hand-composing the styles directly in CSS classes and Figma text
+styles that reference the existing atomic role tokens. **Not building this now
+— deferred until real components need named styles.**
+
+**Reasoning:** The lighter path (Option B) is cheaper — no JSON, no build
+change, just token-pure CSS classes plus Figma text styles composing variables
+that already exist — but it puts the *recipe* for each style (which
+size + line-height + tracking + weight equals title/large) in two consumers,
+CSS and Figma, where they can drift apart. Option A keeps that recipe in one
+place, which is the entire reason this pipeline exists ("no CSS value is ever
+hand-written"; JSON is the single source). The cost is real and is why it
+waits: Style Dictionary has no built-in emit for a `typography` composite, so A
+needs a custom format/transform (shorthand vs longhand vs utility classes is
+itself an open choice), likely a new `report` lint, and Figma text-style
+creation rather than the variable mirror used so far. Composites also can't
+round-trip as per-property Figma *variables* — text styles are the only Figma
+representation. None of that earns its keep until there are components that
+consume named styles; today the atomic role tokens (line-height +
+letter-spacing) plus per-role CSS on the handful of elements cover the site.
+
+**Revisit if:** a real component library or Storybook appears and wants named
+text styles; or the site grows enough page patterns that repeating the atomic
+role tokens per element becomes the friction. When triggered, first decide the
+CSS emit form (shorthand / longhand / utility classes) before writing the
+Style Dictionary format.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]
