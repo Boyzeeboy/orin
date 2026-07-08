@@ -19,11 +19,70 @@
       "1000": { "$value": "2.75rem" },
       "1100": { "$value": "3.5rem" }
     },
-    "leading": {
+    "line-height": {
       "$type": "number",
-      "tight":   { "$value": 1.15 },
-      "snug":    { "$value": 1.3 },
-      "regular": { "$value": 1.55 }
+      "display": {
+        "large":  { "$value": 1.143 },
+        "medium": { "$value": 1.182 },
+        "small":  { "$value": 1.222 }
+      },
+      "headline": {
+        "large":  { "$value": 1.25 },
+        "medium": { "$value": 1.333 },
+        "small":  { "$value": 1.333 }
+      },
+      "title": {
+        "large":  { "$value": 1.5 },
+        "medium": { "$value": 1.429 },
+        "small":  { "$value": 1.333 }
+      },
+      "body": {
+        "large":  { "$value": 1.5 },
+        "medium": { "$value": 1.429 },
+        "small":  { "$value": 1.333 }
+      },
+      "label": {
+        "large":  { "$value": 1.429 },
+        "medium": { "$value": 1.333 },
+        "small":  { "$value": 1.455 }
+      }
+    },
+    "letter-spacing": {
+      "$type": "dimension",
+      "scale": {
+        "xx-loose": { "$value": "0.03125em" },
+        "x-loose":  { "$value": "0.015625em" },
+        "loose":    { "$value": "0.00625em" },
+        "normal":   { "$value": "0em" },
+        "tight":    { "$value": "-0.00625em" },
+        "x-tight":  { "$value": "-0.015625em" },
+        "xx-tight": { "$value": "-0.03125em" }
+      },
+      "display": {
+        "large":  { "$value": "{font.letter-spacing.scale.x-tight}" },
+        "medium": { "$value": "{font.letter-spacing.scale.tight}" },
+        "small":  { "$value": "{font.letter-spacing.scale.normal}" }
+      },
+      "headline": {
+        "large":  { "$value": "{font.letter-spacing.scale.normal}" },
+        "medium": { "$value": "{font.letter-spacing.scale.normal}" },
+        "small":  { "$value": "{font.letter-spacing.scale.normal}" }
+      },
+      "title": {
+        "large":  { "$value": "{font.letter-spacing.scale.normal}" },
+        "medium": { "$value": "{font.letter-spacing.scale.loose}" },
+        "small":  { "$value": "{font.letter-spacing.scale.loose}" }
+      },
+      "body": {
+        "large":  { "$value": "{font.letter-spacing.scale.xx-loose}" },
+        "medium": { "$value": "{font.letter-spacing.scale.x-loose}" },
+        "small":  { "$value": "{font.letter-spacing.scale.loose}" }
+      },
+      "label": {
+        "large":  { "$value": "{font.letter-spacing.scale.loose}" },
+        "medium": { "$value": "{font.letter-spacing.scale.x-loose}" },
+        "small":  { "$value": "{font.letter-spacing.scale.xx-loose}" }
+      }
     },
     "weight": {
       "$type": "fontWeight",

@@ -273,6 +273,46 @@ line-height/letter-spacing scales are also wanted for full parity.
 
 ---
 
+## 2026-07-08 — Adopted IDEM's line-height + letter-spacing scales (role-based, DTCG-clean)
+
+**Decision:** Closed the parity gap the size-scale entry flagged. Renamed
+`font/leading` (tight/snug/regular) to `font/line-height` and replaced its
+three unitless ratios with IDEM's Material-3 role scale: `line-height` and
+`letter-spacing` each now carry the five role groups (display/headline/title/
+body/label) × large/medium/small. Line-heights are unitless `number`s;
+letter-spacing is a 7-step named `scale` (xx-loose…xx-tight) in `em`, with the
+role tokens aliasing the scale. Rebuilt, remapped the site's three
+`--orin-font-leading-*` references, and mirrored all 37 new variables into the
+Orin-Token-Pipeline Figma file (deleting the old `leading` trio). `report`
+stays 8/8.
+
+**Reasoning:** Same logic as the palette and size-scale entries — reuse IDEM's
+structure verbatim so the JSON→Figma mirror syncs by identical paths. Two
+value choices were forced by keeping DTCG in place, which the docs already
+commit to. First, DTCG types `lineHeight` as a unitless `number`, so IDEM's
+absolute px line-height *scale* (14–64) couldn't be mirrored directly; I
+derived unitless ratios instead (IDEM's `line-height ÷ size` per role), which
+is also better for the web than absolute px. That's the one place the
+structure diverges from IDEM — there is no `line-height/scale` group, by
+necessity. Second, reading the IDEM Figma node revealed the letter-spacing
+numbers are M3 px tracking, not the percentages I first assumed; I converted
+px→em by ÷16, mirroring the exact reasoning used for the size scale (px÷16→rem
+for zoom accessibility). Chose em over verbatim px for that same
+zoom-scaling reason, accepting the loss of byte-identical parity with IDEM's
+raw numbers — path parity, not byte parity, has been the standard since the
+size-scale entry. In Figma both are stored as percent (ratio×100, em×100) to
+match the file's existing convention (the old `leading` was stored `115`).
+
+**Revisit if:** the roles are wanted as fully-composed styles (they carry only
+line-height + letter-spacing today, not size/weight — a DTCG `typography`
+composite layer could sit on top, though it can't mirror to per-property Figma
+variables); or `label/small`'s line-height (inferred as M3 16/11 = 1.455, since
+IDEM's node didn't expose it) turns out to differ from the source; or the site
+outgrows the minimal `leading`→role remap and wants real per-role type styles
+instead of borrowing `display-large`'s line-height for all headings.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]
