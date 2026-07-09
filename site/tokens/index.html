@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The token pipeline — Orin</title>
+  <meta name="description" content="This page renders entirely from Orin's own token pipeline — DTCG JSON built and synced straight into the CSS below.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only). -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div data-include="/partials/nav.html"></div>
+
+  <main id="main" class="section">
+  <div class="wrap">
+    <p class="eyebrow">Token pipeline — proof artefact</p>
+    <h1>The substrate, proven end&#8209;to&#8209;end.</h1>
+    <p>This page renders entirely from tokens. Every colour, size, and family
+       below resolves through <code>vendor/tokens.css</code>, which is built from
+       DTCG JSON and synced by the pipeline. There is no hand-written value on
+       this page to fall back on — which is the whole point.</p>
+
+    <h2>Semantic colours</h2>
+    <div class="swatches">
+      <span class="swatch swatch--ink"     title="colour/text/default"></span>
+      <span class="swatch swatch--inverse" title="colour/background/inverse"></span>
+      <span class="swatch swatch--paper"   title="colour/background/raised"></span>
+      <span class="swatch swatch--link"    title="colour/text/link"></span>
+      <span class="swatch swatch--border"  title="colour/border/strong"></span>
+    </div>
+
+    <h2>Type scale</h2>
+    <div class="specimen">
+      <div class="specimen-row"><span class="label">1100 · 56 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-1100);line-height:var(--orin-font-line-height-display-large)">Orin</span></div>
+      <div class="specimen-row"><span class="label">900 · 36 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-900)">The system is the main thing</span></div>
+      <div class="specimen-row"><span class="label">800 · 32 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-800)">Build, don't decorate</span></div>
+      <div class="specimen-row"><span class="label">600 · 24 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-600)">The substrate, not the surface</span></div>
+      <div class="specimen-row"><span class="label">500 · 18 · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-500)">Design and development are one craft.</span></div>
+      <div class="specimen-row"><span class="label">400 · 16 · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-400)">Ship the honest first version, then improve it.</span></div>
+      <div class="specimen-row"><span class="label">300 · 14 · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-300);font-weight:var(--orin-font-weight-medium)">Get in touch</span></div>
+      <div class="specimen-row"><span class="label">200 · 12 · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-200)">orinsystems.co</span></div>
+    </div>
+
+    <h2>Links</h2>
+    <p>Prose and UI set in Inter; headlines in Inter Tight.
+       A <a href="#">link</a> resolves through the semantic
+       <code>colour/text/link</code> token and shifts to
+       <code>link-hover</code> on interaction.</p>
+
+    <h2>Button primitive</h2>
+    <p><a class="button" href="/contact">Get in touch</a></p>
+  </div>
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/includes.js"></script>
+</body>
+</html>

@@ -20,45 +20,90 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div data-include="/partials/nav.html"></div>
 
-  <main id="main" class="section">
-  <div class="wrap">
-    <p class="eyebrow">Token pipeline — first commit</p>
-    <h1>The substrate, proven end&#8209;to&#8209;end.</h1>
-    <p>This page renders entirely from tokens. Every colour, size, and family
-       below resolves through <code>vendor/tokens.css</code>, which is built from
-       DTCG JSON and synced by the pipeline. There is no hand-written value on
-       this page to fall back on — which is the whole point.</p>
+  <main id="main">
 
-    <h2>Semantic colours</h2>
-    <div class="swatches">
-      <span class="swatch swatch--ink"     title="colour/text/default"></span>
-      <span class="swatch swatch--inverse" title="colour/background/inverse"></span>
-      <span class="swatch swatch--paper"   title="colour/background/raised"></span>
-      <span class="swatch swatch--link"    title="colour/text/link"></span>
-      <span class="swatch swatch--border"  title="colour/border/strong"></span>
-    </div>
+    <!-- 1. Hero -->
+    <section class="section">
+      <div class="wrap">
+        <p class="eyebrow">A systems practice — Bath, UK</p>
+        <h1>For teams shipping product without a full design department.<br>
+            Orin builds the design system your developers ship from.</h1>
+        <p><a class="button" href="/contact">Get in touch</a></p>
+      </div>
+    </section>
 
-    <h2>Type scale</h2>
-    <div class="specimen">
-      <div class="specimen-row"><span class="label">1100 · 56 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-1100);line-height:var(--orin-font-line-height-display-large)">Orin</span></div>
-      <div class="specimen-row"><span class="label">900 · 36 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-900)">The system is the main thing</span></div>
-      <div class="specimen-row"><span class="label">800 · 32 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-800)">Build, don't decorate</span></div>
-      <div class="specimen-row"><span class="label">600 · 24 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-600)">The substrate, not the surface</span></div>
-      <div class="specimen-row"><span class="label">500 · 18 · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-500)">Design and development are one craft.</span></div>
-      <div class="specimen-row"><span class="label">400 · 16 · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-400)">Ship the honest first version, then improve it.</span></div>
-      <div class="specimen-row"><span class="label">300 · 14 · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-300);font-weight:var(--orin-font-weight-medium)">Get in touch</span></div>
-      <div class="specimen-row"><span class="label">200 · 12 · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-200)">orinsystems.co</span></div>
-    </div>
+    <!-- 2. The problem -->
+    <section class="section">
+      <div class="wrap">
+        <h2>Developers are carrying the design load.</h2>
+        <p>Most product teams are shipping without a full design department.
+           Either they never had one, or they're leaner than they used to be.
+           So the developers carry the design load — and every sprint they're
+           reinventing components, making design calls in silos, and building
+           up debt that slows the whole team down. Multiple versions of the
+           same component. Fourteen shades of grey. Nobody's fault. No source
+           of truth.</p>
+      </div>
+    </section>
 
-    <h2>Links</h2>
-    <p>Prose and UI set in Inter; headlines in Inter Tight.
-       A <a href="#">link</a> resolves through the semantic
-       <code>colour/text/link</code> token and shifts to
-       <code>link-hover</code> on interaction.</p>
+    <!-- 3. What Orin does -->
+    <section class="section">
+      <div class="wrap">
+        <h2>Orin builds the substrate.</h2>
+        <p>The design system, the tokens, the component library, the pipeline
+           that connects Figma to the codebase. One source of truth your team
+           ships from — built in your workflow, not delivered over a wall.
+           This site runs on the same pipeline it sells.
+           <a href="/tokens">View the tokens →</a></p>
+      </div>
+    </section>
 
-    <h2>Button primitive</h2>
-    <p><a class="button" href="/contact">Get in touch</a></p>
-  </div>
+    <!-- 4. How it works (compressed) -->
+    <section class="section">
+      <div class="wrap">
+        <h2>How it works</h2>
+        <div class="card">
+          <h3>The Diagnostic — £3,000, 1–2 weeks</h3>
+          <p>I find where your substrate is broken and what it's costing you.
+             Written diagnosis, useful whether or not we go further.</p>
+        </div>
+        <div class="card">
+          <h3>The Build — from £14,000, 4–6 weeks</h3>
+          <p>The system, built and connected. Scoped from the Diagnostic —
+             I don't price unscoped work.</p>
+        </div>
+        <div class="card">
+          <h3>The Retainer — £2,000/month</h3>
+          <p>I stay close and the system stays alive. Cancel with 30 days' notice.</p>
+        </div>
+        <p><a href="/how-it-works">How it works →</a></p>
+      </div>
+    </section>
+
+    <!-- 5. Proof -->
+    <section class="section">
+      <div class="wrap">
+        <h2>This works. I've measured it.</h2>
+        <p>At Vivo Energy (contracted via Rethink), the development team had
+           no design system — every developer making design calls alone. A
+           simple component library, page patterns, and token setup aligned
+           the team: sixty per cent fewer defects, faster development, and a
+           Technical Officer with something to point at when the business
+           asked what changed.
+           <a href="/work">Read the case studies →</a></p>
+      </div>
+    </section>
+
+    <!-- 6. Close (inverse band — heading + button only, no inline links per decisions.md) -->
+    <section class="section section--inverse">
+      <div class="wrap">
+        <h2>That's the kind of problem I like to solve.</h2>
+        <p>If your team is shipping without a source of truth, the
+           Diagnostic is where we start.</p>
+        <p><a class="button" href="/contact">Get in touch</a></p>
+      </div>
+    </section>
+
   </main>
 
   <div data-include="/partials/footer.html"></div>

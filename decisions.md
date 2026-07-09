@@ -418,6 +418,48 @@ component tokens once a second product/client reuses this kit.
 
 ---
 
+## 2026-07-09 — Built Home, moved the token demo to /tokens
+
+**Decision:** Assembled Home's six sections directly from PHASE5-BUILD.md's
+approved copy (hero, problem, what Orin does, how it works, proof, close) —
+no rewriting, only the structural additions the copy required:
+
+- **Section 4 ("How it works") got an `<h2>` the copy didn't specify**,
+  matching the nav label/link text rather than inventing new wording. Its
+  three priced blocks reuse the existing `.card` primitive (no new component)
+  with one addition: `.card + .card { margin-top }` for vertical rhythm
+  between stacked cards, since nothing needed that before.
+- **Section 6 (Close) is the first `.section--inverse` band on the site**,
+  applying the Step-0 decision literally: heading + body copy + white
+  `.button`, no inline link on the dark ground.
+- Moved the token-pipeline demo from `/` to `/tokens/index.html` per the
+  standing rule in PHASE5-BUILD.md — content unchanged, paths fixed to be
+  root-absolute, title/description changed to describe it as the proof
+  artefact rather than the homepage. Footer now links to it quietly
+  ("This site runs on its own pipeline.").
+
+Verified: `cd tokens && npm test` — 8/8, verify-build clean. Checked live in
+the browser at desktop and 360px — nav wraps without overflow, inverse band
+renders with correct contrast, `/tokens` resolves (200), no console errors.
+
+**Reasoning:** BUILD-SEQUENCE.md's build order — lock the kit, then Home
+forces every primitive into real use. Reusing `.card` for pricing blocks
+stayed inside the component budget rather than inventing a "pricing block"
+component; the inverse Close band was already decided in Step 0, just not
+yet built against.
+
+**Revisit if:** the How-it-works section wants its own page-specific layout
+once /how-it-works exists (today Home's version is compressed/linked, per
+spec); or a later section genuinely needs an inline link on a dark ground
+(add `colour/text/link-on-inverse` then, not before).
+
+**Deferred (per BUILD-SEQUENCE's "after Home" order):** Manifesto,
+How it works, Work, and Contact pages — all currently 404 since Home links
+to them. QA pass (meta/OG/favicon/404/Lighthouse) also deferred to the
+batched step at the end, per BUILD-SEQUENCE.md.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]

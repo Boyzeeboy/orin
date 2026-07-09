@@ -118,6 +118,9 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
   border-radius: var(--orin-radius-md);
   padding: var(--orin-space-6);
 }
+.card + .card { margin-top: var(--orin-space-6); }
+.card h3 { margin-top: 0; }
+.card :last-child { margin-bottom: 0; }
 
 .eyebrow {
   font-family: var(--font-ui);
@@ -135,9 +138,9 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 .site-nav a:hover { color: var(--link); }
 .site-footer { padding: var(--orin-space-8) var(--orin-space-6); border-top: 1px solid var(--rule); color: var(--ink-muted); }
 
-/* --- specimen: pipeline proof. Move to /tokens when Home lands — do not delete;
-   it's the proof artefact for technical buyers ("this site runs on its own
-   pipeline"). Scope these rules to that page once it exists. --- */
+/* --- specimen: pipeline proof, lives at /tokens. Do not delete — it's the
+   proof artefact for technical buyers ("this site runs on its own pipeline").
+   Only /tokens/index.html references these classes. --- */
 .swatches { display: flex; flex-wrap: wrap; gap: var(--orin-space-3); margin: var(--orin-space-6) 0; }
 .swatch { width: var(--orin-space-16); height: var(--orin-space-16); border-radius: var(--orin-radius-md); border: 1px solid var(--rule-strong); }
 .swatch--ink     { background: var(--orin-colour-text-default); }
