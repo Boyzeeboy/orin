@@ -71,8 +71,7 @@ pre-step; `vendor/tokens.css` is committed).
 These were seeded with defensible placeholders so the pipeline could be proven
 end-to-end. Each is a JSON edit + rebuild to change — cheap, by design.
 
-- **Fonts** — seeded as Inter Tight (display), Source Serif 4 (prose), Inter
-  (UI). Confirm against Figma's hosted set before designing. Swapping a family
+- **Fonts** — Inter Tight (display), Inter (prose + UI). Swapping a family
   is one line in `tokens/src/primitives.json` + the fonts link in `index.html`.
 - **Palette** — seeded as warm-neutral ramp + muted slate-blue accent.
   Deliberately not KR's teal. Refine in `primitives.json`; semantics don't move.

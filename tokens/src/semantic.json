@@ -6,12 +6,15 @@
       "muted":      { "$value": "{neutral.700}" },
       "inverse":    { "$value": "{neutral.50}" },
       "link":       { "$value": "{teal.500}" },
-      "link-hover": { "$value": "{teal.600}" }
+      "link-hover": { "$value": "{teal.600}" },
+      "on-accent":  { "$value": "{neutral.0}" }
     },
     "background": {
-      "default": { "$value": "{neutral.50}" },
-      "raised":  { "$value": "{neutral.0}" },
-      "inverse": { "$value": "{neutral.900}" }
+      "default":      { "$value": "{neutral.50}" },
+      "raised":       { "$value": "{neutral.0}" },
+      "inverse":      { "$value": "{neutral.900}" },
+      "accent":       { "$value": "{teal.500}" },
+      "accent-hover": { "$value": "{teal.600}" }
     },
     "border": {
       "divider": { "$value": "{neutral.200}" },

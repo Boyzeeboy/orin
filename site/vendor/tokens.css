@@ -84,9 +84,12 @@
   --orin-colour-text-inverse: var(--orin-neutral-50);
   --orin-colour-text-link: var(--orin-teal-500);
   --orin-colour-text-link-hover: var(--orin-teal-600);
+  --orin-colour-text-on-accent: var(--orin-neutral-0);
   --orin-colour-background-default: var(--orin-neutral-50);
   --orin-colour-background-raised: var(--orin-neutral-0);
   --orin-colour-background-inverse: var(--orin-neutral-900);
+  --orin-colour-background-accent: var(--orin-teal-500);
+  --orin-colour-background-accent-hover: var(--orin-teal-600);
   --orin-colour-border-divider: var(--orin-neutral-200);
   --orin-colour-border-strong: var(--orin-neutral-300);
   --orin-font-family-display: var(--orin-family-display);

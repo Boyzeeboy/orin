@@ -17,9 +17,11 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div data-include="partials/nav.html"></div>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div data-include="/partials/nav.html"></div>
 
-  <main class="wrap">
+  <main id="main" class="section">
+  <div class="wrap">
     <p class="eyebrow">Token pipeline — first commit</p>
     <h1>The substrate, proven end&#8209;to&#8209;end.</h1>
     <p>This page renders entirely from tokens. Every colour, size, and family
@@ -53,9 +55,13 @@
        A <a href="#">link</a> resolves through the semantic
        <code>colour/text/link</code> token and shifts to
        <code>link-hover</code> on interaction.</p>
+
+    <h2>Button primitive</h2>
+    <p><a class="button" href="/contact">Get in touch</a></p>
+  </div>
   </main>
 
-  <div data-include="partials/footer.html"></div>
+  <div data-include="/partials/footer.html"></div>
   <script src="includes.js"></script>
 </body>
 </html>

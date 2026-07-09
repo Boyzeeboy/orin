@@ -354,6 +354,70 @@ Style Dictionary format.
 
 ---
 
+## 2026-07-09 — Step 0: closed the Phase-5 foundation gaps
+
+**Decision:** Closed all items in BUILD-SEQUENCE.md's Step 0 before starting
+Home. Two judgement calls were confirmed with Warren first, both taking the
+recommended option:
+
+1. **Accent tokens, semantic naming.** Added `colour/background/accent` →
+   `{teal.500}`, `colour/background/accent-hover` → `{teal.600}`,
+   `colour/text/on-accent` → `{neutral.0}` to `semantic.json`. No
+   component-token layer introduced — these sit in the same
+   colour/background and colour/text groups as everything else.
+2. **Inverse sections stay link-free for MVP.** No `link-on-inverse` token
+   added. Any dark band (e.g. a future Close section) is heading + white
+   button only; revisit only if a section design genuinely needs an inline
+   link on a dark ground.
+
+Rebuilt and synced the pipeline, then landed the remaining Step-0 items
+directly in `site/`:
+
+- `.button` primitive (accent bg, on-accent text, radius-md, space-3/6
+  padding, hover + focus-visible states) — demonstrated live on the token
+  demo page.
+- Split `.wrap` into a `.section` band (carries background, e.g.
+  `.section--inverse`) + inner `.wrap` (68ch measure, inline padding only).
+  `index.html` now uses `<main id="main" class="section"><div
+  class="wrap">…</div></main>` — same rendered layout as before, but ready
+  for full-bleed bands on Home.
+- `.card` primitive for the future case-study cards (border + raised
+  background + radius-md + padding).
+- `.site-nav` now `flex-wrap: wrap` — confirmed clean at 360px (wraps to a
+  second line, no overflow).
+- Skip-link + `<main id="main">` — visually hidden, jumps to `left:
+  var(--orin-space-4)` on `:focus`. Verified programmatically (window focus
+  is required for `:focus` to apply — a preview-tooling quirk, not a site
+  bug).
+- `prefers-reduced-motion: reduce` guard on the `a`/`.button` colour
+  transitions.
+- `data-include` paths made absolute (`/partials/nav.html`,
+  `/partials/footer.html`) so chrome doesn't 404 on a pretty URL served
+  with a trailing slash.
+- Specimen-page comment corrected: it now says *move to `/tokens`, don't
+  delete* (was previously telling a future session to delete it), matching
+  PHASE5-BUILD.md's standing rule.
+- SETUP.md's stale fonts note corrected — it named Source Serif 4 for prose;
+  the tokens and fonts link have been Inter throughout since the two-family
+  decision on 2026-07-06.
+
+`cd tokens && npm test` — 8/8, verify-build clean (109 tokens resolve).
+
+**Reasoning:** BUILD-SEQUENCE.md's own logic: each gap is cheap to close
+once, expensive to discover mid-assembly (the button built three times, a
+missing token on page four). The two judgement calls were genuine open
+questions — a component-token layer is a bigger architectural commitment
+than semantic naming, and adding a rarely-needed inverse-link token before
+any design demands it would be exactly the kind of undesigned-for-need
+token the pipeline's guardrail exists to prevent.
+
+**Revisit if:** a Home or later section design genuinely needs an inline
+link on a dark ground (add `colour/text/link-on-inverse` → `{teal.300}`
+then, not before); or the button/card primitives need real per-role
+component tokens once a second product/client reuses this kit.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]
