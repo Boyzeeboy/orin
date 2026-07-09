@@ -17,6 +17,10 @@
   --orin-radius-sm: 0.25rem;
   --orin-radius-md: 0.5rem;
   --orin-radius-lg: 1rem;
+  --orin-container-max: 75rem;
+  --orin-breakpoint-sm: 40rem;
+  --orin-breakpoint-md: 48rem;
+  --orin-breakpoint-lg: 64rem;
   --orin-neutral-0: #ffffff;
   --orin-neutral-50: #f4f5f5;
   --orin-neutral-100: #e6e9ea;

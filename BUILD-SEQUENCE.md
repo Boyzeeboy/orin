@@ -97,6 +97,91 @@ after the token additions, before touching pages.
 
 ---
 
+## Step 0.5 — Layout foundation (Home "modern grid" refinement)
+
+*Added 9 July 2026 after Home v1. Warren supplied a reference comp
+(Stripe/Resend-style structure) — and it's already drawn in Orin's own
+palette: the reference's swatches are the existing tokens. So we adopt
+its **structure**, keep Orin's restraint, and keep the approved copy.
+The visible grid and numbered sections reinforce the systems-practice
+positioning — the site shows its grid the way it shows its tokens.*
+
+**Locked choices (9 July 2026):**
+
+1. **Visible grid + left rail.** Numbered section labels in a persistent
+   left rail (01 HERO, 02 THE PROBLEM…) plus a faint 12-column overlay in
+   the hero. Teal, uppercase, using the existing `.eyebrow` treatment.
+2. **Proof stays approved prose.** No stat table, no invented metrics —
+   the Vivo paragraph (with its 60% figure) placed in the new two-column
+   layout. PHASE5 "assemble, don't rewrite" holds.
+3. **Do not invent content the approved copy lacks.** No ✕ problem-list,
+   no three sub-services under "What Orin does." Only Section 4 has three
+   items in the approved copy (Diagnostic / Build / Retainer) → that's
+   the three-card row. Everything else stays as written.
+
+**Token additions (`layout.json` → build → sync):**
+
+- `container.max` = `75rem` (~1200px) — the wide content container.
+  Prose still clamps to ~68ch *inside* it (wide scaffolding, narrow text).
+- `breakpoint.sm` `40rem`, `breakpoint.md` `48rem`, `breakpoint.lg`
+  `64rem` — single-sourced here for documentation.
+- No new colour or font tokens — the reference is already on-palette.
+  Reuse `space-6` for grid gap/gutter, `radius-md` for cards.
+
+**The one documented exception to the token law:** CSS `@media` cannot
+read custom properties, so breakpoints can't resolve through `var()`
+like every other value. Keep the JSON the single source and reference the
+breakpoint *values* by comment in each `@media` block. Log this as the
+deliberate exception — it's the honest systems answer, not a hole in the
+guardrail.
+
+**Primitives (`styles.css`):**
+
+- `.container` — `max-width: var(--container-max)` (aliased from the
+  token), `margin-inline: auto`, inline padding `space-6`.
+- `.grid` — 12-col CSS grid (`repeat(12, 1fr)`, gap `space-6`). The
+  column count is a structural constant, not a token.
+- **Section + rail** — each `.section` places its number/label into grid
+  column 1 and its content into the remaining columns. Two-column bodies
+  place heading and body onto the grid (e.g. heading cols 2–6, body 7–12).
+- **Hero overlay** — an `aria-hidden` decorative layer drawing 12 faint
+  vertical hairlines (`border/divider`) with 01–12 labels, hero only.
+- **Fluid hero type** — `h1` uses `clamp()` between the existing
+  `size-1000` and `size-1100` tokens; the vw interpolation term is local
+  layout mechanics (like `--measure` / `--ease`).
+- **Cards row** — the three priced blocks become a responsive row:
+  `repeat(auto-fit, minmax(~16rem, 1fr))`, stacking below `md`. Add
+  01/02/03 numbering, a hairline, and "What's included →" to match.
+
+**Responsive — fluid-first:** default to `clamp()` type/padding and
+`auto-fit` rows so few breakpoints are needed. At `< lg`, two-column
+sections stack (the rail number/label moves above the heading) and cards
+stack. Nav already wraps.
+
+**Per-section layout map (copy unchanged from PHASE5-BUILD):**
+
+1. **Hero** — rail "01 HERO"; faint 12-col overlay; clamp `h1`; muted
+   subhead; accent button.
+2. **The problem** — rail "02"; heading left, approved paragraph right
+   (prose, not bullets).
+3. **What Orin does** — rail "03"; heading left, approved paragraph +
+   "View the tokens →" right. Do **not** split into sub-services.
+4. **How it works** — rail "04"; three priced cards, auto-fit row,
+   numbered.
+5. **Proof** — rail "05"; heading left, approved Vivo prose right (keep
+   the 60% figure in prose; no stat table).
+6. **Close** — rail "06 LET'S BUILD"; inverse band; heading left, button
+   right (button, not link — honours the inverse-link decision).
+
+The reference's "07 SYSTEM" colophon strip is already satisfied by the
+`/tokens` page and the quiet footer link — no inline duplicate needed.
+
+**Done when:** `cd tokens && npm test` → 8/8, verify clean; Home reflows
+to the grid at ≥`lg` and stacks cleanly at 360px; the layout decision and
+the `@media`/breakpoint exception are logged in `decisions.md`.
+
+---
+
 ## The build order
 
 1. **Lock the kit.** Land the Step-0 primitives against the tokens. The
@@ -124,6 +209,28 @@ after the token additions, before touching pages.
 
 5. **Declare v1** — log the launch in decisions.md: date, what shipped,
    what was deferred. Then stop building.
+
+---
+
+## Phase 6 — deferred polish (do not do during v1)
+
+Nice-to-haves surfaced by the reference comp that v1 deliberately skips.
+None is a foundation gap; each is a small addition once the five pages
+ship and clear the 90-second test.
+
+- **Fuller footer** — the reference footer carries logo, © line, contact
+  email, and a repeat of the nav. Current footer is one line. A richer
+  footer is pure assembly from existing primitives (no new tokens).
+- **"Title 20" type step** — the reference type scale includes a 20px
+  title (1.25rem) between `size-500` (18) and `size-600` (24). Not in the
+  current scale. Add as a token only if a page actually needs that step;
+  don't add it speculatively.
+- **Shadow / elevation token** — the reference shows a faint card shadow
+  (`0 1px 2px rgba(31,52,58,0.04)`). Cards are border-only for v1. If
+  elevation is wanted later, it's a token proposal (`shadow/*`), not a
+  literal.
+
+These are polish, not parity blockers — v1 ships without them.
 
 ---
 

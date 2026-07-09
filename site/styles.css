@@ -28,6 +28,9 @@
   --font-body:    var(--orin-font-family-base);
   --font-ui:      var(--orin-font-family-base);
 
+  /* layout aliases (onto vendor tokens) */
+  --container-max: var(--orin-container-max);
+
   /* purely-local layout mechanics — not values-that-should-be-tokens */
   --measure: 68ch;
   --ease: cubic-bezier(0.2, 0, 0, 1);
@@ -51,6 +54,21 @@ body {
 .section { padding-block: var(--orin-space-12); }
 .section--inverse { background: var(--paper-inverse); color: var(--ink-inverse); }
 .wrap { max-width: var(--measure); margin-inline: auto; padding-inline: var(--orin-space-6); }
+
+/* --- 12-col grid scaffolding (Step 0.5). .container is the wide (75rem)
+   outer measure; .section-grid is the 12-col layer inside it. Prose still
+   clamps to --measure (68ch) via the existing p{} rule — wide scaffolding,
+   narrow text. --- */
+.container { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--orin-space-6); }
+.section-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--orin-space-6); }
+.section-grid--center { align-items: center; }
+.section-grid h2 { margin-top: 0; }
+
+.rail { grid-column: 1 / 2; margin: 0; color: var(--link); }
+.col-main { grid-column: 2 / -1; }
+.col-heading { grid-column: 2 / 7; }
+.col-body { grid-column: 7 / -1; }
+.section--inverse .rail { color: var(--ink-inverse); }
 
 h1, h2, h3 {
   font-family: var(--font-display);
@@ -118,18 +136,50 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
   border-radius: var(--orin-radius-md);
   padding: var(--orin-space-6);
 }
-.card + .card { margin-top: var(--orin-space-6); }
 .card h3 { margin-top: 0; }
 .card :last-child { margin-bottom: 0; }
 
-.eyebrow {
+.eyebrow, .rail, .card__index {
   font-family: var(--font-ui);
   font-size: var(--orin-font-size-200);
   font-weight: var(--orin-font-weight-medium);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ink-muted);
 }
+.eyebrow { color: var(--ink-muted); }
+.card__index { color: var(--link); margin: 0 0 var(--orin-space-2); }
+
+/* --- hero: fluid type + decorative 12-col overlay (Step 0.5) --- */
+.hero-heading {
+  font-size: clamp(var(--orin-font-size-1000), 4vw + 1.5rem, var(--orin-font-size-1100));
+}
+.section--hero { position: relative; }
+.section--hero .container { position: relative; z-index: 1; }
+.grid-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--orin-space-6);
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--orin-space-6);
+  pointer-events: none;
+}
+.grid-overlay span {
+  border-left: 1px solid var(--rule);
+  padding-top: var(--orin-space-2);
+  padding-left: var(--orin-space-2);
+  font-family: var(--font-ui);
+  font-size: var(--orin-font-size-100);
+  color: var(--ink-muted);
+  opacity: 0.6;
+}
+
+/* --- pricing cards row (Step 0.5) --- */
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--orin-space-6); }
+.card-rule { border: none; border-top: 1px solid var(--rule); margin: var(--orin-space-4) 0; }
 
 /* --- shared chrome --- */
 .site-nav, .site-footer { font-family: var(--font-ui); font-size: var(--orin-font-size-300); }
@@ -153,4 +203,16 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 
 @media (prefers-reduced-motion: reduce) {
   a, .button { transition: none; }
+}
+
+/* Below breakpoint.lg (64rem — tokens/src/layout.json, --orin-breakpoint-lg).
+   CSS @media conditions cannot read custom properties, so this is the one
+   documented exception to "every value resolves through the token layer":
+   the breakpoint value is duplicated here as a literal. See decisions.md.
+   Collapses the 12-col grid to one column; rail/content stack in DOM order
+   (rail markup precedes heading/body, so it lands above on small screens). */
+@media (max-width: 63.9375rem) {
+  .section-grid { grid-template-columns: 1fr; row-gap: var(--orin-space-4); }
+  .rail, .col-main, .col-heading, .col-body { grid-column: 1 / -1; }
+  .grid-overlay { display: none; }
 }

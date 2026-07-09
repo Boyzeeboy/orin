@@ -18,5 +18,15 @@
     "sm":   { "$value": "0.25rem" },
     "md":   { "$value": "0.5rem" },
     "lg":   { "$value": "1rem" }
+  },
+  "container": {
+    "$type": "dimension",
+    "max": { "$value": "75rem" }
+  },
+  "breakpoint": {
+    "$type": "dimension",
+    "sm": { "$value": "40rem" },
+    "md": { "$value": "48rem" },
+    "lg": { "$value": "64rem" }
   }
 }

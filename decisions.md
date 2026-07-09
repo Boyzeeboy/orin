@@ -460,6 +460,83 @@ batched step at the end, per BUILD-SEQUENCE.md.
 
 ---
 
+## 2026-07-09 — Mirrored the Step-0 accent tokens into the Figma variable file
+
+**Decision:** The Step-0 token additions (`colour/background/accent`,
+`colour/background/accent-hover`, `colour/text/on-accent`) had been added to
+`tokens/src/semantic.json` and built/synced into the site, but never mirrored
+into the Orin-Token-Pipeline Figma file (figma.com/design/b0iEr8pYmfepSj4YkzFsoY).
+Added all three to the file's `Semantic` variable collection (Light mode),
+each as a `VARIABLE_ALIAS` to the matching `Primitives` variable — `accent` →
+`teal/500`, `accent-hover` → `teal/600`, `on-accent` → `neutral/0` — exactly
+mirroring how `semantic.json` resolves them. Scopes set to match the existing
+convention: `FRAME_FILL, SHAPE_FILL` for the two background variables,
+`TEXT_FILL` for the text variable (read off `colour/background/raised` and
+`colour/text/link` before creating anything). Verified the collection now
+lists 13 variables, 1:1 with `semantic.json`.
+
+**Reasoning:** The mirror is only useful if it's kept current — the pipeline
+built and shipped Step 0 as CSS but the Figma side lagged, which is exactly
+the drift the JSON→Figma mirror is supposed to prevent. Aliasing to
+Primitives rather than hardcoding hex in Figma keeps the same one-source-of-
+truth shape the CSS pipeline enforces (primitives resolve to raw colour,
+semantics alias primitives, nothing downstream hardcodes a value).
+
+**Revisit if:** future token additions are made in JSON without a matching
+Figma mirror step being done in the same session — worth checking `decisions.md`'s
+last-mirrored state against `tokens/src/*.json` periodically rather than
+assuming they're in sync.
+
+---
+
+## 2026-07-09 — Home layout: adopt the reference grid (Stripe/Resend structure, Orin restraint)
+
+**Decision:** Refine Home from the single-column v1 to a full-width
+12-column grid with a persistent left rail of numbered section labels,
+per a reference comp Warren supplied. Three choices locked:
+
+1. **Visible grid + left rail** — numbered section labels (01 HERO…) and
+   a faint 12-col overlay in the hero, using the existing `.eyebrow`
+   treatment (no new font — a mono face would be an out-of-budget family
+   token).
+2. **Proof stays approved prose** — no stat table, no invented metrics;
+   the Vivo paragraph placed in the new two-column layout.
+3. **No invented content** — no ✕ problem-list, no three sub-services
+   under "What Orin does." Only Section 4 (Diagnostic/Build/Retainer) is
+   a three-item row, because that's what the approved copy contains.
+
+Full spec: BUILD-SEQUENCE.md, Step 0.5. Token additions: `container.max`
+(75rem) and `breakpoint.sm/md/lg` in `layout.json`. No new colour/font
+tokens — the reference is already drawn in Orin's palette (its swatches
+are the existing tokens).
+
+**The @media/breakpoint exception:** CSS `@media` cannot read custom
+properties, so breakpoint values cannot resolve through `var()` like
+every other value on the site. Breakpoints are single-sourced in
+`layout.json` and referenced by comment in each media query. This is a
+deliberate, documented exception to "every value resolves through the
+token layer" — the honest limit of CSS, not a gap in the guardrail.
+
+**Reasoning:** The reference is Stripe/Resend *structure* rendered in
+Orin's own restraint — no gradients, illustration, or photography; grid
+and type are the visual. It doesn't fight the manifesto; the visible grid
+and numbered sections reinforce the systems-practice positioning (the
+site shows its grid the way it shows its tokens). Because Orin is
+token-first, "make it modern" resolves into new layout tokens and
+primitives rather than bespoke per-section CSS, so every later page
+inherits the same grid. Kept the approved copy and voice to honour
+PHASE5's "assemble, don't rewrite" — the reference informs layout only,
+not content. Process note: a client supplying reference sites is a strong
+input when the layout structure is extracted explicitly and separated
+from content and brand before building; this entry is that separation.
+
+**Revisit if:** Warren later wants the Proof metrics broken out as a stat
+table (needs real numbers beyond the 60% figure), or the visible-grid
+motif reads as too busy once live and should fall back to rail-only or
+structural-only.
+
+---
+
 ## [Template for future entries]
 
 ## YYYY-MM-DD — [Short decision title]
