@@ -535,6 +535,25 @@ table (needs real numbers beyond the 60% figure), or the visible-grid
 motif reads as too busy once live and should fall back to rail-only or
 structural-only.
 
+**Implemented (same day):** Built as spec'd. `container.max` and
+`breakpoint.sm/md/lg` added to `layout.json`, built and synced — 113
+tokens now resolve (up from 109). New primitives in `styles.css`:
+`.container`, `.section-grid` (12-col), `.rail`, `.col-main`,
+`.col-heading`, `.col-body`, the hero's `.grid-overlay` + `.hero-heading`
+(fluid `clamp()` between `size-1000`/`size-1100`), and `.cards` (auto-fit
+row) with `.card__index` + `.card-rule` for the numbered pricing cards.
+All six Home sections rebuilt on the grid per the per-section map — rail
+labels, two-column heading/body split for Problem/What-Orin-does/Proof,
+the three-card row with "What's included →" links for How-it-works, and
+the inverse Close band with heading+body left / button right (no inline
+link, per the earlier inverse-section decision). The `@media (max-width:
+63.9375rem)` breakpoint collapse is the one documented literal-value
+exception described above. Verified: `cd tokens && npm test` — 8/8,
+verify-build clean. Checked live in the browser — desktop reflows to the
+12-col grid with the hero overlay correctly clipped to the hero section
+only; 360px stacks cleanly (rail above heading, cards single-column, nav
+still wraps, no horizontal overflow); no console errors.
+
 ---
 
 ## [Template for future entries]
