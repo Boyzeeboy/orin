@@ -177,7 +177,8 @@ exists: a Style Dictionary v4 / DTCG pipeline in `tokens/`, a semantic-only
 token seed, `sync` + `verify-build` + an 8-check `report` wired and passing 8/8,
 and a `site/` scaffold that consumes only the semantic vendor layer. First
 commit = scaffold + vendor tokens + a passing report, exactly as the playbook
-prescribes.
+prescribes. (The "New Client Playbook" is KR's `TEMPLATE-ARCHITECTURE.md` — the
+live client template Orin was abstracted from; see `PIPELINE-LEDGER.md`.)
 
 **Reasoning:** Every retrofit on KR came from one inversion — CSS existed before
 tokens, making tokens an extraction job. Orin's `site/` was empty, so starting
@@ -214,7 +215,8 @@ onto teal for links and neutral for text/surfaces. Orin stays single-theme
 (no dark) by choice.
 
 **Reasoning:** IDEM is Warren's own design system, so teal is a deliberate
-brand choice, not the accidental "teal-leftover" the playbook warns about.
+brand choice, not the accidental "teal-leftover" the client template
+(`TEMPLATE-ARCHITECTURE.md`) warns about.
 Reusing the IDEM ramps verbatim (same step names) gives 1:1 parity with the
 Figma variables, which makes a future JSON→Figma mirror a clean sync. Because
 the site consumes only semantic tokens, this was a primitives-only edit — the
@@ -556,7 +558,56 @@ still wraps, no horizontal overflow); no console errors.
 
 ---
 
-## [Template for future entries]
+## 2026-07-12 — Corrected SETUP.md's stale palette note
+
+**Decision:** Fixed a one-line internal drift in `SETUP.md`. Its "Phase-0
+decisions still open" section still described the palette as a "warm-neutral
+ramp + muted slate-blue accent … Deliberately not KR's teal" — the original
+placeholder seed. Rewrote it to "locked to the IDEM `neutral` + `teal` ramps
+(see decisions.md, 2026-07-06)."
+
+**Reasoning:** The palette seed was superseded on 2026-07-06 when Orin adopted
+the IDEM `neutral`/`teal` ramps, and the accent tokens now resolve onto
+`teal.500/600`. SETUP.md's description contradicted that. This is the sibling
+of the fonts-note correction logged in the Step-0 entry (2026-07-08) — the
+same section had a stale fonts line fixed then, and the palette line was
+missed in that pass. Purely an internal-doc consistency fix: no token, CSS, or
+pipeline change, so it doesn't surface in `npm test`. Left the bullet in place
+(now "locked to…") rather than moving it out of the "still open" heading —
+flagged to Warren that the section could later be narrowed to the genuinely
+open items (fonts, dark mode), deferred as a separate call.
+
+**Revisit if:** the "Phase-0 decisions still open" heading is reworked — at
+that point the now-locked palette bullet should move out of it entirely.
+
+## 2026-07-12 — Added PIPELINE-LEDGER.md (Orin ↔ client divergence ledger)
+
+**Decision:** Wrote `PIPELINE-LEDGER.md` at the repo root: a divergence ledger
+that records what Orin's scaffold kept, dropped, flipped, and deferred relative
+to the client token-pipeline template it was abstracted from. Chose a ledger
+that *references* the KR baseline over a standalone playbook that restates it.
+
+**Reasoning:** `SETUP.md` and the 2026-07-05 entry both name a "New Client
+Playbook" that Orin deviates from, but it was never a document here. Reviewing
+the KR Token Pipeline showed the playbook already exists as KR's
+`TEMPLATE-ARCHITECTURE.md` + `PROCESS.md` — a live, running client template, so
+the pattern is proven, not projected. Re-documenting it inside Orin would create
+a second source of truth that drifts from KR — the precise anti-pattern both
+pipelines exist to prevent. So the ledger references KR as baseline and this log
+for reasoning, and adds only what neither repo had: the side-by-side, the shared
+invariants, and the root difference — the **direction-of-truth flip** (client:
+Figma → JSON → dist; Orin: JSON → dist → vendor, Figma as a view). It also
+records that Orin's stricter 8-check `report` is a *swap* for the Chromatic
+visual gate it can't earn, not a subtraction. Considered `LINEAGE.md` and
+`scaffold-ledger.md` as names; chose `PIPELINE-LEDGER.md` for plainness.
+
+**Revisit if:** Orin grows a component library (component-token layer + possibly
+Storybook stop being "Dropped"); dark mode enters scope (Theming row → Kept); a
+second client is scaffolded and the shared core is extracted to a package
+(update the "genuinely projected" section). Documentation-only change: no token,
+CSS, or pipeline edit, so it does not surface in `npm test`.
+
+---
 
 ## YYYY-MM-DD — [Short decision title]
 

@@ -1,8 +1,10 @@
 # Orin — Setup & Runbook
 
 *The operating manual for the Orin token pipeline and site. Built day-one from
-the New Client Playbook so there is no retrospective backlog: tokens exist
-before any CSS, and the site consumes the semantic layer only.*
+the New Client Playbook — KR's `TEMPLATE-ARCHITECTURE.md`, the live client
+template this pipeline was abstracted from (see `PIPELINE-LEDGER.md`) — so there
+is no retrospective backlog: tokens exist before any CSS, and the site consumes
+the semantic layer only.*
 
 ---
 
@@ -73,8 +75,8 @@ end-to-end. Each is a JSON edit + rebuild to change — cheap, by design.
 
 - **Fonts** — Inter Tight (display), Inter (prose + UI). Swapping a family
   is one line in `tokens/src/primitives.json` + the fonts link in `index.html`.
-- **Palette** — seeded as warm-neutral ramp + muted slate-blue accent.
-  Deliberately not KR's teal. Refine in `primitives.json`; semantics don't move.
+- **Palette** — locked to the IDEM `neutral` + `teal` ramps (see decisions.md,
+  2026-07-06). Refine in `primitives.json`; semantics don't move.
 - **Dark mode** — out for v1, but the site consumes semantics only, so adding
   `tokens.dark.json` later is authoring, not a retrofit.
 
