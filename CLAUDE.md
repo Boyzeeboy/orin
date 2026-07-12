@@ -11,9 +11,10 @@ so how it's built matters as much as what it says.
 3. `Offer.md` — engagement shapes, prices, refusals
 4. `HANDOVER.md` — sitemap, voice rules, attribution rules, exclusions
 5. `PHASE5-BUILD.md` — approved page copy and the constraints
-6. `BUILD-SEQUENCE.md` — the build order and the Step-0 foundation gaps
-7. `SETUP.md` — the token pipeline runbook and the one loop
-8. `decisions.md` — why things are the way they are
+6. `design.md` — layout principles; how tokens become page composition
+7. `BUILD-SEQUENCE.md` — the build order and the Step-0 foundation gaps
+8. `SETUP.md` — the token pipeline runbook and the one loop
+9. `decisions.md` — why things are the way they are
 
 Do not relitigate locked decisions. If something genuinely doesn't work,
 flag it to Warren and log it in `decisions.md`.

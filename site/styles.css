@@ -52,6 +52,7 @@ body {
 
 /* section band (full-bleed background) + wrap (68ch measure, inline padding only) */
 .section { padding-block: var(--orin-space-12); }
+.section--hero { padding-block: var(--orin-space-24); }
 .section--inverse { background: var(--paper-inverse); color: var(--ink-inverse); }
 .wrap { max-width: var(--measure); margin-inline: auto; padding-inline: var(--orin-space-6); }
 

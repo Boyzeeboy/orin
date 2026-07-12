@@ -609,6 +609,40 @@ CSS, or pipeline edit, so it does not surface in `npm test`.
 
 ---
 
+## 2026-07-12 — Added design.md (layout principles doc)
+
+**Decision:** Wrote `design.md` at the repo root: a thin layout-principles doc
+that bridges the token layer (the vocabulary) and the page (the composition).
+It captures the intent that wasn't written down anywhere — the "type scale is
+the visual" principle made concrete, vertical-rhythm guidance for the `space`
+scale, mobile-first / design-at-both-ends, colour discipline (greyscale
+hierarchy, teal earns each appearance), the design-in-browser → token loop, the
+screenshot handoff, and the squint/read-aloud ship tests. Added it to CLAUDE.md's
+read-first list (as item 6, after PHASE5-BUILD.md).
+
+**Reasoning:** The question that prompted it — "how do I bridge the JSON file
+and the page layout?" — had no home in the existing docs. PHASE5-BUILD.md holds
+copy and section order, HANDOVER.md holds voice and exclusions, `layout.json`
+holds the values, but nothing captured *how composition happens within those
+constraints*. Chose a principles doc that defers to the canonical files for
+anything concrete over a spec that restates them — a re-spec would become a
+second source of truth and drift, the same anti-pattern the pipeline exists to
+prevent. Kept it deliberately thin and self-describing on that point ("if it
+grows into a second source of truth, it has failed"). Rejected two alternatives
+raised in the same conversation: a Mobbin-style reference library as the bridge
+(risks importing generic-SaaS art direction Orin defines itself against — kept
+only as a just-in-time tool for specific mechanics), and a custom skill (premature
+— skills earn their place after a pattern repeats 3+ times; CLAUDE.md plus the
+handovers already serve as the instruction set for now). Documentation-only
+change: no token, CSS, or pipeline edit, so it doesn't surface in `npm test`.
+
+**Revisit if:** the layout method stabilises across the first few pages and the
+repeated moves are worth extracting into a skill (revisit the skill call then);
+or `design.md` starts duplicating concrete values from the canonical files, at
+which point trim it back to principles.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
