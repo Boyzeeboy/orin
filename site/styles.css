@@ -74,7 +74,7 @@ body {
 h1, h2, h3 {
   font-family: var(--font-display);
   font-weight: var(--orin-font-weight-semibold);
-  margin: 0 0 var(--orin-space-4);
+  margin: 0 0 var(--orin-space-6);
 }
 h1 {
   font-size: var(--orin-font-size-1000);

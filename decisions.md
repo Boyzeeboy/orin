@@ -643,6 +643,33 @@ which point trim it back to principles.
 
 ---
 
+## 2026-07-13 — Hero heading set as one paragraph (dropped the forced line break)
+
+**Decision:** Removed the `<br>` in Home's hero `<h1>` so the heading reads as a
+single flowing paragraph — "For teams shipping product without a full design
+department. Orin builds the design system your developers ship from." — wrapping
+naturally instead of breaking at a fixed point between the two sentences. Copy is
+unchanged; this is presentation only.
+
+**Reasoning:** PHASE5-BUILD.md specifies the hero heading "split over two lines,"
+so this is a deliberate, Warren-directed deviation from the approved spec, logged
+per the working method (small presentational edits are fine; record the ones that
+depart from spec). Designed in the browser: a hard `<br>` fixes the break at one
+viewport width and reflows awkwardly at others, whereas natural wrapping holds at
+every width and lets the fluid `clamp()` hero type set its own rhythm. No token
+or CSS change — a one-element markup edit — so it doesn't surface in `npm test`.
+
+**Revisit if:** the single-paragraph hero reads as a run-on at any width and wants
+a deliberate break reinstated (prefer a responsive treatment over a hard `<br>`),
+or PHASE5's "split over two lines" note is reconciled to match.
+
+**Alongside (same browser session, token reassignments, not spec deviations):**
+hero band padding `.section--hero` → `space-24` (was `space-12` via `.section`),
+and the shared `h1, h2, h3` bottom margin → `space-6` (was `space-4`). Both are
+existing-step reassignments within the `space` scale, not new tokens.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
