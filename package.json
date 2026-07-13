@@ -1,0 +1,8 @@
+{
+  "name": "orin-site",
+  "private": true,
+  "description": "Local dev convenience only. The site is static — no build step (see SETUP.md). Cloudflare Pages build command stays (none), output dir site/.",
+  "scripts": {
+    "dev": "python3 -m http.server 8000 --directory site"
+  }
+}

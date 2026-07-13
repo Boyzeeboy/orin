@@ -49,8 +49,8 @@ not a reason to hardcode one.
 
 Rough intent for the scale in use:
 
-- Band breathing room (`.section` padding-block): `space-12` default, `space-16`
-  when a band needs to feel like a full stop.
+- Band breathing room (`.section` padding-block): `space-16` default; the hero
+  (`.section--hero`) uses `space-24` to set itself apart.
 - Between stacked elements inside a band: `space-4` to `space-6`.
 - Tight pairings (label to thing it labels): `space-2`.
 

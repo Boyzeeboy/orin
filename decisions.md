@@ -670,6 +670,30 @@ existing-step reassignments within the `space` scale, not new tokens.
 
 ---
 
+## 2026-07-13 — Added a root package.json for a local dev-server script
+
+**Decision:** Added a minimal, `private` `package.json` at the repo root with a
+single `dev` script — `python3 -m http.server 8000 --directory site` — so the
+site can be previewed locally with `npm run dev`. A real HTTP server is needed
+(not `file://`) because the pages pull in the nav/footer partials via `fetch()`
+on absolute `/partials/…` paths.
+
+**Reasoning:** The repo deliberately kept npm inside `tokens/` (single-repo,
+static-first — see 2026-07-05), so a root `package.json` is a small structural
+addition and is called out here rather than slipped in. Kept it inert to
+protect the guardrails: `private: true`, no dependencies, no build step. The
+Cloudflare Pages config is unaffected — build command stays `(none)`, output dir
+`site/` — so deploys stay boring; the file's `description` records that. Chose
+Python's built-in server (preinstalled on macOS, zero install) over an `npx serve`
+dependency. It touches no token or CSS, so it doesn't surface in `npm test`.
+
+**Revisit if:** the site ever earns a real build step (then the root
+`package.json` grows genuine scripts/deps and the Cloudflare build command
+changes with it), or a second contributor lacks `python3` (swap the `dev` script
+to `npx serve site`).
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
