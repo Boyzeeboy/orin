@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How it works — Orin</title>
+  <meta name="description" content="Three fixed-price engagements — the Diagnostic, the Build, and the Retainer. Each one optional, each one de-risks the next.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only).
+       Absolute paths so they resolve from a pretty URL served with a trailing slash. -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div data-include="/partials/nav.html"></div>
+
+  <main id="main">
+
+    <!-- Intro -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="col-main">
+            <p class="eyebrow">How it works</p>
+            <h1 class="hero-heading">Three ways in. Each one de-risks the next.</h1>
+            <p>Three engagement shapes. Each one is optional. The Diagnostic feeds
+               the Build, and the Build feeds the Retainer — so you never commit to
+               the next step without evidence from the last. Priced fixed, against
+               outcomes, never in days.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. The Diagnostic -->
+    <section class="section" id="diagnostic">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">01</p>
+          <div class="col-heading">
+            <p class="eyebrow">£3,000 fixed · 1–2 weeks</p>
+            <h2>The Diagnostic</h2>
+          </div>
+          <div class="col-body">
+            <p>A short, bounded engagement to find where your substrate is broken and
+               what it's costing the business. I get into the product, the codebase,
+               the Figma files, and whatever brand or digital guidelines exist, and I
+               talk to the developers carrying the design load. I find the pressure
+               points — duplicated components, broken handoff, token chaos, design
+               calls made in silos — and trace what they're costing you in velocity
+               and defects.</p>
+            <p>You get a written diagnosis: where the substrate is broken, what it's
+               costing, and what fixing it would involve — scoped and priced. It's
+               useful whether or not you go further. It also means the Build, if it
+               happens, is scoped from evidence rather than a sales call.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. The Build -->
+    <section class="section" id="build">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">02</p>
+          <div class="col-heading">
+            <p class="eyebrow">From £14,000 · 4–6 weeks</p>
+            <h2>The Build</h2>
+          </div>
+          <div class="col-body">
+            <p>The design system, built and connected — the working thing. Tokens, a
+               component library, page patterns, and the pipeline connecting Figma to
+               the codebase: Style Dictionary, GitHub, whatever the working thing
+               requires. Built iteratively, in your workflow, with your developers —
+               not delivered over a wall at the end.</p>
+            <p>You get one source of truth your developers ship from: fewer duplicated
+               components, fewer design calls made in silos, less defect debt, and a
+               system that lives in your codebase rather than a Figma file someone has
+               to translate. The exact figure is set by the Diagnostic — usually
+               £12,000–£18,000 depending on what it finds. I don't price unscoped
+               work, so there's no Build without a Diagnostic first.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. The Retainer -->
+    <section class="section" id="retainer">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">03</p>
+          <div class="col-heading">
+            <p class="eyebrow">£2,000/month · ongoing</p>
+            <h2>The Retainer</h2>
+          </div>
+          <div class="col-body">
+            <p>Orin stays close and the system keeps living — roughly three to four
+               days of attention a month. Iterating the system as the product grows,
+               reviewing new components before they fragment, keeping the pipeline
+               healthy, and being the design brain your developers can call on when
+               they're making a decision they're not sure about.</p>
+            <p>The system doesn't decay back into an artefact. New features ship
+               consistent with the substrate, and the design load your developers
+               carry stays light. It's a fraction of what one junior designer costs,
+               and it's cancellable with 30 days' notice — no lock-in.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- When it's a no -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">—</p>
+          <div class="col-heading">
+            <p class="eyebrow">When it's a no</p>
+            <h2>Orin isn't for every project.</h2>
+          </div>
+          <div class="col-body">
+            <p>Some work isn't mine to do, and saying so early saves everyone time.
+               I don't price a Build without a Diagnostic first, and I don't scope a
+               system to fit a "can you do it in forty hours" budget — that treats
+               the system as a commodity, and it isn't one. Brand guidelines,
+               marketing surfaces, and social media assets are legitimate needs, but
+               they aren't what I do.</p>
+            <p>I build; advice without building isn't the offer, so strategy-deck-only
+               engagements aren't a fit. And Orin is a partner, not a vendor. If
+               that's the shape you're after, I'll happily point you elsewhere.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Close (inverse band — heading + button only, no inline links per decisions.md) -->
+    <section class="section section--inverse">
+      <div class="container">
+        <div class="section-grid">
+          <div class="col-heading">
+            <p class="eyebrow">Let's build</p>
+            <h2>Start with the Diagnostic.</h2>
+          </div>
+          <div class="col-body">
+            <p>If your team is shipping without a source of truth, the Diagnostic is
+               where we start — fixed, bounded, and useful whatever you decide next.</p>
+            <p><a class="button" href="/contact">Get in touch</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/includes.js"></script>
+</body>
+</html>

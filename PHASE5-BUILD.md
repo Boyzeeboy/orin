@@ -88,9 +88,9 @@ Body:
   "At Vivo Energy (contracted via Rethink), the development team had
   no design system — every developer making design calls alone. A
   simple component library, page patterns, and token setup aligned
-  the team: sixty per cent fewer defects, faster development, and a
-  Technical Officer with something to point at when the business
-  asked what changed."
+  the team: fewer defects, less rework, and a sixty per cent saving
+  in development time. The Technical Officer had something to point
+  at when the business asked what changed."
 Link: "Read the case studies →" → /work
 
 ### Section 6 — Close

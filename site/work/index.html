@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Work — Orin</title>
+  <meta name="description" content="Case studies from the substrate: design systems and token pipelines built to give development teams their time back.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only).
+       Absolute paths so they resolve from a pretty URL served with a trailing slash. -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div data-include="/partials/nav.html"></div>
+
+  <main id="main">
+
+    <!-- Intro -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="col-main">
+            <p class="eyebrow">Work</p>
+            <h1 class="hero-heading">The substrate, in practice.</h1>
+            <p>Case studies from the work: what the substrate was doing to the team
+               before, what I built, and what changed after. The measure is always
+               what happens after handoff — defects, rework, time-to-ship — not how
+               the screens looked on the day.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Case studies -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">01</p>
+          <div class="col-main">
+            <div class="cards">
+
+              <div class="card">
+                <p class="card__index">Vivo Energy · contracted via Rethink</p>
+                <h3>The system that gave developers their time back</h3>
+                <p>A development team with no design system, every developer making
+                   design calls alone. A component library, page patterns, and a token
+                   setup that aligned the team — and a sixty per cent saving in
+                   development time.</p>
+                <hr class="card-rule">
+                <p><a href="/work/vivo-energy">Read the case study →</a></p>
+              </div>
+
+              <div class="card">
+                <p class="card__index">IDEM · personal rebuild</p>
+                <h3>The pipeline, proven on my own system</h3>
+                <p>A personal rebuild of a design system and token pipeline first
+                   contracted through Momentum Studio — now the proving ground for the
+                   substrate approach this whole site runs on.</p>
+                <hr class="card-rule">
+                <p class="eyebrow">Essay coming</p>
+              </div>
+
+              <div class="card">
+                <p class="card__index">KRM · owned end-to-end</p>
+                <h3>A full vertical, from token to deploy</h3>
+                <p>Kirsten Rossiter Ministries: a full-vertical build I own end-to-end —
+                   design, tokens, GitHub, Cloudflare, deployment. One person, the whole
+                   stack, shipped live.</p>
+                <hr class="card-rule">
+                <p class="eyebrow">Essay coming</p>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Close (inverse band — heading + button only, no inline links per decisions.md) -->
+    <section class="section section--inverse">
+      <div class="container">
+        <div class="section-grid">
+          <div class="col-heading">
+            <p class="eyebrow">Let's build</p>
+            <h2>Your team could be the next one.</h2>
+          </div>
+          <div class="col-body">
+            <p>If your team is shipping without a source of truth, the Diagnostic is
+               where we start — fixed, bounded, and useful whatever you decide next.</p>
+            <p><a class="button" href="/contact">Get in touch</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/includes.js"></script>
+</body>
+</html>

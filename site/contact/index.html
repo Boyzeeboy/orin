@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Get in touch — Orin</title>
+  <meta name="description" content="The best way to reach Orin is email. Tell me what you're shipping and where your substrate is hurting.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only).
+       Absolute paths so they resolve from a pretty URL served with a trailing slash. -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div data-include="/partials/nav.html"></div>
+
+  <main id="main">
+
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="col-main">
+            <p class="eyebrow">Contact</p>
+            <h1 class="hero-heading">Get in touch.</h1>
+            <p>The best way to reach me is email — no form, no funnel, no
+               auto-responder. Tell me what you're shipping and where your substrate
+               is hurting, and I'll reply myself, usually within a day or two.</p>
+            <p>Email <a href="mailto:hello@orinsystems.co">hello@orinsystems.co</a>.</p>
+            <p><a class="button" href="mailto:hello@orinsystems.co">Get in touch</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/includes.js"></script>
+</body>
+</html>

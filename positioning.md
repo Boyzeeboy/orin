@@ -1,6 +1,6 @@
 # Orin — Positioning
 
-*Version 1.0 — 2 July 2026*
+*Version 1.1 — 14 July 2026*
 
 ---
 
@@ -28,11 +28,12 @@ fighting the same battles every week.
 
 Vivo Energy's a good example. Their development team was carrying
 serious debt because there was no design system. Every developer was
-making design calls in a silo, so you'd end up with multiple versions of
-the same component across the codebase. I put in a simple component
-library, page patterns, and a token setup that aligned everyone. Sixty
-per cent reduction in defects. Development moved faster. The Technical
-Officer had something to point at when the business asked what changed.
+making design calls in a silo, so you'd end up with multiple versions
+of the same component across the codebase. I put in a simple component
+library, page patterns, and a token setup that aligned everyone. Fewer
+defects, less rework, and a sixty per cent saving in development time.
+The Technical Officer had something to point at when the business asked
+what changed.
 
 That's the kind of problem I like to solve.
 

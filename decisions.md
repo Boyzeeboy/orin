@@ -9,6 +9,31 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-07-14 — Built the Work page + shipped the Vivo Energy essay early
+
+**Decision:** Built `/work` as a three-card index (Vivo Energy, IDEM, KRM)
+and published the full Vivo Energy case study at `/work/vivo-energy`. IDEM
+and KRM stay as cards marked "Essay coming". This brings the Vivo essay
+forward from Phase 6 — PHASE5-BUILD.md scoped Work as a shell with
+"essays coming soon" and said not to draft them — but Warren directed it,
+and the Vivo copy was already written and locked in
+`case-studies/vivo-energy.md`, so it was assembly, not drafting.
+
+**Reasoning:** The Vivo essay is the proof the whole site leans on (Home
+Section 5, the manifesto's 60% line). Shipping it live makes "Read the
+case studies →" land somewhere real instead of a placeholder. No new
+components or tokens: the index reuses `.cards`/`.card`; the essay reuses
+the manifesto's `.wrap` long-form article. "Essay coming" reuses
+`.eyebrow` as a status marker, keeping card-rule alignment and adding no
+CSS. Attribution held to the rules — Vivo "contracted via Rethink", IDEM
+a personal rebuild (no client attribution), KRM fully owned. Both pages
+end in the single Contact CTA. `npm test` 8/8, verify clean.
+
+**Revisit if:** IDEM and KRM essays land — swap the "Essay coming"
+markers for real links, same card shape.
+
+---
+
 ## 2026-07-01 — Founded Orin
 
 **Decision:** Started building Orin as my own agency, from scratch, built
@@ -691,6 +716,152 @@ dependency. It touches no token or CSS, so it doesn't surface in `npm test`.
 `package.json` grows genuine scripts/deps and the Cloudflare build command
 changes with it), or a second contributor lacks `python3` (swap the `dev` script
 to `npx serve site`).
+
+---
+
+## 2026-07-14 — Built the Manifesto page
+
+**Decision:** Built `site/manifesto.html` as the second page (build-order
+step 3). Long-form single-column reading: `MANIFESTO.md` near-verbatim in
+`.wrap` (68ch measure), body leading already generous, no rail/grid/eyebrow
+decoration. Two editorial calls: (1) omitted the closing italic note
+("This manifesto is the source of truth… does this fit?") as internal
+editorial instruction, not public prose; (2) kept the signature line
+("Warren G Rossiter — 1 July 2026", set in the eyebrow treatment) and
+ended with the single sitewide CTA, "Get in touch." CSS/token links use
+absolute `/vendor/tokens.css` + `/styles.css` (pretty-URL safety, per the
+Step-0 absolute-path rule). No new tokens, no new components.
+
+**Reasoning:** Build order names Manifesto next; spec calls for
+near-verbatim copy in reading typography with no decoration, so the page
+is pure composition on existing primitives. The internal note addresses
+the practitioner, not a visitor, so it doesn't belong on the public page;
+the signature does the authorship work instead. `npm test` 8/8, verify
+clean — the site-wide scans cover the new file.
+
+**Revisit if:** Warren wants the closing note restored, the CTA removed
+from long-form pages, or the signature styled distinctly from `.eyebrow`.
+
+---
+
+## 2026-07-14 — Pages are folders, not `.html` files
+
+**Decision:** Every non-home page ships as `site/<page>/index.html`, not
+`site/<page>.html`. Nav links stay extension-less (`/manifesto`, `/work`,
+etc.). Confirmed against the existing `/tokens` page, which is
+`site/tokens/index.html`. Manifesto was first built as `manifesto.html`
+and 404'd locally at `/manifesto`; relocated to `manifesto/index.html`
+and it resolved.
+
+**Reasoning:** The local dev server (Python `http.server`) does not append
+`.html` to extension-less URLs, so `manifesto.html` is unreachable at
+`/manifesto`. A folder with `index.html` works everywhere: `http.server`
+301-redirects `/manifesto` → `/manifesto/` and serves the index, and
+Cloudflare Pages resolves it the same way. Asset paths must be absolute
+(`/vendor/tokens.css`, `/styles.css`, `/includes.js`, `/partials/…`) so
+they resolve from the nested URL depth — same rule as the Step-0
+absolute-include-paths fix.
+
+**Revisit if:** the local dev server is swapped for one that rewrites
+extension-less URLs to `.html` (then flat files would also work, but
+keep the folder convention for parity with Cloudflare and `/tokens`).
+
+---
+
+## 2026-07-14 — Built the How it works page
+
+**Decision:** Built `site/how-it-works/index.html` (build-order step 3,
+page 3). Same numbered-rail `section-grid` primitives as Home: an intro,
+then the three engagements as sections 01/02/03 with prices in the
+eyebrow (`£3,000 fixed · 1–2 weeks`, etc.) and `id="diagnostic"`,
+`id="build"`, `id="retainer"` matching Home's deep links, then a softened
+refusals section ("When it's a no", rail "—"), then the inverse close with
+the single "Get in touch" CTA. Copy assembled from `Offer.md`. Refusals
+written as prose (matching the Manifesto's "Who Orin is for"), not a
+bulleted list. Internal "defence on a call" notes folded into
+buyer-facing prose, not labelled. No new tokens or components.
+
+**Reasoning:** Spec calls for one scrolling page, three sections from the
+offer, prices visible, single CTA, optional softened refusals — all of
+which the existing Home primitives already express. One composed line:
+the h1 "Three ways in. Each one de-risks the next." — `Offer.md` has no
+title, a page needs an h1, and this is drawn from the offer's own framing
+("each one de-risks the next"). Flagged to Warren as the one non-verbatim
+line. `npm test` 8/8, verify clean.
+
+**Revisit if:** Warren wants a different/verbatim h1, the refusals as an
+explicit list, or the "defence on a call" value framing stated more
+directly for the technical buyer.
+
+---
+
+## 2026-07-14 — Built the Contact page + chose the contact address
+
+**Decision:** Built `site/contact/index.html` (build-order step 3, page 4).
+Heading, two honest sentences, mailto — no form. The sitewide "Get in
+touch" button and an inline text link both point to
+`mailto:hello@orinsystems.co`. Warren chose `hello@orinsystems.co` (over
+`warren@orinsystems.co` and the personal Gmail) as the public address.
+No new tokens or components.
+
+**Reasoning:** Spec is explicit (heading, two sentences, mailto, no form).
+The docs named no contact address, so I asked rather than guess. Kept the
+button label "Get in touch" to honour the one-CTA-sitewide rule, with the
+address shown in prose so it's visible and copyable.
+
+**Revisit if:** the mailbox `hello@orinsystems.co` isn't provisioned before
+launch (swap the mailto), or Warren wants a subject line pre-filled.
+
+---
+
+## 2026-07-14 — Provisioned hello@orinsystems.co (Cloudflare Email Routing)
+
+**Decision:** Enabled Cloudflare Email Routing on orinsystems.co and created
+a custom-address rule `hello@orinsystems.co` → forwards to the verified
+destination `wgrossiter@gmail.com`. Confirmed end-to-end: Email Routing
+summary showed 2 received / 2 forwarded / 0 dropped/failed. This backs the
+Contact page CTA (mailto:hello@orinsystems.co).
+
+**Reasoning / gotcha for next time:** The new Email Routing UI never wrote
+the required `MX` records into the zone and exposed no working enable button
+(both the "Status: Disabled" and "DNS records: Not configured" links only
+anchored to an informational table). Root cause: the zone had zero `MX`
+records (only the apex CNAME → orin-4ua.pages.dev, proxied) and no
+conflicting records. Fix that worked: (1) manually add the three MX
+(`route1/2/3.mx.cloudflare.net`, priorities 9/22/8) + SPF TXT
+(`v=spf1 include:_spf.mx.cloudflare.net ~all`) in DNS → Records; (2) switch
+to the OLD Email Routing UI via the "Use the old UI" banner; (3) click
+"Add records and enable" (Cloudflare auto-added the DKIM `cf2024-1._domainkey`
+TXT too). Status went Syncing → Active; first sends failed only due to
+negative DNS caching before the MX existed.
+
+**Revisit if:** the `hello@` forward stops delivering (check Email Routing
+Activity Log first), the destination Gmail changes, or Warren wants to also
+*send as* hello@ (needs Gmail "Send mail as" or a paid mailbox — Email
+Routing forwards only).
+
+---
+
+## 2026-07-14 — Corrected the Vivo Energy claim (defects vs dev time)
+
+**Decision:** The Vivo Energy outcome is stated everywhere as: the
+design system reduced UI defects per feature, and the resulting drop in
+rework produced a 60% saving in development time. Defects are the
+mechanism; the 60% attaches to development time, not defect count.
+Updated on the live Home page, in positioning.md (v1.1), and in all
+future case study material. Client is named as Vivo Energy (not Engen),
+attribution "contracted via Rethink" unchanged.
+
+**Reasoning:** Earlier positioning copy had compressed the claim to
+"60% fewer defects," which is not what was measured. Orin's posture is
+measurable honesty aimed at technical buyers — the audience most likely
+to ask how a number was derived. The corrected causal chain
+(system → fewer defects → less rework → 60% time saving) is also the
+more credible and more useful story.
+
+**Revisit if:** Never. Claims on the record stay precise. If better
+post-launch data from any engagement emerges, add new claims rather
+than inflating existing ones.
 
 ---
 
