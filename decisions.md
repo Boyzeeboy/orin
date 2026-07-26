@@ -30,10 +30,17 @@ artefact-focused. Held to the practice's core discipline: it does not duplicate
 the artefact list — it references `TEMPLATE-ARCHITECTURE.md` so there is one
 source of truth for what a client repo contains, not two that drift.
 
-**Revisit if:** the deliverable changes shape (e.g. transport moves from the
-`vendor/` copy to a published package once step 3 lands), or the three-layer
-model in `TEMPLATE-ARCHITECTURE.md` is restructured — keep `deliverable.md`'s
-what/why in step with it, but never let it grow its own copy of the manifest.
+**Revisit if:** the deliverable changes shape, or the three-layer model in
+`TEMPLATE-ARCHITECTURE.md` is restructured — keep `deliverable.md`'s what/why in
+step with it, but never let it grow its own copy of the manifest.
+
+*Update (2026-07-26):* the transport example above ("once step 3 lands") is
+stale — that seam closed on 2026-07-21. KR now installs the tokens as a pinned
+git-tag `devDependency` rather than copying from a sibling folder. The
+`vendor/tokens.css` copy itself remains (deliberately: it stays committed so
+deploys need no access to the tokens repo), so the deliverable's shape is
+unchanged and `deliverable.md` needed no edit. See `PIPELINE-REVIEW.md` §3.1 and
+the `[‡]` footnote in `PIPELINE-LEDGER.md`.
 
 ---
 
