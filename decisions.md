@@ -9,6 +9,34 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-07-21 — Added deliverable.md to define what a client receives
+
+**Decision:** Created `deliverable.md` as a standalone doc answering "when a
+client buys a Build, what do they actually get?". It sits alongside `Offer.md`
+and defines the deliverable at the level of what and why — the token pipeline
+running in the client's own repo, their product wired to consume it, the
+component library as it arrives, and the routing/usage layer (`design.md`,
+`guidelines.json`, `PROCESS.md`) — while explicitly pointing at
+`TEMPLATE-ARCHITECTURE.md` for the file-by-file manifest rather than copying it.
+
+**Reasoning:** There was a gap between `Offer.md` (the Build framed
+commercially, at outcome level) and `TEMPLATE-ARCHITECTURE.md` (the technical
+manifest, written for me as template author). A question — "is it a folder and a
+design.md, a design system, variables?" — fell straight into that gap. A
+client-facing definition of the deliverable belongs in Orin, where positioning
+and offer already live. Kept it a separate file rather than folding it into
+`Offer.md` so the commercial doc stays outcome-focused and this one stays
+artefact-focused. Held to the practice's core discipline: it does not duplicate
+the artefact list — it references `TEMPLATE-ARCHITECTURE.md` so there is one
+source of truth for what a client repo contains, not two that drift.
+
+**Revisit if:** the deliverable changes shape (e.g. transport moves from the
+`vendor/` copy to a published package once step 3 lands), or the three-layer
+model in `TEMPLATE-ARCHITECTURE.md` is restructured — keep `deliverable.md`'s
+what/why in step with it, but never let it grow its own copy of the manifest.
+
+---
+
 ## 2026-07-14 — Built the Work page + shipped the Vivo Energy essay early
 
 **Decision:** Built `/work` as a three-card index (Vivo Energy, IDEM, KRM)
