@@ -60,7 +60,7 @@ doesn't · **Deferred** = out for Orin v1, cheap to add later.
 |---|---|---|---|
 | **Source of truth** | Figma → JSON → dist | JSON → dist → vendor; Figma is a view | **Flipped** |
 | **Repo topology** | Two repos: `{client}-token-pipeline` (publishes) + client app (consumes) | One repo: `tokens/` + `site/` together | **Dropped** (2nd repo) |
-| **Token distribution** | Published npm package (`@client/tokens`), `exports` map for light/dark CSS + JS + JSON; production `import`s it | In-repo `vendor/tokens.css`, committed; `site/` reads it directly, no publish step | **Flipped** (transport) |
+| **Token distribution** | Pipeline is *package-ready* (`kirsten-rossiter-tokens`, `files:["dist"]`, `exports` map for light/dark CSS + JS + JSON) and the KR site now **does** install it — a pinned git-tag `devDependency`, copied by `scripts/sync-tokens.sh` from `node_modules/kirsten-rossiter-tokens/dist/light/variables.css` → the site's committed `vendor/tokens.css` [†][‡] | Same in-repo committed `vendor/tokens.css`, `site/` reads it directly — but no cross-repo copy: one repo, one `npm run sync` | **Simplified** (drop 2nd repo + cross-repo copy, not the vendor file) |
 | **Per-client scaffold** | `scaffold-client.mjs` + `pipeline.config.mjs` — parameterised (`projectName`, `prefix`, `figmaFileName`, `figmaFileKey`), reusable across clients | None — Orin is a singleton; prefix fixed to `--orin-` | **Dropped** |
 | **Theming** | Multi-mode: `tokens.{light,dark}.json` → `dist/{light,dark}` | Light only (`decisions.md` 2026-07-06); semantics-only so dark is authoring, not retrofit | **Deferred** |
 | **Token layers** | primitives + semantic + **component** (`button/*`, `input/*`, `nav/*`) | primitives + semantic **only** (`CLAUDE.md`: "no component-token layer yet") | **Dropped** (component layer) |
@@ -73,6 +73,35 @@ doesn't · **Deferred** = out for Orin v1, cheap to add later.
 | **CI** | GitHub Actions enforces Chromatic on push | "CI does not run these. Protection is local." (`SETUP.md`) | **Flipped** |
 | **Build engine** | Style Dictionary v4 / DTCG | Style Dictionary v4 / DTCG | **Kept** |
 | **Deploy** | Client app deploys on its own; tokens shipped as a package | Cloudflare Pages, output dir `site`, no site build step | — (scope-specific) |
+
+**[†] Correction (2026-07-20).** An earlier version of the Token-distribution
+row claimed KR distributes tokens purely as a published npm package
+(`@client/tokens`) that production `import`s, implying neither KR repo holds a
+`vendor/tokens.css`. Verified against the actual repos, that was wrong: the KR
+site repo (`Kirsten Rossiter/`) commits its own `vendor/tokens.css` (same
+`"Do not edit directly, this file was auto-generated."` header, `--kr-`
+prefixes), fed by `scripts/sync-tokens.sh` copying the pipeline's
+`dist/light/variables.css` across the two sibling repos. The pipeline's
+`package.json` is set up to publish (`exports` map, `publishConfig`), but the
+site's HTML links `vendor/tokens.css` directly and never imports the package —
+so the package path is packaged-but-unused, not the live transport. Net effect:
+the committed-`vendor/tokens.css` pattern is **not** an Orin invention — KR
+already uses it. Orin's real delta is collapsing the two repos into one and
+dropping the cross-repo `sync-tokens.sh` copy, not the vendor file itself.
+
+**[‡] Update (2026-07-26).** The sibling-path copy described above is itself now
+superseded — this row was accurate on 2026-07-20 but KR closed the transport
+seam the next day. Per `PIPELINE-REVIEW.md` §3.1 (done 2026-07-21) and verified
+directly against the live `sync-tokens.sh`, the site no longer copies from a
+hardcoded `../KR Token Pipeline` sibling path. It installs
+`kirsten-rossiter-tokens` as a pinned git-tag `devDependency`
+(`github:Boyzeeboy/kr-token-pipeline#v1.0.0` as of this update) and
+`sync-tokens.sh` copies from the installed package in `node_modules`. The
+`vendor/tokens.css` pattern and the "package-ready but the exports map goes
+unused" observation both still hold — only the *how it gets there* changed,
+from a filesystem path to an installed, versioned, rollback-able dependency.
+Orin's delta is unaffected: it still collapses the two repos into one and
+still has no cross-repo copy of any kind.
 
 ### The one row that isn't subtraction
 
