@@ -1,10 +1,10 @@
 # Orin — Setup & Runbook
 
 *The operating manual for the Orin token pipeline and site. Built day-one from
-the New Client Playbook — KR's `TEMPLATE-ARCHITECTURE.md`, the live client
-template this pipeline was abstracted from (see `PIPELINE-LEDGER.md`) — so there
-is no retrospective backlog: tokens exist before any CSS, and the site consumes
-the semantic layer only.*
+the New Client Playbook — the live client pipeline this one was abstracted from,
+now extracted as the `Orin Token Pipeline` repo (see `PIPELINE-LEDGER.md`) — so
+there is no retrospective backlog: tokens exist before any CSS, and the site
+consumes the semantic layer only.*
 
 ---
 

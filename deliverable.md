@@ -7,12 +7,13 @@ the engagement shapes, the price, the outcome language a technical buyer hears o
 a call. This file answers the more literal question that sits underneath it: *when
 a client commissions a Build, what physically lands in their hands?*
 
-For the exact file-by-file manifest, this file defers to
-`TEMPLATE-ARCHITECTURE.md` in the token-pipeline repo. That is the single source
-of truth for what files a client repo contains; repeating the list here would
-create a second copy that drifts from it — the precise anti-pattern the whole
-practice exists to prevent. This file defines the deliverable at the level of
-*what and why*, and points there for the *which files*.
+For the exact file-by-file manifest, this file defers to the **`Orin Token
+Pipeline` repo itself** — a fresh clone *is* the manifest, and its generated
+`CLAUDE.md` and `dist/report.html` describe what the machinery does. That is the
+single source of truth for what a client repo contains; repeating the list here
+would create a second copy that drifts from it — the precise anti-pattern the
+whole practice exists to prevent. This file defines the deliverable at the level
+of *what and why*, and points there for the *which files*.
 
 ## Not a folder — an outcome
 
@@ -24,8 +25,8 @@ the thing being sold; the working, connected system is.
 
 ## What lands in the client's hands
 
-At the level of what and why (the which-files detail lives in
-`TEMPLATE-ARCHITECTURE.md`):
+At the level of what and why (the which-files detail is the baseline repo
+itself):
 
 - **A token pipeline, running in their own repository.** The DTCG token source,
   the Style Dictionary build, the committed outputs (CSS / JS / JSON), Storybook
@@ -52,8 +53,8 @@ client's codebase, not a Figma file their developers have to translate by hand.
 
 ## Whose is what
 
-The system has three layers (see `TEMPLATE-ARCHITECTURE.md`). The distinction
-matters for what the client owns:
+The system has three layers (see `PIPELINE-LEDGER.md`, "What is genuinely
+projected"). The distinction matters for what the client owns:
 
 - **The shared core** — the build machinery, the scaffold, the templates — is
   Orin's own IP, reused across clients. It is not sold or handed over.
@@ -73,7 +74,18 @@ system.
 ## Related
 
 - `Offer.md` — the commercial framing (engagements, price, outcomes).
-- `TEMPLATE-ARCHITECTURE.md` (token-pipeline repo) — the three layers and the
-  file-by-file manifest.
+- `Orin Token Pipeline` (sibling repo) — the baseline itself: a fresh clone is
+  the manifest, and its generated `CLAUDE.md` carries the working loop.
+- `PIPELINE-LEDGER.md` — the three layers, and which of them are real yet.
 - `design.md` — the router the deliverable ships with.
-- `PROCESS.md` (token-pipeline repo) — the working loop the client operates.
+
+---
+
+*Open question (2026-07-28).* The extracted baseline dropped Storybook,
+Chromatic and `guidelines.json`, which this file still lists above as part of
+what lands in a client's hands. That was an extraction decision about the
+*baseline*, not a decision about the *offer* — KR still runs all three, and a
+client paying for a Build may well still get them. Left as written until Warren
+settles it: whether a Build includes a documented component library and the
+per-token usage layer is a commercial call, not a consequence of what got copied
+into a template. Resolve it here and in `Offer.md` together.

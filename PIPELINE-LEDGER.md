@@ -9,25 +9,43 @@ client token-pipeline template it was abstracted from — and why.*
 
 `SETUP.md` and `decisions.md` both refer to a "New Client Playbook" that Orin
 was built from and deliberately deviates from. That playbook is not a document
-in this repo — it lives in the **KR Token Pipeline** (`TEMPLATE-ARCHITECTURE.md`
-+ `PROCESS.md`), the real, running client template Orin was abstracted from.
+in this repo — it is the **Orin Token Pipeline** repo (sibling folder), the
+extracted baseline every client engagement starts from.
 
 This ledger does **not** re-document the client pattern — doing so would create
-a second source of truth that drifts from KR, which is the exact anti-pattern
-both pipelines exist to prevent. It records one thing: the deltas between the
-client template and Orin's own scaffold, plus the invariants that survive the
-abstraction. For the *why* behind each delta, it points at `decisions.md`; for
-the client baseline itself, it points at KR.
+a second source of truth that drifts from the baseline, which is the exact
+anti-pattern both pipelines exist to prevent. It records one thing: the deltas
+between the client baseline and Orin's own scaffold, plus the invariants that
+survive the abstraction. For the *why* behind each delta, it points at
+`decisions.md`; for the baseline itself, it points at that repo.
 
-- **Baseline (the client pattern):** KR Token Pipeline —
-  `TEMPLATE-ARCHITECTURE.md`, `PROCESS.md`.
+- **Baseline (the client pattern):** `Orin Token Pipeline` — its generated
+  `CLAUDE.md` (the convention, the sync procedure, the two silent failure
+  modes) and `scripts/scaffold-client.mjs` (the spin-up path). Deliberately
+  not a prose manifest: the client-facing artefact is the generated
+  `dist/report.html`, and the machinery documents itself in
+  `pipeline.config.mjs`.
+- **Reference implementation:** `KR Token Pipeline` — the live client build the
+  baseline was extracted from, kept as the worked example. Its commit messages
+  carry most of the reasoning.
 - **Reasoning log (Orin's dated decisions):** `decisions.md`
-  (2026-07-05, 2026-07-06).
+  (2026-07-05, 2026-07-06, 2026-07-28).
 - **Orin runbook:** `SETUP.md`.
 
 Lineage: **IDEM** (the original personal rebuild / template origin) →
-**KR** (first full client clone via `scaffold-client`) → **Orin** (the practice
-site, which abstracts the *shape* of the pipeline while flipping its direction).
+**KR** (first full client clone via `scaffold-client`) → **Orin Token Pipeline**
+(2026-07-28: the machinery extracted into a reusable baseline, with collections
+matched by name so it can be pointed at an unfamiliar Figma file) and, in
+parallel, **Orin** (the practice site, which abstracts the *shape* of the
+pipeline while flipping its direction).
+
+> **Superseded pointer.** Until 2026-07-28 this section cited KR's
+> `TEMPLATE-ARCHITECTURE.md` as the playbook. That document was archived out of
+> KR the same day — it described the multi-client template idea, which is now
+> the extracted repo itself, and it had gone stale (it listed synced token files
+> deleted months earlier and carried six leftover IDEM references). It survives
+> at `../_archive/kr-token-pipeline-2026-07/` for the historical record only;
+> nothing should point at it as current.
 
 ---
 
@@ -61,12 +79,12 @@ doesn't · **Deferred** = out for Orin v1, cheap to add later.
 | **Source of truth** | Figma → JSON → dist | JSON → dist → vendor; Figma is a view | **Flipped** |
 | **Repo topology** | Two repos: `{client}-token-pipeline` (publishes) + client app (consumes) | One repo: `tokens/` + `site/` together | **Dropped** (2nd repo) |
 | **Token distribution** | Pipeline is *package-ready* (`kirsten-rossiter-tokens`, `files:["dist"]`, `exports` map for light/dark CSS + JS + JSON) and the KR site now **does** install it — a pinned git-tag `devDependency`, copied by `scripts/sync-tokens.sh` from `node_modules/kirsten-rossiter-tokens/dist/light/variables.css` → the site's committed `vendor/tokens.css` [†][‡] | Same in-repo committed `vendor/tokens.css`, `site/` reads it directly — but no cross-repo copy: one repo, one `npm run sync` | **Simplified** (drop 2nd repo + cross-repo copy, not the vendor file) |
-| **Per-client scaffold** | `scaffold-client.mjs` + `pipeline.config.mjs` — parameterised (`projectName`, `prefix`, `figmaFileName`, `figmaFileKey`), reusable across clients | None — Orin is a singleton; prefix fixed to `--orin-` | **Dropped** |
+| **Per-client scaffold** | `scaffold-client.mjs` + `pipeline.config.mjs` — parameterised (`projectName`, `prefix`, `figmaFileName`, `figmaFileKey`, `siteDir`), reusable across clients. Since 2026-07-28 it carries **no Figma collection or mode ids at all**: the transform matches both by name, so a new client is a naming convention rather than a code edit | None — Orin is a singleton; prefix fixed to `--orin-` | **Dropped** |
 | **Theming** | Multi-mode: `tokens.{light,dark}.json` → `dist/{light,dark}` | Light only (`decisions.md` 2026-07-06); semantics-only so dark is authoring, not retrofit | **Deferred** |
 | **Token layers** | primitives + semantic + **component** (`button/*`, `input/*`, `nav/*`) | primitives + semantic **only** (`CLAUDE.md`: "no component-token layer yet") | **Dropped** (component layer) |
 | **Component library** | Yes — components + per-component metadata files (the "Build deliverable") | None — primitive kit for a 5-page site (`PHASE5-BUILD.md` component budget) | **Dropped** |
 | **Visual regression** | Storybook + Chromatic CI, enforced as a PR gate (`.github/workflows/chromatic.yml`) | None (`decisions.md` 2026-07-05: dropped — "not for a five-page marketing site") | **Dropped** |
-| **Source lint / guards** | `verify-build` (all 6 `dist/` outputs exist, non-empty) | `verify-build` + an **8-check `report`**: dist↔vendor sync, no doubled segments, dimensions carry units, no `$value`+children, no hardcoded hex, no hardcoded font-family, semantic-only consumption, fonts-link↔tokens match | **Added** (stricter static lint) |
+| **Source lint / guards** | `verify-build` (all 6 `dist/` outputs exist, non-empty) **+ a 9-check generated `report`** [§]: build integrity per mode, **mode parity by value**, dist↔vendor sync, consumer contract, fonts-link↔tokens, no doubled segments, no unitless font numbers, colour audit | `verify-build` + an **8-check `report`**: dist↔vendor sync, no doubled segments, dimensions carry units, no `$value`+children, no hardcoded hex, no hardcoded font-family, semantic-only consumption, fonts-link↔tokens match | **Convergent** — both grew a static-lint report; the checks differ because the surfaces do |
 | **Usage prose** | `guidelines.json` → baked into `dist` CSS comments; the "leave nothing to interpretation" layer the AI reads | None — site is small enough not to earn it | **Dropped** |
 | **Changelog / snapshot** | `snapshot-tokens.mjs` → `changelog.json` + a Changelog Storybook story | None | **Dropped** |
 | **Agent docs** | Generated from `templates/agent-rules.md` via `generate-docs.mjs` (can't drift, carry no hardcoded client values) | Hand-written `CLAUDE.md` | **Dropped** (generation) |
@@ -103,15 +121,31 @@ from a filesystem path to an installed, versioned, rollback-able dependency.
 Orin's delta is unaffected: it still collapses the two repos into one and
 still has no cross-repo copy of any kind.
 
-### The one row that isn't subtraction
+**[§] Correction (2026-07-28).** The Source-lint row previously credited the
+client build with `verify-build` alone, and read the generated report as an Orin
+invention. That was already wrong when written: KR grew `generate-report.mjs`
+during the July work and shipped it at v2.1.0. Verified directly against the
+extracted baseline, which runs the same nine checks. The genuinely Orin-specific
+part of that row is narrower than claimed — the *choice of checks* (no hardcoded
+hex, no hardcoded font-family, semantic-only consumption), tuned to
+hand-authored CSS rather than to a synced Figma source. Both sides independently
+concluded that a generated report beats written prose, which is the more
+interesting finding and is why the verdict is now **Convergent** rather than
+**Added**.
+
+### The row that isn't subtraction
 
 Orin is **not** simply "KR minus components." Where KR leans on Chromatic —
 which needs components to snapshot — Orin **swapped** visual regression for a
-stricter static-lint `report` tuned to hand-authored CSS (no hardcoded hex, no
-hardcoded font-family, semantic-only consumption, fonts-link parity). It traded
-a runtime visual gate it couldn't earn for a source-hardening gate it could.
-That's a deliberate design choice, logged in `decisions.md` (2026-07-05), not a
-gap.
+static-lint `report` tuned to hand-authored CSS (no hardcoded hex, no hardcoded
+font-family, semantic-only consumption, fonts-link parity). It traded a runtime
+visual gate it couldn't earn for a source-hardening gate it could. That's a
+deliberate design choice, logged in `decisions.md` (2026-07-05), not a gap.
+
+Seen from 2026-07-28, the swap looks less like a divergence and more like both
+sides reaching the same conclusion from opposite directions — see the `[§]`
+correction above. The extracted baseline dropped Storybook and Chromatic
+entirely and kept the generated report as its client-facing artefact.
 
 ---
 
@@ -148,14 +182,20 @@ down to what a five-page site actually earns.**
 ## What is genuinely projected (not yet proven)
 
 Almost everything above is **proven** — KR runs it live. The single element that
-is still aspirational, and it is KR's own deferral not Orin's, is the top of the
-three-layer model: extracting the shared machinery into a published
-`@scope/token-pipeline-core` package so pipeline improvements propagate by
-version bump instead of copy-paste. `TEMPLATE-ARCHITECTURE.md` defers this until
-2–3 clients have been replicated and the machinery has stabilised. Until then
-core + template live together in each repo. Orin, being a singleton, never needs
-this layer at all — noted here only so the ledger doesn't imply a maturity the
-client pattern hasn't reached.
+is still aspirational is the top of the three-layer model: extracting the shared
+machinery into a **published** `@scope/token-pipeline-core` package so pipeline
+improvements propagate by version bump instead of copy-paste.
+
+*Updated 2026-07-28.* The middle layer is no longer projected: the machinery is
+now a real, separate repo (`Orin Token Pipeline`) with its own history, matching
+collections by name so it can be pointed at an unfamiliar Figma file without a
+code edit. What is still projected is the layer above that — publishing it, so a
+fix reaches an existing client repo by dependency bump rather than by copying
+files across. That stays deferred until 2–3 clients have been replicated and the
+machinery has stabilised; a baseline improved from one worked example is not yet
+a package worth versioning. Orin, being a singleton, never needs either layer —
+noted here only so the ledger doesn't imply a maturity the client pattern hasn't
+reached.
 
 ---
 
@@ -166,8 +206,14 @@ client pattern hasn't reached.
   gets an entry).
 - Dark mode comes into Orin's scope → the Theming row moves from Deferred to
   Kept.
-- A second client is scaffolded and the shared core is extracted into a package
-  → update the "genuinely projected" section; the baseline it references
-  (`TEMPLATE-ARCHITECTURE.md`) will have moved first.
-- Any time Orin's `SETUP.md` and KR's `PROCESS.md` disagree on an invariant
-  (1–8) → that is a drift bug in one of them, not a new row here.
+- A second client is scaffolded and the baseline is **published** as a package
+  → update the "genuinely projected" section.
+- The baseline's own `PROCESS.md` lands (extraction-brief item 4) → the
+  "Baseline" pointer at the top gains a second entry.
+- Any time Orin's `SETUP.md` and the baseline's generated `CLAUDE.md` disagree
+  on an invariant (1–8) → that is a drift bug in one of them, not a new row
+  here.
+- Any time this ledger cites a document that has been archived → repoint it the
+  same day. That has now happened twice (`TEMPLATE-ARCHITECTURE.md`, the
+  sibling-path `sync-tokens.sh`), which is the argument for keeping this file
+  short and pointing outward rather than restating.

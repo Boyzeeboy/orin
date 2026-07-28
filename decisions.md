@@ -9,6 +9,81 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-07-28 — Extracted the client token-pipeline baseline into its own repo
+
+**Decision:** Extracted the generic machinery out of `KR Token Pipeline` into a
+new repo, `Orin Token Pipeline` (sibling folder, own git history, two commits,
+nothing pushed). It is the baseline a client engagement starts from — internal
+tooling for a partner business, explicitly **not** a product: no `LICENSE`, no
+README-as-shopfront, no onboarding for strangers, no error handling for
+unattended use. Nobody operates it without me in the room. Per
+`EXTRACTION-BRIEF.md`, extracted rather than rebuilt: the code was already ~99%
+portable and carries five bugs' worth of reasoning a rewrite would rediscover.
+
+The headline change is **collections matched by name, not id**. The transform's
+config was keyed by `VariableCollectionId:68:2831`, so pointing the pipeline at
+a new Figma file needed a code edit. It is now keyed by collection *name*, with
+modes matched by mode *name*, and the Fonts handling generalised into
+per-collection `stripPrefix` / `lowercase` / `exclude` so nothing keys off the
+literal string "Fonts". A new client needs matching collection names in Figma —
+a convention — rather than a code change.
+
+`resolveCollections()` returns an issue list instead of failing quietly, and
+`npm run sync:figma` prints it before transforming anything: which collections
+matched, which the convention expects and the file lacks, which modes it could
+not map. The mode-parity check came across with `EXPECTED_IDENTICAL` moved into
+`pipeline.config.mjs` — still explicit entries with reasons, never a regex.
+
+Also: site coupling parameterised (`KR_SITE_DIR` / `../Kirsten Rossiter` →
+`SITE_DIR` / `config.siteDir`), with site-facing checks reporting **skipped**
+rather than failed when no site is checked out; Storybook and Chromatic dropped,
+leaving `style-dictionary` as the only dependency; `templates/agent-rules.md`
+rewritten; and a neutral seed fixture (`npm run seed`) so a fresh clone is green
+and the whole sync chain is provable without opening Figma.
+
+**Reasoning:** The manifesto refuses the alternative: *"Orin is not for clients
+who want a vendor. Orin is a partner or nothing."* A self-serve tool for
+non-developers is a different business. What this template commoditises is
+**setup**, never design judgement — the moment it starts shipping opinions about
+what tokens should exist, it has drifted into the thing the manifesto refuses.
+That is why the seed fixture is characterless greys and says so in its own
+header.
+
+Name-matching is the top priority rather than a tidy-up because it is what makes
+the strongest version of the sales conversation possible: point it at the
+prospect's own Figma file, live, and show them the variables that never reach
+their code, the hardcoded values that bypass the system, and whether their dark
+mode actually resolves. That is *"I'd rather tell a client the hard truth about
+their system than sell them polish they don't need"* executed in ten minutes
+rather than asserted in a deck — and it cannot happen if pointing at a new file
+requires opening an editor. It is also the same lesson that fixed dark mode in
+July: **names are portable, ids are not.**
+
+Skipped-not-failed for the site checks is the same discipline as the generated
+report: a permanently-red check teaches people to ignore red, which is how the
+dark-mode bug survived months of green gates in the first place.
+
+Verified: 37 unit tests pass (28 carried over, 9 new for name matching), build +
+verify green, report 5/5 with 4 correctly skipped, `git diff --exit-code dist/`
+clean so the CI reproducibility gate holds. Forcing dark to carry light values
+drops the report to 4/5, so the parity check demonstrably bites. Spin-up proven
+end to end in a scratch copy: clone → `scaffold-client` → green build under the
+client's own prefix.
+
+**Consequence for this repo's docs:** `TEMPLATE-ARCHITECTURE.md` — which
+`SETUP.md`, `deliverable.md` and `PIPELINE-LEDGER.md` all cited as the "New
+Client Playbook" — was archived out of KR the same day, so every one of those
+pointers was dangling. Repointed them at the new repo. Historical entries in
+this log were left alone: it is written at the moment of the decision, and the
+2026-07-05 and 2026-07-12 entries were true when written.
+
+**Revisit if:** the Figma plugin (brief item 3) or `PROCESS.md` (item 4) lands —
+both are still outstanding. Or if a second client is scaffolded and the shared
+core is worth extracting into a published package, which would finally make the
+top layer of the three-layer model real rather than projected.
+
+---
+
 ## 2026-07-21 — Added deliverable.md to define what a client receives
 
 **Decision:** Created `deliverable.md` as a standalone doc answering "when a
@@ -41,6 +116,18 @@ git-tag `devDependency` rather than copying from a sibling folder. The
 deploys need no access to the tokens repo), so the deliverable's shape is
 unchanged and `deliverable.md` needed no edit. See `PIPELINE-REVIEW.md` §3.1 and
 the `[‡]` footnote in `PIPELINE-LEDGER.md`.
+
+*Update (2026-07-28):* the target of the deferral above no longer exists.
+`TEMPLATE-ARCHITECTURE.md` was archived when the machinery was extracted into
+the `Orin Token Pipeline` repo (see the 2026-07-28 entry at the top of this
+log). `deliverable.md` now defers to that repo — a fresh clone *is* the
+manifest — which holds the original reasoning better than the doc did: the
+manifest is now generated rather than written, so it cannot drift from what a
+client actually receives. The "never let it grow its own copy" rule is
+unchanged. One open question was left in `deliverable.md` rather than decided
+here: the baseline dropped Storybook, Chromatic and `guidelines.json`, and
+whether a Build still includes them is a commercial call, not a consequence of
+what got copied into a template.
 
 ---
 
