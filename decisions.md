@@ -9,6 +9,73 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-07-30 — Storybook returns with a component library; the report gates
+
+**Decision:** Two related calls on the client baseline.
+
+1. **Storybook is not part of a token-only Build.** It returns when a Build
+   includes a component library, and is documented that way in
+   `deliverable.md`. `guidelines.json` is dropped outright. The generated
+   `dist/report.html` is the token documentation a client receives.
+2. **The generated report is now a gate.** `npm test` runs it with `--strict`
+   and fails on any red check. `npm run build` stays advisory.
+
+**Reasoning:**
+
+*On Storybook.* The question had been open since 2026-07-28, framed as "does a
+Build include Storybook and the usage layer?" — a commercial call I did not want
+decided by what happened to get copied into a template. Standing the live client
+up on the baseline answered it with evidence rather than preference. Its
+Storybook contains five stories: Colors, Typography, Spacing, BorderRadius,
+Changelog. Every one is a **token** story; there is not a single component story,
+and `src/` contains nothing but `stories/`. Meanwhile the generated report
+already renders colours (semantic, component, primitive), the type scale,
+spacing and radius — four of those five — from the real build.
+
+So Storybook, in a token-only pipeline, is a server you have to run and a
+Chromatic subscription you have to hold, in order to see what a generated file
+already shows. Its genuine value is documenting components and
+visually regression-testing them, which needs components to exist. Scoping it to
+the component-library line is not a subtraction; it puts it where it earns its
+place. `guidelines.json` goes because nothing reads it — verified, not assumed —
+and per-token usage rules already travel as `$description`, synced from Figma.
+
+*On the gate.* `generate-report.mjs` printed its failures and exited 0. That is
+how `mode-parity` — the check that exists precisely **because** everything else
+was green — could go red while `npm test` passed, writing its red line into a
+gitignored file that CI generated, logged and discarded. Found by standing the
+client up: the scaffolded clone reported mode-parity failing and `npm test`
+still exited 0. The July dark-mode bug would have shipped a second time past a
+wall of passing gates.
+
+The deciding argument was an inconsistency: **Orin's own pipeline has gated its
+report since day one** (`tokens/scripts/report.mjs` ends
+`process.exit(passed === results.length ? 0 : 1)`), while the thing a client
+would be handed did not. The practice site held a stricter standard than the
+deliverable. Per the manifesto — *the measure is what happens after handoff* — a
+check that cannot fail anything does not move a defect rate; it is an
+observation wearing the costume of a control.
+
+Deliberately no severity config, no per-check overrides, no opt-out flag. A
+skipped check is not a failure, so a client with no site checked out is never
+blocked by a site they do not have. If a check proves too noisy in practice,
+that is the second case that would justify configuration — not before.
+
+Also proven the same day, and the reason both decisions could be made on
+evidence: a clone of the baseline, scaffolded as Kirsten Rossiter and synced from
+the live Figma file, produced **byte-identical** output to the live client build
+— both source token files and all six `dist/` outputs, same SHA-256. The two
+pipelines reach that result by different routes (the live one matches
+collections by hardcoded id, the baseline by name), which makes the agreement
+worth something.
+
+**Revisit if:** a Build genuinely includes a component library — then Storybook
+and Chromatic come back, and `deliverable.md`'s component-library line is where
+they already live. Or if a report check proves too noisy to gate on, which is
+the second case that would justify per-check configuration.
+
+---
+
 ## 2026-07-28 — Extracted the client token-pipeline baseline into its own repo
 
 **Decision:** Extracted the generic machinery out of `KR Token Pipeline` into a
