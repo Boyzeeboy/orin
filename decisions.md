@@ -9,6 +9,51 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-07-30 — The client's repo stops referring to Orin
+
+**Decision:** The client-facing pipeline repo makes **no reference to the Orin
+manifesto**, and no reference to anything a client cannot open. The audit's sales
+framing moves here, into `Offer.md` under the Diagnostic. `EXTRACTION-BRIEF.md`
+is untracked and gitignored.
+
+**Reasoning:** Asked whether the doc split between the two repos was right, the
+answer was: the *repos* are split correctly — practice identity, site build and
+lineage in Orin; the working docs that ship with a client's pipeline in the
+baseline — but the *audience* inside the baseline was not clean. Two leaks:
+
+1. The generated `CLAUDE.md` opened with *"Read `MANIFESTO.md` in the Orin
+   repo"*. The extraction brief specified that pointer, and it made sense when
+   the baseline was framed purely as internal tooling operated with me in the
+   room. But it also lands in a client's repository, where it is an instruction
+   they cannot follow, referring to a document about my practice rather than
+   their system. Removed entirely rather than reworded: a client's repo has no
+   business citing my manifesto. The four principles it carried were worth
+   keeping, so they are restated there in their own right, each tied to the
+   machinery it explains.
+
+2. `PROCESS.md` described the client in the third person **inside the client's
+   own repo** — *"read it out loud to them"*, *"their file lacks"*. That section
+   was written for running an audit in front of a prospect, and then shipped to
+   the prospect. The instructions are useful to whoever operates the pipeline, so
+   they stayed, rewritten in second person; the framing came here.
+
+The test I'd apply from now on: **would this sentence be strange if the client
+read it in their own repository?** Both leaks fail it obviously in hindsight, and
+neither was visible while writing them, because I was writing for the person in
+front of me rather than the person who ends up owning the file.
+
+`EXTRACTION-BRIEF.md` was tracked by accident — swept into a commit by
+`git add -A` after I'd been told to leave it untracked. Now in `.gitignore` so it
+cannot happen again. It remains in history from those two commits; not worth a
+rewrite.
+
+**Revisit if:** the baseline stops shipping to clients and becomes purely
+internal — then the manifesto pointer would be legitimate again. Or if a client
+asks what the pipeline was built to believe, which is a conversation, not a file
+in their repo.
+
+---
+
 ## 2026-07-30 — Storybook returns with a component library; the report gates
 
 **Decision:** Two related calls on the client baseline.

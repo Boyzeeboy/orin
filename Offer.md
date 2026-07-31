@@ -23,6 +23,34 @@ carrying the design load. I find the pressure points — duplicated
 components, broken handoff, token chaos, silo design calls — and trace
 what they're costing in velocity and defects.
 
+**The opening move: point the pipeline at their own Figma file, live.**
+This is the ten-minute conversation, not a chore, and it is the single
+strongest thing I can do in a first meeting. The token pipeline matches
+Figma collections and modes by *name*, so it can be run against a file it
+has never seen without a code change. `npm run sync:figma -- --dry-run`
+prints an audit before anything is written. Read it out loud to them.
+
+Three things it surfaces, in roughly increasing order of discomfort:
+
+- **A collection the convention doesn't know.** Their variables live
+  somewhere no pipeline will look. Either it's genuinely out of scope, or
+  their design system has a layer nothing downstream can reach.
+- **A mode that maps to nothing.** A theme that exists in Figma and cannot
+  exist in code. Ask what they believed was shipping.
+- **A collection that isn't there at all.** The layer is missing, not
+  misnamed.
+
+Then the harder ones the build surfaces: variables in Figma that never
+reach their code, hardcoded values in their code that bypass the system,
+and whether their dark mode actually resolves — that last one is the check
+that exists because a real dark theme silently carried its light values
+for months, past every other gate.
+
+This is *"I'd rather tell a client the hard truth about their system than
+sell them polish they don't need"* executed in ten minutes rather than
+asserted in a deck. It is also the manifesto's *"understanding the whole
+system end-to-end"* — done before they've paid.
+
 **What the client gets:** A written diagnosis. Where the substrate is
 broken, what it's costing, and what fixing it would involve — scoped and
 priced. Valuable whether or not they proceed to the Build.

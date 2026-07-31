@@ -1,3 +1,6 @@
 .DS_Store
 node_modules/
 tokens/dist/
+
+# Working brief, kept locally — deliberately untracked (decisions.md 2026-07-30)
+EXTRACTION-BRIEF.md
