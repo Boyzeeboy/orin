@@ -40,8 +40,10 @@ flag it to Warren and log it in `decisions.md`.
 - **Every value resolves through the token layer.** A value the design
   needs but doesn't have is a TOKEN PROPOSAL — edit the JSON, rebuild,
   sync. Never add a literal colour/size/family to `styles.css` or a page.
-- **`npm test` green before every push**: report 8/8, verify-build clean.
-  CI does not run these — protection is local.
+- **`npm test` green before every push.** From the repo root it runs
+  `verify:deliverable` (does `deliverable.md` still describe the real
+  client pipeline?) then the token chain in `tokens/` — report 8/8,
+  verify-build clean. CI does not run these; protection is local.
 - **WCAG AA minimum.** Real focus states, real contrast.
 - **Static-first.** No frameworks that aren't earned. Cloudflare Pages,
   output dir `site`, no site build step.
