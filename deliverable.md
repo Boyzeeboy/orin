@@ -29,33 +29,46 @@ At the level of what and why (the which-files detail is the baseline repo
 itself):
 
 - **A token pipeline, running in their own repository.** The DTCG token source,
-  the Style Dictionary build, the committed outputs (CSS / JS / JSON), a
-  **generated token report** documenting every colour, type role, spacing and
-  radius value alongside the health of the system, the changelog/snapshot
-  history, the generated agent docs, and the guardrails and CI that stop a broken
-  build reaching `main`.
+  the Style Dictionary build, the committed outputs (CSS / JS / JSON), the
+  changelog/snapshot history, the generated agent docs, and the guardrails and CI
+  that stop a broken build reaching `main`.
+- **A generated token report**, rebuilt on every build, documenting every colour,
+  type role, spacing and radius value alongside the health of the system. It is
+  not a file that ships once and rots — it is regenerated from the real build, so
+  it cannot describe a system that no longer exists. Its checks are a **gate**:
+  a build with a red check fails, rather than shipping with a warning nobody
+  read.
 - **Their site or app, wired to consume it.** The tokens flowing into the
   product, and the product's existing hardcoded colours, sizes and fonts migrated
   onto semantic tokens — so the codebase reads from one source of truth rather
   than scattered literals.
-- **A component library, as it arrives — and Storybook with it.** Components
-  built on the tokens, each with a metadata file describing variants, states and
-  anti-patterns, documented in Storybook. Storybook is scoped to this line
-  deliberately: it earns its place when there are components to document and
-  visually regression-test. A pipeline that ships tokens alone gets the generated
-  report instead — see below.
-- **The routing and usage layer.** `design.md` (the lightweight router),
-  per-token usage rules carried as `$description` on each token (synced from the
-  variable's description in Figma), and `PROCESS.md` (the working loop for
-  changing a token and rebuilding).
+- **A component library, as it arrives — and Storybook and `design.md` with it.**
+  Components built on the tokens, each with a metadata file describing variants,
+  states and anti-patterns, documented in Storybook, with `design.md` as the
+  router pointing at that metadata. All three are scoped to this line
+  deliberately: they earn their place when there are components to document,
+  visually regression-test and route to. A pipeline that ships tokens alone gets
+  the generated report and the generated agent docs instead.
+- **The routing and usage layer.** The generated `CLAUDE.md` / `AGENTS.md` (the
+  router — rendered from one template with the client's own Figma file and token
+  prefix, so it cannot drift), per-token usage rules carried as `$description` on
+  each token (synced from the variable's description in Figma), and `PROCESS.md`
+  (the working loop, and what to do when a check goes red).
 
-## `design.md` and the variables are parts, not the whole
+## The router and the variables are parts, not the whole
 
-It is worth being explicit, because it is a common misread: `design.md` is only
-the router — a short file that points at the tokens, their usage rules, and the
-generated report. The variables (tokens) are the substrate. Neither is the product. The
-product is the *connected, living system* — a source of truth that exists in the
-client's codebase, not a Figma file their developers have to translate by hand.
+It is worth being explicit, because it is a common misread: the router — the
+generated `CLAUDE.md` / `AGENTS.md` — is only a router. A short file that points
+at the tokens, their usage rules and the report, and tells whoever is working
+(person or agent) what to read before touching anything. The variables (tokens)
+are the substrate. Neither is the product. The product is the *connected, living
+system* — a source of truth that exists in the client's codebase, not a Figma
+file their developers have to translate by hand.
+
+That the router is **generated** rather than written is the point. It carries the
+client's real Figma file and token prefix because it is rendered from one
+template plus their config, so it cannot quietly describe a system they no longer
+have. A hand-written router is a doc that rots; this one is an output.
 
 ## Whose is what
 
@@ -83,7 +96,10 @@ system.
 - `Orin Token Pipeline` (sibling repo) — the baseline itself: a fresh clone is
   the manifest, and its generated `CLAUDE.md` carries the working loop.
 - `PIPELINE-LEDGER.md` — the three layers, and which of them are real yet.
-- `design.md` — the router the deliverable ships with.
+
+*(This repo's own `design.md` is Orin's site layout principles — nothing to do
+with the deliverable. An earlier version of this list linked to it as though it
+were the client's router, which it never was.)*
 
 ---
 
@@ -97,3 +113,13 @@ the real build, with no server to run and no Chromatic subscription.
 `guidelines.json` is not part of a Build either. Nothing consumes it in code;
 per-token usage rules travel as `$description` on each token, synced from Figma,
 which is the form the pipeline actually reads.
+
+*Also corrected (2026-07-30).* This file promised `design.md` three times — as
+the routing layer, as its own section, and in Related — but the baseline has no
+`design.md` and no template for one, so a scaffolded client would never have
+received it. The claim was inherited from the live client repo, where `design.md`
+routes to component metadata and Storybook. It now sits with the component
+library for the same reason Storybook does: it routes to things that only exist
+once components do. In a token-only Build the router is the **generated**
+`CLAUDE.md` / `AGENTS.md`, which is better than the doc it replaces because it
+cannot drift from the system it describes.
