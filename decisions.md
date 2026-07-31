@@ -69,10 +69,34 @@ pipelines reach that result by different routes (the live one matches
 collections by hardcoded id, the baseline by name), which makes the agreement
 worth something.
 
-**Revisit if:** a Build genuinely includes a component library — then Storybook
-and Chromatic come back, and `deliverable.md`'s component-library line is where
-they already live. Or if a report check proves too noisy to gate on, which is
-the second case that would justify per-check configuration.
+*Same day, found by checking rather than assuming.* Asked whether
+`deliverable.md` was actually aligned with the baseline, I checked all thirteen
+artefacts it names. Ten matched. `design.md` did not: the file promised it three
+times — as the routing layer, as its own section, and in Related — and the
+baseline has no `design.md` and no template for one, so a scaffolded client
+would never have received it. The Related link was worse than absent: it
+resolved to *this repo's* `design.md`, which is Orin's own site layout
+principles and nothing to do with a client deliverable.
+
+Same class of error as Storybook — a live-client assumption carried into a
+client-facing doc — and it took the same resolution. `design.md` in the live
+client routes to component metadata and Storybook, so it belongs with the
+component library for exactly the reason Storybook does: it routes to things
+that only exist once components do. In a token-only Build the router is the
+**generated** `CLAUDE.md` / `AGENTS.md`, which is strictly better than the doc
+it replaces, because it is rendered from one template plus the client's config
+and therefore cannot drift from the system it describes.
+
+Worth naming the pattern: both errors were in the one client-facing document,
+and neither would have been found by reading it. `verify-docs` polices the
+baseline's own docs, but nothing checks a doc in *this* repo against a
+*different* repo — so `deliverable.md` will need re-checking by hand whenever the
+baseline changes shape.
+
+**Revisit if:** a Build genuinely includes a component library — then Storybook,
+Chromatic and `design.md` come back, and `deliverable.md`'s component-library
+line is where they already live. Or if a report check proves too noisy to gate
+on, which is the second case that would justify per-check configuration.
 
 ---
 
