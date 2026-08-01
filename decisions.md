@@ -9,6 +9,51 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-08-01 — Orin's own pipeline is the baseline's specification
+
+**Decision:** When Orin's own token pipeline has a check the client baseline
+lacks, treat that as a **gap in the baseline**, not as Orin being unusually
+strict. Adopted after the third instance in a week. Also added the
+`semantic-only` consumption check to the baseline as the immediate consequence.
+
+**Reasoning:** Three times now the practice site has held a standard the thing a
+client would be handed did not:
+
+1. **Report gating** (2026-07-30). Orin's `report.mjs` has ended
+   `process.exit(passed === results.length ? 0 : 1)` since day one. The client
+   pipeline printed its failures and exited 0 — so `mode-parity`, the check that
+   exists *because* everything else was green, could go red while `npm test`
+   passed, writing into a gitignored file CI generated and discarded.
+2. **The manifesto pointer** (2026-07-30). The generated client `CLAUDE.md` told
+   its reader to consult a document in *my* repo — legible only because I had
+   written it for myself and forgotten who would end up owning the file.
+3. **Semantic-only consumption** (2026-08-01). Orin's report has checked this
+   from the start. The client pipeline never did — and the live client site
+   turned out to route 195 uses through local aliases pointing at primitives,
+   roughly 96% of its colour sitting one layer too low, for months.
+
+Three is a pattern, not three coincidences. The cause is ordinary: I build Orin's
+pipeline by hand while thinking about the problem, and the baseline by extraction
+while thinking about portability. The care goes into the first and the
+generalisation into the second, so the first is quietly ahead.
+
+The manifesto's *"the measure of the work is what happens after handoff"* makes
+that the wrong way round. The client build is the one whose defect rate matters;
+mine is a five-page site. If a check is worth having on my own substrate it is
+worth more on theirs — and a check that cannot fail anything does not move a
+defect rate, it is an observation wearing the costume of a control.
+
+Concretely: **diff the two report scripts whenever either changes.** They are not
+meant to be identical — Orin's has no Figma sync, the baseline has no site of its
+own — but every asymmetry should be a decision someone made, not a leftover.
+
+**Revisit if:** the baseline ever gets ahead of Orin's own pipeline, which would
+be the healthy direction and would mean the flow has reversed. Or if Orin grows
+past a five-page site, at which point its pipeline stops being the simpler case
+and this stops being a safe heuristic.
+
+---
+
 ## 2026-07-30 — The client's repo stops referring to Orin
 
 **Decision:** The client-facing pipeline repo makes **no reference to the Orin
