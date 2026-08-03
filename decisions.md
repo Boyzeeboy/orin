@@ -9,6 +9,68 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-08-03 — The `DEFAULT` sentinel, and collisions reported all at once
+
+**Decision:** Restored the uppercase `DEFAULT` name-strip into the client
+baseline, and made the Figma sync report **every** name-vs-group collision in one
+run rather than throwing on the first. Both found by rehearsing the ten-minute
+audit against a duplicate of the IDEM design system before pointing it at anyone
+else's file.
+
+**Reasoning:** Two separate problems, one rehearsal.
+
+1. **The baseline could only give a client breaking advice.** DTCG forbids a node
+   holding both a `$value` and children, so `input/border` alongside
+   `input/border/focus` is refused — correctly, since Style Dictionary would drop
+   one silently. But the only remediation the baseline could offer was "rename it
+   to `input/border/default`", which changes the emitted custom property from
+   `--prefix-input-border` to `--prefix-input-border-default`. That is a breaking
+   change across every file consuming it, presented to a client as a naming
+   tidy-up. IDEM had solved this in 2026 with a name transform stripping an exact
+   uppercase `DEFAULT` segment — structure becomes legal, emitted name doesn't
+   move — and the extraction into the baseline lost it. Ported it back, wrapping
+   Style Dictionary's own `name/kebab` rather than reimplementing kebab-casing, so
+   non-DEFAULT tokens are byte-identical (verified: `dist/` diffs clean against a
+   pre-change snapshot). Kept uppercase rather than choosing a clearer sentinel
+   like `_default`, because IDEM's committed tokens already use `DEFAULT` and
+   changing it would make them unsyncable through the baseline.
+
+   The rule lives in `scripts/lib/token-name.mjs` because two consumers need it —
+   `sd.config.mjs` for the build and `generate-report.mjs` for the checks. They
+   had independent name derivations; had only the build learned about the
+   sentinel, the report would have hunted for tokens under names the build no
+   longer emitted.
+
+2. **One collision per round-trip.** The transform threw on the first collision,
+   so an operator found them one at a time: fix in Figma, restart the sink, press
+   Sync, re-audit, hit the next. The rehearsal file held **eight**. In a paid
+   Diagnostic that is a finding — "your Components layer has six places a token
+   would be silently dropped" — but delivered one at a time it is debugging your
+   own tooling on the client's clock. Now collected, deduplicated across
+   light/dark, grouped by collection, and reported once.
+
+   The collision list names tokens by their **Figma** name, not the DTCG path.
+   The first version printed `components/input/border`; that `components/` branch
+   exists only downstream, so the message sent the reader hunting in Figma for a
+   variable that does not exist. The message tells someone to go and rename
+   something — it has to use the name they will search for.
+
+**What this cost to find:** nothing, because it was a rehearsal. Had the first
+run been in front of Synthesis, the demo would have stopped on collision one of
+eight, and the fix offered would have broken their build. That is the argument
+for rehearsing the audit against a file whose answers are already known, and it
+is now the standing rule before any client run.
+
+**Deferred:** not propagated to `KR Token Pipeline`. IDEM already has its own
+DEFAULT transform; KR needs the port only if it ever hits the shape.
+
+**Revisit if:** a client's Figma cannot use uppercase `DEFAULT` for some reason
+of their own tooling — then the sentinel becomes configurable in
+`pipeline.config.mjs`, with the entry recording that their file departs from the
+convention, exactly as the `figma` override block already does.
+
+---
+
 ## 2026-08-01 — Orin's own pipeline is the baseline's specification
 
 **Decision:** When Orin's own token pipeline has a check the client baseline
