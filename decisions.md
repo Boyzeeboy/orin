@@ -9,6 +9,64 @@ Format: date, decision, reasoning, revisit-if.
 
 ---
 
+## 2026-08-04 — Findings get read aloud before they get written up
+
+**Decision:** Added one paragraph to the Diagnostic's *What happens* in
+`Offer.md`, plus a second defence line. Generated audit output is read through
+with the client before it becomes the written diagnosis. Not a new stage, not a
+deliverable, no change to price, duration, or what the client gets — those stay
+locked.
+
+**Reasoning:** Rehearsing the audit against a duplicate of the IDEM design
+system produced four cases in one afternoon where the tooling was articulately,
+confidently wrong. Not broken — every check did exactly what it was built to do
+— but wrong in what it *said*:
+
+1. The collision error prescribed a rename that would have changed the client's
+   emitted CSS custom properties. A breaking change, offered as a naming
+   tidy-up.
+2. Collisions were reported one per round-trip. There were eight, which in a
+   live session is debugging your own tooling on the client's clock.
+3. A red `mode-parity` check led with "141/150 differ" — the passing count. The
+   failure was nine tokens the headline never mentioned.
+4. The config comment for `expectedIdentical` offered `colour-text-inverse` as
+   its worked example of a legitimate exception. That token was one of the eight
+   defects. The guidance named the most tempting wrong answer as correct, in the
+   one place someone goes looking for permission to silence a check.
+
+Then the judgement the tool cannot make: nine tokens identical across modes,
+eight defects and one genuine exception, all wearing the same language.
+Declaring all nine would have buried eight WCAG failures behind a green build,
+each with a written reason sitting next to it.
+
+A check that fails silently is caught by another check. A check that fails
+articulately but wrongly is caught only by someone reading it aloud. That is not
+a gap more automation closes.
+
+It also sharpens what the £3,000 buys. Not the audit — that runs in ten minutes
+and I'd run it free in a first meeting. The judgement that separates a finding
+from a fact.
+
+**What was deliberately not changed:** no fourth engagement stage, no new
+deliverable, no price or duration change, and no methodology section. `Offer.md`
+says what the client buys and what it costs; a sales document that starts
+describing its own ceremonies has become the thing the manifesto refuses.
+
+**Counter-argument considered:** this is arguably just doing the job properly,
+already implied by *"I'd rather tell a client the hard truth about their system
+than sell them polish they don't need."* Rejected on the grounds that
+undocumented judgement decays under time pressure — which is the argument the
+entire practice rests on.
+
+**Revisit if:** after three complete Diagnostics the walkthrough has turned into
+a presentation rather than a check, or clients treat it as a status meeting.
+Either would mean it has stopped doing its job and should be cut rather than
+kept for appearances. Also revisit if a client disagrees with a finding during
+the walkthrough and turns out to be right — that would be the strongest possible
+evidence for the step, and it should be logged here when it happens.
+
+---
+
 ## 2026-08-03 — The `DEFAULT` sentinel, and collisions reported all at once
 
 **Decision:** Restored the uppercase `DEFAULT` name-strip into the client

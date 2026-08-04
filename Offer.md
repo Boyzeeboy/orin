@@ -51,6 +51,14 @@ sell them polish they don't need"* executed in ten minutes rather than
 asserted in a deck. It is also the manifesto's *"understanding the whole
 system end-to-end"* — done before they've paid.
 
+**Findings get read aloud before they get written up.** A generated audit
+produces evidence, not conclusions. Run against my own design system, it
+flagged nine colours as identical in light and dark — the signature of a
+broken theme. Eight were real: white text sitting at 1.16:1 in dark mode,
+unreadable. The ninth was a transparent border, which was always going to
+be identical. Waving all nine through would have buried the eight behind a
+green build. No tool draws that line. That's the part you're paying for.
+
 **What the client gets:** A written diagnosis. Where the substrate is
 broken, what it's costing, and what fixing it would involve — scoped and
 priced. Valuable whether or not they proceed to the Build.
@@ -63,6 +71,10 @@ priced. Valuable whether or not they proceed to the Build.
 **The defence on a call:** "It's fixed, it's two weeks, and you get a
 written diagnosis of where your substrate is costing you — whether or
 not you work with me afterwards."
+
+**And when they say "so you ran a script":** "The script takes ten
+minutes and I'd run it for free. The two weeks is me telling you which
+of its findings matter."
 
 **Pricing logic:** Under the ~£5k discretionary threshold most technical
 leaders hold, so no procurement process required. Substantial enough to
