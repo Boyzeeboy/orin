@@ -1288,6 +1288,77 @@ than inflating existing ones.
 
 ---
 
+## 2026-08-05 — "Substrate" is the belief word, not the buying word
+
+**Decision:** "Substrate" stays in Orin's vocabulary, but it is no longer
+used undefined in a line a client meets cold. The rule: **substrate is
+the belief word (manifesto, positioning, the What Orin does header);
+"the design system your developers ship from" is the buying word.** Where
+substrate survives in client-facing copy, the sentence it appears in must
+define it. Changes made:
+
+- `Offer.md` §1 — first use now carries the definition inline ("the design
+  system, tokens and pipeline underneath the product").
+- `Offer.md` §1 "defence on a call" — → "where your **design system** is
+  costing you." A spoken line has no room for a metaphor the listener has
+  to decode mid-sentence.
+- `Offer.md` §3 Retainer — "consistent with the **system**." The
+  surrounding paragraph already says "system" twice; substrate there was
+  variation for its own sake.
+- `PHASE5-BUILD.md` Section 4 + `site/index.html` Diagnostic card — →
+  "where your design system is broken."
+- `site/how-it-works/` — Diagnostic gets the same inline definition;
+  Retainer gets "the system."
+- `deliverable.md` — "the variables (tokens) are the **foundation**."
+
+**Reasoning:** The word was carrying three different sizes at once. In
+`MANIFESTO.md` it means the whole underlying system and is earned by the
+sentence around it. In `deliverable.md` it meant the token layer — a
+*part*, in a passage whose whole point is that the part is not the whole.
+In `CLAUDE.md` / `BUILD-SEQUENCE.md` it means a build order. The internal
+working sense is harmless; the first two directly contradicted each other,
+so `deliverable.md` moved to "foundation."
+
+The precedent was already in the repo: the locked one-liner in
+`positioning.md` deliberately avoids substrate while the 60-second version
+uses it. That split had just never been applied to `Offer.md` — a document
+someone reads while deciding whether to spend £3,000. A technical buyer
+isn't baffled by "substrate," but it shouldn't be the word that has to
+survive being said out loud to someone who has never read the manifesto.
+
+**Deliberately not changed:** `MANIFESTO.md`, the `positioning.md`
+60-second version, the Home "Orin builds the substrate." header and page
+title, and the Vivo Energy case study. The Home header is defined by the
+body copy directly beneath it — the manifesto pattern working as intended.
+Purging the word everywhere would cost real voice for no gain.
+
+**Contact page — decided in the same pass.** Both uses ("tell me what
+you're shipping and where your substrate is hurting", in the body copy
+and the meta description) became "and where **it's** hurting." The
+antecedent is "what you're shipping," so nothing is lost and the line
+gets shorter. Deciding factor: the meta description is the one place on
+the site where the word appeared with no surrounding page to define it —
+it lands in a search result cold, which is exactly the case the rule
+above exists to prevent. Reaching for "your design system is hurting"
+would have been the fourth "design system" on a short page; dropping the
+noun entirely was the better sentence.
+
+**Corollary — no substrate in a `<meta name="description">`.** A meta
+description is the one piece of Orin's copy guaranteed to be read with no
+page around it to define its terms, so it is always the cold case. The
+Work page followed the Contact page for the same reason: "Case studies
+from the substrate: …" → "Case studies: …". The Work page `<h1>` ("The
+substrate, in practice.") stays — it is defined by the sentence directly
+beneath it, the same pattern as the Home header. No other page's meta
+description used the word.
+
+**Revisit if:** a client or prospect asks what substrate means, or asks
+it back in a way that shows they read it as something narrower than the
+whole system. That's the signal the definition isn't landing and the
+remaining uses should go too.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]

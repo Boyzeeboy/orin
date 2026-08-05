@@ -73,8 +73,8 @@ Inline link at end: "View the tokens →" → /tokens
 
 ### Section 4 — How it works (compressed)
 Three blocks, prices visible:
-  "The Diagnostic — £3,000, 1–2 weeks. I find where your substrate is
-  broken and what it's costing you. Written diagnosis, useful whether
+  "The Diagnostic — £3,000, 1–2 weeks. I find where your design system
+  is broken and what it's costing you. Written diagnosis, useful whether
   or not we go further."
   "The Build — from £14,000, 4–6 weeks. The system, built and
   connected. Scoped from the Diagnostic — I don't price unscoped work."
