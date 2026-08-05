@@ -4,3 +4,8 @@ tokens/dist/
 
 # Working brief, kept locally — deliberately untracked (decisions.md 2026-07-30)
 EXTRACTION-BRIEF.md
+
+# Speaking script for the Diagnostic findings walkthrough. Kept local: it is a
+# draft of how I talk, not a decision about how the practice works. The decision
+# it came from is logged (decisions.md 2026-08-04); this is rehearsal material.
+notes/diagnostic-walkthrough-script.md
