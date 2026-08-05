@@ -11,7 +11,8 @@ never in days.
 ## 1. The Diagnostic
 
 **What it is:** A short, bounded engagement to find where the substrate
-is broken and what it's costing the business.
+— the design system, tokens and pipeline underneath the product — is
+broken and what it's costing the business.
 
 **Duration:** 1–2 weeks.
 
@@ -69,8 +70,8 @@ priced. Valuable whether or not they proceed to the Build.
 - Means the Build is scoped from evidence, never from a sales call.
 
 **The defence on a call:** "It's fixed, it's two weeks, and you get a
-written diagnosis of where your substrate is costing you — whether or
-not you work with me afterwards."
+written diagnosis of where your design system is costing you — whether
+or not you work with me afterwards."
 
 **And when they say "so you ran a script":** "The script takes ten
 minutes and I'd run it for free. The two weeks is me telling you which
@@ -133,7 +134,7 @@ fragment. Keeping the pipeline healthy. Being the design brain the
 developers can call on when they're making a call they're not sure about.
 
 **What the client gets:** The system doesn't decay back into an
-artefact. New features ship consistent with the substrate. The design
+artefact. New features ship consistent with the system. The design
 load their developers carry stays light.
 
 **The defence on a call:** "A fraction of what one junior designer costs
