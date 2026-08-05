@@ -61,7 +61,7 @@ It is worth being explicit, because it is a common misread: the router — the
 generated `CLAUDE.md` / `AGENTS.md` — is only a router. A short file that points
 at the tokens, their usage rules and the report, and tells whoever is working
 (person or agent) what to read before touching anything. The variables (tokens)
-are the substrate. Neither is the product. The product is the *connected, living
+are the foundation. Neither is the product. The product is the *connected, living
 system* — a source of truth that exists in the client's codebase, not a Figma
 file their developers have to translate by hand.
 
