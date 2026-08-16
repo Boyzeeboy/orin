@@ -24,7 +24,14 @@ are the subset this document was written against. Keep the two in step.
 Do not relitigate locked decisions. If something genuinely doesn't work,
 flag it to Warren and log it in decisions.md.
 
-## Current build state (9 July 2026)
+*Status, 2026-08-16: Phase 5 is finished and the site is v1. Everything in
+"After Home" below is done, including the QA pass and the v1 declaration.
+This document is maintained as live reference, not archived, so the copy
+specs below are kept true to what shipped. **Where this document and the
+live site disagree, the site wins** — it is v1 and the spec is the record
+of how it got there.*
+
+## Current build state (9 July 2026, superseded)
 
 - Repo set up; /site directory is the site source
 - Token layer built: DTCG JSON → pipeline → vendor/tokens.css.
@@ -35,12 +42,15 @@ flag it to Warren and log it in decisions.md.
 - Current live page: token pipeline demonstration ("The substrate,
   proven end-to-end")
 
-## Standing rule for the token demo page
+## Standing rule for the token demo page (done)
 
 When Home replaces the current placeholder, DO NOT delete it. Move it
 to /tokens (or /colophon) and link it quietly from the footer, labelled
 something like "This site runs on its own pipeline." It is a proof
 artefact — technical buyers will view source.
+
+*Followed. The page lives at `/tokens` and the footer links it with that
+exact sentence. Keep it that way.*
 
 ## Next task: build Home
 
@@ -49,7 +59,8 @@ don't rewrite it. Small edits for flow are fine; changes of substance
 go back to Warren.
 
 ### Section 1 — Hero
-Eyebrow (optional): "A systems practice — Bath, UK"
+Eyebrow (optional): "A systems practice · Bath, UK"
+  (interpunct, not an em dash — see the separator rule in HANDOVER.md)
 Heading, split over two lines:
   "For teams shipping product without a full design department."
   "Orin builds the design system your developers ship from."
@@ -77,13 +88,18 @@ Body:
 Inline link at end: "View the tokens →" → /tokens
 
 ### Section 4 — How it works (compressed)
-Three blocks, prices visible:
-  "The Diagnostic — £3,000, 1–2 weeks. I find where your design system
+Four cards, prices visible. Was three; The Foundation was added
+2026-08-12. Titles use the interpunct, and the Build's published floor
+is £12,000, not the £14,000 this section specified until 2026-08-16:
+  "The Diagnostic · £3,000 · 1–2 weeks. I find where your design system
   is broken and what it's costing you. Written diagnosis, useful whether
   or not we go further."
-  "The Build — from £14,000, 4–6 weeks. The system, built and
+  "The Foundation · £4,000 · 2 weeks. The other way in, for a product
+  that doesn't exist yet. The token layer authored and wired in, ending
+  with one real screen."
+  "The Build · from £12,000 · 4–6 weeks. The system, built and
   connected. Scoped from the Diagnostic — I don't price unscoped work."
-  "The Retainer — £2,000/month. I stay close and the system stays
+  "The Retainer · £2,000/month. I stay close and the system stays
   alive. Cancel with 30 days' notice."
 Link: "How it works →" → /how-it-works
 
@@ -93,7 +109,7 @@ Body:
   "At Vivo Energy (contracted via Rethink), the development team had
   no design system — every developer making design calls alone. A
   simple component library, page patterns, and token setup aligned
-  the team: fewer defects, less rework, and a sixty per cent saving
+  the team: fewer defects, less rework, and a 60 per cent saving
   in development time. The Technical Officer had something to point
   at when the business asked what changed."
 Link: "Read the case studies →" → /work
@@ -104,7 +120,7 @@ Body: "If your team is shipping without a source of truth, the
 Diagnostic is where we start."
 Button: "Get in touch" → Contact.
 
-## After Home, in order
+## After Home, in order (all done; v1 declared 2026-08-16)
 
 1. **Manifesto page** — MANIFESTO.md near-verbatim. Long-form reading
    typography: 65–75ch measure, generous leading, no decoration.
@@ -114,7 +130,9 @@ Button: "Get in touch" → Contact.
 3. **Work** — shell page. Three cards (Vivo Energy, IDEM, KRM), title
    plus one-line summary each, clearly marked as essays coming soon.
    Do not draft the essays — that's Phase 6, done conversationally
-   with Warren.
+   with Warren. *(Vivo Energy has since been written and shipped at
+   `/work/vivo-energy`. IDEM and KRM still read "Essay coming" and are
+   still Phase 6, so the rule still applies to those two.)*
 4. **Contact** — heading, two honest sentences, mailto link. No form.
 5. **QA pass** — keyboard navigation end to end; visible focus states;
    AA contrast verified; 360px layout check; Lighthouse; meta
@@ -129,6 +147,16 @@ Primitives only: heading set, body text, link, one primary button,
 nav header, footer, section wrapper, case-study card. Build nothing
 else unless a page demands it. This is a five-page site, not a
 component library project.
+
+*Held at v1, and audited 2026-08-16. What exists beyond the eight is
+either an accessibility utility (`.skip-link`, `.visually-hidden`), a
+typographic label rather than a component (`.eyebrow`, `.rail`,
+`.card__index`), grid scaffolding (`.container`, `.section-grid`), the
+hero's decorative overlay, or confined to `/tokens` (`.swatch`,
+`.specimen-row`) which is machinery, not one of the five. The case-study
+card is reused for the pricing cards rather than a second card being
+built. Nine pages shipped against a sitemap of five; the budget still
+governs the five.*
 
 ## Hard constraints
 

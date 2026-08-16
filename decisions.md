@@ -2335,6 +2335,56 @@ repo. It is now labelled unverifiable rather than left reading as current.
 
 ---
 
+## 2026-08-16 — PHASE5-BUILD.md audited against the shipped site
+
+**Decision:** Same audit, same treatment. Seven findings, all corrected.
+The document now carries a status note saying Phase 5 is finished, and —
+the important line — **where it and the live site disagree, the site
+wins.** It is v1; the spec is the record of how it got there.
+
+**The finding that mattered: a booby-trapped copy spec.** Section 4 of the
+Home spec still read "Three blocks" and "The Build — from £14,000". That
+section is labelled *approved copy, assemble it, don't rewrite it*. So the
+one document that instructs a builder not to think was carrying a
+superseded price and a missing engagement. Anyone rebuilding Home from the
+spec would have reintroduced £14,000 to a live pricing page and dropped The
+Foundation, and would have been following instructions correctly while
+doing it. Now four cards, £12,000, interpuncts, with the change dated
+inline.
+
+**Two smaller copy drifts, from today's own work.** The hero eyebrow still
+specified an em dash, and the Proof section still said "sixty per cent".
+Both were changed on the site this morning. Worth noticing that a copy
+change made in `site/` silently invalidated the spec it came from within
+hours — which is the argument for the "site wins" line rather than for
+diligence.
+
+**Marked done rather than pending.** The standing rule for the token demo
+page was followed exactly: the page is at `/tokens` and the footer links it
+with the precise sentence the rule suggested. The whole "After Home" list
+is complete through the v1 declaration. Both now say so, so neither reads
+as outstanding work.
+
+**The component budget held, and the audit says how.** Everything beyond
+the eight primitives is an accessibility utility, a typographic label, grid
+scaffolding, the hero overlay, or confined to `/tokens`. The case-study
+card is reused for pricing rather than a second card being built. That is
+recorded in the document so the next reader can check the claim instead of
+trusting it.
+
+**Clean:** Sections 2, 3 and 6 of the Home copy match the shipped page
+word for word. Every hard constraint holds — token resolution, AA,
+static-first, British English, one CTA, the attribution rules, and the
+never-"design agency" rule. Definition of done met.
+
+**Both briefs are now audited.** `HANDOVER.md` and `PHASE5-BUILD.md` were
+each written as a snapshot and left to drift for six weeks. Between them
+they held eleven false statements about a site sitting in the same repo,
+and `npm test` was green the whole time because no guardrail reads prose.
+The guardrails cover values, not claims.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
