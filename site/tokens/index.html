@@ -44,31 +44,91 @@
   <div class="wrap">
     <p class="eyebrow">Token pipeline · proof artefact</p>
     <h1>The substrate, proven end&#8209;to&#8209;end.</h1>
-    <p>This page renders entirely from tokens. Every colour, size, and family
-       below resolves through <code>vendor/tokens.css</code>, which is built from
-       DTCG JSON and synced by the pipeline. There is no hand-written value on
-       this page to fall back on — which is the whole point.</p>
+    <p>This page renders entirely from tokens. Every colour, size, space and
+       radius below resolves through <code>vendor/tokens.css</code>, which is
+       built from DTCG JSON and synced by the pipeline. There is no hand-written
+       value on this page to fall back on — which is the whole point. The values
+       printed beside each token are read back out of the rendered page, not
+       typed in, so if a token changed and this page disagreed, it could only
+       disagree with itself.</p>
 
     <h2>Semantic colours</h2>
-    <div class="swatches">
-      <span class="swatch swatch--ink"     title="colour/text/default"></span>
-      <span class="swatch swatch--inverse" title="colour/background/inverse"></span>
-      <span class="swatch swatch--paper"   title="colour/background/raised"></span>
-      <span class="swatch swatch--link"    title="colour/text/link"></span>
-      <span class="swatch swatch--border"  title="colour/border/strong"></span>
-    </div>
+    <p>Thirteen roles, each an alias onto a primitive. The role is what a page
+       consumes; the primitive underneath can move without a single consumer
+       changing. Two roles here resolve to the same value — <code>text/default</code>
+       and <code>background/inverse</code> are both the darkest neutral, because
+       ink on paper and the ground of an inverse band are the same colour asked
+       for two different reasons. That is the layer working, not a duplicate.</p>
+
+    <h3>Text</h3>
+    <ul class="token-grid">
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-text-default)"></span><span class="token-meta"><span class="token-name">colour/text/default</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-text-muted)"></span><span class="token-meta"><span class="token-name">colour/text/muted</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-text-inverse)"></span><span class="token-meta"><span class="token-name">colour/text/inverse</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-text-link)"></span><span class="token-meta"><span class="token-name">colour/text/link</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-text-link-hover)"></span><span class="token-meta"><span class="token-name">colour/text/link-hover</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-text-on-accent)"></span><span class="token-meta"><span class="token-name">colour/text/on-accent</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+    </ul>
+
+    <h3>Background</h3>
+    <ul class="token-grid">
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-background-default)"></span><span class="token-meta"><span class="token-name">colour/background/default</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-background-raised)"></span><span class="token-meta"><span class="token-name">colour/background/raised</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-background-inverse)"></span><span class="token-meta"><span class="token-name">colour/background/inverse</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-background-accent)"></span><span class="token-meta"><span class="token-name">colour/background/accent</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-background-accent-hover)"></span><span class="token-meta"><span class="token-name">colour/background/accent-hover</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+    </ul>
+
+    <h3>Border</h3>
+    <ul class="token-grid">
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-border-divider)"></span><span class="token-meta"><span class="token-name">colour/border/divider</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+      <li class="token-item"><span class="swatch" style="background:var(--orin-colour-border-strong)"></span><span class="token-meta"><span class="token-name">colour/border/strong</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
+    </ul>
 
     <h2>Type scale</h2>
+    <p>All eleven steps. Display sizes are Inter Tight, prose and UI are Inter.
+       Sizes are authored in <code>rem</code>; the pixel figure beside each is
+       that value resolved at the browser's root size.</p>
     <div class="specimen">
-      <div class="specimen-row"><span class="label">1100 · 56 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-1100);line-height:var(--orin-font-line-height-display-large)">Orin</span></div>
-      <div class="specimen-row"><span class="label">900 · 36 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-900)">The system is the main thing</span></div>
-      <div class="specimen-row"><span class="label">800 · 32 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-800)">Build, don't decorate</span></div>
-      <div class="specimen-row"><span class="label">600 · 24 · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-600)">The substrate, not the surface</span></div>
-      <div class="specimen-row"><span class="label">500 · 18 · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-500)">Design and development are one craft.</span></div>
-      <div class="specimen-row"><span class="label">400 · 16 · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-400)">Ship the honest first version, then improve it.</span></div>
-      <div class="specimen-row"><span class="label">300 · 14 · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-300);font-weight:var(--orin-font-weight-medium)">Get in touch</span></div>
-      <div class="specimen-row"><span class="label">200 · 12 · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-200)">orinsystems.co</span></div>
+      <div class="specimen-row"><span class="label">1100 <span class="token-value" data-token="--orin-font-size-1100">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-1100);line-height:var(--orin-font-line-height-display-large)">Orin</span></div>
+      <div class="specimen-row"><span class="label">1000 <span class="token-value" data-token="--orin-font-size-1000">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-1000);line-height:var(--orin-font-line-height-display-medium)">Build the substrate</span></div>
+      <div class="specimen-row"><span class="label">900 <span class="token-value" data-token="--orin-font-size-900">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-900)">The system is the main thing</span></div>
+      <div class="specimen-row"><span class="label">800 <span class="token-value" data-token="--orin-font-size-800">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-800)">Build, don't decorate</span></div>
+      <div class="specimen-row"><span class="label">700 <span class="token-value" data-token="--orin-font-size-700">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-700)">One source of truth</span></div>
+      <div class="specimen-row"><span class="label">600 <span class="token-value" data-token="--orin-font-size-600">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-600)">The substrate, not the surface</span></div>
+      <div class="specimen-row"><span class="label">500 <span class="token-value" data-token="--orin-font-size-500">…</span> · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-500)">Design and development are one craft.</span></div>
+      <div class="specimen-row"><span class="label">400 <span class="token-value" data-token="--orin-font-size-400">…</span> · Inter</span><span style="font-family:var(--font-body);font-size:var(--orin-font-size-400)">Ship the honest first version, then improve it.</span></div>
+      <div class="specimen-row"><span class="label">300 <span class="token-value" data-token="--orin-font-size-300">…</span> · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-300);font-weight:var(--orin-font-weight-medium)">Get in touch</span></div>
+      <div class="specimen-row"><span class="label">200 <span class="token-value" data-token="--orin-font-size-200">…</span> · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-200)">orinsystems.co</span></div>
+      <div class="specimen-row"><span class="label">100 <span class="token-value" data-token="--orin-font-size-100">…</span> · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-100)">01 &nbsp; 02 &nbsp; 03 &nbsp; 04</span></div>
     </div>
+
+    <h2>Spacing</h2>
+    <p>The scale has deliberate gaps — no 5, 7, 9, 10, 11. Reaching repeatedly
+       for a value between two steps is a signal the scale needs a step, not a
+       reason to hardcode one. Bars are drawn at the token's own width.</p>
+    <ul class="scale-list">
+      <li class="scale-row"><span class="token-name">space/0</span><span class="bar" style="width:var(--orin-space-0)"></span><span class="token-value" data-token="--orin-space-0">…</span></li>
+      <li class="scale-row"><span class="token-name">space/1</span><span class="bar" style="width:var(--orin-space-1)"></span><span class="token-value" data-token="--orin-space-1">…</span></li>
+      <li class="scale-row"><span class="token-name">space/2</span><span class="bar" style="width:var(--orin-space-2)"></span><span class="token-value" data-token="--orin-space-2">…</span></li>
+      <li class="scale-row"><span class="token-name">space/3</span><span class="bar" style="width:var(--orin-space-3)"></span><span class="token-value" data-token="--orin-space-3">…</span></li>
+      <li class="scale-row"><span class="token-name">space/4</span><span class="bar" style="width:var(--orin-space-4)"></span><span class="token-value" data-token="--orin-space-4">…</span></li>
+      <li class="scale-row"><span class="token-name">space/6</span><span class="bar" style="width:var(--orin-space-6)"></span><span class="token-value" data-token="--orin-space-6">…</span></li>
+      <li class="scale-row"><span class="token-name">space/8</span><span class="bar" style="width:var(--orin-space-8)"></span><span class="token-value" data-token="--orin-space-8">…</span></li>
+      <li class="scale-row"><span class="token-name">space/12</span><span class="bar" style="width:var(--orin-space-12)"></span><span class="token-value" data-token="--orin-space-12">…</span></li>
+      <li class="scale-row"><span class="token-name">space/16</span><span class="bar" style="width:var(--orin-space-16)"></span><span class="token-value" data-token="--orin-space-16">…</span></li>
+      <li class="scale-row"><span class="token-name">space/24</span><span class="bar" style="width:var(--orin-space-24)"></span><span class="token-value" data-token="--orin-space-24">…</span></li>
+    </ul>
+
+    <h2>Radius</h2>
+    <p>Four steps. <code>radius/md</code> does most of the work — it is on the
+       button, the cards, and the swatches above.</p>
+    <ul class="token-grid">
+      <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-none)"></span><span class="token-meta"><span class="token-name">radius/none</span><span class="token-value" data-token="--orin-radius-none">…</span></span></li>
+      <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-sm)"></span><span class="token-meta"><span class="token-name">radius/sm</span><span class="token-value" data-token="--orin-radius-sm">…</span></span></li>
+      <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-md)"></span><span class="token-meta"><span class="token-name">radius/md</span><span class="token-value" data-token="--orin-radius-md">…</span></span></li>
+      <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-lg)"></span><span class="token-meta"><span class="token-name">radius/lg</span><span class="token-value" data-token="--orin-radius-lg">…</span></span></li>
+    </ul>
 
     <h2>Links</h2>
     <p>Prose and UI set in Inter; headlines in Inter Tight.
@@ -83,5 +143,38 @@
 
   <div data-include="/partials/footer.html"></div>
   <script src="/includes.js"></script>
+  <!-- Reads each token's value back out of the rendered page and prints it.
+       Deliberately not hand-typed: a label that is typed can disagree with the
+       token it describes, and nothing would catch it — the report checks that
+       values resolve, not that prose about them is true. Colours are read from
+       the swatch's computed background (the semantic tokens are aliases, so the
+       custom property itself only yields "var(--orin-…)"); dimensions are read
+       straight off :root, where they are literals. No colour literal appears in
+       this source, which is also why the hex lint stays green. -->
+  <script>
+    (function () {
+      var root = getComputedStyle(document.documentElement);
+
+      function toHex(rgb) {
+        var n = rgb.match(/\d+/g);
+        if (!n || n.length < 3) return rgb;
+        return '#' + n.slice(0, 3).map(function (v) {
+          return ('0' + parseInt(v, 10).toString(16)).slice(-2);
+        }).join('').toUpperCase();
+      }
+
+      document.querySelectorAll('[data-value-of]').forEach(function (el) {
+        var swatch = el.closest('.token-item').querySelector(el.dataset.valueOf);
+        if (swatch) el.textContent = toHex(getComputedStyle(swatch).backgroundColor);
+      });
+
+      document.querySelectorAll('[data-token]').forEach(function (el) {
+        var v = root.getPropertyValue(el.dataset.token).trim();
+        if (!v) return;
+        var px = v.slice(-3) === 'rem' ? Math.round(parseFloat(v) * 16) + 'px' : '';
+        el.textContent = px ? v + ' · ' + px : v;
+      });
+    })();
+  </script>
 </body>
 </html>
