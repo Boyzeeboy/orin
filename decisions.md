@@ -2496,6 +2496,67 @@ being passed over in silence like the rest of the audit's clean results.
 
 ---
 
+## 2026-08-16 — BUILD-SEQUENCE.md audited: where design.md's error came from
+
+**Decision:** Fifth and last document audited. Seven findings, all corrected.
+This one was the most accurate of the five — every foundation gap it
+specified was verified present in the shipped site — and it still contained
+the source of a bug that had propagated into another document.
+
+**The rail label format never shipped, and design.md inherited the mistake.**
+Step 0.5 specifies "numbered section labels in a persistent left rail (01
+HERO, 02 THE PROBLEM…)", and the per-section map repeats it: rail "01 HERO",
+rail "06 LET'S BUILD". What shipped is the number alone in the rail, with the
+label in the `.eyebrow` at the top of the content column. That is almost
+certainly where design.md's "the `.rail` carries the eyebrow/index" came
+from — audited and corrected there earlier today without knowing its origin.
+One wrong line in a plan, copied once into a principles doc, and it survived
+six weeks in both. Now corrected in both, with a note here saying which was
+upstream.
+
+**Step 0 is done, all eleven items, and now says so.** Verified directly
+rather than assumed: the three accent tokens exist, no `link-on-inverse`
+token exists (option (a) was taken and stayed taken), and the button, card,
+nav wrap, skip link with `id="main"`, reduced-motion block, absolute
+`data-include` paths and preserved specimen CSS are all present. Item 11 is
+the pleasing one — it told a later session to fix a stale font note in
+`SETUP.md`, and `SETUP.md` now says Inter. The instruction worked.
+
+**The cards row was superseded twice** and said neither. The Foundation made
+it four cards, and `auto-fit` was replaced by an explicit `repeat(2, 1fr)`
+because the track minimum that fitted three neatly orphaned the fourth. Both
+now recorded where the original spec sits.
+
+**Three smaller drifts.** The Step-0.5 primitive named `.grid` shipped as
+`.section-grid`. Build-order step 3 still said three priced blocks and "do
+not draft the essays" when Vivo Energy is written. The Phase-6 footer note
+said "one line"; it is two.
+
+**The `npm test` gap, again.** Step 0 and Step 0.5 both instruct `cd tokens
+&& npm test`, which skips `verify:deliverable`. Same finding as `SETUP.md`
+this morning, in a second document. The guardrails section now names the
+root command and explains why the older instructions say otherwise, rather
+than editing history that was correct when written.
+
+**Checked and clean:** accent tokens exactly as specified, the inverse
+decision honoured with no `link-on-inverse` token, `container.max` at 75rem,
+all three breakpoints defined, the hero overlay as described, the fluid `h1`
+clamp, heading at columns 2–6 and body at 7–12, the Close band inverse with
+a button rather than a link, and the documented `@media` exception both
+logged and honoured. Every Phase-6 deferral confirmed still deferred: no
+1.25rem type step, no `shadow/*` token, cards still border-only, `/pipeline`
+still parked with its source file present.
+
+**All five documents are now audited.** `HANDOVER.md`, `PHASE5-BUILD.md`,
+`design.md`, `SETUP.md`, `BUILD-SEQUENCE.md`. The pattern across them: the
+dated briefs went stale because the world moved, the principles doc was
+wrong from the start, the runbook documented the weaker of two commands, and
+this one was accurate about everything it built while carrying one wrong
+detail that spread. None of it was caught by `npm test`, because eight lints
+check whether values resolve and none check whether sentences are true.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
