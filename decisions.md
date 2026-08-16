@@ -2707,6 +2707,40 @@ founder's name misspelled in it.
 
 ---
 
+## 2026-08-16 — The name is Warren Rossiter, no middle initial
+
+**Decision:** Warren's call, correcting the entry above: it is **Warren
+Rossiter**. That entry inferred "Warren G Rossiter" from the manifesto
+signature, which was the best evidence available but was not the form he
+uses. Logged as a new entry rather than an edit to the old one, per this
+file's own rule.
+
+**Changed in four places:** `README.md`, `SOUL.md`, `MANIFESTO.md`, and the
+manifesto signature on the live site. The site one deploys.
+
+**A second instance of the misspelling, found only by following up.**
+`SOUL.md` also read "Warren Grossiter" — the same merged surname the README
+had. That file is described in the README as the personal context file
+pasted into Claude conversations to skip the calibration phase, so it had
+been feeding a misspelled name into those conversations for six weeks. It
+also said "senior UI designer", the same outgrown identity corrected in the
+README; fixed to "senior designer" while there. The README audit found one
+instance and reported it as *the* instance. It was one of two.
+
+**Deliberately not changed: the contract templates.** `notes/contracts/`
+carries "Warren G Rossiter" four times — in the MSA parties clause, its
+signature block, the engagement-letter letterhead, and its sign-off. Those
+are legal documents where the full legal name may be the correct and
+intended form, and a sole trader's contracting name is not a style
+preference. Flagged for Warren rather than changed. If the legal name is
+also plain "Warren Rossiter", those four want updating before the templates
+are used.
+
+**Untouched, as always:** the 2026-07 entry quoting the signature as it then
+stood.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]

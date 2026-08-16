@@ -57,7 +57,7 @@ teach you things a draft never could.
 
 ## Founder
 
-Warren G Rossiter. Bath, UK.
+Warren Rossiter. Bath, UK.
 Senior designer, ~10 years, with a specialism in design systems,
 token architecture, and the designer-engineer boundary.
 
