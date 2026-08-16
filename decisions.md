@@ -2217,6 +2217,31 @@ re-read in the browser after the edits.
 
 ---
 
+## 2026-08-16 — `voice.md` joins the read-first list
+
+**Decision:** `voice.md` is now item 4 in CLAUDE.md's read-first list, above
+`HANDOVER.md`, and the British-English guardrail points at it. `HANDOVER.md`
+gained the same pointer as the first line of its voice section.
+
+**The gap this closes.** Four documents routed a reader to `HANDOVER.md` for
+voice rules, and `HANDOVER.md` never mentioned `voice.md`. `voice.md` was
+also absent from the read-first list. So the governing document for prose
+was reachable only by knowing it existed — which is how a voice pass came to
+begin by going and finding it.
+
+**Ordering.** It sits above `HANDOVER.md` because `HANDOVER.md`'s tone notes
+predate it and partly duplicate it; the entry now says they defer to it.
+That removes the "which one wins" question rather than leaving it to
+judgement.
+
+**Not done, and worth a decision.** `PHASE5-BUILD.md` carries its own copy
+of the read-first list and still omits `voice.md`. It is a dated brief for a
+closed phase, so it was left alone rather than quietly maintained — the same
+question `HANDOVER.md` raises about version-stamped documents accumulating
+live rules.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
