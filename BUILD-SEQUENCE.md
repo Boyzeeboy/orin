@@ -238,6 +238,12 @@ ship and clear the 90-second test.
 
 These are polish, not parity blockers — v1 ships without them.
 
+One larger Phase-6 item was added later and is **not** in that class: a
+`/pipeline` page built from `notes/pipeline-infographic.html`. It is a page,
+not a polish item — new components, a possible mono family, and a content
+question about which direction of truth it describes. Scope is parked in
+`decisions.md` (2026-08-16) rather than repeated here.
+
 ---
 
 ## Guardrails that don't move
