@@ -2438,6 +2438,64 @@ checked for accuracy.
 
 ---
 
+## 2026-08-16 — SETUP.md audited: the runbook was skipping a guardrail
+
+**Decision:** Fourth document audited. Five findings. The important one is
+that the pre-push checklist ran two guardrails when three exist.
+
+**The runbook told you to run the weaker test.** There are two `npm test`
+entry points. The root one runs `verify:deliverable` (does `deliverable.md`
+still describe the real client pipeline?) *and then* the token chain. The
+one in `tokens/` runs the token chain alone. `SETUP.md` documented only the
+`tokens/` command, described it as "the whole chain and **both** guardrails",
+and its pre-push checklist specified it by name. So anyone following the
+runbook exactly — which is what a runbook is for — never ran
+`verify:deliverable` before a push. `CLAUDE.md` had the root command right
+all along; the operating manual did not. Both commands are now shown side by
+side with the difference stated, and the checklist names the root one and
+says why.
+
+**A near-miss worth recording.** Mid-audit I reported that
+`scripts/verify-deliverable.mjs` did not exist, because `ls` and `find` came
+back empty. The working directory had drifted to `site/` from an earlier
+`cd`, so both were searching the wrong tree while `npm` walked up and ran the
+real thing. The file exists and passes. A tool that silently inherits state
+between calls will produce a confident wrong answer, and "the file is
+missing" is exactly the kind of finding that gets acted on fast. Verify the
+ground you are standing on before reporting an absence.
+
+**The 301 that isn't, again.** `SETUP.md` listed "orindesign.co → 301
+redirect" as a completed deploy step, the same claim `HANDOVER.md` carried.
+Same correction: the domain still serves Warren's first site, retirement
+pending, redirect to be set when it comes down rather than letting it lapse.
+Two documents asserted the same aspiration as fact, which is how a thing
+nobody has done comes to look done.
+
+**Phase-0 "still open" was settled by shipping.** Fonts, palette and dark
+mode were seeded as placeholders "to confirm, then lock". v1 shipped on all
+three. Renamed to say so. Fonts gained something the section didn't mention:
+the report's fonts-link check now fails the build if the link and the tokens
+diverge, so that decision is enforced rather than merely made. Dark mode is
+genuinely still out — no dark token file — and that was confirmed, not
+assumed.
+
+**The repo tree understated the site.** It showed `index.html # pages`. The
+site is folder-per-page with `404.html` as the one deliberate flat file,
+because Pages looks for it by name. Nine pages against a sitemap of five, now
+listed.
+
+**Checked and clean:** the one loop matches `package.json` exactly, the eight
+lints are named correctly and in order, `dist/` is gitignored and untracked,
+`vendor/tokens.css` is committed, there is no site build step, and "CI does
+not run these" is true — there is no `.github/` at all.
+
+**Not verified, and now labelled:** the Figma mirror section. Confirming file
+key, collections and variable syntax needs Figma access this session did not
+have. Marked in the document as trusted rather than confirmed, instead of
+being passed over in silence like the rest of the audit's clean results.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
