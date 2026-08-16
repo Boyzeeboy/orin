@@ -1791,6 +1791,77 @@ these nine pages answer badly is a real signal, unlike the urge to polish.
 
 ---
 
+## 2026-08-16 — Parked for Phase 6: a /pipeline page from the infographic
+
+**Decision:** Not in v1, and not next. `notes/pipeline-infographic.html` is a
+denser visual language that would suit a `/pipeline` page far better than it
+suits Home, and Warren likes how it looks. Parking the scope here so the
+appraisal isn't redone from scratch when it comes up. Nothing is adopted.
+
+**The gating decision is content, not design.** Its five steps are *Edit tokens
+→ Build → Sync → Consume → Verify* — Orin's own loop, JSON-first, where code
+authors and Figma mirrors. `PIPELINE-LEDGER.md` is explicit that this is the
+**flipped** direction: what is for sale is the KR-style baseline where Figma
+authors and code consumes. So publishing it as "The Orin Token Pipeline" shows
+a prospect the pipeline running backwards from the one they would buy. Either
+relabel it as *how this site is built* — honest, and it reinforces the
+runs-on-what-it-sells claim — or rewrite the steps Figma-first, which is a
+different diagram. **Settle this before any markup.**
+
+**Token conversion: mechanical, then not.** Deleting the transcribed `:root`
+(20 hex values) and consuming `vendor/tokens.css` is the easy half. The file
+then uses **primitives directly** — `neutral 0/200/300/500/700/800`, `teal
+300/600` — and `semantic-only consumption` fails on every one in `site/`.
+Three of those need decisions rather than substitutions:
+
+- The design leans on **three tones of muted grey** where the semantic layer
+  has one `--ink-muted`. Collapsing them flattens the hierarchy the sheet
+  depends on; keeping them is two or three token proposals.
+- `--teal-600` for band titles has no semantic text token. `--link-hover`
+  carries the value, but using a hover token statically is a smell.
+- **`--teal-300` on the inverse closing panel reopens Step 0.** That is exactly
+  the `colour/text/link-on-inverse` token declined as option (a) on 2026-07-09.
+
+**Type is easier than it looks.** The floor is `size-100` at 11px with 12 and
+14 above, so 11.5/12.5/13.5 are rounding, and the 46px masthead maps onto the
+existing fluid heading. Only the 10.5px step label sits below the scale. The
+dimensional oddments (22px dots, 44px badges, 56px rule, `999px` pill) are
+local layout mechanics like `--measure`, not token proposals.
+
+**The mono family is a real cost.** `--family-mono` carries six devices — step
+code, command chips, the file tree, lock values, footer and note code. Dropping
+it guts the design, since code that doesn't look like code is the whole point
+of those panels. Keeping it means a token proposal, an edit to the canonical
+fonts link, the `fonts link ↔ tokens match` check that couples the two, and a
+**third webfont** where two already account for 839ms of render-blocking.
+
+**Components: ~24 devices against a budget of eight.** One page would triple
+the component count of the whole site. Plus 26 inline SVGs needing
+`aria-hidden` and a check they inherit `currentColor`.
+
+**Page-level.** The usual folder page, description, OG tags with its own
+`og:url`, icons, canonical, QA. Two specifics: the file's
+`@media (max-width: 900px)` is off Orin's breakpoints and needs remapping to
+40/48/64rem with the five-column rows checked at 360; and **a nav link is a
+decision**, because six links changes the nav partial, its wrap at 360, and
+therefore the 70/115px measurements and the CLS figure logged at v1. The
+alternative is leaving it unlinked like `/og` and `/icon`, reached from
+`/tokens`.
+
+**The recommended shape, if it happens: rebuild, don't port.** Take three or
+four devices at Orin's density — the band titles with their hairlines, the
+numbered step row, the inverse closing panel — and lose the five-across benefit
+grid and most of the trees. Roughly eight new components instead of 24, no mono
+family, and a page that reads as the sheet's sibling rather than its
+transplant. Porting 519 lines produces a dense A4 artefact on a site whose
+other nine pages are none of those things.
+
+**Revisit if:** a prospect asks how the pipeline works often enough that
+`/tokens` plus a conversation stops covering it — that is the signal, not the
+fact that the sheet looks good.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
