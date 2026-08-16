@@ -78,6 +78,9 @@ CTA to Contact. One action sitewide: get in touch.
 
 ## Voice and copy rules
 
+- **`voice.md` in the repo root is the governing document for prose.** It
+  is the writing-voice source of truth and outranks the tone notes below,
+  which predate it. Read it before writing or editing any page copy.
 - First person singular. Orin is Warren; don't hide behind "we" except
   where it reads naturally.
 - British English.
@@ -88,7 +91,20 @@ CTA to Contact. One action sitewide: get in touch.
   cent development-time saving at Vivo Energy lives inside its narrative.
   It is a saving in development time, not a defect reduction: fewer
   defects were the mechanism, the time was the outcome. Written "60 per
-  cent" — digits, British, one spelling sitewide.
+  cent": digits, British, one spelling sitewide.
+- **Separators.** The interpunct `·` separates metadata fields: price ·
+  duration, client · attribution, size · px · family. Use it for eyebrows,
+  card titles, and any label that lists discrete facts. Do not use an em
+  dash for that job; the two were mixed on the same information until
+  2026-08-16.
+- **Em dashes in prose.** `voice.md` bans them. Three on the site are
+  deliberate survivors, because they join a name to a phrase rather than
+  separating metadata: the footer tagline, the case-study `h1`, and the
+  manifesto signature. The `—` in the how-it-works "When it's a no" rail is
+  a section marker, not prose. Everything else in body copy resolves to a
+  comma, colon, or full stop. The manifesto keeps seven on stated
+  rhetorical grounds; see the 2026-08-16 entries in `decisions.md` before
+  changing any of this.
 - Attribution rules: Vivo Energy work was "contracted via Rethink."
   IDEM is a personal rebuild done after the original Momentum Studio
   engagement closed — it is Warren's own work, no client attribution.
