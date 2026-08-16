@@ -1898,6 +1898,57 @@ which point the greenfield assumption behind all of this needs re-testing.
 
 ---
 
+## 2026-08-16 — A Foundation does not mirror tokens into Figma
+
+**Decision:** No JSON-to-Figma mirror in The Foundation. The open question left
+by the "sync" wording earlier today is closed: it stays out. Instead, **a
+Foundation client hiring a designer becomes an explicit Retainer trigger**, now
+written into `Offer.md`.
+
+**The question was never whether a Figma mirror is nice.** It is *who authors,
+and when do you answer that?* A mirror is only a mirror if a rule says which
+side leads. Handing a founder a Figma file without that rule manufactures the
+two-sources-of-truth ambiguity this practice exists to sell against.
+
+**Two facts settled it.**
+
+*Nothing can write into Figma.* The baseline reads only —
+`getLocalVariableCollectionsAsync`, `getLocalVariablesAsync`, the sink, the
+transform. There is no JSON-to-Figma writer anywhere in the machinery. So a
+mirror is either a tool to build or a manual chore.
+
+*The manual chore has a measured failure rate, and it is mine.* On 2026-07-09 I
+mirrored the Step-0 accent tokens into the Figma file by hand, and the entry for
+that day records the reason it was needed: the pipeline had shipped Step 0 as
+CSS while the Figma side lagged. My own mirror drifted inside a week, on a
+five-page site, with one author paying attention. A client's would drift faster
+with nobody watching.
+
+**The argument that actually decides it.** Mirroring during the Foundation
+pre-empts a decision that belongs to a later moment, and probably pre-empts it
+wrongly. If a founder hires a designer, that designer will expect to *author* in
+Figma, and the right move is likely to flip them onto the Figma-first baseline —
+the thing actually for sale. A code-first pipeline with a read-only Figma mirror
+is the opposite arrangement, and it exists for reasons specific to a five-page
+site designed in a browser with no designer involved. Building it for a client
+hands them the wrong artefact plus an unstated rule, six months early.
+
+**Against the Foundation's own scoping test** — how many people change this
+after I leave, times how often — a Figma file nobody opens scores zero. The
+founder has no designer. It would be built for a hypothetical person.
+
+**What replaces it costs nothing.** The source is DTCG, the format design
+tooling imports. So the honest line on a call is that nothing is locked away and
+a future designer starts from what exists, while today we are not building a
+Figma file nobody is opening. Refusing work that could have been sold is the
+positioning, not a concession.
+
+**Revisit if:** a Foundation prospect arrives who *already* has a designer. They
+are not greenfield-with-no-Figma, the premise behind all of the above fails, and
+the Figma-first path may fit them better than the Foundation does.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
