@@ -1359,6 +1359,100 @@ remaining uses should go too.
 
 ---
 
+## 2026-08-12 — Greenfield gets its own way in: The Foundation
+
+**Decision:** Greenfield is in scope, and it gets its own entry engagement.
+**The Foundation**, £4,000 fixed, 2 weeks. It sits where the Diagnostic sits for
+an existing system: paid, bounded, and the only other door to a Build. The hard
+rule doesn't move, it gains a second door. This closes the open question logged
+earlier the same day.
+
+**The two gaps that forced it.** `Offer.md` says no Build without a Diagnostic,
+and the Diagnostic is defined as pointing the pipeline at an existing Figma file
+and codebase. Its three opening findings all describe a system that already
+exists. A founder with a new product has none of that, so the gate can't be
+walked through. Worse, and less obvious: the Build's defence on a call is
+velocity maths (twelve developers, roughly £70k a month, ten per cent recovered
+pays for the engagement inside two months). A solo founder can't run that
+calculation, because nobody is burning money on rework yet. Two failures, one
+scoping and one pricing.
+
+**The prior question, settled: a founder is a target buyer.** The test isn't
+"is it an app rather than a site." It's how many people will change this after I
+leave, multiplied by how often. That's the manifesto's *"the measure of the work
+is what happens after handoff"* used as a scoping question rather than as a
+value. A founder scores high on it. The product grows, the team grows, and the
+brand gets revisited before they raise. A CTO's mature system often stabilises.
+So the founder isn't a worse buyer, just a different one with a different fear.
+
+**What shadcn actually changes.** shadcn ships `--background`, `--foreground`,
+`--primary`, `--border` and `--ring` in `globals.css` with a `.dark` block over
+the top, wired into Tailwind's theme. That is a semantic layer, with modes. What
+it hasn't got is a primitive layer underneath, an authored source, a build step,
+a sync, or a single guardrail. The values are raw oklch typed inline. So shadcn
+hands a founder the semantic layer's *names* with none of its provenance.
+
+That reframes the greenfield problem. The failure mode was never "no system."
+It's a system nobody owns, which drifts the moment a rebrand lands or a second
+developer joins, because there's no upstream to change, only forty files to
+hand-edit. Same drift test as above, arrived at from the other side.
+
+**So build on shadcn, and don't apologise for it.** "Every value resolves
+through the token layer" survives intact: author DTCG in `tokens/src`, build,
+and emit shadcn's variables as an output target. Same one loop, different sink.
+Orin's own site is static-first with no framework, and that stays a fact about
+this site rather than a rule for clients. The practice's asceticism isn't the
+client's constraint.
+
+**The shape chosen, and the two rejected.** Option 1 (keep the arc, swap the
+gate) went because it left one Build price justifying itself to two buyers who
+fear different things. Option 3 (refuse greenfield) went because the drift test
+makes the founder the better retainer candidate, not the worse one, and
+refusing turns away work I'd be good at.
+
+What's built is option 2, a separate offer with its own name, price and
+defence, carrying option 1's function. The three jobs the Diagnostic does are
+structural and protect me regardless of buyer: never price unscoped work, filter
+for values fit before committing weeks, scope the Build from evidence rather
+than from a sales call. The Foundation does all three. It just can't do them by
+auditing, because there's nothing to audit, so it earns its scope by building
+instead: token source, wired to shadcn, sync, guardrails, one real screen
+shipped.
+
+**Price: £4,000 fixed.** Above the Diagnostic's £3,000 because it leaves a
+working thing behind rather than a written diagnosis, and still under the ~£5k
+discretionary threshold, so no procurement process. Matching £3,000 exactly was
+tempting for symmetry and rejected: it prices a build the same as an audit and
+invites exactly that comparison on a call.
+
+**The price defence, which is deliberately not velocity maths.** "You'll restyle
+at least once and add a second developer before you raise. Doing this now is
+£4,000. Doing it after sixty components exist costs several times that, plus a
+freeze while it lands." The founder's real fear is time to launch and the cost
+of the second build. Aim at that fear, not at a spreadsheet they can't fill in.
+
+**The risk, logged on purpose.** This offer commoditises faster than the
+Diagnostic does. Anyone with an AI assistant can install shadcn in an afternoon,
+and they know it. The defensible part is the ownership layer and never the
+screens: the DTCG source, the sync, `npm test`, the thing that survives
+handoff. If a call drifts towards "how many screens do I get," the offer is
+being sold wrong.
+
+**Naming caution, carried over intact:** don't say "custom design system" to a
+founder. What I'd actually build is a token layer and about eight primitives,
+which is Orin's own component budget. They'll hear a 40-component library and
+price it accordingly, or flinch and leave.
+
+**Deferred:** whether the Build's £12,000–18,000 range needs a lower floor for a
+product that's smaller at launch. Left alone until a real greenfield Build gets
+scoped. Inventing a second Build number now is how the cheaper one leaks upward.
+
+**Revisit if:** the first Foundation runs past 2 weeks (the £4,000 assumes two
+weeks and one shipped screen), or a founder reaches the Build and the velocity
+maths still can't defend the number for them.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]

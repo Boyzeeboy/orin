@@ -1,10 +1,11 @@
 # Orin — The Offer
 
-*Version 1.0 — 2 July 2026*
+*Version 1.1 — 12 August 2026*
 
-Three engagement shapes. Each one is optional. Each one de-risks the next.
-Diagnostic feeds Build feeds Retainer. Priced fixed, against outcomes,
-never in days.
+Four engagement shapes, and two ways in. Each one is optional. Each one
+de-risks the next. Diagnostic feeds Build feeds Retainer for a team that
+already has a system; Foundation feeds Build feeds Retainer for a team
+starting from nothing. Priced fixed, against outcomes, never in days.
 
 ---
 
@@ -83,7 +84,71 @@ signal this is real work, not a loss-leader.
 
 ---
 
-## 2. The Build
+## 2. The Foundation
+
+*The other way in. For a product that doesn't exist yet.*
+
+**What it is:** The design system's first layer, installed and connected,
+before there's a product to fix. The greenfield equivalent of the
+Diagnostic: paid, bounded, and the thing that scopes the Build.
+
+**Duration:** 2 weeks.
+
+**Price:** £4,000 fixed.
+
+**What happens:** There's nothing to audit, so this one earns its scope by
+building. I take the brand foundations, or whatever exists of them, and
+author the token layer properly: DTCG source, primitives and semantics,
+light and dark resolved and checked. It's wired into whatever the team is
+shipping on, which for most new products means shadcn and Tailwind. Then
+the sync, the build step, and the guardrails that stop it drifting. It
+ends with one real screen shipped from the system, not a page of swatches.
+
+**On shadcn, since most founders arrive holding it.** shadcn already gives
+you semantic variables (`--background`, `--primary`, `--border`) with a
+dark block over the top. That's genuinely useful and I build on it rather
+than replacing it. What it hasn't got is a layer above: no authored
+source, no build, no sync, no guardrail. The values are typed inline. So
+you have the names without the ownership, which works fine until the first
+rebrand or the second developer, at which point there's nothing upstream
+to change and forty files to edit by hand.
+
+**What the client gets:** A token layer they own, connected to the code
+they ship. One place to change a colour. A build that fails loudly when
+someone bypasses the system. One screen already running on it, and a
+scoped, priced Build if they want the rest.
+
+**Why it exists:**
+- A founder has no existing system, so the Diagnostic can't route. This
+  gate can be walked through.
+- Same three protections as the Diagnostic: never price unscoped work,
+  filter for values fit before committing weeks, scope the Build from
+  evidence rather than a sales call.
+- Leaves something working behind even if they stop there.
+
+**The defence on a call:** "You'll restyle at least once and add a second
+developer before you raise. Doing this now is £4,000. Doing it after sixty
+components exist costs several times that, plus a freeze while it lands."
+
+**And when they say "I can install shadcn myself in an afternoon":**
+"You can, and you should. That's not what you're paying for. You're paying
+for the layer above it, the one that means changing your brand is one edit
+rather than a fortnight, and that still holds when I'm not here."
+
+**Pricing logic:** Above the Diagnostic because it leaves a working system
+behind rather than a written diagnosis. Still under the ~£5k discretionary
+threshold, so no procurement. Note the buyer is different here: a founder
+can't run the velocity maths, because nobody's burning money on rework
+yet. Their fear is time to launch and the cost of building it twice. Price
+against that fear, not against a spreadsheet they can't fill in.
+
+**Never say "custom design system" to a founder.** What this is, is a
+token layer and about eight primitives. Say that. They'll hear
+"40-component library" and either price it accordingly or walk.
+
+---
+
+## 3. The Build
 
 **What it is:** The design system, built and connected. The working thing.
 
@@ -115,12 +180,14 @@ client gets certainty, Orin isn't punished for being efficient. Agencies
 quote £30k–60k for the same scope and staff it junior. The exact figure
 is always set by the Diagnostic — Orin never quotes blind.
 
-**Hard rule:** No Build without a Diagnostic first. This is the
-anti-Momentum clause. Orin does not price unscoped work.
+**Hard rule:** No Build without a Diagnostic or a Foundation first. This
+is the anti-Momentum clause. Orin does not price unscoped work. Which
+door they come through depends on whether a system already exists; that
+there is a door at all does not move.
 
 ---
 
-## 3. The Retainer
+## 4. The Retainer
 
 **What it is:** Orin stays close. The system keeps living.
 
@@ -159,8 +226,10 @@ Floor: ~£5,500–6,000/month revenue (£4k after tax, sole trader).
 - Three retainers: £6,000/month. Floor cleared, no builds required.
 - Target state (4 retainers + builds in flight): £14k–20k/month.
 
-The plan is not the target state. The plan is: first Diagnostic, first
+The plan is not the target state. The plan is: first way in, first
 Build, first Retainer. One client, one complete arc, done properly.
+Whether that arc opens with a Diagnostic or a Foundation depends on
+who emails first, and it doesn't change what has to be proved.
 The model scales from there or it doesn't — but one arc proves the
 machine.
 
@@ -168,7 +237,12 @@ machine.
 
 ## What triggers a no
 
-- Build requests without a Diagnostic. (The anti-Momentum clause.)
+- Build requests without a Diagnostic or a Foundation. (The
+  anti-Momentum clause.)
+- Foundation work sold on screen count. If the conversation is "how many
+  pages do I get," the ownership layer isn't what they're buying and
+  I'm competing with an afternoon of shadcn. Different job, someone
+  else's.
 - "Can you do it in 40 hours" budget-first scoping. Treats the system
   as a commodity. It isn't one.
 - Brand guidelines, marketing surfaces, social media assets. Legitimate
@@ -189,6 +263,18 @@ worth or availability. The buyer is technical — a head of engineering,
 a CTO, a Technical Officer — because they can do the velocity maths
 themselves. Price for the buyer who can see the value, not the
 budget-holder who can't.
+
+The Foundation is the one exception, and it's a change of argument
+rather than a change of posture. A founder can't do the velocity maths,
+so the value gets shown a different way: what the second build costs,
+and what a rebrand costs once sixty components exist. Same fixed price,
+same no-discount rule, different sum on the whiteboard.
+
+The test for whether the token layer is worth installing at all is not
+"is it an app rather than a site." It's how many people will change this
+after I leave, multiplied by how often. A brochure site a marketing team
+edits monthly drifts hard. An app built by two people and frozen for a
+year doesn't.
 
 Say the number without flinching. The flinch costs more than any
 discount.
