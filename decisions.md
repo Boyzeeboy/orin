@@ -7,6 +7,25 @@ what I chose, even if the answer would be different now.
 
 Format: date, decision, reasoning, revisit-if.
 
+**How to read this file** (added 2026-08-16, after auditing it):
+
+- **The order is not uniform.** The first eight entries run *backwards*
+  (2026-08-04 down to 2026-07-14). Everything from "Founded Orin" onward runs
+  *forwards* (2026-07-01 to the present). So the newest entry is at the
+  **bottom**, but the eight at the top are recent too. CLAUDE.md says to read
+  backwards from the most recent; start at the bottom, and don't mistake the
+  top block for ancient history.
+- **Nothing here gets rewritten.** Entries are written in past tense at the
+  moment of the decision. An entry that is wrong about the world *today* is
+  usually right about the world *then*, and that is the point. When a decision
+  is reversed, the reversal is a new entry — it does not edit the old one.
+  Five other documents were audited against the shipped site on 2026-08-16 and
+  corrected; this one deliberately was not.
+- **Don't cite line numbers in other files.** They rot faster than anything
+  else here. The 2026-08-16 entry on the Vivo number cited `HANDOVER.md` line
+  87 and was wrong within hours, because the same day's edits moved it. Name
+  the section or quote the text instead.
+
 ---
 
 ## 2026-08-04 — Findings get read aloud before they get written up
@@ -2124,8 +2143,8 @@ rather than a pass.
 
 **Flagged, not fixed: the number means two different things.** The case
 study says *a 60 per cent saving in development time*, and the manifesto
-says *the 60 per cent defect reduction at Vivo Energy*. `HANDOVER.md` line 87
-calls it a defect reduction too. The case study's own narrative treats
+says *the 60 per cent defect reduction at Vivo Energy*. `HANDOVER.md`'s
+"Voice and copy rules" calls it a defect reduction too. The case study's own narrative treats
 defects as the mechanism and time as the outcome, so one of these is wrong.
 Formatting was standardised; the **claim was not touched**, because deciding
 which is true is Warren's, and it needs the Vivo evidence, not an editor.
@@ -2554,6 +2573,68 @@ wrong from the start, the runbook documented the weaker of two commands, and
 this one was accurate about everything it built while carrying one wrong
 detail that spread. None of it was caught by `npm test`, because eight lints
 check whether values resolve and none check whether sentences are true.
+
+---
+
+## 2026-08-16 — decisions.md audited, on different terms
+
+**Decision:** Audited last, and deliberately **not** "the same way" as the
+other five. Those documents claim to describe the world as it is, so
+checking them against the shipped site was the right test. This one claims
+to describe the world *as it was on a given date*. Running the same audit
+would have "corrected" the June entry that says the offer is three
+engagement shapes — which is not an error, it is the record working. Three
+times today an entry here was left deliberately wrong about the present:
+the three-shapes entry, the defect-reduction claim, and the pre-Foundation
+pricing. That restraint is the document's whole value.
+
+**So the audit asked different questions.** Is it navigable? Is it
+internally consistent? Do its pointers to other files still resolve? Four
+findings, three fixed with an additive note at the top and one left as a
+question.
+
+**The order is broken, and nothing said so.** The first eight entries run
+backwards (2026-08-04 down to 2026-07-14); everything from "Founded Orin"
+onward runs forwards (2026-07-01 to now). So the newest entry is at the
+bottom while the top block is also recent. CLAUDE.md instructs a reader to
+"read from the most recent entry backwards", which is ambiguous in a file
+with two directions in it. A reader starting at the top would take an
+August entry for the beginning of the story. Now stated in a header note
+rather than fixed by reordering, because reordering 460 lines of history to
+tidy the file is exactly the kind of retroactive edit this log exists to
+prevent.
+
+**A pointer I wrote this morning had already rotted by the afternoon.** The
+entry on the Vivo number cited "`HANDOVER.md` line 87". The same day's edits
+to `HANDOVER.md` moved that line, so by the time the audit reached it, line
+87 read "When it's a no". Fixed to name the section instead, and the header
+note now bans line numbers outright. This is the one failure mode an
+append-only log genuinely has: the entries don't rot, but their references
+to other files do, and faster than anything else in the repo.
+
+**What the audit did not find.** No malformed entries, no duplicate
+headings, no gaps in the format, and the template placeholder at the end is
+intact. 63 entries over 2,568 lines. The deferrals were spot-checked and
+are honest: the social-card and dark-icon deferrals are still genuinely
+open, and the entry describing four pages as "currently 404" is correct
+about the day it was written, which is the format behaving exactly as the
+header promises.
+
+**Left as a question, not fixed: there is no superseded-marker convention.**
+When a later entry reverses an earlier one, nothing at the earlier entry
+says so — the reader has to already know. Forward pointers would help, but
+adding them means editing historical entries, which cuts against "written at
+the moment of the decision, not retroactively". Worth deciding deliberately
+rather than drifting into. My view: leave it. The cost of a stale entry is a
+reader briefly misinformed; the cost of an editable log is that no entry can
+be trusted as what was actually thought at the time.
+
+**The honest headline.** This was the healthiest of the six documents, and
+not because more care went into it. Append-only, dated, written in the
+moment, never revised — the design makes it structurally resistant to the
+drift that produced eleven false statements in the two dated briefs and a
+wrong instruction in the principles doc. The lesson is not "audit harder".
+It is that a document which never claims to be current cannot go stale.
 
 ---
 
