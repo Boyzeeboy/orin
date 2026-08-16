@@ -2792,6 +2792,35 @@ correctly absent" count is unaffected. `npm test` green after.
 
 ---
 
+## 2026-08-16 — The contracts stay in the history, and a git trap worth knowing
+
+**Decision:** Warren's call: leave the history alone. The contract templates
+remain retrievable from commits before `fa3bfec` and that is accepted, not
+overlooked. Every client-identifying field in them is a placeholder, so the
+exposure is Orin's own commercial terms on a repo that already publishes the
+manifesto, the offer and the prices. Rewriting shared history and
+force-pushing to buy that back is not a trade worth making.
+
+**The trap, recorded because this repo's workflow walks straight into it.**
+Untracking `notes/contracts/` deleted both files from the working tree.
+`git rm --cached` did the right thing and left them on disk — verified at the
+time. What removed them was the step after: commit the deletion on a branch,
+`git checkout main` (where the files were still tracked), then fast-forward
+main onto the deletion commit. Git then removed the working-tree copies,
+because from its side it was applying a commit where those paths do not
+exist. `.gitignore` offers no protection there; it governs what gets added,
+not what gets deleted.
+
+Every commit today used branch → commit → checkout main → ff-merge. Any
+future `git rm --cached` under that workflow will do the same thing. The
+check that catches it is to re-verify the files exist *after* the merge, not
+after the `rm --cached`. Recovered here from `ac1bb68` and confirmed
+byte-identical by checksum, with the name corrections intact — but only
+because they had been committed once. A file that had never been committed
+would simply have been gone.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
