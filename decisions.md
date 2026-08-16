@@ -1734,6 +1734,63 @@ measured 70/115 numbers above are stale.
 
 ---
 
+## 2026-08-16 — v1 declared. Stop building.
+
+**Decision:** The site is v1. Build-order steps 1–5 are closed. The stopping
+rule in `BUILD-SEQUENCE.md` applies from here: a stranger can get what / who /
+cost / credibility / contact in 90 seconds, so the next change to `site/` needs
+a reason beyond "it could be better."
+
+**What shipped.** Nine pages against a sitemap of five:
+
+- The five: Home, Manifesto, How it works, Work, Contact.
+- `/tokens` — the token demo, moved rather than deleted. It backs the claim
+  that this site runs on the pipeline it sells, which is the one piece of
+  proof a technical buyer can check without asking.
+- `/work/vivo-energy` — the case study, shipped early because it was the only
+  one with a measured number behind it.
+- `404.html`, and `/og` + `/icon`, the two source pages the social card and
+  favicon are rendered from.
+
+Underneath: 113 tokens through the DTCG source, Style Dictionary, and the
+`verify-build` consumer contract, with the report at 8/8. Every value on every
+page resolves through that layer. No framework, no site build step, no
+component beyond the budget in `PHASE5-BUILD.md`.
+
+**Measured, not asserted** (2026-08-16 QA entry has the method): accessibility
+100, best practices 100, SEO 100, performance 94 on Lighthouse. Zero contrast
+failures across eight pages. No horizontal overflow at 360px. Real focus states
+on every tab stop. Two defects were found and fixed in that pass rather than
+declared away — an AA failure at 2:1 that had shipped on three pages, and a
+heading skip on /work.
+
+**What is deferred, with the reason:**
+
+- **CLS 0.14.** The client-side partial include shifts `<main>` on load. The
+  fix is a build step, not a patch; see the QA entry for why the obvious
+  reservation was rejected.
+- **The Phase-6 list** in `BUILD-SEQUENCE.md`: fuller footer, a "title 20" type
+  step, a shadow/elevation token. None is a parity blocker and each is a token
+  proposal or pure assembly when it is wanted.
+- **Two case-study essays** — IDEM and KRM — marked "essay coming" on /work.
+  Deliberately not drafted; a thin essay is worse than an honest placeholder.
+- **Per-page social cards**, a dark-mode icon, an SVG favicon, and any staleness
+  check tying `og.png` to its source page.
+- **The infographic restyle.** `notes/pipeline-infographic.html` is a denser
+  visual language that would suit a `/pipeline` page far better than it suits
+  Home; adopting it wholesale would reopen the Step-0.5 grid, need a mono
+  family token, and cost about eight components. Phase 6 at the earliest.
+
+**What v1 does not mean.** The commercial layer is where the work has been
+since 2026-08-05 and it does not stop: `Offer.md`, The Foundation, the
+contracts, the material in `notes/`. v1 is a line under the *site*, so that
+finishing it stops being the thing that is always nearly done.
+
+**Revisit if:** the site starts costing a sale — a prospect asking something
+these nine pages answer badly is a real signal, unlike the urge to polish.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
