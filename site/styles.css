@@ -228,18 +228,74 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 /* --- specimen: pipeline proof, lives at /tokens. Do not delete — it's the
    proof artefact for technical buyers ("this site runs on its own pipeline").
    Only /tokens/index.html references these classes. --- */
-.swatches { display: flex; flex-wrap: wrap; gap: var(--orin-space-3); margin: var(--orin-space-6) 0; }
-.swatch { width: var(--orin-space-16); height: var(--orin-space-16); border-radius: var(--orin-radius-md); border: 1px solid var(--rule-strong); }
-.swatch--ink     { background: var(--orin-colour-text-default); }
-.swatch--inverse { background: var(--orin-colour-background-inverse); }
-.swatch--paper   { background: var(--orin-colour-background-raised); }
-.swatch--link    { background: var(--orin-colour-text-link); }
-.swatch--border  { background: var(--orin-colour-border-strong); }
+/* --- /tokens proof artefact only. Not part of the component budget: these
+   describe the token layer rather than composing a page, and no other page
+   uses them. The per-item colour/width/radius is set inline on the element,
+   because each row differs by exactly one token and thirteen near-identical
+   modifier classes would be worse. Those inline styles still resolve through
+   var(--orin-…), so the law holds. --- */
+.swatch { width: var(--orin-space-16); height: var(--orin-space-16); border-radius: var(--orin-radius-md); border: 1px solid var(--rule-strong); flex: none; }
+
+/* Colour and radius: a grid of labelled samples. */
+.token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: var(--orin-space-4);
+  margin: var(--orin-space-6) 0;
+  padding: 0;
+  list-style: none;
+}
+.token-item { display: flex; align-items: center; gap: var(--orin-space-3); }
+.token-meta { display: flex; flex-direction: column; gap: var(--orin-space-1); min-width: 0; }
+.token-name {
+  font-family: var(--font-ui);
+  font-size: var(--orin-font-size-200);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.token-value {
+  font-family: var(--font-ui);
+  font-size: var(--orin-font-size-200);
+  color: var(--ink-muted);
+  /* Reserved so the runtime value swap doesn't shift the row. */
+  min-width: 11ch;
+}
+.radius-sample {
+  width: var(--orin-space-16);
+  height: var(--orin-space-16);
+  flex: none;
+  background: var(--paper-raised);
+  border: 1px solid var(--rule-strong);
+}
+
+/* Spacing: name, a bar drawn at the token's own width, then the value. */
+.scale-list { margin: var(--orin-space-6) 0; padding: 0; list-style: none; }
+.scale-row {
+  display: flex;
+  align-items: center;
+  gap: var(--orin-space-4);
+  padding: var(--orin-space-2) 0;
+  border-bottom: 1px solid var(--rule);
+}
+.scale-row .token-name { min-width: 7ch; flex: none; }
+.scale-row .bar { height: var(--orin-space-3); background: var(--accent); flex: none; }
+.scale-row .token-value { margin-left: auto; text-align: right; }
 .specimen-row { display: flex; align-items: baseline; gap: var(--orin-space-4); padding: var(--orin-space-2) 0; border-bottom: 1px solid var(--rule); }
 .specimen-row .label { font-family: var(--font-ui); font-size: var(--orin-font-size-200); color: var(--ink-muted); min-width: 9rem; }
 
 @media (prefers-reduced-motion: reduce) {
   a, .button { transition: none; }
+}
+
+/* Below breakpoint.md (48rem — tokens/src/layout.json, --orin-breakpoint-md).
+   Same documented literal exception as the queries below: @media cannot read
+   custom properties. The specimen stacks its label above the sample, because a
+   single word at the 1000 and 1100 steps is wider than the column left beside a
+   9rem label — it overflowed 360px by 7px before this. Stacking fixes the whole
+   scale rather than the one row that happened to show it. */
+@media (max-width: 47.9375rem) {
+  .specimen-row { flex-direction: column; align-items: flex-start; gap: var(--orin-space-1); }
+  .specimen-row .label { min-width: 0; }
 }
 
 /* Below breakpoint.lg (64rem — tokens/src/layout.json, --orin-breakpoint-lg).

@@ -2821,6 +2821,55 @@ would simply have been gone.
 
 ---
 
+## 2026-08-16 — /tokens shows its names and values, and gains spacing and radius
+
+**Decision:** Reviewed the proof artefact and rebuilt most of it. The page now
+prints every token's **name and resolved value**, covers all 13 semantic
+colours (was 5), all 11 type steps (was 8), and adds the spacing and radius
+scales it never had. First substantive `site/` change since v1, and it had a
+reason: the page's whole job is evidence, and it was withholding the evidence.
+
+**The review finding that drove it.** The swatch names lived only in `title`
+attributes — invisible on the page, absent on touch, unreliable to screen
+readers. A technical buyer arriving to check whether the semantic layer is
+real saw five unlabelled squares, which any Figma export produces. The names
+*are* the proof and they were the one thing not shown.
+
+**Values are read back out of the page, not typed in.** This matters more
+than it looks. The old labels were hand-written strings ("1100 · 56 · Inter
+Tight"); change a token and the label would silently lie, with `npm test`
+still green, because the report checks that values resolve and not that prose
+about them is true. Now a short script reads each colour off its swatch's
+computed background and each dimension off `:root`, so the page can only
+disagree with itself. It also keeps the source free of colour literals, which
+is why lint 5 stays green — the honest reason, not a dodge.
+
+**The duplicate that wasn't.** `text/default` and `background/inverse` both
+resolve to `#1F343A`, which read as a copy-paste error. It is the strongest
+thing on the page: one primitive, two roles, either free to move without
+touching a consumer. Now said in a sentence next to the swatches.
+
+**Broke the 360px guarantee, and caught it.** The new `1000` step at 44px
+overflowed by 7px — a single word is wider than the column left beside a 9rem
+label. Fixed at the layout rather than by shortening the sample text: the
+specimen stacks label above sample below `md`, which protects the whole scale
+instead of the one row that happened to expose it. `.specimen-row` is used
+only on this page, so the media query is contained. Re-verified: no overflow,
+38/38 values resolving, no console errors, every other page still 200.
+
+**Five CSS modifier classes deleted.** `.swatch--ink` and friends were
+replaced by an inline `background:var(--orin-colour-…)` per item — thirteen
+near-identical modifiers would have been worse, and the inline value still
+resolves through the token layer, so the law holds. Net CSS is smaller
+despite the page roughly doubling.
+
+**Left alone deliberately:** the page still uses `.wrap` rather than the
+12-column grid and rail every other page uses, so it demonstrates the token
+layer but not the layout system. That is a bigger change than this one and
+was not part of the ask.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
