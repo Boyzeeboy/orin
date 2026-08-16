@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your design system — developer handover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Orin's own tokens, transcribed from tokens/src/*.json.
+     CLIENT-FACING handover sheet. Standalone artefact — not part of
+     site/, not covered by npm test.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-inverse:var(--neutral-50);  --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0); --bg-sunken:var(--neutral-50);
+    --bg-inverse:var(--neutral-900);  --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default);color:var(--text-default);
+    font-family:var(--family-base);font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  .kicker{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    background:var(--teal-50);color:var(--teal-600);
+    font-family:var(--family-mono);font-size:10.5px;font-weight:500;
+    letter-spacing:.13em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);
+  }
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:44px;
+    letter-spacing:-.025em;line-height:1.1;margin:var(--space-4) 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16px;color:var(--text-muted);line-height:1.55;max-width:54ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+
+  .aside{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:268px;
+  }
+  .aside-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:11.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .aside p{font-size:13px;color:var(--text-muted);line-height:1.6}
+  .aside p + p{margin-top:var(--space-3)}
+  .aside b{color:var(--text-default);font-weight:600}
+
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);align-items:stretch}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6) var(--space-4);width:100%;
+    display:flex;flex-direction:column;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step p{font-size:13px;color:var(--text-muted);line-height:1.55;margin-bottom:var(--space-3)}
+  .who{
+    margin-top:auto;font-family:var(--family-mono);font-size:10.5px;
+    letter-spacing:.06em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-3);border-radius:999px;text-align:center;
+  }
+  .who.mine{background:var(--neutral-900);color:var(--neutral-0)}
+  .who.yours{background:var(--teal-50);color:var(--teal-600);border:1px solid var(--teal-100)}
+  .arrow{position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);color:var(--neutral-300);z-index:2}
+
+  /* code panels */
+  .twoup{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-4);
+  }
+  .panel-title small{font-weight:400;letter-spacing:.04em;color:var(--neutral-500);text-transform:none;font-size:11.5px}
+  .panel > p{font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:var(--space-4)}
+  pre{
+    font-family:var(--family-mono);font-size:12px;line-height:1.9;
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+    white-space:pre-wrap;color:var(--neutral-800);
+  }
+  pre .c{color:var(--neutral-500)}
+  pre .good{color:var(--teal-600)}
+  pre .bad{color:var(--neutral-500);text-decoration:line-through}
+
+  .yesno{display:flex;flex-direction:column;gap:var(--space-3);margin-top:var(--space-4)}
+  .yn{display:grid;grid-template-columns:18px 1fr;gap:var(--space-3);align-items:baseline;font-size:13px;line-height:1.5}
+  .yn code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+  .tick{color:var(--teal-500)}
+  .cross{color:var(--neutral-400)}
+
+  /* table */
+  .tbl{width:100%;border-collapse:collapse;font-size:13px}
+  .tbl th{
+    text-align:left;font-size:11px;font-weight:600;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--neutral-500);
+    padding-bottom:var(--space-3);border-bottom:1px solid var(--border-strong);
+  }
+  .tbl td{padding:var(--space-4) var(--space-4) var(--space-4) 0;border-bottom:1px solid var(--border-divider);vertical-align:top;color:var(--text-muted);line-height:1.5}
+  .tbl td:first-child{color:var(--text-default);font-weight:500;width:28%}
+  .tbl code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--neutral-0);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12.5px;color:var(--text-muted);line-height:1.55}
+  .note code{font-family:var(--family-mono);font-size:11.5px}
+
+  .owns{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+  .own{background:var(--neutral-0);border:1px solid var(--border-divider);border-radius:var(--radius-md);padding:var(--space-6)}
+  .own h3{font-family:var(--family-display);font-size:17px;font-weight:600;margin-bottom:var(--space-3)}
+  .own ul{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
+  .own li{display:grid;grid-template-columns:16px 1fr;gap:var(--space-3);font-size:13px;color:var(--text-muted);line-height:1.5}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);
+    padding:var(--space-8);margin-top:var(--space-6);
+    display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:center;
+  }
+  .closing h3{font-family:var(--family-display);font-size:20px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6;max-width:60ch}
+  .cta{
+    background:var(--teal-500);color:var(--neutral-0);
+    font-size:14px;font-weight:500;text-decoration:none;white-space:nowrap;
+    padding:var(--space-3) var(--space-6);border-radius:999px;
+  }
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .steps{grid-template-columns:1fr 1fr}
+    .twoup,.owns,.masthead,.closing{grid-template-columns:1fr}
+    .arrow{display:none}
+    h1{font-size:33px}
+    .aside{width:auto}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div>
+      <span class="kicker">Handover · for your developers</span>
+      <h1>Your design system, <em>in your codebase</em></h1>
+      <p class="standfirst">
+        Your tokens now live in your own repositories and ship from your own pipeline.
+        This is the short version of how to use them, what not to touch, and what to do
+        when something goes red.
+      </p>
+      <div class="rule"></div>
+    </div>
+
+    <aside class="aside">
+      <div class="aside-head">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        The one rule
+      </div>
+      <p>
+        <b>Values are authored in Figma, never in code.</b> Your site reads them; it
+        doesn't define them.
+      </p>
+      <p>
+        That single rule is what stops your codebase and your designs drifting apart.
+        Everything else here exists to make it easy to keep.
+      </p>
+    </aside>
+  </header>
+
+  <!-- ============ HOW A VALUE REACHES YOUR SITE ============ -->
+  <section class="band">
+    <div class="band-title"><span>How a value reaches your site</span></div>
+
+    <div class="steps">
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Authored</span></div>
+          <p>A colour, size or spacing step is set as a variable in Figma, with a note on when to use it.</p>
+          <div class="who mine">In Figma</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Built</span></div>
+          <p>The pipeline turns those variables into CSS custom properties, and checks the result before it's released.</p>
+          <div class="who mine">Pipeline repo</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Released</span></div>
+          <p>A version is tagged. Nothing reaches your site until you choose to take it.</p>
+          <div class="who mine">Versioned</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Taken</span></div>
+          <p>You bump the version, run the sync, and your CI confirms every token the site uses still exists.</p>
+          <div class="who yours">Your call</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01" stroke-linecap="round"/></svg>
+      <div>
+        <b>Upgrades are never automatic</b>
+        <p>Your site is pinned to an exact version. A design change can't surprise you in production — you take it deliberately, and you can roll back to the previous tag at any time.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ USING THE TOKENS ============ -->
+  <section class="band">
+    <div class="band-title"><span>Using the tokens</span></div>
+    <div class="twoup">
+
+      <div class="panel">
+        <div class="panel-title">Use the semantic layer</div>
+        <p>
+          Semantic tokens describe a <b>role</b> — what the value is for. They're the
+          layer you build with, and the only layer that's safe to depend on.
+        </p>
+<pre><span class="c">/* yes — describes the role */</span>
+<span class="good">color: var(--{prefix}-colour-text-default);
+background: var(--{prefix}-colour-background-raised);
+padding: var(--{prefix}-space-6);
+border-radius: var(--{prefix}-radius-md);</span>
+
+<span class="c">/* no — a raw value, invisible to the system */</span>
+<span class="bad">color: #1f343a;</span>
+
+<span class="c">/* no — a primitive; it can be re-pointed
+   under you without warning */</span>
+<span class="bad">color: var(--{prefix}-neutral-900);</span></pre>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">What not to edit</div>
+        <p>
+          Two files in your site repo are generated. They're overwritten on every sync,
+          so an edit there is lost silently — and quietly reintroduces drift.
+        </p>
+        <div class="yesno">
+          <div class="yn"><span class="cross">✕</span><span><code>vendor/tokens.css</code> — generated from the release. If a value looks wrong, it's a Figma change, not a file edit.</span></div>
+          <div class="yn"><span class="cross">✕</span><span>Anything under <code>node_modules/</code> — replaced on every install.</span></div>
+          <div class="yn"><span class="tick">✓</span><span><code>styles.css</code> and your components — yours. Compose freely, using the tokens.</span></div>
+          <div class="yn"><span class="tick">✓</span><span>Layout, structure, content, behaviour — all yours. The tokens constrain values, not decisions.</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ WHEN A CHECK GOES RED ============ -->
+  <section class="band">
+    <div class="band-title"><span>When a check goes red</span></div>
+    <div class="panel">
+      <table class="tbl">
+        <thead>
+          <tr><th>What you'll see</th><th>What it means, and what to do</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A token isn't defined</td>
+            <td>Your CSS references a <code>var(--{prefix}-…)</code> the released tokens don't contain — usually a typo, or a token that was renamed in a major version. Check the spelling against the token report first; if it's genuinely gone, the release notes will say what replaced it.</td>
+          </tr>
+          <tr>
+            <td>A hardcoded value was found</td>
+            <td>A colour, size or font slipped into the CSS directly. Swap it for the semantic token that means the same thing. If nothing means the same thing, that's a gap worth telling me about — see below.</td>
+          </tr>
+          <tr>
+            <td>Sync is out of date</td>
+            <td>The committed <code>vendor/tokens.css</code> doesn't match the pinned version. Re-run the sync and commit the result. If it still differs, the file was hand-edited at some point.</td>
+          </tr>
+          <tr>
+            <td>The build looks fine but the page looks wrong</td>
+            <td>The checks prove every token <em>resolves</em> — not that it's the right one. A patch release can retune a value deliberately. Compare against the release notes, and flag it if it wasn't intended.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ ASKING FOR A TOKEN ============ -->
+  <section class="band">
+    <div class="band-title"><span>When the system can't express what you need</span></div>
+    <div class="twoup">
+
+      <div class="panel">
+        <div class="panel-title">Don't force it. Ask.</div>
+        <p>
+          It will happen — a screen needs a value the tokens don't have. The two instincts
+          to resist are hardcoding it and grabbing the nearest primitive. Both work today
+          and both cost you later.
+        </p>
+        <p style="margin-bottom:0">
+          Send me the gap instead: <b>where it's needed</b>, <b>what you tried</b>, and
+          <b>what you'd call it</b>. I'll author it in Figma, cut a release, and you bump
+          the pin. Usually same-day.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Why it's worth the extra step</div>
+        <p>
+          A hardcoded value is invisible: it doesn't appear in the design file, doesn't
+          show up in the token report, and won't change when the palette does. It's how a
+          system quietly stops being true.
+        </p>
+        <p style="margin-bottom:0">
+          One value added properly is a few minutes. Forty added informally is a system
+          nobody trusts — which is the state most teams call me in to fix.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ OWNERSHIP ============ -->
+  <section class="band">
+    <div class="band-title"><span>What's yours</span></div>
+    <div class="owns">
+
+      <div class="own">
+        <h3>Yours, outright</h3>
+        <ul>
+          <li><span class="tick">✓</span><span>Your tokens, and the Figma file they're authored in.</span></li>
+          <li><span class="tick">✓</span><span>Your pipeline and its outputs, running in your repositories.</span></li>
+          <li><span class="tick">✓</span><span>Your site and components, built on top of them.</span></li>
+          <li><span class="tick">✓</span><span>The token report — regenerated on every build, so it can't describe a system you no longer have.</span></li>
+        </ul>
+      </div>
+
+      <div class="own">
+        <h3>Mine, and reused</h3>
+        <ul>
+          <li><span class="cross">•</span><span>The build machinery and the scaffold that set your instance up.</span></li>
+          <li><span class="cross">•</span><span>The templates the generated docs are rendered from.</span></li>
+          <li><span class="cross">•</span><span>Improvements to those reach you as a version, not a rewrite.</span></li>
+        </ul>
+        <p style="font-size:12.5px;color:var(--neutral-500);line-height:1.55;margin-top:var(--space-4)">
+          Nothing here depends on me being available. If we stop working together, everything
+          above still builds and ships without me.
+        </p>
+      </div>
+
+    </div>
+
+    <div class="closing">
+      <div>
+        <h3>Systems decay quietly. That's the part to watch.</h3>
+        <p>
+          Nothing here breaks loudly. It erodes — a hardcoded value here, a skipped sync
+          there, until the design file and the codebase describe two different products.
+          The checks catch most of it. The rest is a habit worth keeping.
+        </p>
+      </div>
+      <a class="cta" href="#">Get in touch</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      <b>Placeholders.</b> <code>{prefix}</code> is your project's token prefix, set when the pipeline was scaffolded — the generated
+      <code>CLAUDE.md</code> / <code>AGENTS.md</code> in your pipeline repo carries the real one, along with your Figma file, and is
+      regenerated on every build so it can't go stale. The token report is the fuller reference; this sheet is the short version.
+    </p>
+    <p style="margin-top:var(--space-3)">
+      Colour, type and spacing on this page are Orin's own tokens. It's a standalone document, so it doesn't consume
+      <code>vendor/tokens.css</code> and isn't covered by the guardrails it describes.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

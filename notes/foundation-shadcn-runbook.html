@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your token pipeline — how it's wired, and how to work with it</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Orin's own tokens, transcribed from tokens/src/*.json.
+     Founder-operated runbook, handed over at the end of a Foundation.
+     Standalone artefact — not part of site/, not covered by npm test.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0); --bg-sunken:var(--neutral-50);
+    --bg-inverse:var(--neutral-900); --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default);color:var(--text-default);
+    font-family:var(--family-base);font-size:15.5px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  .kicker{
+    display:inline-flex;align-items:center;gap:var(--space-3);
+    background:var(--teal-50);color:var(--teal-600);
+    font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-4);border-radius:999px;
+  }
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:42px;
+    letter-spacing:-.025em;line-height:1.12;margin:var(--space-4) 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16.5px;color:var(--text-muted);line-height:1.55;max-width:56ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+
+  .aside{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:272px;
+  }
+  .aside-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:11.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .aside p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+  .aside p + p{margin-top:var(--space-3)}
+  .aside b{color:var(--text-default);font-weight:600}
+  .aside code{font-family:var(--family-mono);font-size:12px;color:var(--neutral-800)}
+
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+
+  .lead{font-size:16.5px;line-height:1.6;color:var(--text-default);max-width:72ch;margin-bottom:var(--space-6)}
+  .lead b{font-weight:600}
+
+  /* chain */
+  .chain{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);align-items:stretch}
+  .linkwrap{position:relative;display:flex}
+  .link{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6) var(--space-4);width:100%;
+    display:flex;flex-direction:column;
+  }
+  .link.owned{border-color:var(--teal-200);background:var(--teal-25)}
+  .link-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .link-label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .link .file{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800);margin-bottom:var(--space-3);word-break:break-all}
+  .link p{font-size:13px;color:var(--text-muted);line-height:1.5;margin-bottom:var(--space-4)}
+  .tagline{
+    margin-top:auto;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-3);border-radius:999px;text-align:center;
+  }
+  .tagline.edit{background:var(--teal-500);color:var(--neutral-0)}
+  .tagline.dont{background:var(--neutral-900);color:var(--neutral-0)}
+  .arrow{position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);color:var(--neutral-300);z-index:2}
+
+  /* code */
+  .twoup{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-4);
+  }
+  .panel-title small{font-weight:400;letter-spacing:.04em;color:var(--neutral-500);text-transform:none;font-size:11.5px}
+  .panel > p{font-size:13.5px;color:var(--text-muted);line-height:1.6;margin-bottom:var(--space-4)}
+  .panel b{color:var(--text-default);font-weight:600}
+  pre{
+    font-family:var(--family-mono);font-size:11.5px;line-height:1.85;
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+    white-space:pre-wrap;color:var(--neutral-800);
+  }
+  pre .c{color:var(--neutral-500)}
+  pre .g{color:var(--teal-600)}
+  pre .x{color:var(--neutral-400);text-decoration:line-through}
+  .ver{
+    display:inline-block;font-family:var(--family-mono);font-size:10px;font-weight:500;
+    letter-spacing:.06em;background:var(--neutral-900);color:var(--neutral-0);
+    padding:2px var(--space-2);border-radius:var(--radius-sm);margin-bottom:var(--space-3);
+  }
+  .ver.alt{background:var(--neutral-200);color:var(--neutral-800)}
+
+  /* yes/no */
+  .yesno{display:flex;flex-direction:column;gap:var(--space-3)}
+  .yn{display:grid;grid-template-columns:18px 1fr;gap:var(--space-3);align-items:baseline;font-size:13.5px;line-height:1.5;color:var(--text-muted)}
+  .yn code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+  .tick{color:var(--teal-500);font-weight:600}
+  .cross{color:var(--neutral-400);font-weight:600}
+
+  /* table */
+  .tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+  .tbl th{
+    text-align:left;font-size:11px;font-weight:600;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--neutral-500);
+    padding-bottom:var(--space-3);border-bottom:1px solid var(--border-strong);
+  }
+  .tbl td{padding:var(--space-4) var(--space-4) var(--space-4) 0;border-bottom:1px solid var(--border-divider);vertical-align:top;color:var(--text-muted);line-height:1.55}
+  .tbl td:first-child{color:var(--text-default);font-weight:500;width:30%}
+  .tbl code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--neutral-0);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note b{display:block;font-size:13px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12.5px;color:var(--text-muted);line-height:1.55}
+  .note code{font-family:var(--family-mono);font-size:11.5px}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);
+    padding:var(--space-8);margin-top:var(--space-6);
+    display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:center;
+  }
+  .closing h3{font-family:var(--family-display);font-size:20px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:14px;color:var(--neutral-200);line-height:1.6;max-width:62ch}
+  .cta{
+    background:var(--teal-500);color:var(--neutral-0);
+    font-size:14.5px;font-weight:500;text-decoration:none;white-space:nowrap;
+    padding:var(--space-3) var(--space-6);border-radius:999px;
+  }
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:12px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .chain{grid-template-columns:1fr 1fr}
+    .twoup,.masthead,.closing{grid-template-columns:1fr}
+    .arrow{display:none}
+    h1{font-size:32px}
+    .aside{width:auto}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div>
+      <span class="kicker">Your runbook · shadcn + Tailwind</span>
+      <h1>How your app is wired, and <em>how to change a colour</em></h1>
+      <p class="standfirst">
+        Everything from the Foundation, in one page. Your shadcn components are untouched —
+        what changed is where their values come from. Keep this where you'd find it in six
+        months, which is when you'll want it.
+      </p>
+      <div class="rule"></div>
+    </div>
+
+    <aside class="aside">
+      <div class="aside-head">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        The one rule
+      </div>
+      <p>
+        <b>Change values in the token source. Never in <code>globals.css</code>.</b>
+      </p>
+      <p>
+        That file is now generated. Editing it works right up until the next build, then
+        silently reverts — which is worse than it not working at all.
+      </p>
+    </aside>
+  </header>
+
+  <!-- ============ THE CHAIN ============ -->
+  <section class="band">
+    <div class="band-title"><span>The chain · where a value lives now</span></div>
+
+    <p class="lead">
+      Four links. <b>You edit the first one.</b> The rest happen for you — and the last one
+      is exactly the file shadcn always used, so nothing downstream had to change.
+    </p>
+
+    <div class="chain">
+
+      <div class="linkwrap">
+        <div class="link owned">
+          <div class="link-head"><span class="dot">1</span><span class="link-label">The source</span></div>
+          <div class="file">tokens/src/*.json</div>
+          <p>Every colour, size and spacing step, named by its job. The only place a value is decided.</p>
+          <div class="tagline edit">Edit here</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="linkwrap">
+        <div class="link">
+          <div class="link-head"><span class="dot">2</span><span class="link-label">The build</span></div>
+          <div class="file">npm run tokens</div>
+          <p>Resolves your light and dark values and writes them out. Takes a second or two.</p>
+          <div class="tagline dont">Run it</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="linkwrap">
+        <div class="link">
+          <div class="link-head"><span class="dot">3</span><span class="link-label">The output</span></div>
+          <div class="file">app/globals.css</div>
+          <p>Same file shadcn always had. Same variable names. Now generated rather than typed.</p>
+          <div class="tagline dont">Never edit</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="linkwrap">
+        <div class="link">
+          <div class="link-head"><span class="dot">4</span><span class="link-label">Your app</span></div>
+          <div class="file">&lt;Button variant="default" /&gt;</div>
+          <p>Untouched. Your components, your classes, your code — all exactly as before.</p>
+          <div class="tagline dont">Unchanged</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01" stroke-linecap="round"/></svg>
+      <div>
+        <b>This is why nothing had to be relearnt</b>
+        <p>The pipeline emits the variable names shadcn already expects. Your components never knew there was a change — which is the point, and also why you can stop using this at any time without unpicking anything.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHANGING A COLOUR ============ -->
+  <section class="band">
+    <div class="band-title"><span>Changing your brand colour · the whole job</span></div>
+
+    <div class="twoup">
+      <div class="panel">
+        <div class="panel-title">1 — edit the source</div>
+        <p>Find the value by its role. Change it. This is the only file you touch.</p>
+<pre><span class="c">// tokens/src/semantic.json</span>
+"primary": {
+  "$value": <span class="x">"{teal.500}"</span> <span class="g">"{indigo.500}"</span>
+}</pre>
+        <p style="margin-top:var(--space-4);margin-bottom:0">
+          Then run <b><code>npm run tokens</code></b> and commit what changes. That's it —
+          both themes, every component, one edit.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">2 — what gets written for you</div>
+        <p>Your <code>globals.css</code>, regenerated. Two shapes, depending on your Tailwind version — yours is whichever I set up.</p>
+
+        <span class="ver">Tailwind v4</span>
+<pre><span class="c">/* generated — do not edit */</span>
+<span class="g">@theme inline {
+  --color-primary: var(--primary);
+}
+:root  { --primary: oklch(.51 .09 195); }
+.dark  { --primary: oklch(.78 .07 195); }</span></pre>
+
+        <span class="ver alt" style="margin-top:var(--space-4)">Tailwind v3</span>
+<pre><span class="c">/* generated — do not edit */</span>
+<span class="g">:root  { --primary: 189 100% 26%; }
+.dark  { --primary: 186 39% 68%; }</span>
+<span class="c">/* tailwind.config.js reads these via
+   hsl(var(--primary)) — also generated */</span></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHAT'S YOURS ============ -->
+  <section class="band">
+    <div class="band-title"><span>What's yours to edit, and what isn't</span></div>
+
+    <div class="twoup">
+      <div class="panel">
+        <div class="panel-title">Yours <small>— compose freely</small></div>
+        <div class="yesno">
+          <div class="yn"><span class="tick">✓</span><span>Every component in <code>components/ui/</code> — they're yours, as shadcn intends. Change them.</span></div>
+          <div class="yn"><span class="tick">✓</span><span>Your pages, layouts, routes and logic. The tokens constrain values, not decisions.</span></div>
+          <div class="yn"><span class="tick">✓</span><span>Tailwind classes in your markup — <code>p-4</code>, <code>flex</code>, <code>rounded-md</code> and the rest.</span></div>
+          <div class="yn"><span class="tick">✓</span><span><code>tokens/src/*.json</code> — the source. Change values here as often as you like.</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Generated <small>— edits here vanish</small></div>
+        <div class="yesno">
+          <div class="yn"><span class="cross">✕</span><span><code>app/globals.css</code> — rewritten on every build. It carries a "do not edit" header for this reason.</span></div>
+          <div class="yn"><span class="cross">✕</span><span>The theme block in <code>tailwind.config.js</code> <span style="color:var(--neutral-500)">(v3 only)</span> — also generated.</span></div>
+          <div class="yn"><span class="cross">✕</span><span>Anything with <code>/* generated */</code> at the top. If in doubt, look at the first line.</span></div>
+        </div>
+        <div class="note" style="margin-top:var(--space-4)">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke-linejoin="round"/></svg>
+          <div>
+            <b>Hardcoding a colour fails the build</b>
+            <p>A raw hex or a one-off size in a component is caught before it ships. Not to be strict — because that's the exact thing that makes a rebrand expensive later.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ WHEN IT GOES RED ============ -->
+  <section class="band">
+    <div class="band-title"><span>When something goes red</span></div>
+    <div class="panel">
+      <table class="tbl">
+        <thead><tr><th>What you'll see</th><th>What it means, and what to do</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>A hardcoded value was found</td>
+            <td>Someone typed a colour or size straight into a component. Swap it for the token that means the same thing. If nothing does, that's a real gap — add it to the source, or send it to me.</td>
+          </tr>
+          <tr>
+            <td>A token isn't defined</td>
+            <td>Your CSS refers to something the source doesn't contain — usually a typo, or a name that changed. Check the spelling against the token file first.</td>
+          </tr>
+          <tr>
+            <td>Dark mode looks wrong</td>
+            <td>Most often a value that's identical in both themes when it shouldn't be. The build flags these, but it can't know which are deliberate — a transparent border legitimately matches. Read the list rather than waving it through.</td>
+          </tr>
+          <tr>
+            <td>The build passes but it looks off</td>
+            <td>The checks prove every value <em>resolves</em>, not that it's the right one. If you changed a token, this is just the change reaching everywhere it should.</td>
+          </tr>
+          <tr>
+            <td>A change didn't appear</td>
+            <td>Nine times out of ten the build wasn't re-run, or <code>globals.css</code> was edited directly and then regenerated over. Run <code>npm run tokens</code> and check the diff.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============ ADDING A VALUE ============ -->
+  <section class="band">
+    <div class="band-title"><span>When you need a value that doesn't exist</span></div>
+
+    <div class="twoup">
+      <div class="panel">
+        <div class="panel-title">Add it to the source, not the component</div>
+        <p>
+          It'll happen — a screen needs a shade or a size the set doesn't have. The instinct
+          to resist is typing it into the component, because that always feels faster and the
+          build will stop you anyway.
+        </p>
+        <p style="margin-bottom:0">
+          Add it where the others live, give it a name that describes <b>its job rather than
+          its appearance</b> — <code>surface-raised</code>, not <code>light-grey-2</code> —
+          then rebuild. A name about appearance is a lie waiting to happen at the next rebrand.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">And when you're not sure</div>
+        <p>
+          Adding a value is easy. Deciding whether it should exist is the part worth pausing on —
+          most "I need a new grey" moments are really an existing one used slightly wrong.
+        </p>
+        <p style="margin-bottom:0">
+          Send me the screen and what you tried. That question is exactly what the retainer is
+          for, and it's cheaper than a set that quietly grows to forty greys nobody can tell apart.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <div>
+      <h3>Six months from now, this is the page you'll want.</h3>
+      <p>
+        Not because anything breaks — it won't. Because you'll hire someone, or restyle,
+        and the useful thing will be knowing there's one file to change and a build that
+        tells you if you got it wrong.
+      </p>
+    </div>
+    <a class="cta" href="#">Get in touch</a>
+  </div>
+
+  <footer>
+    <p>
+      <b>Paths and commands are the ones set up in your repo</b> — <code>npm run tokens</code> and the file locations above match
+      what was installed during the Foundation. Your repo's own README carries the exact versions; where the two ever disagree, the repo is right.
+    </p>
+    <p style="margin-top:var(--space-3)">
+      Colour, type and spacing on this page are Orin's own tokens — the same approach described here, applied to my own site.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -9,3 +9,16 @@ EXTRACTION-BRIEF.md
 # draft of how I talk, not a decision about how the practice works. The decision
 # it came from is logged (decisions.md 2026-08-04); this is rehearsal material.
 notes/diagnostic-walkthrough-script.md
+
+# The shared core, kept local. `deliverable.md` ("Whose is what") says the build
+# machinery is Orin's own IP, reused across clients and never handed over — and
+# this remote is public, so tracking it would hand it over. A working adapter
+# with its own guardrail and fixtures, not a note about one.
+notes/shadcn-adapter/
+
+# Outreach copy naming real clients, and the objection material behind it. Same
+# reason as the walkthrough script above: drafts of how I sell, not decisions
+# about how the practice works. The decisions they rest on are in Offer.md and
+# decisions.md, which are tracked.
+notes/launch-and-outreach-pack.md
+notes/client-situations.md

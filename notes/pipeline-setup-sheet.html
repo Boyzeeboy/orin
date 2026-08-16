@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Orin Token Pipeline — Setup Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Values below are Orin's real tokens, transcribed from
+     tokens/src/primitives.json + semantic.json + layout.json.
+     This file is a standalone artefact, NOT part of site/ — it does
+     not consume vendor/tokens.css and is not covered by npm test.
+     If it ever moves into site/, it must read the tokens instead.
+     --------------------------------------------------------------- */
+  :root{
+    /* primitives */
+    --neutral-0:#ffffff;  --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-500:#7f9096;
+    --neutral-700:#4d6167; --neutral-800:#354a50; --neutral-900:#1f343a;
+    --neutral-950:#0f2328;
+    --teal-25:#f5fafa; --teal-50:#e6f2f3; --teal-100:#cfe6e8;
+    --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+    /* semantic */
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-inverse:var(--neutral-50);  --text-link:var(--teal-500);
+    --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-50); --bg-raised:var(--neutral-0);
+    --bg-inverse:var(--neutral-900); --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+    /* families */
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    /* no mono token exists — see the footnote */
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+    /* space */
+    --space-1:.25rem; --space-2:.5rem; --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem; --space-12:3rem; --space-16:4rem;
+    /* radius */
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default);
+    color:var(--text-default);
+    font-family:var(--family-base);
+    font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1065px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* ---- header ---- */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    background:var(--teal-50);color:var(--teal-600);
+    font-family:var(--family-mono);font-size:11px;font-weight:500;
+    letter-spacing:.12em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-4);border-radius:999px;
+  }
+  .eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--teal-500)}
+  h1{
+    font-family:var(--family-display);font-weight:600;
+    font-size:52px;line-height:1.08;letter-spacing:-.022em;
+    margin:var(--space-6) 0 var(--space-4);max-width:20ch;
+  }
+  h1 .accent{color:var(--teal-500)}
+  h1 .struck{text-decoration:line-through;text-decoration-thickness:3px;color:var(--neutral-500)}
+  .standfirst{font-size:17px;color:var(--text-muted);max-width:62ch;line-height:1.5}
+
+  /* ---- grid ---- */
+  .grid{
+    display:grid;grid-template-columns:1fr 1fr;
+    gap:var(--space-6);margin-top:var(--space-12);align-items:start;
+  }
+  .col{display:flex;flex-direction:column;gap:var(--space-6)}
+  .card{
+    background:var(--bg-raised);border:1px solid var(--border-divider);
+    border-radius:var(--radius-lg);padding:var(--space-6);
+  }
+  .card-head{
+    display:flex;align-items:center;gap:var(--space-3);
+    margin-bottom:var(--space-4);
+  }
+  .num{
+    width:20px;height:20px;flex:none;border-radius:var(--radius-sm);
+    background:var(--teal-50);color:var(--teal-600);
+    font-family:var(--family-mono);font-size:11px;font-weight:500;
+    display:grid;place-items:center;
+  }
+  .card-title{
+    font-family:var(--family-mono);font-size:11.5px;font-weight:500;
+    letter-spacing:.11em;text-transform:uppercase;color:var(--neutral-700);
+  }
+
+  /* ---- code / tree ---- */
+  pre,code{font-family:var(--family-mono);font-size:12.5px;line-height:1.85}
+  .tree{color:var(--text-default);white-space:pre}
+  .tree .b{font-weight:500}
+  .tree .note{color:var(--neutral-500)}
+  .tree .gen{color:var(--teal-600)}
+
+  /* ---- lock list ---- */
+  .locks{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
+  .locks li{
+    display:grid;grid-template-columns:16px 1fr;gap:var(--space-3);
+    font-family:var(--family-mono);font-size:12.5px;line-height:1.6;
+  }
+  .locks .k{color:var(--text-default);font-weight:500}
+  .locks .v{color:var(--neutral-700)}
+  .ico{font-size:12px;line-height:1.6}
+  .closed{color:var(--teal-600)}
+  .open{color:var(--neutral-500)}
+
+  /* ---- loop ---- */
+  .loop{display:flex;flex-direction:column;gap:var(--space-2)}
+  .step{
+    display:grid;grid-template-columns:auto 1fr;gap:var(--space-3);
+    align-items:baseline;font-family:var(--family-mono);font-size:12.5px;
+  }
+  .step .i{color:var(--teal-500);font-weight:500}
+  .step .d{color:var(--neutral-700)}
+  .step .d b{color:var(--text-default);font-weight:500}
+
+  /* ---- proposal chips ---- */
+  .chips{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4);flex-wrap:wrap}
+  .chip{
+    font-family:var(--family-mono);font-size:11.5px;
+    padding:var(--space-2) var(--space-3);border-radius:var(--radius-md);
+    border:1px solid var(--border-strong);color:var(--neutral-700);background:var(--neutral-50);
+  }
+  .chip.final{background:var(--teal-50);border-color:var(--teal-100);color:var(--teal-600);font-weight:500}
+  .arrow{color:var(--neutral-300);font-size:13px}
+  .card p{font-size:13.5px;color:var(--text-muted);line-height:1.55}
+  .card p + p{margin-top:var(--space-3)}
+  .card p b{color:var(--text-default);font-weight:600}
+
+  /* ---- checks ---- */
+  .checks{display:flex;flex-direction:column}
+  .check{
+    display:flex;justify-content:space-between;align-items:center;gap:var(--space-4);
+    padding:var(--space-3) 0;border-bottom:1px solid var(--border-divider);
+    font-family:var(--family-mono);font-size:12.5px;color:var(--neutral-800);
+  }
+  .check:last-child{border-bottom:0}
+  .tag{
+    font-family:var(--family-mono);font-size:10.5px;font-weight:500;
+    letter-spacing:.08em;padding:3px var(--space-2);border-radius:var(--radius-sm);
+    flex:none;
+  }
+  .tag.gate{background:var(--teal-50);color:var(--teal-600)}
+  .tag.fail{background:var(--neutral-100);color:var(--neutral-700)}
+
+  /* ---- paste band ---- */
+  .paste{
+    margin-top:var(--space-6);background:var(--bg-inverse);
+    border-radius:var(--radius-lg);padding:var(--space-6) var(--space-8);
+  }
+  .paste-label{
+    font-family:var(--family-mono);font-size:11px;font-weight:500;
+    letter-spacing:.11em;text-transform:uppercase;color:var(--teal-300);
+    margin-bottom:var(--space-4);
+  }
+  .paste pre{
+    color:var(--text-inverse);white-space:pre-wrap;font-size:13px;line-height:1.75;
+  }
+  .paste .hl{color:var(--teal-300);font-weight:500}
+
+  /* ---- footer ---- */
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);
+    border-top:1px solid var(--border-strong);
+    display:flex;justify-content:space-between;align-items:flex-end;gap:var(--space-8);
+  }
+  .mark{font-family:var(--family-display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+  .mark span{display:block;font-family:var(--family-base);font-weight:400;font-size:12.5px;color:var(--neutral-500);letter-spacing:0;margin-top:2px}
+  .foot-note{font-size:11.5px;color:var(--neutral-500);max-width:52ch;text-align:right;line-height:1.5}
+  .foot-note code{font-size:11px;color:var(--neutral-700)}
+
+  @media (max-width:820px){
+    .grid{grid-template-columns:1fr}
+    h1{font-size:38px}
+    .sheet{padding:var(--space-8) var(--space-4)}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <span class="eyebrow">Setup sheet</span>
+
+  <h1>How to let Claude ship from your design system <span class="struck">without inventing values</span></h1>
+
+  <p class="standfirst">
+    Follow or invent are the only two options most agents have. The pipeline adds a
+    third — propose it at the source — and makes the other two machine-detectable,
+    so a hardcoded value fails the build instead of reaching <code>main</code>.
+  </p>
+
+  <div class="grid">
+
+    <!-- LEFT COLUMN -->
+    <div class="col">
+
+      <div class="card">
+        <div class="card-head"><span class="num">1</span><span class="card-title">Where it lives</span></div>
+<pre class="tree">{client}-token-pipeline/
+├── <span class="b">tokens/*.json</span>        <span class="note">← synced from Figma</span>
+├── <span class="b">pipeline.config.mjs</span>  <span class="note">← names, not ids</span>
+├── sd.config.mjs        <span class="note">← Style Dictionary v4</span>
+├── scripts/
+│   ├── scaffold-client.mjs
+│   ├── generate-docs.mjs   <span class="gen">← router</span>
+│   └── generate-report.mjs <span class="gen">← the gate</span>
+├── templates/agent-rules.md
+├── dist/{light,dark}/   <span class="note">← generated</span>
+└── <span class="b">CLAUDE.md</span> / <span class="b">AGENTS.md</span> <span class="gen">← generated</span>
+
+{client}-app/            <span class="note">consumes</span>
+└── vendor/tokens.css    <span class="note">← synced, committed</span></pre>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="num">2</span><span class="card-title">Lock levels · direction of truth</span></div>
+        <ul class="locks">
+          <li><span class="ico closed">▲</span><span><span class="k">Figma:</span> <span class="v">the origin. Every token change starts here.</span></span></li>
+          <li><span class="ico closed">▲</span><span><span class="k">tokens/*.json:</span> <span class="v">synced. Never hand-authored.</span></span></li>
+          <li><span class="ico closed">▲</span><span><span class="k">dist/:</span> <span class="v">generated. Never hand-edited.</span></span></li>
+          <li><span class="ico closed">▲</span><span><span class="k">Primitives:</span> <span class="v">locked. The surface never reads them.</span></span></li>
+          <li><span class="ico open">△</span><span><span class="k">Semantic layer:</span> <span class="v">the only thing components consume.</span></span></li>
+          <li><span class="ico open">△</span><span><span class="k">Composition:</span> <span class="v">open. Build freely from semantics.</span></span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="num">3</span><span class="card-title">The one loop · no other path</span></div>
+        <div class="loop">
+          <div class="step"><span class="i">01</span><span class="d"><b>Author in Figma.</b> A variable, with its usage rule in the description.</span></div>
+          <div class="step"><span class="i">02</span><span class="d"><b>Sync.</b> Collections matched by name → <code>tokens/*.json</code>.</span></div>
+          <div class="step"><span class="i">03</span><span class="d"><b>Build.</b> Style Dictionary → <code>dist/{light,dark}</code> + report.</span></div>
+          <div class="step"><span class="i">04</span><span class="d"><b>Consume the token.</b> Semantic layer only, in the app.</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col">
+
+      <div class="card">
+        <div class="card-head"><span class="num">4</span><span class="card-title">The proposal rule</span></div>
+        <div class="chips">
+          <span class="chip">needs a value</span><span class="arrow">→</span>
+          <span class="chip">propose in Figma</span><span class="arrow">→</span>
+          <span class="chip final">rebuild · use the token</span>
+        </div>
+        <p>
+          A value the surface needs but the tokens don't have is a <b>token proposal</b>,
+          never a literal. It is authored at the source and flows down — because a value
+          invented in code is a value Figma will never know about.
+        </p>
+        <p>
+          Not "ask permission." The third option is a real, cheap path: one JSON-shaped
+          edit at the origin, one rebuild. Making it cheaper than hacking is the whole trick.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="num">5</span><span class="card-title">The gate · generated report</span></div>
+        <div class="checks">
+          <div class="check"><span>Build integrity, per mode</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Mode parity, by value</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>dist ↔ vendor in sync</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Consumer contract holds</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Fonts link ↔ tokens match</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Hardcoded value in the surface</span><span class="tag fail">FAILS</span></div>
+          <div class="check"><span>Unitless font number</span><span class="tag fail">FAILS</span></div>
+        </div>
+        <p style="margin-top:var(--space-4)">
+          Nine checks, regenerated from the real build every time — so it cannot describe a
+          system that no longer exists. <b>A red check fails the build</b>, rather than shipping
+          as a warning nobody reads.
+        </p>
+      </div>
+
+      <div class="card">
+        <div class="card-head"><span class="num">6</span><span class="card-title">What the client owns</span></div>
+        <p>
+          Their tokens, their outputs, their pipeline, running in <b>their own repositories</b>.
+          The build machinery, the scaffold and the templates stay Orin's.
+        </p>
+        <p>
+          The router is <b>generated</b>, not written — it carries their real Figma file and token
+          prefix because it's rendered from one template plus their config. A hand-written
+          router is a doc that rots; this one is an output.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="paste">
+    <div class="paste-label">Paste this into Claude Code (assumes the pipeline is scaffolded)</div>
+<pre>Read the generated <span class="hl">CLAUDE.md</span> and the token report before touching anything.
+Consume the <span class="hl">semantic</span> layer only — never a primitive, never a raw hex.
+When a task needs a value the tokens don't have, don't hardcode it and don't
+reach for the nearest primitive. Stop, and write the <span class="hl">token proposal</span>: the gap,
+which semantics you tried, and what you'd name it. I'll author it in Figma
+and resync. Then continue with the real token.</pre>
+  </div>
+
+  <footer>
+    <div class="mark">Orin<span>The design system your developers ship from · orinsystems.co</span></div>
+    <p class="foot-note">
+      Colour, type and spacing above are Orin's own semantic tokens.
+      One exception, flagged honestly: <code>--family-mono</code> has no token —
+      the scale has no mono family yet. If this sheet ever ships, that's a token proposal.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Foundation — the layer above shadcn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Orin's own tokens, transcribed from tokens/src/*.json.
+     Founder-facing sheet for the Foundation (Offer.md §2, v1.1).
+     Standalone artefact — not part of site/, not covered by npm test.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0); --bg-sunken:var(--neutral-50);
+    --bg-inverse:var(--neutral-900); --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default);color:var(--text-default);
+    font-family:var(--family-base);font-size:15.5px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  .kicker{
+    display:inline-flex;align-items:center;gap:var(--space-3);
+    background:var(--teal-50);color:var(--teal-600);
+    font-size:11px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-4);border-radius:999px;
+  }
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:44px;
+    letter-spacing:-.025em;line-height:1.1;margin:var(--space-4) 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:17px;color:var(--text-muted);line-height:1.55;max-width:56ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+
+  .price{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:262px;
+  }
+  .price .fig{font-family:var(--family-display);font-size:38px;font-weight:600;letter-spacing:-.02em;line-height:1}
+  .price .term{font-size:13px;color:var(--neutral-500);margin-top:var(--space-2)}
+  .price hr{border:0;border-top:1px solid var(--border-strong);margin:var(--space-4) 0}
+  .price p{font-size:13px;color:var(--text-muted);line-height:1.6}
+  .price b{color:var(--text-default);font-weight:600}
+
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+
+  .lead{font-size:17px;line-height:1.6;color:var(--text-default);max-width:72ch;margin-bottom:var(--space-6)}
+  .lead b{font-weight:600}
+
+  /* two column compare */
+  .compare{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+  .col{border-radius:var(--radius-md);padding:var(--space-6);border:1px solid var(--border-divider)}
+  .col.has{background:var(--bg-sunken)}
+  .col.missing{background:var(--teal-25);border-color:var(--teal-100)}
+  .col h3{font-family:var(--family-display);font-size:17px;font-weight:600;margin-bottom:var(--space-2)}
+  .col .sub{font-size:12.5px;color:var(--neutral-500);margin-bottom:var(--space-4)}
+  .col.missing h3{color:var(--teal-600)}
+  .col ul{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
+  .col li{display:grid;grid-template-columns:18px 1fr;gap:var(--space-3);font-size:13.5px;color:var(--text-muted);line-height:1.55}
+  .mark{font-weight:600;color:var(--neutral-400)}
+  .col.missing .mark{color:var(--teal-500)}
+  .col code{font-family:var(--family-mono);font-size:12px;color:var(--neutral-800)}
+
+  /* code compare */
+  .codecompare{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);margin-top:var(--space-6)}
+  .cc{background:var(--neutral-0);border:1px solid var(--border-divider);border-radius:var(--radius-md);padding:var(--space-6)}
+  .cc h4{font-size:12px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--neutral-500);margin-bottom:var(--space-4)}
+  .cc.now h4{color:var(--neutral-500)}
+  .cc.after h4{color:var(--teal-600)}
+  pre{
+    font-family:var(--family-mono);font-size:12px;line-height:1.85;
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+    white-space:pre-wrap;color:var(--neutral-800);
+  }
+  pre .c{color:var(--neutral-500)}
+  pre .g{color:var(--teal-600)}
+  .cc p{font-size:13px;color:var(--text-muted);line-height:1.55;margin-top:var(--space-4)}
+  .cc p b{color:var(--text-default);font-weight:600}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);align-items:stretch}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6) var(--space-4);width:100%;
+    display:flex;flex-direction:column;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-4)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:11px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step p{font-size:13.5px;color:var(--text-muted);line-height:1.55;margin-bottom:var(--space-4)}
+  .who{
+    margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-3);border-radius:999px;text-align:center;
+    background:var(--teal-50);color:var(--teal-600);border:1px solid var(--teal-100);
+  }
+  .arrow{position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);color:var(--neutral-300);z-index:2}
+
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-8);
+  }
+  .panel h3{font-family:var(--family-display);font-size:20px;font-weight:600;margin-bottom:var(--space-4)}
+  .panel p{font-size:14.5px;color:var(--text-muted);line-height:1.6;max-width:74ch}
+  .panel p + p{margin-top:var(--space-4)}
+  .panel b{color:var(--text-default);font-weight:600}
+
+  .gets{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+  .get{background:var(--neutral-0);border:1px solid var(--border-divider);border-radius:var(--radius-md);padding:var(--space-6)}
+  .get h3{font-family:var(--family-display);font-size:17px;font-weight:600;margin-bottom:var(--space-4)}
+  .get ul{list-style:none;display:flex;flex-direction:column;gap:var(--space-3)}
+  .get li{display:grid;grid-template-columns:16px 1fr;gap:var(--space-3);font-size:13.5px;color:var(--text-muted);line-height:1.5}
+  .tick{color:var(--teal-500);font-weight:600}
+  .cross{color:var(--neutral-400);font-weight:600}
+
+  .limits{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4)}
+  .limit{background:var(--neutral-0);border:1px dashed var(--border-strong);border-radius:var(--radius-sm);padding:var(--space-6)}
+  .limit b{display:block;font-family:var(--family-display);font-size:15px;font-weight:600;margin-bottom:var(--space-2)}
+  .limit p{font-size:13px;color:var(--text-muted);line-height:1.55}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);
+    padding:var(--space-8);margin-top:var(--space-6);
+    display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:center;
+  }
+  .closing h3{font-family:var(--family-display);font-size:21px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:14px;color:var(--neutral-200);line-height:1.6;max-width:64ch}
+  .cta{
+    background:var(--teal-500);color:var(--neutral-0);
+    font-size:14.5px;font-weight:500;text-decoration:none;white-space:nowrap;
+    padding:var(--space-3) var(--space-6);border-radius:999px;
+  }
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:12px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer b{color:var(--neutral-700)}
+
+  @media (max-width:900px){
+    .steps,.limits{grid-template-columns:1fr 1fr}
+    .compare,.codecompare,.gets,.masthead,.closing{grid-template-columns:1fr}
+    .arrow{display:none}
+    h1{font-size:33px}
+    .price{width:auto}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div>
+      <span class="kicker">The Foundation</span>
+      <h1>You've got shadcn. <em>Here's the layer above it.</em></h1>
+      <p class="standfirst">
+        shadcn gives you good names. What it doesn't give you is ownership of the values
+        behind them — an upstream source, a build, and something that stops the system
+        being bypassed. That's a two-week job now, and a painful one later.
+      </p>
+      <div class="rule"></div>
+    </div>
+
+    <aside class="price">
+      <div class="fig">£4,000</div>
+      <div class="term">Fixed. Two weeks.</div>
+      <hr>
+      <p>
+        <b>What it is:</b> a token layer and about eight primitives, authored properly and
+        wired into what you're already shipping on. It ends with <b>one real screen</b>
+        running from it — not a page of swatches.
+      </p>
+    </aside>
+  </header>
+
+  <!-- ============ SHADCN: HAVE / HAVEN'T ============ -->
+  <section class="band">
+    <div class="band-title"><span>Being fair to shadcn</span></div>
+
+    <p class="lead">
+      I build on shadcn rather than replacing it. It got the hard part right — the names
+      describe <b>roles</b>, not colours, which is the thing most teams never do. The gap
+      is one level up.
+    </p>
+
+    <div class="compare">
+      <div class="col has">
+        <h3>What it already gives you</h3>
+        <div class="sub">Genuinely useful. Keep all of it.</div>
+        <ul>
+          <li><span class="mark">✓</span><span>Semantic variables — <code>--background</code>, <code>--primary</code>, <code>--border</code>. Named by job, not by shade.</span></li>
+          <li><span class="mark">✓</span><span>A dark block layered over the top, so theming is possible from day one.</span></li>
+          <li><span class="mark">✓</span><span>Components you own outright, in your repo. No dependency to escape later.</span></li>
+          <li><span class="mark">✓</span><span>Sensible defaults that get a product in front of people fast.</span></li>
+        </ul>
+      </div>
+
+      <div class="col missing">
+        <h3>What it hasn't got</h3>
+        <div class="sub">The four things this fortnight installs.</div>
+        <ul>
+          <li><span class="mark">+</span><span><b>An authored source.</b> Somewhere the values are decided, above the CSS file.</span></li>
+          <li><span class="mark">+</span><span><b>A build.</b> Something that turns that source into the code, rather than a person retyping it.</span></li>
+          <li><span class="mark">+</span><span><b>A sync.</b> One path from decision to product, so design and code can't diverge.</span></li>
+          <li><span class="mark">+</span><span><b>A guardrail.</b> A check that fails when someone bypasses the system — because someone will.</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="codecompare">
+      <div class="cc now">
+        <h4>Today — values typed inline</h4>
+<pre><span class="c">/* globals.css — hand-edited */</span>
+:root {
+  --primary: 173 100% 26%;
+  --background: 0 0% 96%;
+}
+.dark {
+  --primary: 181 39% 64%;
+  --background: 194 42% 11%;
+}</pre>
+        <p>You have <b>the names without the ownership</b>. Nothing sits above this file, so changing your brand means editing it — and every place someone typed a value directly instead.</p>
+      </div>
+
+      <div class="cc after">
+        <h4>After — the same file, generated</h4>
+<pre><span class="c">/* generated — do not edit */</span>
+<span class="g">:root {
+  --primary: 173 100% 26%;
+  --background: 0 0% 96%;
+}</span>
+<span class="c">/* ↑ built from your token source
+   ↑ dark resolved and checked
+   ↑ regenerated, never retyped */</span></pre>
+        <p>Same file, same shadcn components, <b>nothing to relearn</b>. The difference is that this file is now an output — so there's one place to change a colour, and it's upstream.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE FORTNIGHT ============ -->
+  <section class="band">
+    <div class="band-title"><span>What happens in the two weeks</span></div>
+
+    <p class="lead">
+      There's nothing to audit yet, so this one earns its scope by <b>building</b>.
+    </p>
+
+    <div class="steps">
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Author</span></div>
+          <p>Your brand foundations — or whatever exists of them — become a proper token source. Base values, then the role names that sit on top.</p>
+          <div class="who">The decisions</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Resolve</span></div>
+          <p>Light and dark both built and <b>checked</b> — including that dark actually resolves, which is the one that silently fails for months elsewhere.</p>
+          <div class="who">Both themes</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Wire</span></div>
+          <p>Connected into shadcn and Tailwind as you already use them. The sync, the build step, and the guardrails that stop it drifting.</p>
+          <div class="who">Your stack</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Prove</span></div>
+          <p>One real screen from your product, shipped from the system. Proof it works on your actual thing, not on a demo.</p>
+          <div class="who">One real screen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE OBJECTION ============ -->
+  <section class="band">
+    <div class="band-title"><span>"I could install shadcn myself in an afternoon"</span></div>
+    <div class="panel">
+      <h3>You can, and you should. That isn't what this is.</h3>
+      <p>
+        Installing shadcn is an afternoon. I'd tell you to go and do it. What you're paying
+        for is <b>the layer above it</b> — the one that means changing your brand is one edit
+        rather than a fortnight, and that still holds when I'm not here.
+      </p>
+      <p>
+        The honest sum: you will restyle at least once, and add a second developer, before
+        you raise. Doing this now is £4,000. Doing it once sixty components exist costs
+        several times that, <b>plus a freeze while it lands</b> — and that freeze usually
+        arrives at the worst possible moment, because the trigger is a rebrand or a raise.
+      </p>
+      <p>
+        It's not a velocity argument. You're not burning money on rework yet; there's
+        nothing to rework. It's the cost of <b>building it twice</b>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============ WHAT YOU GET ============ -->
+  <section class="band">
+    <div class="band-title"><span>What you're left holding</span></div>
+
+    <div class="gets">
+      <div class="get">
+        <h3>Yours at the end of the fortnight</h3>
+        <ul>
+          <li><span class="tick">✓</span><span>A token layer you own, connected to the code you ship.</span></li>
+          <li><span class="tick">✓</span><span>One place to change a colour — and it reaches everything.</span></li>
+          <li><span class="tick">✓</span><span>A build that <b>fails loudly</b> when someone bypasses the system.</span></li>
+          <li><span class="tick">✓</span><span>Light and dark, both resolved and verified.</span></li>
+          <li><span class="tick">✓</span><span>One real screen already running on it.</span></li>
+          <li><span class="tick">✓</span><span>A scoped, priced Build if you want the rest — quoted from evidence, not a sales call.</span></li>
+        </ul>
+      </div>
+
+      <div class="get">
+        <h3>Deliberately not included</h3>
+        <ul>
+          <li><span class="cross">✕</span><span>A 40-component library. This is a token layer and about eight primitives — I'd rather say that plainly than have you picture something else.</span></li>
+          <li><span class="cross">✕</span><span>A pile of screens. If the conversation becomes "how many pages do I get," the ownership layer isn't what you're buying and someone else is a better fit.</span></li>
+          <li><span class="cross">✕</span><span>Brand guidelines, marketing assets, a strategy deck. Real needs, not this job.</span></li>
+          <li><span class="cross">✕</span><span>Anything that stops working when I do. No subscription, no lock-in, nothing running on my infrastructure.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ LIMITS ============ -->
+  <section class="band">
+    <div class="band-title"><span>Being straight about the limits</span></div>
+    <div class="limits">
+      <div class="limit">
+        <b>It won't make the product well designed</b>
+        <p>It makes it consistent, and cheap to change. Someone still has to decide what good looks like — that's the Build, or it's you.</p>
+      </div>
+      <div class="limit">
+        <b>It's worth less if nothing will change</b>
+        <p>The test is how many people will change this after I leave, times how often. Two people shipping a frozen app for a year? Wait.</p>
+      </div>
+      <div class="limit">
+        <b>It needs one habit kept</b>
+        <p>Values get decided upstream, not typed into a component. The guardrail catches slips — but a team routing around it gets friction, not benefit.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <div>
+      <h3>The cheapest time to do this is before there's much to convert.</h3>
+      <p>
+        Right now you have a handful of components and one developer. The conversion is
+        two weeks and nothing has to freeze. That is the whole argument — and it stops
+        being true fairly quickly.
+      </p>
+    </div>
+    <a class="cta" href="#">Get in touch</a>
+  </div>
+
+  <footer>
+    <p>
+      <b>The Foundation is one of two ways in</b> — the other is the Diagnostic, for teams with an existing system to audit.
+      Either one scopes the Build; I don't quote a Build without one. Prices are fixed and published: Foundation £4,000, Build £12,000–£18,000,
+      Retainer £2,000/month, cancellable with 30 days' notice.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
