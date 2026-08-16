@@ -7,7 +7,7 @@ Update section 4 monthly. Sections 1–3 and 6 change quarterly at most.
 
 ## 1. Who I am professionally
 
-I'm Warren Grossiter, a senior UI designer with around a decade of
+I'm Warren Rossiter, a senior designer with around a decade of
 experience, based in Bath, UK. My work sits at the intersection of design
 systems, token architecture, and the designer-engineer boundary. I'm
 building my own agency, Orin — the founding decision to stop fitting

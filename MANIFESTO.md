@@ -128,4 +128,4 @@ shape I actually am.
 *This manifesto is the source of truth for every decision downstream.
 When something feels off, come back and ask: does this fit?*
 
-*Warren G Rossiter — 1 July 2026*
+*Warren Rossiter — 1 July 2026*
