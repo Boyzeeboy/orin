@@ -2168,6 +2168,55 @@ is a record, not a wiki. It stays wrong on purpose.
 
 ---
 
+## 2026-08-16 — Five edits to the manifesto, and the case for stopping there
+
+**Decision:** The manifesto got a deliberately partial voice pass: four em
+dashes and one §3F reframe. Em dashes there go 12 → 8. The other seven, and
+the signature, stay.
+
+**The sort that produced the number.** The dashes were classified by what
+they do, not counted. Four were the `/how-it-works` defect — claim, dash,
+softening qualifier — and those went: "the worldview underneath — because
+that's the thing being sold", "moves into building — usually in the space
+between", "social media assets — those are legitimate needs", "Communication
+is honest — I'd rather tell a client the hard truth". The remaining seven do
+rhetorical work a credo permits: anaphoric expansion ("the parts that
+crossed boundaries, the parts that cared…"), and one genuine volta ("at Vivo
+Energy — **but** it came out despite the container"), where a comma would
+flatten the turn.
+
+**The reframe that went.** "Fixing that wasn't a design problem in the way
+design is usually described. It was a systems problem…" became "Fixing that
+was a systems problem that happened to require design skill to solve."
+`voice.md`'s own prescription: delete everything before the positive claim.
+It is shorter and lands harder, which is the argument for the rule.
+
+**The reframes that stayed, and why.** "Not the artefact, not the
+deliverable, not the Figma file, not the sprint output. The system." and
+"Orin builds things. Not deliverables. Working things —" are load-bearing.
+So is "I believe craft matters, but it isn't the point" — the concession is
+a real position, not a rhetorical crutch. Applying §3F by the letter would
+have cost the document more than it returned.
+
+**The argument for stopping, recorded because it will come up again.** The
+manifesto is the most unmistakably Warren-sounding document on the site. It
+is at least as plausibly a *source* of `voice.md` as a violation of it, and
+`voice.md` §5's own litmus test is "does this sound like something I would
+actually write." A full pass risks sanding off the texture the rules exist
+to protect. It is also signed and dated 1 July 2026, which makes late
+editing a different act from tightening a services page.
+
+**A claim from the earlier review, corrected.** That review said the
+systems-problem reframe was "repeated near-verbatim in the case study." It
+was not; it appeared only in the manifesto. The case study makes the point
+its own way. One argument for the edit was therefore wrong, though the edit
+still stands on `voice.md` §3F alone.
+
+**Verified:** `npm test` 8/8, verify-build clean. All five paragraphs
+re-read in the browser after the edits.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
