@@ -12,9 +12,14 @@ state and the Home page specification.*
 
 1. MANIFESTO.md — source of truth for every judgement call
 2. positioning.md — locked one-liner and 60-second version
-3. offer.md — engagement shapes, prices, refusals
-4. HANDOVER.md — sitemap, voice rules, attribution rules, exclusions
-5. decisions.md — why things are the way they are
+3. Offer.md — engagement shapes, prices, refusals
+4. voice.md — how prose gets written; governs every word of page copy
+5. HANDOVER.md — sitemap, site-specific copy rules, attribution,
+   exclusions. Its tone notes predate voice.md and defer to it.
+6. decisions.md — why things are the way they are
+
+CLAUDE.md carries the full ten-item version of this list; the six above
+are the subset this document was written against. Keep the two in step.
 
 Do not relitigate locked decisions. If something genuinely doesn't work,
 flag it to Warren and log it in decisions.md.
@@ -103,7 +108,7 @@ Button: "Get in touch" → Contact.
 
 1. **Manifesto page** — MANIFESTO.md near-verbatim. Long-form reading
    typography: 65–75ch measure, generous leading, no decoration.
-2. **How it works** — one scrolling page, three sections from offer.md,
+2. **How it works** — one scrolling page, four sections from Offer.md,
    prices visible, ends with the single CTA. May include a softened
    "Orin isn't for everyone" section drawn from the refusals.
 3. **Work** — shell page. Three cards (Vivo Energy, IDEM, KRM), title

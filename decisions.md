@@ -2242,6 +2242,46 @@ live rules.
 
 ---
 
+## 2026-08-16 — The dated briefs are maintained, not archived
+
+**Decision:** Warren answered the question left open above by asking for
+`PHASE5-BUILD.md`'s list to be fixed too. So `HANDOVER.md` and
+`PHASE5-BUILD.md` are **live documents** despite their version stamps, and
+get corrected when they go stale. They are not historical records. Only
+`decisions.md` is that.
+
+**What that decision immediately cost.** Treating them as live means reading
+them as live, which surfaced three stale facts that had been sitting there
+since The Foundation was added on 2026-08-12:
+
+- `HANDOVER.md` called `Offer.md` "the three engagement shapes". There are
+  four.
+- Its sitemap said Home compresses "the three shapes" and How it works has
+  "three sections: Diagnostic, Build, Retainer". The live page has four
+  sections plus a "When it's a no".
+- `PHASE5-BUILD.md` said "three sections from offer.md" for the same page.
+
+None of these were found by anything failing. They were found by reading the
+documents as though they governed, which is the whole argument for the
+decision.
+
+**Also fixed: the filename.** Three references said `offer.md`; the file is
+`Offer.md`. Harmless on a case-insensitive macOS volume, wrong on a
+case-sensitive checkout, and wrong either way.
+
+**Both read-first lists now name `voice.md`** at position 4, above
+`HANDOVER.md`, with the same "its tone notes defer to it" note.
+`PHASE5-BUILD.md`'s copy is a six-item subset and now says so, and says to
+keep it in step with CLAUDE.md's ten.
+
+**What was deliberately not done.** No full audit of either brief. Three
+facts were corrected because they contradicted the shipped site and were
+found in passing. Whether the rest of those documents still describes
+reality is unknown and unchecked. If they are live, they are due a proper
+read — that is a task, not a side effect of this one.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
