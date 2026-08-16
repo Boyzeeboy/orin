@@ -6,6 +6,13 @@ gaps to close before assembly starts. Companion to PHASE5-BUILD.md
 (which holds the approved copy and the constraints). This file is the
 method; that file is the content.*
 
+*Status, 2026-08-16: **the whole sequence is executed.** Every Step 0 and
+Step 0.5 item below shipped, all five build-order steps closed, and v1 is
+declared. Read this as the record of how the site was built, not as work to
+do. Where it and the shipped site disagree, the site wins — the audit of
+2026-08-16 corrected the places they had drifted apart. Nine pages shipped
+against the five-page sitemap this document plans for.*
+
 ---
 
 ## The principle
@@ -31,7 +38,14 @@ own rule applies to its website.
 
 ---
 
-## Step 0 — Close the foundation gaps first
+## Step 0 — Close the foundation gaps first (all 11 done)
+
+*Audited 2026-08-16: every item below is in the shipped site. Verified
+directly — the three accent tokens exist, no `link-on-inverse` token exists
+(option (a) was taken), and `.button`, `.card`, `flex-wrap` on the nav, the
+skip link with `id="main"`, the `prefers-reduced-motion` block, the absolute
+`data-include` paths and the preserved specimen CSS are all present. Item 11
+is also done: `SETUP.md` names Inter, not Source Serif 4.*
 
 Do these before building any page. Each is cheap now and expensive
 mid-assembly (you'd build the button three times, discover the missing
@@ -111,6 +125,11 @@ positioning — the site shows its grid the way it shows its tokens.*
 1. **Visible grid + left rail.** Numbered section labels in a persistent
    left rail (01 HERO, 02 THE PROBLEM…) plus a faint 12-column overlay in
    the hero. Teal, uppercase, using the existing `.eyebrow` treatment.
+   *Shipped differently, and this matters because other docs copied the
+   wrong version: the rail carries the **number alone** (`01`, `02`, and a
+   `—` on "When it's a no"). The label sits in the `.eyebrow` at the top of
+   the content column, never in the rail. Composite labels like "01 HERO"
+   were never built.*
 2. **Proof stays approved prose.** No stat table, no invented metrics —
    the Vivo paragraph (with its 60% figure) placed in the new two-column
    layout. PHASE5 "assemble, don't rewrite" holds.
@@ -141,6 +160,7 @@ guardrail.
   token), `margin-inline: auto`, inline padding `space-6`.
 - `.grid` — 12-col CSS grid (`repeat(12, 1fr)`, gap `space-6`). The
   column count is a structural constant, not a token.
+  *(Shipped as `.section-grid`, not `.grid`. Use the shipped name.)*
 - **Section + rail** — each `.section` places its number/label into grid
   column 1 and its content into the remaining columns. Two-column bodies
   place heading and body onto the grid (e.g. heading cols 2–6, body 7–12).
@@ -152,13 +172,21 @@ guardrail.
 - **Cards row** — the three priced blocks become a responsive row:
   `repeat(auto-fit, minmax(~16rem, 1fr))`, stacking below `md`. Add
   01/02/03 numbering, a hairline, and "What's included →" to match.
+  *Superseded twice. The Foundation made it four cards (2026-08-12), so the
+  numbering runs 01–04. And `auto-fit` was replaced with an explicit
+  `repeat(2, 1fr)` above `md`: the track minimum that fitted three neatly
+  orphaned the fourth on its own row, and no minmax value threads that gap
+  robustly. The count is stated rather than derived — see the comment in
+  `styles.css` and decisions.md.*
 
 **Responsive — fluid-first:** default to `clamp()` type/padding and
 `auto-fit` rows so few breakpoints are needed. At `< lg`, two-column
 sections stack (the rail number/label moves above the heading) and cards
 stack. Nav already wraps.
 
-**Per-section layout map (copy unchanged from PHASE5-BUILD):**
+**Per-section layout map (copy unchanged from PHASE5-BUILD).** Rail entries
+below are written "01 HERO" style; as shipped the rail holds the number and
+the eyebrow holds the label. Read them as number-plus-eyebrow:
 
 1. **Hero** — rail "01 HERO"; faint 12-col overlay; clamp `h1`; muted
    subhead; accent button.
@@ -166,8 +194,8 @@ stack. Nav already wraps.
    (prose, not bullets).
 3. **What Orin does** — rail "03"; heading left, approved paragraph +
    "View the tokens →" right. Do **not** split into sub-services.
-4. **How it works** — rail "04"; three priced cards, auto-fit row,
-   numbered.
+4. **How it works** — rail "04"; four priced cards (was three), 2×2 row
+   above `md`, numbered 01–04.
 5. **Proof** — rail "05"; heading left, approved Vivo prose right (keep
    the 60% figure in prose; no stat table).
 6. **Close** — rail "06 LET'S BUILD"; inverse band; heading left, button
@@ -196,8 +224,9 @@ the `@media`/breakpoint exception are logged in `decisions.md`.
    quietly from the footer.
 
 3. **Clone across the remaining four** — Manifesto (65–75ch long-form,
-   no decoration), How it works (three priced blocks, single CTA),
-   Work (three cards, essays marked coming soon — do not draft them),
+   no decoration), How it works (four priced blocks since 2026-08-12,
+   single CTA), Work (three cards; Vivo Energy has since been written and
+   shipped, IDEM and KRM still read "Essay coming" and are still Phase 6),
    Contact (heading, two sentences, mailto). These are ~90% type poured
    into the same primitives. Build no new component unless a page truly
    demands it.
@@ -225,8 +254,9 @@ None is a foundation gap; each is a small addition once the five pages
 ship and clear the 90-second test.
 
 - **Fuller footer** — the reference footer carries logo, © line, contact
-  email, and a repeat of the nav. Current footer is one line. A richer
-  footer is pure assembly from existing primitives (no new tokens).
+  email, and a repeat of the nav. Current footer is two lines: the tagline
+  and the quiet `/tokens` link. A richer footer is pure assembly from
+  existing primitives (no new tokens). Still deferred.
 - **"Title 20" type step** — the reference type scale includes a 20px
   title (1.25rem) between `size-500` (18) and `size-600` (24). Not in the
   current scale. Add as a token only if a page actually needs that step;
@@ -236,7 +266,10 @@ ship and clear the 90-second test.
   elevation is wanted later, it's a token proposal (`shadow/*`), not a
   literal.
 
-These are polish, not parity blockers — v1 ships without them.
+These are polish, not parity blockers — v1 ships without them. *All three
+confirmed still deferred on 2026-08-16: there is no 1.25rem step between
+`size-500` (1.125rem) and `size-600` (1.5rem), no `shadow/*` token exists,
+and cards remain border-only.*
 
 One larger Phase-6 item was added later and is **not** in that class: a
 `/pipeline` page built from `notes/pipeline-infographic.html`. It is a page,
@@ -251,6 +284,10 @@ question about which direction of truth it describes. Scope is parked in
 - Every value resolves through the token layer. A value the design
   needs but doesn't have is a **token proposal** (edit JSON, rebuild,
   sync) — never a literal in `styles.css` or a page.
-- `npm test` green (report 8/8, verify clean) before every push.
+- `npm test` green **from the repo root** (deliverable ok, report 8/8,
+  verify clean) before every push. Not `cd tokens && npm test`: that runs
+  the token chain only and skips `verify:deliverable`. The Step-0 and
+  Step-0.5 instructions above name the `tokens/` command because it was the
+  only one when they were written; the root command is the one to run.
 - One CTA sitewide: "Get in touch." No new components beyond the budget
   in PHASE5-BUILD.md. British English, first person singular.
