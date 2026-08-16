@@ -2078,6 +2078,68 @@ code to improve, which is the opposite of the usual direction and worth noticing
 
 ---
 
+## 2026-08-16 — A narrow voice.md pass over the site copy
+
+**Decision:** Applied four fixes from a full `voice.md` audit of all nine
+pages, and deliberately left the rest. Em dashes in body copy went 46 → 26.
+The site is still v1; this is a copy correction, not a reopening.
+
+**The separator rule, now stated.** The site was using `—` and `·` for the
+same job on the same screen: the home page said `The Diagnostic — £3,000,
+1–2 weeks` while `/how-it-works` said `£3,000 fixed · 1–2 weeks`. The rule
+from here: **`·` separates metadata fields** (price · duration, client ·
+attribution, size · px · family). Changed the hero eyebrow, the four card
+titles, and the `/tokens` eyebrow. An em dash joining a name to a *phrase*
+is not a metadata list and stays: the footer tagline, the case-study h1,
+and the manifesto signature. Three dashes survive on that reasoning, so if
+the rule should be absolute, that is the follow-up.
+
+**`/how-it-works` lost all 13 prose em dashes.** Not because 13 is over a
+budget, but because they were doing the same job every time — land the
+claim, append a qualifying clause — for six consecutive paragraphs. That is
+`voice.md` §4I metronome as much as §2's dash ban; the two rules were
+pointing at one defect. Replaced with commas, colons, and full stops as each
+sentence wanted. The `—` in the "When it's a no" rail is a section marker,
+not prose, and stays.
+
+**One spelling of the number.** It appeared three ways: "sixty per cent"
+(home, work), "60 per cent" (case study), "60%" (manifesto, and both Vivo
+meta descriptions). Standardised on **"60 per cent"** — digits per
+`voice.md`, British per `HANDOVER.md`, and already what the primary evidence
+page used.
+
+**One §3F reframe cut.** `manifesto` opened a paragraph with "This isn't an
+agency built around a service. It's a vehicle for…" — the banned pattern in
+its purest form. Deleted the negation; the paragraph now starts "It's a
+vehicle for…", which follows "Orin exists because I'm done disappearing"
+without a seam. The other three reframes in that document were left: the
+four-beat "Not the artefact, not the deliverable…" is doing real rhetorical
+work in a manifesto, which is a genre that permits it.
+
+**Left alone, on purpose.** The manifesto's other 11 dashes and its
+remaining reframes; the home, work, contact, tokens and case-study prose
+dashes. The manifesto is a signed, dated personal document — editing it is a
+different act from tightening a services page, and it got one surgical cut
+rather than a pass.
+
+**Flagged, not fixed: the number means two different things.** The case
+study says *a 60 per cent saving in development time*, and the manifesto
+says *the 60 per cent defect reduction at Vivo Energy*. `HANDOVER.md` line 87
+calls it a defect reduction too. The case study's own narrative treats
+defects as the mechanism and time as the outcome, so one of these is wrong.
+Formatting was standardised; the **claim was not touched**, because deciding
+which is true is Warren's, and it needs the Vivo evidence, not an editor.
+
+**A note on standing.** `voice.md` is not in CLAUDE.md's read-first list and
+the copy it governs was approved in `PHASE5-BUILD.md` before it. Whether it
+binds retroactively on shipped copy was raised and answered by asking for
+this narrow set specifically, rather than a full rewrite.
+
+**Verified:** `npm test` 8/8, verify-build clean. All pages render, no
+console errors, `/how-it-works` re-read end to end after the edits.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
