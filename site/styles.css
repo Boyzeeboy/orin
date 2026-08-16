@@ -180,8 +180,20 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
   opacity: 0.6;
 }
 
-/* --- pricing cards row (Step 0.5) --- */
-.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); gap: var(--orin-space-6); }
+/* --- pricing cards row (Step 0.5; 2×2 since The Foundation made four) --- */
+/* Was repeat(auto-fit, minmax(16rem, 1fr)), which fitted three engagements
+   neatly and orphaned the fourth on its own row. Auto-fit can't express "two
+   per row" robustly here — the track minimum that excludes a third column at
+   desktop also excludes a second at tablet, and the widths that thread that
+   gap leave ~2px of headroom. So the count is stated rather than derived. */
+.cards { display: grid; grid-template-columns: 1fr; gap: var(--orin-space-6); }
+
+/* At and above breakpoint.md (48rem — tokens/src/layout.json,
+   --orin-breakpoint-md). Same documented exception as the query below: a
+   literal, because @media cannot read custom properties. */
+@media (min-width: 48rem) {
+  .cards { grid-template-columns: repeat(2, 1fr); }
+}
 /* margin-top: auto pushes the rule + link to the card bottom, so slack from
    shorter cards sits above the rule and links align across the row */
 .card-rule { border: none; border-top: 1px solid var(--rule); margin: auto 0 var(--orin-space-4); }

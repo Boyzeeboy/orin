@@ -1504,6 +1504,48 @@ grows past what a `notes/` folder should hold.
 
 ---
 
+## 2026-08-16 — Home's priced row states its column count instead of deriving it
+
+**Decision:** `.cards` drops `repeat(auto-fit, minmax(16rem, 1fr))` for one
+column by default and `repeat(2, 1fr)` at and above `breakpoint.md` (48rem).
+Home's Section 4 now carries four cards — The Foundation went in as 02, with
+the Build and the Retainer renumbered — and the row is 2×2 at desktop and
+tablet, stacked below.
+
+**Reasoning:** The Step-0.5 row was specified as `auto-fit` with a ~16rem track
+minimum, which fitted three engagements neatly. Four made it lay out 3 + 1,
+with the fourth card orphaned on its own line at 1280px.
+
+`auto-fit` cannot express "two per row" robustly at these widths. Excluding a
+third column at desktop needs a track minimum above ~335px; allowing a second
+at tablet needs one at or below ~348px. That is a 13px window, and 21rem
+threads it with about 2px of headroom at desktop — which the appearance of a
+scrollbar would break. Raising the minimum to 22rem instead, which I tried
+first, gave a clean 2×2 at 1280 and regressed 768 to a single 720px-wide card.
+
+So the column count is stated rather than derived. It is less clever and it
+cannot silently reflow into an orphan when the content count changes again.
+
+**2×2 is also the better reading**, not just the safer layout: four across at
+this container width would leave each card about 240px of text, and the card
+titles carry a name, a price and a duration.
+
+**The cost:** a second `@media` literal, under the exception already logged for
+breakpoints — CSS conditions cannot read custom properties, so the value is
+duplicated with a comment naming `--orin-breakpoint-md`. That exception now has
+two instances rather than one, which is the point at which it is worth watching
+rather than worrying about.
+
+**Verified** at 1280 (2×2, 515px cards), 768 (2×2, 348px) and 360 (stacked,
+312px): no horizontal overflow at any width, card rules still aligned within
+each row, `npm test` 8/8 with verify-build clean.
+
+**Revisit if:** a fifth engagement appears — 2×2 becomes 2 + 2 + 1 and the
+orphan returns one row further down — or `container.max` changes enough to
+alter what fits.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
