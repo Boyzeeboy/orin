@@ -1453,6 +1453,57 @@ maths still can't defend the number for them.
 
 ---
 
+## 2026-08-16 — What goes in a public repo: the notes/ split
+
+**Decision:** Eleven files had accumulated in `notes/` with no decision either
+way. Split them. Tracked: the seven HTML sheets and `pipeline-comparison.md`.
+Excluded via `.gitignore`, each with its reason: `notes/shadcn-adapter/`,
+`notes/launch-and-outreach-pack.md`, `notes/client-situations.md`.
+
+**Reasoning:** The premise nobody had written down is that
+`github.com/Boyzeeboy/orin` is **public**, so tracking a file is publishing it.
+Untracked is not the same as excluded — it is a decision nobody has made yet,
+and eleven of them had piled up. Two files already sat in `.gitignore` with
+written reasons (`EXTRACTION-BRIEF.md`, the Diagnostic walkthrough script), so
+the convention existed; it just hadn't been applied to anything since.
+
+**The adapter is the shared core, and the shared core is not handed over.**
+`notes/shadcn-adapter/` is not a note about an adapter — it is a working one,
+with its own build, guardrail and fixtures, and a passing test.
+`deliverable.md` ("Whose is what") says the build machinery is Orin's own IP,
+reused across clients, and explicitly not sold or handed over. A public repo
+hands it over to anyone who clones. That the files were mode `600` was a hint
+in the same direction.
+
+**The outreach material follows the walkthrough-script precedent** (logged
+2026-08-04). `launch-and-outreach-pack.md` carries copy-ready outreach naming
+real clients, and `client-situations.md` is the objection material behind it.
+Both are drafts of *how I sell*, not decisions about *how the practice works* —
+and the decisions they rest on are in `Offer.md` and this file, which are
+tracked. Publishing the sales script alongside the offer it supports also
+means a prospect can read the objection handling before the call.
+
+**The line that actually does the work** is not sensitive/not-sensitive. It is:
+**decisions about how the practice works get tracked; drafts of how I sell, and
+machinery I don't hand over, stay local.** That rule decides all eleven without
+a judgement call per file, and it will decide the next one.
+
+**What tipped `pipeline-comparison.md` into the tracked set** beyond fitting the
+rule: `notes/pattern-layer-governance.md` is tracked and cites it in Related, so
+until now that pointer resolved only on my machine. A tracked file naming an
+untracked one is the same rot `verify-docs` exists to catch in the baseline.
+
+All seven sheets were checked for named clients and adapter source before
+tracking — clean on both.
+
+**Revisit if:** the remote goes private (the outreach files could then come in;
+the adapter probably still shouldn't, since "not handed over" is about the IP
+rather than the visibility, and it likely wants its own private repo once it is
+more than a profile), or a sheet starts naming a real client, or the adapter
+grows past what a `notes/` folder should hold.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
