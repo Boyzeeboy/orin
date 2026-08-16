@@ -2650,6 +2650,63 @@ It is that a document which never claims to be current cannot go stale.
 
 ---
 
+## 2026-08-16 — README audited: the founder's name was spelled wrong
+
+**Decision:** Seventh document audited, and the worst of them. Seven
+findings, all corrected. This is the only one of the seven that strangers
+read, and it was wrong about the practice's category, the founder's name,
+the headline number, and whether the site exists.
+
+**The name.** It said **Warren Grossiter**. It is Warren G Rossiter — the
+middle initial had been absorbed into the surname. Confirmed four ways: the
+git config, the author line on every commit in the repo, the manifesto's
+signature on the live site, and the README's own reference to *Kirsten
+Rossiter Ministries* two lines below. Six weeks on a public remote.
+
+**The 60 per cent claim, for the third time.** "A 60% reduction in
+development defects." Same error corrected in the manifesto and
+`HANDOVER.md` this morning, now found in the most public file of the three.
+Three documents carried one wrong claim, which is what happens when a number
+is repeated from memory rather than from its source. Now "a 60 per cent
+saving in development time", matching the case study.
+
+**It broke a locked decision in its first sentence.** "Orin is a design and
+build practice." Locked decision 5 in `HANDOVER.md` says never lead with
+design as Orin's *category*; CLAUDE.md says never frame Orin as a design
+agency or studio. The distinction that makes the fix easy: "design system"
+as the name of the artefact is fine, "design practice" as the category is
+not. Now opens with the systems-practice framing and the locked one-liner.
+Also "Senior UI designer" in the bio, against a positioning that says he has
+outgrown UI design as an identity.
+
+**Status said "Pre-launch."** The site has been live since this morning,
+positioning is locked at 1.1, the offer has four shapes, and the first case
+study is published. Every clause of that section was false.
+
+**The repo contents list was wrong in both directions.** It described `/site`
+as "added when it exists" — it exists, nine pages. And it omitted `/tokens`
+entirely: the token pipeline, the thing the practice sells, was not mentioned
+in the README of its own repo. Rewritten into three groups (the thinking,
+the build, the client-facing work) naming what is actually here.
+
+**A near-miss, again.** I nearly reported `/case-studies` as a phantom
+directory. It exists and is tracked, with `vivo-energy.md` in it. Second time
+today an absence was almost reported on a bad check. Verify presence before
+claiming absence — the same lesson as the `verify-deliverable.mjs` scare, and
+it did not stick the first time.
+
+**Clean:** the working principles all hold — manifesto as source of truth,
+GitHub canonical with Notion as workshop, ship the honest first version.
+Bath, UK. The attribution rules are correctly applied: Vivo contracted via
+Rethink, IDEM a personal rebuild, KRM fully owned.
+
+**All seven documents are now audited.** The README was audited last and was
+the most wrong, which is the inverse of how much it is read by outsiders. It
+is the only file a stranger arriving at the repo sees first, and it had the
+founder's name misspelled in it.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
