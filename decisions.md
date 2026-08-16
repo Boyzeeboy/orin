@@ -2282,6 +2282,56 @@ read — that is a task, not a side effect of this one.
 
 ---
 
+## 2026-08-16 — HANDOVER.md audited against the shipped site
+
+**Decision:** Did the full read the entry above called for. Every factual
+claim in `HANDOVER.md` was checked against the live site, the repo, and
+`Offer.md`/`positioning.md`. Six findings. Five corrected in the document;
+one is not a document problem at all.
+
+**The one that isn't a doc bug: `orindesign.co` does not redirect.** The
+document has claimed since 2 July that it redirects to orinsystems.co. It
+returns 200 from Cloudflare and serves a separate page titled **"Orin
+Design"**, carrying a Google Analytics tag (G-H2L6VDKNK0) and a Rewardful
+affiliate tag. Two problems, not one: a second live site is running under
+Orin's name, and that name is the exact framing locked decision 5 rules
+out. Left for Warren; it needs DNS access and a decision about what should
+live there, neither of which is a repo change.
+
+**The offer was recorded as three shapes at the wrong price.** Locked
+decision 4 listed Diagnostic → Build → Retainer, with the Build at "£14,000
+base", and asserted "prices are published on the site". The Foundation has
+been missing since 12 August, and the published floor became £12,000 on 16
+August. So the one section a reader would trust for pricing was wrong in
+two directions at once. Rewritten to four shapes and two doors, with the
+£14,000/£12,000 split explained rather than silently resolved.
+
+**Editing a section marked "locked" — the reasoning.** This is a sync, not
+a relitigation. Both changes were already decided and logged; `HANDOVER.md`
+had simply not been updated. Locked means logged in `decisions.md`, not
+frozen, and that reading is now written into the document's status note so
+the next person does not face the same hesitation.
+
+**Three more corrections.** The sitemap said five pages against nine
+shipped, so it now distinguishes the five-page sitemap from the four
+machinery pages. The Work entry said all essays were Phase 6, when Vivo
+Energy shipped. Open items listed the 3-minute positioning version as
+pending; it has existed since the 1.1 revision of 14 July.
+
+**What the audit found clean.** The one-liner matches `positioning.md`
+verbatim. Buyer language holds: the copy is in velocity, defects, and
+source-of-truth terms throughout, with no designer vocabulary. The
+"deliberately absent" list is fully respected — no About page, no blog, no
+newsletter, no testimonials, no logo wall, and "services" appears nowhere
+in the nav. Conversion logic verified: every page ends on the single
+"Get in touch". Build approach and the working agreement are still true.
+
+**Unverifiable, and marked as such.** The business-admin open item (HMRC,
+bank account, PI insurance, contract template) cannot be checked from the
+repo. It is now labelled unverifiable rather than left reading as current.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
