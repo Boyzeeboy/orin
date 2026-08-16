@@ -9,12 +9,13 @@ Format: date, decision, reasoning, revisit-if.
 
 **How to read this file** (added 2026-08-16, after auditing it):
 
-- **The order is not uniform.** The first eight entries run *backwards*
-  (2026-08-04 down to 2026-07-14). Everything from "Founded Orin" onward runs
-  *forwards* (2026-07-01 to the present). So the newest entry is at the
-  **bottom**, but the eight at the top are recent too. CLAUDE.md says to read
-  backwards from the most recent; start at the bottom, and don't mistake the
-  top block for ancient history.
+- **Oldest first, newest last.** Entries run forwards, 2026-07-01 to the
+  present, with the blank template pinned at the end. CLAUDE.md says to read
+  backwards from the most recent, so **start at the bottom** and work up.
+  Append new entries immediately above the template. (Until 2026-08-16 the
+  first eight entries ran backwards while the rest ran forwards; they were
+  sorted into one order that day. Sorting moved entries, it did not edit
+  them — same 64 entries, same bytes.)
 - **Nothing here gets rewritten.** Entries are written in past tense at the
   moment of the decision. An entry that is wrong about the world *today* is
   usually right about the world *then*, and that is the point. When a decision
@@ -25,454 +26,6 @@ Format: date, decision, reasoning, revisit-if.
   else here. The 2026-08-16 entry on the Vivo number cited `HANDOVER.md` line
   87 and was wrong within hours, because the same day's edits moved it. Name
   the section or quote the text instead.
-
----
-
-## 2026-08-04 — Findings get read aloud before they get written up
-
-**Decision:** Added one paragraph to the Diagnostic's *What happens* in
-`Offer.md`, plus a second defence line. Generated audit output is read through
-with the client before it becomes the written diagnosis. Not a new stage, not a
-deliverable, no change to price, duration, or what the client gets — those stay
-locked.
-
-**Reasoning:** Rehearsing the audit against a duplicate of the IDEM design
-system produced four cases in one afternoon where the tooling was articulately,
-confidently wrong. Not broken — every check did exactly what it was built to do
-— but wrong in what it *said*:
-
-1. The collision error prescribed a rename that would have changed the client's
-   emitted CSS custom properties. A breaking change, offered as a naming
-   tidy-up.
-2. Collisions were reported one per round-trip. There were eight, which in a
-   live session is debugging your own tooling on the client's clock.
-3. A red `mode-parity` check led with "141/150 differ" — the passing count. The
-   failure was nine tokens the headline never mentioned.
-4. The config comment for `expectedIdentical` offered `colour-text-inverse` as
-   its worked example of a legitimate exception. That token was one of the eight
-   defects. The guidance named the most tempting wrong answer as correct, in the
-   one place someone goes looking for permission to silence a check.
-
-Then the judgement the tool cannot make: nine tokens identical across modes,
-eight defects and one genuine exception, all wearing the same language.
-Declaring all nine would have buried eight WCAG failures behind a green build,
-each with a written reason sitting next to it.
-
-A check that fails silently is caught by another check. A check that fails
-articulately but wrongly is caught only by someone reading it aloud. That is not
-a gap more automation closes.
-
-It also sharpens what the £3,000 buys. Not the audit — that runs in ten minutes
-and I'd run it free in a first meeting. The judgement that separates a finding
-from a fact.
-
-**What was deliberately not changed:** no fourth engagement stage, no new
-deliverable, no price or duration change, and no methodology section. `Offer.md`
-says what the client buys and what it costs; a sales document that starts
-describing its own ceremonies has become the thing the manifesto refuses.
-
-**Counter-argument considered:** this is arguably just doing the job properly,
-already implied by *"I'd rather tell a client the hard truth about their system
-than sell them polish they don't need."* Rejected on the grounds that
-undocumented judgement decays under time pressure — which is the argument the
-entire practice rests on.
-
-**Revisit if:** after three complete Diagnostics the walkthrough has turned into
-a presentation rather than a check, or clients treat it as a status meeting.
-Either would mean it has stopped doing its job and should be cut rather than
-kept for appearances. Also revisit if a client disagrees with a finding during
-the walkthrough and turns out to be right — that would be the strongest possible
-evidence for the step, and it should be logged here when it happens.
-
----
-
-## 2026-08-03 — The `DEFAULT` sentinel, and collisions reported all at once
-
-**Decision:** Restored the uppercase `DEFAULT` name-strip into the client
-baseline, and made the Figma sync report **every** name-vs-group collision in one
-run rather than throwing on the first. Both found by rehearsing the ten-minute
-audit against a duplicate of the IDEM design system before pointing it at anyone
-else's file.
-
-**Reasoning:** Two separate problems, one rehearsal.
-
-1. **The baseline could only give a client breaking advice.** DTCG forbids a node
-   holding both a `$value` and children, so `input/border` alongside
-   `input/border/focus` is refused — correctly, since Style Dictionary would drop
-   one silently. But the only remediation the baseline could offer was "rename it
-   to `input/border/default`", which changes the emitted custom property from
-   `--prefix-input-border` to `--prefix-input-border-default`. That is a breaking
-   change across every file consuming it, presented to a client as a naming
-   tidy-up. IDEM had solved this in 2026 with a name transform stripping an exact
-   uppercase `DEFAULT` segment — structure becomes legal, emitted name doesn't
-   move — and the extraction into the baseline lost it. Ported it back, wrapping
-   Style Dictionary's own `name/kebab` rather than reimplementing kebab-casing, so
-   non-DEFAULT tokens are byte-identical (verified: `dist/` diffs clean against a
-   pre-change snapshot). Kept uppercase rather than choosing a clearer sentinel
-   like `_default`, because IDEM's committed tokens already use `DEFAULT` and
-   changing it would make them unsyncable through the baseline.
-
-   The rule lives in `scripts/lib/token-name.mjs` because two consumers need it —
-   `sd.config.mjs` for the build and `generate-report.mjs` for the checks. They
-   had independent name derivations; had only the build learned about the
-   sentinel, the report would have hunted for tokens under names the build no
-   longer emitted.
-
-2. **One collision per round-trip.** The transform threw on the first collision,
-   so an operator found them one at a time: fix in Figma, restart the sink, press
-   Sync, re-audit, hit the next. The rehearsal file held **eight**. In a paid
-   Diagnostic that is a finding — "your Components layer has six places a token
-   would be silently dropped" — but delivered one at a time it is debugging your
-   own tooling on the client's clock. Now collected, deduplicated across
-   light/dark, grouped by collection, and reported once.
-
-   The collision list names tokens by their **Figma** name, not the DTCG path.
-   The first version printed `components/input/border`; that `components/` branch
-   exists only downstream, so the message sent the reader hunting in Figma for a
-   variable that does not exist. The message tells someone to go and rename
-   something — it has to use the name they will search for.
-
-**What this cost to find:** nothing, because it was a rehearsal. Had the first
-run been in front of Synthesis, the demo would have stopped on collision one of
-eight, and the fix offered would have broken their build. That is the argument
-for rehearsing the audit against a file whose answers are already known, and it
-is now the standing rule before any client run.
-
-**Deferred:** not propagated to `KR Token Pipeline`. IDEM already has its own
-DEFAULT transform; KR needs the port only if it ever hits the shape.
-
-**Revisit if:** a client's Figma cannot use uppercase `DEFAULT` for some reason
-of their own tooling — then the sentinel becomes configurable in
-`pipeline.config.mjs`, with the entry recording that their file departs from the
-convention, exactly as the `figma` override block already does.
-
----
-
-## 2026-08-01 — Orin's own pipeline is the baseline's specification
-
-**Decision:** When Orin's own token pipeline has a check the client baseline
-lacks, treat that as a **gap in the baseline**, not as Orin being unusually
-strict. Adopted after the third instance in a week. Also added the
-`semantic-only` consumption check to the baseline as the immediate consequence.
-
-**Reasoning:** Three times now the practice site has held a standard the thing a
-client would be handed did not:
-
-1. **Report gating** (2026-07-30). Orin's `report.mjs` has ended
-   `process.exit(passed === results.length ? 0 : 1)` since day one. The client
-   pipeline printed its failures and exited 0 — so `mode-parity`, the check that
-   exists *because* everything else was green, could go red while `npm test`
-   passed, writing into a gitignored file CI generated and discarded.
-2. **The manifesto pointer** (2026-07-30). The generated client `CLAUDE.md` told
-   its reader to consult a document in *my* repo — legible only because I had
-   written it for myself and forgotten who would end up owning the file.
-3. **Semantic-only consumption** (2026-08-01). Orin's report has checked this
-   from the start. The client pipeline never did — and the live client site
-   turned out to route 195 uses through local aliases pointing at primitives,
-   roughly 96% of its colour sitting one layer too low, for months.
-
-Three is a pattern, not three coincidences. The cause is ordinary: I build Orin's
-pipeline by hand while thinking about the problem, and the baseline by extraction
-while thinking about portability. The care goes into the first and the
-generalisation into the second, so the first is quietly ahead.
-
-The manifesto's *"the measure of the work is what happens after handoff"* makes
-that the wrong way round. The client build is the one whose defect rate matters;
-mine is a five-page site. If a check is worth having on my own substrate it is
-worth more on theirs — and a check that cannot fail anything does not move a
-defect rate, it is an observation wearing the costume of a control.
-
-Concretely: **diff the two report scripts whenever either changes.** They are not
-meant to be identical — Orin's has no Figma sync, the baseline has no site of its
-own — but every asymmetry should be a decision someone made, not a leftover.
-
-**Revisit if:** the baseline ever gets ahead of Orin's own pipeline, which would
-be the healthy direction and would mean the flow has reversed. Or if Orin grows
-past a five-page site, at which point its pipeline stops being the simpler case
-and this stops being a safe heuristic.
-
----
-
-## 2026-07-30 — The client's repo stops referring to Orin
-
-**Decision:** The client-facing pipeline repo makes **no reference to the Orin
-manifesto**, and no reference to anything a client cannot open. The audit's sales
-framing moves here, into `Offer.md` under the Diagnostic. `EXTRACTION-BRIEF.md`
-is untracked and gitignored.
-
-**Reasoning:** Asked whether the doc split between the two repos was right, the
-answer was: the *repos* are split correctly — practice identity, site build and
-lineage in Orin; the working docs that ship with a client's pipeline in the
-baseline — but the *audience* inside the baseline was not clean. Two leaks:
-
-1. The generated `CLAUDE.md` opened with *"Read `MANIFESTO.md` in the Orin
-   repo"*. The extraction brief specified that pointer, and it made sense when
-   the baseline was framed purely as internal tooling operated with me in the
-   room. But it also lands in a client's repository, where it is an instruction
-   they cannot follow, referring to a document about my practice rather than
-   their system. Removed entirely rather than reworded: a client's repo has no
-   business citing my manifesto. The four principles it carried were worth
-   keeping, so they are restated there in their own right, each tied to the
-   machinery it explains.
-
-2. `PROCESS.md` described the client in the third person **inside the client's
-   own repo** — *"read it out loud to them"*, *"their file lacks"*. That section
-   was written for running an audit in front of a prospect, and then shipped to
-   the prospect. The instructions are useful to whoever operates the pipeline, so
-   they stayed, rewritten in second person; the framing came here.
-
-The test I'd apply from now on: **would this sentence be strange if the client
-read it in their own repository?** Both leaks fail it obviously in hindsight, and
-neither was visible while writing them, because I was writing for the person in
-front of me rather than the person who ends up owning the file.
-
-`EXTRACTION-BRIEF.md` was tracked by accident — swept into a commit by
-`git add -A` after I'd been told to leave it untracked. Now in `.gitignore` so it
-cannot happen again. It remains in history from those two commits; not worth a
-rewrite.
-
-**Revisit if:** the baseline stops shipping to clients and becomes purely
-internal — then the manifesto pointer would be legitimate again. Or if a client
-asks what the pipeline was built to believe, which is a conversation, not a file
-in their repo.
-
----
-
-## 2026-07-30 — Storybook returns with a component library; the report gates
-
-**Decision:** Two related calls on the client baseline.
-
-1. **Storybook is not part of a token-only Build.** It returns when a Build
-   includes a component library, and is documented that way in
-   `deliverable.md`. `guidelines.json` is dropped outright. The generated
-   `dist/report.html` is the token documentation a client receives.
-2. **The generated report is now a gate.** `npm test` runs it with `--strict`
-   and fails on any red check. `npm run build` stays advisory.
-
-**Reasoning:**
-
-*On Storybook.* The question had been open since 2026-07-28, framed as "does a
-Build include Storybook and the usage layer?" — a commercial call I did not want
-decided by what happened to get copied into a template. Standing the live client
-up on the baseline answered it with evidence rather than preference. Its
-Storybook contains five stories: Colors, Typography, Spacing, BorderRadius,
-Changelog. Every one is a **token** story; there is not a single component story,
-and `src/` contains nothing but `stories/`. Meanwhile the generated report
-already renders colours (semantic, component, primitive), the type scale,
-spacing and radius — four of those five — from the real build.
-
-So Storybook, in a token-only pipeline, is a server you have to run and a
-Chromatic subscription you have to hold, in order to see what a generated file
-already shows. Its genuine value is documenting components and
-visually regression-testing them, which needs components to exist. Scoping it to
-the component-library line is not a subtraction; it puts it where it earns its
-place. `guidelines.json` goes because nothing reads it — verified, not assumed —
-and per-token usage rules already travel as `$description`, synced from Figma.
-
-*On the gate.* `generate-report.mjs` printed its failures and exited 0. That is
-how `mode-parity` — the check that exists precisely **because** everything else
-was green — could go red while `npm test` passed, writing its red line into a
-gitignored file that CI generated, logged and discarded. Found by standing the
-client up: the scaffolded clone reported mode-parity failing and `npm test`
-still exited 0. The July dark-mode bug would have shipped a second time past a
-wall of passing gates.
-
-The deciding argument was an inconsistency: **Orin's own pipeline has gated its
-report since day one** (`tokens/scripts/report.mjs` ends
-`process.exit(passed === results.length ? 0 : 1)`), while the thing a client
-would be handed did not. The practice site held a stricter standard than the
-deliverable. Per the manifesto — *the measure is what happens after handoff* — a
-check that cannot fail anything does not move a defect rate; it is an
-observation wearing the costume of a control.
-
-Deliberately no severity config, no per-check overrides, no opt-out flag. A
-skipped check is not a failure, so a client with no site checked out is never
-blocked by a site they do not have. If a check proves too noisy in practice,
-that is the second case that would justify configuration — not before.
-
-Also proven the same day, and the reason both decisions could be made on
-evidence: a clone of the baseline, scaffolded as Kirsten Rossiter and synced from
-the live Figma file, produced **byte-identical** output to the live client build
-— both source token files and all six `dist/` outputs, same SHA-256. The two
-pipelines reach that result by different routes (the live one matches
-collections by hardcoded id, the baseline by name), which makes the agreement
-worth something.
-
-*Same day, found by checking rather than assuming.* Asked whether
-`deliverable.md` was actually aligned with the baseline, I checked all thirteen
-artefacts it names. Ten matched. `design.md` did not: the file promised it three
-times — as the routing layer, as its own section, and in Related — and the
-baseline has no `design.md` and no template for one, so a scaffolded client
-would never have received it. The Related link was worse than absent: it
-resolved to *this repo's* `design.md`, which is Orin's own site layout
-principles and nothing to do with a client deliverable.
-
-Same class of error as Storybook — a live-client assumption carried into a
-client-facing doc — and it took the same resolution. `design.md` in the live
-client routes to component metadata and Storybook, so it belongs with the
-component library for exactly the reason Storybook does: it routes to things
-that only exist once components do. In a token-only Build the router is the
-**generated** `CLAUDE.md` / `AGENTS.md`, which is strictly better than the doc
-it replaces, because it is rendered from one template plus the client's config
-and therefore cannot drift from the system it describes.
-
-Worth naming the pattern: both errors were in the one client-facing document,
-and neither would have been found by reading it. `verify-docs` polices the
-baseline's own docs, but nothing checks a doc in *this* repo against a
-*different* repo — so `deliverable.md` will need re-checking by hand whenever the
-baseline changes shape.
-
-**Revisit if:** a Build genuinely includes a component library — then Storybook,
-Chromatic and `design.md` come back, and `deliverable.md`'s component-library
-line is where they already live. Or if a report check proves too noisy to gate
-on, which is the second case that would justify per-check configuration.
-
----
-
-## 2026-07-28 — Extracted the client token-pipeline baseline into its own repo
-
-**Decision:** Extracted the generic machinery out of `KR Token Pipeline` into a
-new repo, `Orin Token Pipeline` (sibling folder, own git history, two commits,
-nothing pushed). It is the baseline a client engagement starts from — internal
-tooling for a partner business, explicitly **not** a product: no `LICENSE`, no
-README-as-shopfront, no onboarding for strangers, no error handling for
-unattended use. Nobody operates it without me in the room. Per
-`EXTRACTION-BRIEF.md`, extracted rather than rebuilt: the code was already ~99%
-portable and carries five bugs' worth of reasoning a rewrite would rediscover.
-
-The headline change is **collections matched by name, not id**. The transform's
-config was keyed by `VariableCollectionId:68:2831`, so pointing the pipeline at
-a new Figma file needed a code edit. It is now keyed by collection *name*, with
-modes matched by mode *name*, and the Fonts handling generalised into
-per-collection `stripPrefix` / `lowercase` / `exclude` so nothing keys off the
-literal string "Fonts". A new client needs matching collection names in Figma —
-a convention — rather than a code change.
-
-`resolveCollections()` returns an issue list instead of failing quietly, and
-`npm run sync:figma` prints it before transforming anything: which collections
-matched, which the convention expects and the file lacks, which modes it could
-not map. The mode-parity check came across with `EXPECTED_IDENTICAL` moved into
-`pipeline.config.mjs` — still explicit entries with reasons, never a regex.
-
-Also: site coupling parameterised (`KR_SITE_DIR` / `../Kirsten Rossiter` →
-`SITE_DIR` / `config.siteDir`), with site-facing checks reporting **skipped**
-rather than failed when no site is checked out; Storybook and Chromatic dropped,
-leaving `style-dictionary` as the only dependency; `templates/agent-rules.md`
-rewritten; and a neutral seed fixture (`npm run seed`) so a fresh clone is green
-and the whole sync chain is provable without opening Figma.
-
-**Reasoning:** The manifesto refuses the alternative: *"Orin is not for clients
-who want a vendor. Orin is a partner or nothing."* A self-serve tool for
-non-developers is a different business. What this template commoditises is
-**setup**, never design judgement — the moment it starts shipping opinions about
-what tokens should exist, it has drifted into the thing the manifesto refuses.
-That is why the seed fixture is characterless greys and says so in its own
-header.
-
-Name-matching is the top priority rather than a tidy-up because it is what makes
-the strongest version of the sales conversation possible: point it at the
-prospect's own Figma file, live, and show them the variables that never reach
-their code, the hardcoded values that bypass the system, and whether their dark
-mode actually resolves. That is *"I'd rather tell a client the hard truth about
-their system than sell them polish they don't need"* executed in ten minutes
-rather than asserted in a deck — and it cannot happen if pointing at a new file
-requires opening an editor. It is also the same lesson that fixed dark mode in
-July: **names are portable, ids are not.**
-
-Skipped-not-failed for the site checks is the same discipline as the generated
-report: a permanently-red check teaches people to ignore red, which is how the
-dark-mode bug survived months of green gates in the first place.
-
-Verified: 37 unit tests pass (28 carried over, 9 new for name matching), build +
-verify green, report 5/5 with 4 correctly skipped, `git diff --exit-code dist/`
-clean so the CI reproducibility gate holds. Forcing dark to carry light values
-drops the report to 4/5, so the parity check demonstrably bites. Spin-up proven
-end to end in a scratch copy: clone → `scaffold-client` → green build under the
-client's own prefix.
-
-**Consequence for this repo's docs:** `TEMPLATE-ARCHITECTURE.md` — which
-`SETUP.md`, `deliverable.md` and `PIPELINE-LEDGER.md` all cited as the "New
-Client Playbook" — was archived out of KR the same day, so every one of those
-pointers was dangling. Repointed them at the new repo. Historical entries in
-this log were left alone: it is written at the moment of the decision, and the
-2026-07-05 and 2026-07-12 entries were true when written.
-
-**Revisit if:** the Figma plugin (brief item 3) or `PROCESS.md` (item 4) lands —
-both are still outstanding. Or if a second client is scaffolded and the shared
-core is worth extracting into a published package, which would finally make the
-top layer of the three-layer model real rather than projected.
-
----
-
-## 2026-07-21 — Added deliverable.md to define what a client receives
-
-**Decision:** Created `deliverable.md` as a standalone doc answering "when a
-client buys a Build, what do they actually get?". It sits alongside `Offer.md`
-and defines the deliverable at the level of what and why — the token pipeline
-running in the client's own repo, their product wired to consume it, the
-component library as it arrives, and the routing/usage layer (`design.md`,
-`guidelines.json`, `PROCESS.md`) — while explicitly pointing at
-`TEMPLATE-ARCHITECTURE.md` for the file-by-file manifest rather than copying it.
-
-**Reasoning:** There was a gap between `Offer.md` (the Build framed
-commercially, at outcome level) and `TEMPLATE-ARCHITECTURE.md` (the technical
-manifest, written for me as template author). A question — "is it a folder and a
-design.md, a design system, variables?" — fell straight into that gap. A
-client-facing definition of the deliverable belongs in Orin, where positioning
-and offer already live. Kept it a separate file rather than folding it into
-`Offer.md` so the commercial doc stays outcome-focused and this one stays
-artefact-focused. Held to the practice's core discipline: it does not duplicate
-the artefact list — it references `TEMPLATE-ARCHITECTURE.md` so there is one
-source of truth for what a client repo contains, not two that drift.
-
-**Revisit if:** the deliverable changes shape, or the three-layer model in
-`TEMPLATE-ARCHITECTURE.md` is restructured — keep `deliverable.md`'s what/why in
-step with it, but never let it grow its own copy of the manifest.
-
-*Update (2026-07-26):* the transport example above ("once step 3 lands") is
-stale — that seam closed on 2026-07-21. KR now installs the tokens as a pinned
-git-tag `devDependency` rather than copying from a sibling folder. The
-`vendor/tokens.css` copy itself remains (deliberately: it stays committed so
-deploys need no access to the tokens repo), so the deliverable's shape is
-unchanged and `deliverable.md` needed no edit. See `PIPELINE-REVIEW.md` §3.1 and
-the `[‡]` footnote in `PIPELINE-LEDGER.md`.
-
-*Update (2026-07-28):* the target of the deferral above no longer exists.
-`TEMPLATE-ARCHITECTURE.md` was archived when the machinery was extracted into
-the `Orin Token Pipeline` repo (see the 2026-07-28 entry at the top of this
-log). `deliverable.md` now defers to that repo — a fresh clone *is* the
-manifest — which holds the original reasoning better than the doc did: the
-manifest is now generated rather than written, so it cannot drift from what a
-client actually receives. The "never let it grow its own copy" rule is
-unchanged. One open question was left in `deliverable.md` rather than decided
-here: the baseline dropped Storybook, Chromatic and `guidelines.json`, and
-whether a Build still includes them is a commercial call, not a consequence of
-what got copied into a template.
-
----
-
-## 2026-07-14 — Built the Work page + shipped the Vivo Energy essay early
-
-**Decision:** Built `/work` as a three-card index (Vivo Energy, IDEM, KRM)
-and published the full Vivo Energy case study at `/work/vivo-energy`. IDEM
-and KRM stay as cards marked "Essay coming". This brings the Vivo essay
-forward from Phase 6 — PHASE5-BUILD.md scoped Work as a shell with
-"essays coming soon" and said not to draft them — but Warren directed it,
-and the Vivo copy was already written and locked in
-`case-studies/vivo-energy.md`, so it was assembly, not drafting.
-
-**Reasoning:** The Vivo essay is the proof the whole site leans on (Home
-Section 5, the manifesto's 60% line). Shipping it live makes "Read the
-case studies →" land somewhere real instead of a placeholder. No new
-components or tokens: the index reuses `.cards`/`.card`; the essay reuses
-the manifesto's `.wrap` long-form article. "Essay coming" reuses
-`.eyebrow` as a status marker, keeping card-rule alignment and adding no
-CSS. Attribution held to the rules — Vivo "contracted via Rethink", IDEM
-a personal rebuild (no client attribution), KRM fully owned. Both pages
-end in the single Contact CTA. `npm test` 8/8, verify clean.
-
-**Revisit if:** IDEM and KRM essays land — swap the "Essay coming"
-markers for real links, same card shape.
 
 ---
 
@@ -1161,6 +714,31 @@ to `npx serve site`).
 
 ---
 
+## 2026-07-14 — Built the Work page + shipped the Vivo Energy essay early
+
+**Decision:** Built `/work` as a three-card index (Vivo Energy, IDEM, KRM)
+and published the full Vivo Energy case study at `/work/vivo-energy`. IDEM
+and KRM stay as cards marked "Essay coming". This brings the Vivo essay
+forward from Phase 6 — PHASE5-BUILD.md scoped Work as a shell with
+"essays coming soon" and said not to draft them — but Warren directed it,
+and the Vivo copy was already written and locked in
+`case-studies/vivo-energy.md`, so it was assembly, not drafting.
+
+**Reasoning:** The Vivo essay is the proof the whole site leans on (Home
+Section 5, the manifesto's 60% line). Shipping it live makes "Read the
+case studies →" land somewhere real instead of a placeholder. No new
+components or tokens: the index reuses `.cards`/`.card`; the essay reuses
+the manifesto's `.wrap` long-form article. "Essay coming" reuses
+`.eyebrow` as a status marker, keeping card-rule alignment and adding no
+CSS. Attribution held to the rules — Vivo "contracted via Rethink", IDEM
+a personal rebuild (no client attribution), KRM fully owned. Both pages
+end in the single Contact CTA. `npm test` 8/8, verify clean.
+
+**Revisit if:** IDEM and KRM essays land — swap the "Essay coming"
+markers for real links, same card shape.
+
+---
+
 ## 2026-07-14 — Built the Manifesto page
 
 **Decision:** Built `site/manifesto.html` as the second page (build-order
@@ -1304,6 +882,429 @@ more credible and more useful story.
 **Revisit if:** Never. Claims on the record stay precise. If better
 post-launch data from any engagement emerges, add new claims rather
 than inflating existing ones.
+
+---
+
+## 2026-07-21 — Added deliverable.md to define what a client receives
+
+**Decision:** Created `deliverable.md` as a standalone doc answering "when a
+client buys a Build, what do they actually get?". It sits alongside `Offer.md`
+and defines the deliverable at the level of what and why — the token pipeline
+running in the client's own repo, their product wired to consume it, the
+component library as it arrives, and the routing/usage layer (`design.md`,
+`guidelines.json`, `PROCESS.md`) — while explicitly pointing at
+`TEMPLATE-ARCHITECTURE.md` for the file-by-file manifest rather than copying it.
+
+**Reasoning:** There was a gap between `Offer.md` (the Build framed
+commercially, at outcome level) and `TEMPLATE-ARCHITECTURE.md` (the technical
+manifest, written for me as template author). A question — "is it a folder and a
+design.md, a design system, variables?" — fell straight into that gap. A
+client-facing definition of the deliverable belongs in Orin, where positioning
+and offer already live. Kept it a separate file rather than folding it into
+`Offer.md` so the commercial doc stays outcome-focused and this one stays
+artefact-focused. Held to the practice's core discipline: it does not duplicate
+the artefact list — it references `TEMPLATE-ARCHITECTURE.md` so there is one
+source of truth for what a client repo contains, not two that drift.
+
+**Revisit if:** the deliverable changes shape, or the three-layer model in
+`TEMPLATE-ARCHITECTURE.md` is restructured — keep `deliverable.md`'s what/why in
+step with it, but never let it grow its own copy of the manifest.
+
+*Update (2026-07-26):* the transport example above ("once step 3 lands") is
+stale — that seam closed on 2026-07-21. KR now installs the tokens as a pinned
+git-tag `devDependency` rather than copying from a sibling folder. The
+`vendor/tokens.css` copy itself remains (deliberately: it stays committed so
+deploys need no access to the tokens repo), so the deliverable's shape is
+unchanged and `deliverable.md` needed no edit. See `PIPELINE-REVIEW.md` §3.1 and
+the `[‡]` footnote in `PIPELINE-LEDGER.md`.
+
+*Update (2026-07-28):* the target of the deferral above no longer exists.
+`TEMPLATE-ARCHITECTURE.md` was archived when the machinery was extracted into
+the `Orin Token Pipeline` repo (see the 2026-07-28 entry at the top of this
+log). `deliverable.md` now defers to that repo — a fresh clone *is* the
+manifest — which holds the original reasoning better than the doc did: the
+manifest is now generated rather than written, so it cannot drift from what a
+client actually receives. The "never let it grow its own copy" rule is
+unchanged. One open question was left in `deliverable.md` rather than decided
+here: the baseline dropped Storybook, Chromatic and `guidelines.json`, and
+whether a Build still includes them is a commercial call, not a consequence of
+what got copied into a template.
+
+---
+
+## 2026-07-28 — Extracted the client token-pipeline baseline into its own repo
+
+**Decision:** Extracted the generic machinery out of `KR Token Pipeline` into a
+new repo, `Orin Token Pipeline` (sibling folder, own git history, two commits,
+nothing pushed). It is the baseline a client engagement starts from — internal
+tooling for a partner business, explicitly **not** a product: no `LICENSE`, no
+README-as-shopfront, no onboarding for strangers, no error handling for
+unattended use. Nobody operates it without me in the room. Per
+`EXTRACTION-BRIEF.md`, extracted rather than rebuilt: the code was already ~99%
+portable and carries five bugs' worth of reasoning a rewrite would rediscover.
+
+The headline change is **collections matched by name, not id**. The transform's
+config was keyed by `VariableCollectionId:68:2831`, so pointing the pipeline at
+a new Figma file needed a code edit. It is now keyed by collection *name*, with
+modes matched by mode *name*, and the Fonts handling generalised into
+per-collection `stripPrefix` / `lowercase` / `exclude` so nothing keys off the
+literal string "Fonts". A new client needs matching collection names in Figma —
+a convention — rather than a code change.
+
+`resolveCollections()` returns an issue list instead of failing quietly, and
+`npm run sync:figma` prints it before transforming anything: which collections
+matched, which the convention expects and the file lacks, which modes it could
+not map. The mode-parity check came across with `EXPECTED_IDENTICAL` moved into
+`pipeline.config.mjs` — still explicit entries with reasons, never a regex.
+
+Also: site coupling parameterised (`KR_SITE_DIR` / `../Kirsten Rossiter` →
+`SITE_DIR` / `config.siteDir`), with site-facing checks reporting **skipped**
+rather than failed when no site is checked out; Storybook and Chromatic dropped,
+leaving `style-dictionary` as the only dependency; `templates/agent-rules.md`
+rewritten; and a neutral seed fixture (`npm run seed`) so a fresh clone is green
+and the whole sync chain is provable without opening Figma.
+
+**Reasoning:** The manifesto refuses the alternative: *"Orin is not for clients
+who want a vendor. Orin is a partner or nothing."* A self-serve tool for
+non-developers is a different business. What this template commoditises is
+**setup**, never design judgement — the moment it starts shipping opinions about
+what tokens should exist, it has drifted into the thing the manifesto refuses.
+That is why the seed fixture is characterless greys and says so in its own
+header.
+
+Name-matching is the top priority rather than a tidy-up because it is what makes
+the strongest version of the sales conversation possible: point it at the
+prospect's own Figma file, live, and show them the variables that never reach
+their code, the hardcoded values that bypass the system, and whether their dark
+mode actually resolves. That is *"I'd rather tell a client the hard truth about
+their system than sell them polish they don't need"* executed in ten minutes
+rather than asserted in a deck — and it cannot happen if pointing at a new file
+requires opening an editor. It is also the same lesson that fixed dark mode in
+July: **names are portable, ids are not.**
+
+Skipped-not-failed for the site checks is the same discipline as the generated
+report: a permanently-red check teaches people to ignore red, which is how the
+dark-mode bug survived months of green gates in the first place.
+
+Verified: 37 unit tests pass (28 carried over, 9 new for name matching), build +
+verify green, report 5/5 with 4 correctly skipped, `git diff --exit-code dist/`
+clean so the CI reproducibility gate holds. Forcing dark to carry light values
+drops the report to 4/5, so the parity check demonstrably bites. Spin-up proven
+end to end in a scratch copy: clone → `scaffold-client` → green build under the
+client's own prefix.
+
+**Consequence for this repo's docs:** `TEMPLATE-ARCHITECTURE.md` — which
+`SETUP.md`, `deliverable.md` and `PIPELINE-LEDGER.md` all cited as the "New
+Client Playbook" — was archived out of KR the same day, so every one of those
+pointers was dangling. Repointed them at the new repo. Historical entries in
+this log were left alone: it is written at the moment of the decision, and the
+2026-07-05 and 2026-07-12 entries were true when written.
+
+**Revisit if:** the Figma plugin (brief item 3) or `PROCESS.md` (item 4) lands —
+both are still outstanding. Or if a second client is scaffolded and the shared
+core is worth extracting into a published package, which would finally make the
+top layer of the three-layer model real rather than projected.
+
+---
+
+## 2026-07-30 — The client's repo stops referring to Orin
+
+**Decision:** The client-facing pipeline repo makes **no reference to the Orin
+manifesto**, and no reference to anything a client cannot open. The audit's sales
+framing moves here, into `Offer.md` under the Diagnostic. `EXTRACTION-BRIEF.md`
+is untracked and gitignored.
+
+**Reasoning:** Asked whether the doc split between the two repos was right, the
+answer was: the *repos* are split correctly — practice identity, site build and
+lineage in Orin; the working docs that ship with a client's pipeline in the
+baseline — but the *audience* inside the baseline was not clean. Two leaks:
+
+1. The generated `CLAUDE.md` opened with *"Read `MANIFESTO.md` in the Orin
+   repo"*. The extraction brief specified that pointer, and it made sense when
+   the baseline was framed purely as internal tooling operated with me in the
+   room. But it also lands in a client's repository, where it is an instruction
+   they cannot follow, referring to a document about my practice rather than
+   their system. Removed entirely rather than reworded: a client's repo has no
+   business citing my manifesto. The four principles it carried were worth
+   keeping, so they are restated there in their own right, each tied to the
+   machinery it explains.
+
+2. `PROCESS.md` described the client in the third person **inside the client's
+   own repo** — *"read it out loud to them"*, *"their file lacks"*. That section
+   was written for running an audit in front of a prospect, and then shipped to
+   the prospect. The instructions are useful to whoever operates the pipeline, so
+   they stayed, rewritten in second person; the framing came here.
+
+The test I'd apply from now on: **would this sentence be strange if the client
+read it in their own repository?** Both leaks fail it obviously in hindsight, and
+neither was visible while writing them, because I was writing for the person in
+front of me rather than the person who ends up owning the file.
+
+`EXTRACTION-BRIEF.md` was tracked by accident — swept into a commit by
+`git add -A` after I'd been told to leave it untracked. Now in `.gitignore` so it
+cannot happen again. It remains in history from those two commits; not worth a
+rewrite.
+
+**Revisit if:** the baseline stops shipping to clients and becomes purely
+internal — then the manifesto pointer would be legitimate again. Or if a client
+asks what the pipeline was built to believe, which is a conversation, not a file
+in their repo.
+
+---
+
+## 2026-07-30 — Storybook returns with a component library; the report gates
+
+**Decision:** Two related calls on the client baseline.
+
+1. **Storybook is not part of a token-only Build.** It returns when a Build
+   includes a component library, and is documented that way in
+   `deliverable.md`. `guidelines.json` is dropped outright. The generated
+   `dist/report.html` is the token documentation a client receives.
+2. **The generated report is now a gate.** `npm test` runs it with `--strict`
+   and fails on any red check. `npm run build` stays advisory.
+
+**Reasoning:**
+
+*On Storybook.* The question had been open since 2026-07-28, framed as "does a
+Build include Storybook and the usage layer?" — a commercial call I did not want
+decided by what happened to get copied into a template. Standing the live client
+up on the baseline answered it with evidence rather than preference. Its
+Storybook contains five stories: Colors, Typography, Spacing, BorderRadius,
+Changelog. Every one is a **token** story; there is not a single component story,
+and `src/` contains nothing but `stories/`. Meanwhile the generated report
+already renders colours (semantic, component, primitive), the type scale,
+spacing and radius — four of those five — from the real build.
+
+So Storybook, in a token-only pipeline, is a server you have to run and a
+Chromatic subscription you have to hold, in order to see what a generated file
+already shows. Its genuine value is documenting components and
+visually regression-testing them, which needs components to exist. Scoping it to
+the component-library line is not a subtraction; it puts it where it earns its
+place. `guidelines.json` goes because nothing reads it — verified, not assumed —
+and per-token usage rules already travel as `$description`, synced from Figma.
+
+*On the gate.* `generate-report.mjs` printed its failures and exited 0. That is
+how `mode-parity` — the check that exists precisely **because** everything else
+was green — could go red while `npm test` passed, writing its red line into a
+gitignored file that CI generated, logged and discarded. Found by standing the
+client up: the scaffolded clone reported mode-parity failing and `npm test`
+still exited 0. The July dark-mode bug would have shipped a second time past a
+wall of passing gates.
+
+The deciding argument was an inconsistency: **Orin's own pipeline has gated its
+report since day one** (`tokens/scripts/report.mjs` ends
+`process.exit(passed === results.length ? 0 : 1)`), while the thing a client
+would be handed did not. The practice site held a stricter standard than the
+deliverable. Per the manifesto — *the measure is what happens after handoff* — a
+check that cannot fail anything does not move a defect rate; it is an
+observation wearing the costume of a control.
+
+Deliberately no severity config, no per-check overrides, no opt-out flag. A
+skipped check is not a failure, so a client with no site checked out is never
+blocked by a site they do not have. If a check proves too noisy in practice,
+that is the second case that would justify configuration — not before.
+
+Also proven the same day, and the reason both decisions could be made on
+evidence: a clone of the baseline, scaffolded as Kirsten Rossiter and synced from
+the live Figma file, produced **byte-identical** output to the live client build
+— both source token files and all six `dist/` outputs, same SHA-256. The two
+pipelines reach that result by different routes (the live one matches
+collections by hardcoded id, the baseline by name), which makes the agreement
+worth something.
+
+*Same day, found by checking rather than assuming.* Asked whether
+`deliverable.md` was actually aligned with the baseline, I checked all thirteen
+artefacts it names. Ten matched. `design.md` did not: the file promised it three
+times — as the routing layer, as its own section, and in Related — and the
+baseline has no `design.md` and no template for one, so a scaffolded client
+would never have received it. The Related link was worse than absent: it
+resolved to *this repo's* `design.md`, which is Orin's own site layout
+principles and nothing to do with a client deliverable.
+
+Same class of error as Storybook — a live-client assumption carried into a
+client-facing doc — and it took the same resolution. `design.md` in the live
+client routes to component metadata and Storybook, so it belongs with the
+component library for exactly the reason Storybook does: it routes to things
+that only exist once components do. In a token-only Build the router is the
+**generated** `CLAUDE.md` / `AGENTS.md`, which is strictly better than the doc
+it replaces, because it is rendered from one template plus the client's config
+and therefore cannot drift from the system it describes.
+
+Worth naming the pattern: both errors were in the one client-facing document,
+and neither would have been found by reading it. `verify-docs` polices the
+baseline's own docs, but nothing checks a doc in *this* repo against a
+*different* repo — so `deliverable.md` will need re-checking by hand whenever the
+baseline changes shape.
+
+**Revisit if:** a Build genuinely includes a component library — then Storybook,
+Chromatic and `design.md` come back, and `deliverable.md`'s component-library
+line is where they already live. Or if a report check proves too noisy to gate
+on, which is the second case that would justify per-check configuration.
+
+---
+
+## 2026-08-01 — Orin's own pipeline is the baseline's specification
+
+**Decision:** When Orin's own token pipeline has a check the client baseline
+lacks, treat that as a **gap in the baseline**, not as Orin being unusually
+strict. Adopted after the third instance in a week. Also added the
+`semantic-only` consumption check to the baseline as the immediate consequence.
+
+**Reasoning:** Three times now the practice site has held a standard the thing a
+client would be handed did not:
+
+1. **Report gating** (2026-07-30). Orin's `report.mjs` has ended
+   `process.exit(passed === results.length ? 0 : 1)` since day one. The client
+   pipeline printed its failures and exited 0 — so `mode-parity`, the check that
+   exists *because* everything else was green, could go red while `npm test`
+   passed, writing into a gitignored file CI generated and discarded.
+2. **The manifesto pointer** (2026-07-30). The generated client `CLAUDE.md` told
+   its reader to consult a document in *my* repo — legible only because I had
+   written it for myself and forgotten who would end up owning the file.
+3. **Semantic-only consumption** (2026-08-01). Orin's report has checked this
+   from the start. The client pipeline never did — and the live client site
+   turned out to route 195 uses through local aliases pointing at primitives,
+   roughly 96% of its colour sitting one layer too low, for months.
+
+Three is a pattern, not three coincidences. The cause is ordinary: I build Orin's
+pipeline by hand while thinking about the problem, and the baseline by extraction
+while thinking about portability. The care goes into the first and the
+generalisation into the second, so the first is quietly ahead.
+
+The manifesto's *"the measure of the work is what happens after handoff"* makes
+that the wrong way round. The client build is the one whose defect rate matters;
+mine is a five-page site. If a check is worth having on my own substrate it is
+worth more on theirs — and a check that cannot fail anything does not move a
+defect rate, it is an observation wearing the costume of a control.
+
+Concretely: **diff the two report scripts whenever either changes.** They are not
+meant to be identical — Orin's has no Figma sync, the baseline has no site of its
+own — but every asymmetry should be a decision someone made, not a leftover.
+
+**Revisit if:** the baseline ever gets ahead of Orin's own pipeline, which would
+be the healthy direction and would mean the flow has reversed. Or if Orin grows
+past a five-page site, at which point its pipeline stops being the simpler case
+and this stops being a safe heuristic.
+
+---
+
+## 2026-08-03 — The `DEFAULT` sentinel, and collisions reported all at once
+
+**Decision:** Restored the uppercase `DEFAULT` name-strip into the client
+baseline, and made the Figma sync report **every** name-vs-group collision in one
+run rather than throwing on the first. Both found by rehearsing the ten-minute
+audit against a duplicate of the IDEM design system before pointing it at anyone
+else's file.
+
+**Reasoning:** Two separate problems, one rehearsal.
+
+1. **The baseline could only give a client breaking advice.** DTCG forbids a node
+   holding both a `$value` and children, so `input/border` alongside
+   `input/border/focus` is refused — correctly, since Style Dictionary would drop
+   one silently. But the only remediation the baseline could offer was "rename it
+   to `input/border/default`", which changes the emitted custom property from
+   `--prefix-input-border` to `--prefix-input-border-default`. That is a breaking
+   change across every file consuming it, presented to a client as a naming
+   tidy-up. IDEM had solved this in 2026 with a name transform stripping an exact
+   uppercase `DEFAULT` segment — structure becomes legal, emitted name doesn't
+   move — and the extraction into the baseline lost it. Ported it back, wrapping
+   Style Dictionary's own `name/kebab` rather than reimplementing kebab-casing, so
+   non-DEFAULT tokens are byte-identical (verified: `dist/` diffs clean against a
+   pre-change snapshot). Kept uppercase rather than choosing a clearer sentinel
+   like `_default`, because IDEM's committed tokens already use `DEFAULT` and
+   changing it would make them unsyncable through the baseline.
+
+   The rule lives in `scripts/lib/token-name.mjs` because two consumers need it —
+   `sd.config.mjs` for the build and `generate-report.mjs` for the checks. They
+   had independent name derivations; had only the build learned about the
+   sentinel, the report would have hunted for tokens under names the build no
+   longer emitted.
+
+2. **One collision per round-trip.** The transform threw on the first collision,
+   so an operator found them one at a time: fix in Figma, restart the sink, press
+   Sync, re-audit, hit the next. The rehearsal file held **eight**. In a paid
+   Diagnostic that is a finding — "your Components layer has six places a token
+   would be silently dropped" — but delivered one at a time it is debugging your
+   own tooling on the client's clock. Now collected, deduplicated across
+   light/dark, grouped by collection, and reported once.
+
+   The collision list names tokens by their **Figma** name, not the DTCG path.
+   The first version printed `components/input/border`; that `components/` branch
+   exists only downstream, so the message sent the reader hunting in Figma for a
+   variable that does not exist. The message tells someone to go and rename
+   something — it has to use the name they will search for.
+
+**What this cost to find:** nothing, because it was a rehearsal. Had the first
+run been in front of Synthesis, the demo would have stopped on collision one of
+eight, and the fix offered would have broken their build. That is the argument
+for rehearsing the audit against a file whose answers are already known, and it
+is now the standing rule before any client run.
+
+**Deferred:** not propagated to `KR Token Pipeline`. IDEM already has its own
+DEFAULT transform; KR needs the port only if it ever hits the shape.
+
+**Revisit if:** a client's Figma cannot use uppercase `DEFAULT` for some reason
+of their own tooling — then the sentinel becomes configurable in
+`pipeline.config.mjs`, with the entry recording that their file departs from the
+convention, exactly as the `figma` override block already does.
+
+---
+
+## 2026-08-04 — Findings get read aloud before they get written up
+
+**Decision:** Added one paragraph to the Diagnostic's *What happens* in
+`Offer.md`, plus a second defence line. Generated audit output is read through
+with the client before it becomes the written diagnosis. Not a new stage, not a
+deliverable, no change to price, duration, or what the client gets — those stay
+locked.
+
+**Reasoning:** Rehearsing the audit against a duplicate of the IDEM design
+system produced four cases in one afternoon where the tooling was articulately,
+confidently wrong. Not broken — every check did exactly what it was built to do
+— but wrong in what it *said*:
+
+1. The collision error prescribed a rename that would have changed the client's
+   emitted CSS custom properties. A breaking change, offered as a naming
+   tidy-up.
+2. Collisions were reported one per round-trip. There were eight, which in a
+   live session is debugging your own tooling on the client's clock.
+3. A red `mode-parity` check led with "141/150 differ" — the passing count. The
+   failure was nine tokens the headline never mentioned.
+4. The config comment for `expectedIdentical` offered `colour-text-inverse` as
+   its worked example of a legitimate exception. That token was one of the eight
+   defects. The guidance named the most tempting wrong answer as correct, in the
+   one place someone goes looking for permission to silence a check.
+
+Then the judgement the tool cannot make: nine tokens identical across modes,
+eight defects and one genuine exception, all wearing the same language.
+Declaring all nine would have buried eight WCAG failures behind a green build,
+each with a written reason sitting next to it.
+
+A check that fails silently is caught by another check. A check that fails
+articulately but wrongly is caught only by someone reading it aloud. That is not
+a gap more automation closes.
+
+It also sharpens what the £3,000 buys. Not the audit — that runs in ten minutes
+and I'd run it free in a first meeting. The judgement that separates a finding
+from a fact.
+
+**What was deliberately not changed:** no fourth engagement stage, no new
+deliverable, no price or duration change, and no methodology section. `Offer.md`
+says what the client buys and what it costs; a sales document that starts
+describing its own ceremonies has become the thing the manifesto refuses.
+
+**Counter-argument considered:** this is arguably just doing the job properly,
+already implied by *"I'd rather tell a client the hard truth about their system
+than sell them polish they don't need."* Rejected on the grounds that
+undocumented judgement decays under time pressure — which is the argument the
+entire practice rests on.
+
+**Revisit if:** after three complete Diagnostics the walkthrough has turned into
+a presentation rather than a check, or clients treat it as a status meeting.
+Either would mean it has stopped doing its job and should be cut rather than
+kept for appearances. Also revisit if a client disagrees with a finding during
+the walkthrough and turns out to be right — that would be the strongest possible
+evidence for the step, and it should be logged here when it happens.
 
 ---
 
@@ -2593,16 +2594,27 @@ internally consistent? Do its pointers to other files still resolve? Four
 findings, three fixed with an additive note at the top and one left as a
 question.
 
-**The order is broken, and nothing said so.** The first eight entries run
-backwards (2026-08-04 down to 2026-07-14); everything from "Founded Orin"
-onward runs forwards (2026-07-01 to now). So the newest entry is at the
-bottom while the top block is also recent. CLAUDE.md instructs a reader to
-"read from the most recent entry backwards", which is ambiguous in a file
-with two directions in it. A reader starting at the top would take an
-August entry for the beginning of the story. Now stated in a header note
-rather than fixed by reordering, because reordering 460 lines of history to
-tidy the file is exactly the kind of retroactive edit this log exists to
-prevent.
+**The order was broken, and nothing said so.** The first eight entries ran
+backwards (2026-08-04 down to 2026-07-14) while everything from "Founded
+Orin" onward ran forwards. So the newest entry sat at the bottom while the
+top block was also recent, and CLAUDE.md's "read from the most recent entry
+backwards" was ambiguous in a file with two directions in it. A reader
+starting at the top would take an August entry for the beginning of the
+story.
+
+*Resolved the same day, on Warren's instruction: the entries are now sorted
+into one ascending order.* The audit had proposed a header note instead, on
+the grounds that reordering history is the kind of retroactive edit this log
+exists to prevent — but that reasoning conflated two different things.
+Sorting changes the *order* entries are read in; it does not change what any
+entry says. The prohibition is on rewriting, not on filing. A log nobody can
+navigate protects its contents from being read at all.
+
+**How the sort was made safe.** Round-trip verified byte-identical before
+anything moved, the sort was stable so same-date entries kept their
+narrative order, the output was asserted equal in length and content to the
+input, and the four cross-entry "above" references were re-checked
+afterwards and all still resolve to the right neighbours.
 
 **A pointer I wrote this morning had already rotted by the afternoon.** The
 entry on the Vivo number cited "`HANDOVER.md` line 87". The same day's edits
