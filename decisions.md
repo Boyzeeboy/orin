@@ -2289,14 +2289,17 @@ claim in `HANDOVER.md` was checked against the live site, the repo, and
 `Offer.md`/`positioning.md`. Six findings. Five corrected in the document;
 one is not a document problem at all.
 
-**The one that isn't a doc bug: `orindesign.co` does not redirect.** The
-document has claimed since 2 July that it redirects to orinsystems.co. It
-returns 200 from Cloudflare and serves a separate page titled **"Orin
-Design"**, carrying a Google Analytics tag (G-H2L6VDKNK0) and a Rewardful
-affiliate tag. Two problems, not one: a second live site is running under
-Orin's name, and that name is the exact framing locked decision 5 rules
-out. Left for Warren; it needs DNS access and a decision about what should
-live there, neither of which is a repo change.
+**The one that isn't a doc bug: `orindesign.co` does not redirect yet.**
+The document has claimed since 2 July that it redirects to orinsystems.co.
+It returns 200 from Cloudflare and serves a page titled "Orin Design".
+
+*Resolved by Warren the same day:* that is his first site, due to be
+retired. So the redirect is **pending, not broken** — an end state the
+document recorded as though already true. The note now says so, and the
+open item is "retire the old site and point the domain", with a 301 rather
+than a lapse so inbound links survive. Worth recording that the audit
+initially read this as a rogue site under a ruled-out name; the finding was
+real, the alarm was not.
 
 **The offer was recorded as three shapes at the wrong price.** Locked
 decision 4 listed Diagnostic → Build → Retainer, with the Build at "£14,000
