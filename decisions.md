@@ -1596,6 +1596,47 @@ regenerated — at which point a verify step earns its place.
 
 ---
 
+## 2026-08-16 — Favicon: an O monogram, generated the same way as the card
+
+**Decision:** Every page declares three PNG icons — `favicon-32.png`,
+`icon-512.png` and `apple-touch-icon.png` (180). All three come from
+`site/icon/index.html`, a companion to `/og/`: a page in `site/` that consumes
+`vendor/tokens.css`, rendered at 512 by headless Chrome and downscaled with
+`sips`. The mark is a white `O` on the accent teal.
+
+**Reasoning:** Same argument as the social card, and it is the reason to reuse
+the mechanism rather than open a graphics tool: the accent on a browser tab is
+now literally the same token as the accent on a button, and a palette change
+reaches both by re-running one command. An icon drawn by hand would carry a
+teal that no guardrail can read.
+
+**No `.ico`.** `sips` cannot write that format, and there is no rasteriser on
+this machine that can. It costs nothing here: every page declares its icons
+with link tags, so nothing falls back to a bare `/favicon.ico`. The only loss
+is a 404 in the logs when something requests that path blind. If it ever
+matters, the fix is a converter, not a redesign.
+
+**One downscale chain rather than three renders.** 512 is the master; 180 and
+32 are `sips -z` reductions of it. Rendering each size separately would let
+them drift, and at these sizes the reduction is indistinguishable from a fresh
+render.
+
+**Two values set by eye, both marked as such in the file:** the 340px glyph
+size, and a -0.045em vertical nudge. The type scale exists for running text —
+a monogram is sized against its tile, and the O's round bowl sits low in the
+baseline box. Called out in comments so neither reads as a missing token.
+
+**Verified:** all three files serve as `image/png`, the tags resolve on every
+page, and the mark still reads as an O at 32px.
+
+**Deferred:** a dark-mode icon variant, and an SVG favicon. The site is
+light-only, so neither has anything to express yet.
+
+**Revisit if:** the accent token changes — the icons need regenerating, and
+nothing checks that they match — or a dark mode arrives.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
