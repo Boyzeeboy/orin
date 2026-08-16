@@ -374,6 +374,10 @@
             <td>Your CSS refers to something the source doesn't contain — usually a typo, or a name that changed. Check the spelling against the token file first.</td>
           </tr>
           <tr>
+            <td>shadcn references <code>--something</code>; the build doesn't define it</td>
+            <td>A name one of your shadcn components expects isn't in the token source. Read this one carefully, because it's the only failure here that would otherwise be invisible: nothing errors, the variable is simply unset, so that element renders transparent or inherits whatever sits behind it. It can look very nearly right until a customer finds the screen where it doesn't. Usually it means a component was added after the set was built. Add the missing name to the source, or send it to me.</td>
+          </tr>
+          <tr>
             <td>Dark mode looks wrong</td>
             <td>Most often a value that's identical in both themes when it shouldn't be. The build flags these, but it can't know which are deliberate — a transparent border legitimately matches. Read the list rather than waving it through.</td>
           </tr>
