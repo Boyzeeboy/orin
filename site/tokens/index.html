@@ -40,25 +40,43 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <div data-include="/partials/nav.html"></div>
 
-  <main id="main" class="section">
-  <div class="wrap">
-    <p class="eyebrow">Token pipeline · proof artefact</p>
-    <h1>The substrate, proven end&#8209;to&#8209;end.</h1>
-    <p>This page renders entirely from tokens. Every colour, size, space and
-       radius below resolves through <code>vendor/tokens.css</code>, which is
-       built from DTCG JSON and synced by the pipeline. There is no hand-written
-       value on this page to fall back on — which is the whole point. The values
-       printed beside each token are read back out of the rendered page, not
-       typed in, so if a token changed and this page disagreed, it could only
-       disagree with itself.</p>
+  <main id="main">
 
-    <h2>Semantic colours</h2>
-    <p>Thirteen roles, each an alias onto a primitive. The role is what a page
-       consumes; the primitive underneath can move without a single consumer
-       changing. Two roles here resolve to the same value — <code>text/default</code>
-       and <code>background/inverse</code> are both the darkest neutral, because
-       ink on paper and the ground of an inverse band are the same colour asked
-       for two different reasons. That is the layer working, not a duplicate.</p>
+    <!-- Intro -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="col-main">
+            <p class="eyebrow">Token pipeline · proof artefact</p>
+            <h1 class="hero-heading">The substrate, proven end&#8209;to&#8209;end.</h1>
+            <p>This page renders entirely from tokens. Every colour, size, space and
+               radius below resolves through <code>vendor/tokens.css</code>, which is
+               built from DTCG JSON and synced by the pipeline. There is no hand-written
+               value on this page to fall back on — which is the whole point. The values
+               printed beside each token are read back out of the rendered page, not
+               typed in, so if a token changed and this page disagreed, it could only
+               disagree with itself.</p>
+            <p>The page is laid out on the same 12-column grid and numbered rail as
+               every other page here, so it demonstrates the layout system as well as
+               the values underneath it.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. Semantic colours -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">01</p>
+          <div class="col-main">
+            <h2>Semantic colours</h2>
+            <p>Thirteen roles, each an alias onto a primitive. The role is what a page
+               consumes; the primitive underneath can move without a single consumer
+               changing. Two roles here resolve to the same value — <code>text/default</code>
+               and <code>background/inverse</code> are both the darkest neutral, because
+               ink on paper and the ground of an inverse band are the same colour asked
+               for two different reasons. That is the layer working, not a duplicate.</p>
 
     <h3>Text</h3>
     <ul class="token-grid">
@@ -84,11 +102,21 @@
       <li class="token-item"><span class="swatch" style="background:var(--orin-colour-border-divider)"></span><span class="token-meta"><span class="token-name">colour/border/divider</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
       <li class="token-item"><span class="swatch" style="background:var(--orin-colour-border-strong)"></span><span class="token-meta"><span class="token-name">colour/border/strong</span><span class="token-value" data-value-of=".swatch">…</span></span></li>
     </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h2>Type scale</h2>
-    <p>All eleven steps. Display sizes are Inter Tight, prose and UI are Inter.
-       Sizes are authored in <code>rem</code>; the pixel figure beside each is
-       that value resolved at the browser's root size.</p>
+    <!-- 2. Type scale -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">02</p>
+          <div class="col-main">
+            <h2>Type scale</h2>
+            <p>All eleven steps. Display sizes are Inter Tight, prose and UI are Inter.
+               Sizes are authored in <code>rem</code>; the pixel figure beside each is
+               that value resolved at the browser's root size.</p>
     <div class="specimen">
       <div class="specimen-row"><span class="label">1100 <span class="token-value" data-token="--orin-font-size-1100">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-1100);line-height:var(--orin-font-line-height-display-large)">Orin</span></div>
       <div class="specimen-row"><span class="label">1000 <span class="token-value" data-token="--orin-font-size-1000">…</span> · Inter Tight</span><span style="font-family:var(--font-display);font-size:var(--orin-font-size-1000);line-height:var(--orin-font-line-height-display-medium)">Build the substrate</span></div>
@@ -102,11 +130,21 @@
       <div class="specimen-row"><span class="label">200 <span class="token-value" data-token="--orin-font-size-200">…</span> · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-200)">orinsystems.co</span></div>
       <div class="specimen-row"><span class="label">100 <span class="token-value" data-token="--orin-font-size-100">…</span> · Inter</span><span style="font-family:var(--font-ui);font-size:var(--orin-font-size-100)">01 &nbsp; 02 &nbsp; 03 &nbsp; 04</span></div>
     </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h2>Spacing</h2>
-    <p>The scale has deliberate gaps — no 5, 7, 9, 10, 11. Reaching repeatedly
-       for a value between two steps is a signal the scale needs a step, not a
-       reason to hardcode one. Bars are drawn at the token's own width.</p>
+    <!-- 3. Spacing -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">03</p>
+          <div class="col-main">
+            <h2>Spacing</h2>
+            <p>The scale has deliberate gaps — no 5, 7, 9, 10, 11. Reaching repeatedly
+               for a value between two steps is a signal the scale needs a step, not a
+               reason to hardcode one. Bars are drawn at the token's own width.</p>
     <ul class="scale-list">
       <li class="scale-row"><span class="token-name">space/0</span><span class="bar" style="width:var(--orin-space-0)"></span><span class="token-value" data-token="--orin-space-0">…</span></li>
       <li class="scale-row"><span class="token-name">space/1</span><span class="bar" style="width:var(--orin-space-1)"></span><span class="token-value" data-token="--orin-space-1">…</span></li>
@@ -119,26 +157,64 @@
       <li class="scale-row"><span class="token-name">space/16</span><span class="bar" style="width:var(--orin-space-16)"></span><span class="token-value" data-token="--orin-space-16">…</span></li>
       <li class="scale-row"><span class="token-name">space/24</span><span class="bar" style="width:var(--orin-space-24)"></span><span class="token-value" data-token="--orin-space-24">…</span></li>
     </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h2>Radius</h2>
-    <p>Four steps. <code>radius/md</code> does most of the work — it is on the
-       button, the cards, and the swatches above.</p>
+    <!-- 4. Radius -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">04</p>
+          <div class="col-main">
+            <h2>Radius</h2>
+            <p>Four steps. <code>radius/md</code> does most of the work — it is on the
+               button, the cards, and the swatches above.</p>
     <ul class="token-grid">
       <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-none)"></span><span class="token-meta"><span class="token-name">radius/none</span><span class="token-value" data-token="--orin-radius-none">…</span></span></li>
       <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-sm)"></span><span class="token-meta"><span class="token-name">radius/sm</span><span class="token-value" data-token="--orin-radius-sm">…</span></span></li>
       <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-md)"></span><span class="token-meta"><span class="token-name">radius/md</span><span class="token-value" data-token="--orin-radius-md">…</span></span></li>
       <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-lg)"></span><span class="token-meta"><span class="token-name">radius/lg</span><span class="token-value" data-token="--orin-radius-lg">…</span></span></li>
     </ul>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h2>Links</h2>
-    <p>Prose and UI set in Inter; headlines in Inter Tight.
-       A <a href="#">link</a> resolves through the semantic
-       <code>colour/text/link</code> token and shifts to
-       <code>link-hover</code> on interaction.</p>
+    <!-- 5. Links -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">05</p>
+          <div class="col-heading">
+            <h2>Links</h2>
+          </div>
+          <p class="col-body">Prose and UI set in Inter; headlines in Inter Tight.
+             A <a href="#">link</a> resolves through the semantic
+             <code>colour/text/link</code> token and shifts to
+             <code>link-hover</code> on interaction.</p>
+        </div>
+      </div>
+    </section>
 
-    <h2>Button primitive</h2>
-    <p><a class="button" href="/contact">Get in touch</a></p>
-  </div>
+    <!-- 6. Button primitive -->
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <p class="rail">06</p>
+          <div class="col-heading">
+            <h2>Button primitive</h2>
+          </div>
+          <div class="col-body">
+            <p>One primary button sitewide, on <code>background/accent</code> with
+               <code>text/on-accent</code> and <code>radius/md</code>.</p>
+            <p><a class="button" href="/contact">Get in touch</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
   <div data-include="/partials/footer.html"></div>
