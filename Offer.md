@@ -101,17 +101,18 @@ building. I take the brand foundations, or whatever exists of them, and
 author the token layer properly: DTCG source, primitives and semantics,
 light and dark resolved and checked. It's wired into whatever the team is
 shipping on, which for most new products means shadcn and Tailwind. Then
-the sync, the build step, and the guardrails that stop it drifting. It
-ends with one real screen shipped from the system, not a page of swatches.
+the build step, the generated file your components already read, and the
+guardrails that stop it drifting. It ends with one real screen shipped
+from the system, not a page of swatches.
 
 **On shadcn, since most founders arrive holding it.** shadcn already gives
 you semantic variables (`--background`, `--primary`, `--border`) with a
 dark block over the top. That's genuinely useful and I build on it rather
 than replacing it. What it hasn't got is a layer above: no authored
-source, no build, no sync, no guardrail. The values are typed inline. So
-you have the names without the ownership, which works fine until the first
-rebrand or the second developer, at which point there's nothing upstream
-to change and forty files to edit by hand.
+source, no build, nothing that regenerates the file, no guardrail. The
+values are typed inline. So you have the names without the ownership,
+which works fine until the first rebrand or the second developer, at which
+point there's nothing upstream to change and forty files to edit by hand.
 
 **What the client gets:** A token layer they own, connected to the code
 they ship. One place to change a colour. A build that fails loudly when

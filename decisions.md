@@ -1862,6 +1862,42 @@ fact that the sheet looks good.
 
 ---
 
+## 2026-08-16 — "The sync" comes out of the Foundation's description
+
+**Decision:** The Foundation in `Offer.md` no longer promises "the sync." It now
+reads "the build step, the generated file your components already read, and the
+guardrails that stop it drifting." The paired sentence about what shadcn lacks
+changes to match: "no authored source, no build, nothing that regenerates the
+file, no guardrail."
+
+**Reasoning:** Everywhere else in Orin's vocabulary, *sync* means Figma to
+tokens — `npm run sync:figma`, which appears in the Diagnostic's description
+twelve lines earlier. The Foundation is greenfield. There is usually no Figma
+library to sync from, and the handover runbook's chain has no sync step in it:
+source, build, generated `globals.css`, app. Four links, none of them Figma.
+
+So the word promised a mechanism the engagement does not deliver, to the one
+buyer least equipped to notice until it did not arrive. Caught by reading the
+runbook against `Offer.md` rather than by anything failing.
+
+**Both halves had to move**, which is why this is not a one-word edit. The two
+sentences are deliberately parallel: the shadcn critique lists four things that
+stack lacks, and the description promises the same four back. Changing one and
+not the other would have broken a rhetorical pairing that does real work on a
+call.
+
+**Left open, deliberately:** whether a Foundation should mirror the tokens
+*into* Figma once one exists — the JSON-to-Figma direction Orin's own site uses.
+It is plausibly valuable for a founder who hires a designer later, but nothing
+has decided it, and inventing scope inside a priced engagement is how a fixed
+price stops being fixed. If it is wanted, it is a Retainer conversation or an
+explicit line in `Offer.md`, not an assumption.
+
+**Revisit if:** a Foundation client arrives already holding a Figma library, at
+which point the greenfield assumption behind all of this needs re-testing.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
