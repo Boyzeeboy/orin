@@ -9,12 +9,14 @@ so how it's built matters as much as what it says.
 1. `MANIFESTO.md` — source of truth for every judgement call
 2. `positioning.md` — locked one-liner and 60-second version
 3. `Offer.md` — engagement shapes, prices, refusals
-4. `HANDOVER.md` — sitemap, voice rules, attribution rules, exclusions
-5. `PHASE5-BUILD.md` — approved page copy and the constraints
-6. `design.md` — layout principles; how tokens become page composition
-7. `BUILD-SEQUENCE.md` — the build order and the Step-0 foundation gaps
-8. `SETUP.md` — the token pipeline runbook and the one loop
-9. `decisions.md` — why things are the way they are
+4. `voice.md` — how prose gets written; governs every word of page copy
+5. `HANDOVER.md` — sitemap, site-specific copy rules, attribution,
+   exclusions. Its tone notes predate `voice.md` and defer to it.
+6. `PHASE5-BUILD.md` — approved page copy and the constraints
+7. `design.md` — layout principles; how tokens become page composition
+8. `BUILD-SEQUENCE.md` — the build order and the Step-0 foundation gaps
+9. `SETUP.md` — the token pipeline runbook and the one loop
+10. `decisions.md` — why things are the way they are
 
 Do not relitigate locked decisions. If something genuinely doesn't work,
 flag it to Warren and log it in `decisions.md`.
@@ -47,7 +49,10 @@ flag it to Warren and log it in `decisions.md`.
 - **WCAG AA minimum.** Real focus states, real contrast.
 - **Static-first.** No frameworks that aren't earned. Cloudflare Pages,
   output dir `site`, no site build step.
-- **British English. First person singular. No agency-speak.**
+- **British English. First person singular. No agency-speak.** Prose is
+  governed by `voice.md`: read it before writing or editing page copy,
+  not after. Its em-dash ban and its ban on negative-parallelism reframes
+  ("This isn't X, it's Y", §3F) are hard rules.
 - **One CTA sitewide: "Get in touch."** No newsletter, no chat widget,
   no secondary asks.
 - **Component budget** (PHASE5-BUILD.md): primitives only — heading set,
