@@ -68,29 +68,52 @@ ship and stop.
 
 ---
 
-## Current task — Step 0 only
+## Where the build stands (as of 2026-08-15)
 
-Execute **Step 0 of `BUILD-SEQUENCE.md`** and nothing after it. Close the
-foundation gaps (token additions + CSS/structure), get the pipeline
-green, then STOP before building any page.
+**Step 0 and Step 0.5 are closed.** Both judgement calls that used to sit
+here were settled on 2026-07-09 and logged in `decisions.md`: the accent
+tokens went in with the recommended semantic names
+(`colour/background/accent`, `…/accent-hover`, `colour/text/on-accent`),
+and inverse bands stay **link-free** — option (a), so no
+`colour/text/link-on-inverse` token exists. Don't reopen either.
 
-Two Step-0 items are judgement calls — **confirm with Warren before
-writing them**, do not decide unilaterally:
+**All five pages are built**, plus two beyond the sitemap: `/tokens` (the
+token demo, moved not deleted — it backs the "this site runs on the
+pipeline it sells" claim) and `/work/vivo-energy`. Pages are folders with
+an `index.html`, never `.html` files. Home carries the Step-0.5 grid.
 
-1. **Accent token naming.** Recommendation is semantic (not component):
-   `colour/background/accent` → `{teal.500}`,
-   `colour/background/accent-hover` → `{teal.600}`,
-   `colour/text/on-accent` → `{neutral.0}`. Confirm names before adding.
-2. **The inverse-section decision** (BUILD-SEQUENCE Step 0, item 2):
-   keep inverse bands link-free (no new token), or add
-   `colour/text/link-on-inverse` → `{teal.300}`. Confirm which.
+**The batched QA pass (`BUILD-SEQUENCE.md`, build order step 4) is
+partly done, and v1 has not been declared.** Verified state:
 
-The rest of Step 0 (button primitive, full-bleed section wrapper,
-case-study card, nav wrap at 360px, skip link + `<main id>`,
-`prefers-reduced-motion`, absolute `/partials/…` include paths, preserve
-the specimen CSS for the `/tokens` page, fix the stale Source-Serif line
-in `SETUP.md`) can proceed once those two are settled.
+- Every page has a `meta name="description"`. ✓
+- **No page has OG tags** — outreach links will not unfurl, and the
+  launch pack depends on them.
+- **No favicon** is linked anywhere.
+- **No `site/404.html`.**
+- Keyboard nav, focus states, AA contrast, 360px and Lighthouse are not
+  verifiable from the files alone — treat them as unconfirmed, not done.
 
-When done: `cd tokens && npm test` → report 8/8, verify clean. Log the
-Step-0 changes in `decisions.md` (date, what changed, what was deferred).
-Do not start Home or any other page — that's the next handoff.
+Step 5 (declare v1 in `decisions.md` — date, what shipped, what was
+deferred) has not been logged.
+
+## What is actually active
+
+Since 2026-08-05 the work has moved off the site and onto the commercial
+layer: the positioning word, `Offer.md`, **The Foundation** (greenfield
+entry engagement, added 2026-08-12), the contract templates, and the
+material in `notes/`. `Offer.md`, `PIPELINE-LEDGER.md` and `decisions.md`
+all have uncommitted changes.
+
+So: **do not assume the site is the current task.** Ask before starting
+site work. If the answer is "finish v1," it is the QA gaps above plus the
+v1 entry — not new pages and not new components.
+
+## Before starting anything
+
+Read `decisions.md` from the most recent entry backwards far enough to
+cover the area you're touching. It is the log of what was already
+decided, and it is long — the stale block this section replaced is what
+happens when a task description outlives the work it described.
+
+`cd tokens && npm test` → 8/8, verify clean, before every push. Log what
+you change in `decisions.md` (date, what changed, what was deferred).
