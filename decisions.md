@@ -1978,6 +1978,60 @@ documents rather than by any check firing.
 
 ---
 
+## 2026-08-16 — One block for the two-layer rule, and not on every sheet
+
+**Decision:** A standard semantic-only block, added to the two sheets that
+lacked it, marked `data-block="semantic-only"` so every copy is findable with
+`grep -l 'data-block="semantic-only"' notes/*.html`. **Not** added to all seven.
+Three already carry the message in their own words, and one must never carry it.
+
+**Why it needed standardising at all.** Semantic-only was the check missing from
+three separate tables today: contract coverage in the Foundation runbook, two of
+the nine in the pipeline setup sheet, and the primitive row in the client
+handover sheet. It is the check every sheet's prose leans on hardest and the one
+that kept getting left out of the lists.
+
+**The finding that shaped the block: enforcement is not uniform.** The
+Figma-first pipeline has a `semantic-only` report check that fails the build.
+**The shadcn adapter does not.** Its four checks are contract coverage, mode
+parity, consumer contract and discipline; discipline catches a colour typed into
+a component, but reading a `ref` token is a proper token reference and nothing
+flags it. So a single pasted block claiming "the build fails" would have been
+false for every Foundation client — the exact defect this whole sweep has been
+fixing.
+
+So the block has two parts. **The rule and the reason are shared** and identical
+everywhere: primitives are the palette, semantics say what a value is for,
+reaching past a semantic works perfectly today and moves under you at the next
+rebrand. **The enforcement paragraph is per-pipeline and deliberately not
+shared** — the setup sheet states the check and the 195-use KR failure behind
+it; the Foundation runbook says plainly that this one is a convention rather
+than a check, and asks the client to ask.
+
+**Where it did not go, and why:**
+
+- `founder-explainer-sheet.html` — its own standfirst promises "no jargon, no
+  code". A two-layer token explanation is exactly the jargon it exists without.
+  The sheet already makes the same point in plain language: values are named by
+  job, not by shade, so the job survives a rebrand.
+- `client-site-handover-sheet.html`, `pipeline-setup-sheet.html`,
+  `pipeline-infographic.html` — all three already carry it, in prose written for
+  their own audience. Overwriting working copy with a template would be churn
+  with a real risk of making each one slightly worse.
+
+**The honest limitation.** A "standard block" pasted into standalone HTML with
+no build step is two copies that can drift, which is the anti-pattern this repo
+keeps naming. The marker is the mitigation, not a fix: it makes the set
+greppable so an edit can reach every copy. If these sheets ever gain a build
+step, this block is the first thing that should become an include.
+
+**Surfaced and left open:** the shadcn adapter has no semantic-only check. That
+is a real gap in the guardrail, not just in the prose. Worth adding when the
+adapter is next opened — a `ref`-layer reference from a component is detectable
+the same way the consumer contract is.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]

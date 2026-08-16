@@ -331,6 +331,42 @@
     </div>
   </section>
 
+  <!-- ============ SHARED BLOCK: semantic-only ============
+       Canonical wording lives in decisions.md (2026-08-16, "One block for the
+       two-layer rule"). Every copy carries data-block="semantic-only", so
+       `grep -l 'data-block="semantic-only"' notes/*.html` finds them all when
+       the wording changes. The ENFORCEMENT paragraph is per-pipeline and is NOT
+       shared — this one states the check, because the Figma-first report has
+       `semantic-only`. The Foundation runbook carries the convention version.
+  -->
+  <section class="band" data-block="semantic-only">
+    <div class="band-title"><span>Two layers, and which one the site reads</span></div>
+    <div class="panel">
+      <div class="panel-title">Build from roles, not from the raw scale</div>
+      <p>
+        <b>Primitives</b> are the palette: every shade and step, named for what it is.
+        <b>Semantics</b> sit on top and say what each one is <em>for</em>. The site reads
+        semantics. Only semantics.
+      </p>
+      <p>
+        Reaching past a semantic to a primitive works perfectly, which is the whole
+        problem: it resolves today and it looks right today. But primitives are the
+        layer that gets re-pointed when the palette moves, and anything reading one
+        directly moves with it, unasked and unreviewed. A semantic survives a rebrand
+        because a rebrand is a change to what the semantic points at.
+      </p>
+      <p>
+        <b>Here this is enforced, not merely stated.</b> The <code>semantic-only</code>
+        check in the generated report fails the build when the consuming site
+        references a <code>--{prefix}-primitives-*</code> token. Worth knowing what that
+        check cost to learn: on KR the rule sat in the docs for months while the site
+        broke it in nine places, 195 uses routed through local aliases that pointed at
+        primitives. It looked like good CSS and it read like a token. A rule nothing
+        checks is a preference.
+      </p>
+    </div>
+  </section>
+
   <!-- ============ FAILURE MODES ============ -->
   <section class="band">
     <div class="band-title"><span>Known failure modes · learned the hard way</span></div>

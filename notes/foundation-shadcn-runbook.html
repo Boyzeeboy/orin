@@ -394,6 +394,42 @@
     </div>
   </section>
 
+  <!-- ============ SHARED BLOCK: semantic-only ============
+       Canonical wording lives in decisions.md (2026-08-16, "One block for the
+       two-layer rule"). Every copy carries data-block="semantic-only", so
+       `grep -l 'data-block="semantic-only"' notes/*.html` finds them all when
+       the wording changes. The ENFORCEMENT sentence is per-pipeline and is NOT
+       shared — this one says the rule is a convention here, because the shadcn
+       adapter has no semantic-only check. Do not paste the enforced version in.
+  -->
+  <section class="band" data-block="semantic-only">
+    <div class="band-title"><span>Two layers, and which one to use</span></div>
+    <div class="panel">
+      <div class="panel-title">Build from roles, not from the raw scale</div>
+      <p>
+        The source has two layers. The <b>raw scale</b> is the palette itself: every
+        shade, every step, named for what it is. The <b>roles</b> sit on top and say
+        what each one is <em>for</em> — the page background, the primary action, the
+        body text colour. Your components read the roles. Only the roles.
+      </p>
+      <p>
+        Reaching past a role to grab a raw value works perfectly, which is the whole
+        problem: it resolves today and it looks right today. But the raw scale is the
+        part that moves when your brand changes, and anything reading it directly moves
+        with it, unasked and unreviewed. A role survives a rebrand because a rebrand is
+        a change to what the role points at. That is the entire reason the two layers
+        exist, and it is invisible until the day it costs you.
+      </p>
+      <p>
+        <b>On your setup this is a convention, not a check.</b> The guardrail catches a
+        colour typed straight into a component, but it can't yet tell a role from a raw
+        value once both are proper tokens. So this one is on you and me rather than on
+        the build. If you're unsure which layer a name belongs to, ask — that question
+        is cheap and the wrong answer is quiet.
+      </p>
+    </div>
+  </section>
+
   <!-- ============ ADDING A VALUE ============ -->
   <section class="band">
     <div class="band-title"><span>When you need a value that doesn't exist</span></div>
