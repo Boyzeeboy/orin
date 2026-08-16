@@ -7,8 +7,9 @@ canonical files for everything that is.*
 
 *Where the real values live: `tokens/src/*.json` (the scale), `site/styles.css`
 (the composition), `PHASE5-BUILD.md` (approved copy + section structure),
-`HANDOVER.md` (voice, attribution, the "deliberately absent" list). If this
-doc ever disagrees with those, they win — fix this doc.*
+`voice.md` (how prose gets written), `HANDOVER.md` (attribution, separators,
+the "deliberately absent" list). If this doc ever disagrees with those, they
+win — fix this doc. The shipped site outranks all of them.*
 
 ---
 
@@ -23,19 +24,45 @@ A useful test: if the design only works once you've added a card, an icon, a
 divider, or a background flourish, the layout underneath isn't doing its job
 yet. Strip it back and make the type and spacing carry the weight first.
 
+**The one standing exception, so it isn't mistaken for drift:** the hero's
+12-column overlay (`.grid-overlay`, desktop only, `aria-hidden`). It is
+decoration by the letter of the rule above. It stays because it shows the grid
+the whole site is built on, and a practice selling the substrate showing the
+substrate is doing work that type alone can't. It was removed and reinstated on
+2026-08-16; read that entry before touching it. No second exception without the
+same argument.
+
 ## The layout system (as built)
 
 Pages are a vertical stack of full-bleed **bands** (`.section`), each holding a
-centred measure. Two width layers exist inside a band:
+centred measure. One band variant exists: `.section--inverse`, the dark closing
+band. It flips ground and ink, and both the rail and the eyebrow have to flip
+with it or they fail contrast. Inverse bands stay **link-free** by decision
+(2026-07-09): heading and button only, which is why no
+`colour/text/link-on-inverse` token exists. Don't put an inline link in one.
+
+Two width layers exist inside a band:
 
 - `.wrap` — prose column, clamped to `--measure` (68ch). Reading width.
 - `.container` + `.section-grid` — the wide 75rem outer measure and the 12-col
   grid inside it. Wide scaffolding, narrow text: prose still clamps to 68ch via
   the `p` rule even inside the grid.
 
-The `.rail` (column 1) carries the eyebrow/index; heading and body sit in
-columns 2–7 and 7–end. Below 64rem the grid collapses to one column and
-everything stacks in DOM order. Compose within this — don't invent new layout
+The `.rail` (column 1) carries the section index alone: the `01`, `02`, `—`
+running down the left edge. The eyebrow is **not** in the rail: it sits at the
+top of the content column, inside `.col-heading` or `.col-main`. (This doc said
+"eyebrow/index" until 2026-08-16, which would have put it in column 1 and
+broken the pattern on every page.)
+
+Content sits in one of two arrangements, both starting at column 2:
+
+- `.col-heading` (2–7) + `.col-body` (7–end) — the split used when a section
+  has a heading on the left and prose on the right.
+- `.col-main` (2–end) — one full-width column, for sections whose content is
+  a single run: the hero, and the cards block.
+
+Below 64rem the grid collapses to one column and everything stacks in DOM
+order. Compose within this — don't invent new layout
 primitives unless a page genuinely demands one (and if it does, that's a
 conversation, not a silent addition — component budget in `PHASE5-BUILD.md`).
 
@@ -69,8 +96,8 @@ most) and make sure the DOM order still reads top-to-bottom when it stacks.
 
 Hierarchy must survive in near-greyscale. Squint at the page (or drop it to
 mono): if you can still tell what's most important, the structure is sound. Teal
-is an accent that earns each appearance — links, the one button, the rail. It is
-never decoration. If a section needs colour to feel finished, the layout needs
+is an accent that earns each appearance: links, the one button, the rail, the
+card index, and every focus ring. It is never decoration. If a section needs colour to feel finished, the layout needs
 more work, not more colour.
 
 ## The design-in-browser loop
@@ -109,8 +136,8 @@ for Claude, then set it down. Never let it set the overall style.
 
 - **Squint test.** Blur your eyes. Is the hierarchy still legible? (Colour and
   detail drop out; structure shouldn't.)
-- **Read-aloud test.** The voice rules want sentences readable aloud; the layout
-  should support that reading rhythm — measure at 68ch, generous line spacing,
+- **Read-aloud test.** `voice.md` wants sentences readable aloud; the layout
+  should support that reading rhythm: measure at 68ch, generous line spacing,
   nothing crammed.
 
 ---

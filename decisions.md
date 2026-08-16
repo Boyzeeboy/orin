@@ -2385,6 +2385,59 @@ The guardrails cover values, not claims.
 
 ---
 
+## 2026-08-16 — design.md audited: one wrong instruction, three silences
+
+**Decision:** Third and last brief audited against the shipped CSS and
+tokens. Six findings. Unlike the other two, almost nothing here was *stale*
+— design.md is principles, and principles don't rot the way a price does.
+What it had instead was one instruction that was simply wrong, and three
+things it never said.
+
+**The wrong instruction: the rail does not carry the eyebrow.** The doc read
+"the `.rail` (column 1) carries the eyebrow/index". The rail carries the
+index alone; the eyebrow sits at the top of the content column, in
+`.col-heading` or `.col-main`, on every page. Anyone composing a new section
+from this doc would have put the eyebrow in column 1, and it would have
+looked deliberate. This is the failure mode a principles doc is *most*
+exposed to: it is read for guidance rather than checked against the code, so
+a wrong line survives longer than it would anywhere else.
+
+**Three silences, each load-bearing.**
+
+- `.col-main` (2–end) was undocumented. The doc described only the 2–7 / 7–end
+  split, which is one of two arrangements in use.
+- `.section--inverse` was undocumented — the one band variant, with a real
+  constraint attached: rail and eyebrow must flip or they fail contrast, and
+  the band stays link-free (2026-07-09). That link-free rule is exactly the
+  "intent that isn't already written down" this doc exists to hold, and it
+  was only in `decisions.md`.
+- Teal was listed as "links, the one button, the rail". It is also every
+  card index and **every focus ring** — an accessibility-relevant appearance
+  to leave off a colour-discipline list.
+
+**The hero overlay is now a stated exception, not a silence.** The doc's
+opening principle says that if a design needs a background flourish, the
+layout isn't working. The hero has a decorative 12-column overlay. Both are
+right, and the tension was undocumented, so the exception is now written
+where the principle is, with the reasoning and a "no second exception
+without the same argument".
+
+**Clean, and verified against source rather than assumed:** `.wrap` at 68ch,
+`.container` at 75rem (`container.max`), `.col-heading` 2–7 and `.col-body`
+7–end, the 64rem collapse, the space scale's deliberate gaps (0,1,2,3,4,6,
+8,12,16,24 — no 5, 7, 9, 10), `.section` at `space-16` with the hero at
+`space-24`, tight pairings at `space-2`, two breakpoints with 64rem the one
+that matters, and the DevTools → reassignment-or-proposal → `npm test` loop.
+
+**All three briefs are now audited.** Between them: eleven false statements
+in the two dated ones, one wrong instruction and three silences in the
+principles one. Different failure modes. The dated briefs went stale because
+the world moved; design.md was wrong from the start about the rail, and
+nobody noticed for six weeks because principles docs get read for tone, not
+checked for accuracy.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
