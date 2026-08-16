@@ -210,6 +210,26 @@ the `@media`/breakpoint exception are logged in `decisions.md`.
 5. **Declare v1** — log the launch in decisions.md: date, what shipped,
    what was deferred. Then stop building.
 
+### What's left of steps 4 and 5
+
+*State verified against the files on 2026-08-15. Steps 1–3 are done: all
+five pages built, plus `/tokens` and `/work/vivo-energy`. Tick these as
+they land; delete this block once v1 is declared, so it can't outlive the
+work it describes.*
+
+- [x] Per-page meta descriptions — all seven pages carry one.
+- [ ] **OG tags** — no page has any. `notes/launch-and-outreach-pack.md`
+      assumes links that unfurl; none of them will until this lands.
+- [ ] **Favicon** — nothing linked anywhere.
+- [ ] **`site/404.html`** — one line and a link home. Doesn't exist.
+- [ ] **Declare v1** in `decisions.md` — date, what shipped, what was
+      deferred (the Phase-6 list below, and whatever else).
+
+Not on the list because a file check can't settle them — keyboard nav,
+visible focus states, AA contrast, 360px layout, Lighthouse. Unconfirmed
+rather than outstanding: run them as part of the same pass and record the
+result in the v1 entry.
+
 ---
 
 ## Phase 6 — deferred polish (do not do during v1)
