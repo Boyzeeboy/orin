@@ -14,6 +14,13 @@ assembles it into a live site. Do not relitigate locked decisions; if
 something genuinely doesn't work, flag it and log it in decisions.md
 rather than silently changing it.
 
+*Status, 2026-08-16: that session is finished and the site is v1; see
+CLAUDE.md's stopping rule. This document is maintained as live reference,
+not archived, so the sections below are kept true to the shipped site. The
+"done and locked" claim above no longer holds for pricing: The Foundation
+was added on 12 August and the Build's published floor changed on 16
+August. Locked means logged in decisions.md, not frozen.*
+
 ## Canonical context files (read these first)
 
 All in the orin repo root. These are the distilled output of the founding
@@ -45,17 +52,31 @@ honest pushback over validation.
    People close enough to the work to see the value. Copy is written in
    their language (velocity, defects, source of truth, dev overhead),
    never in designer language (brand cohesion, visual polish, delight).
-3. **Domain:** orinsystems.co (orindesign.co redirects to it).
-4. **Offer:** Diagnostic (£3,000 fixed, 1–2 weeks) → Build (£14,000 base,
-   scoped £12k–18k, 4–6 weeks) → Retainer (£2,000/month, 30-day cancel).
-   Prices are published on the site. No day rates anywhere.
+3. **Domain:** orinsystems.co. This document said "orindesign.co redirects
+   to it". As of 2026-08-16 it does not: `orindesign.co` returns 200 and
+   serves a separate page titled "Orin Design", carrying Google Analytics
+   and Rewardful tags, from Cloudflare. It is not the Orin site and not a
+   redirect. Unresolved: it is live under a name that decision 5 below
+   rules out. Needs Warren's DNS action, not a repo change.
+4. **Offer:** four shapes, two doors. Diagnostic (£3,000 fixed, 1–2 weeks)
+   for a product that exists, or Foundation (£4,000 fixed, 2 weeks) for one
+   that doesn't. Either scopes the Build (published as **from £12,000**,
+   scoped £12k–18k, 4–6 weeks), which feeds the Retainer (£2,000/month,
+   30-day cancel). Prices are published on the site. No day rates anywhere.
+   Note `Offer.md` still reads "£14,000 base" for the Build: that is the
+   internal modelling figure and is deliberately not the published one
+   (see decisions.md, 2026-08-16). The Foundation was added 2026-08-12.
 5. **Positioning posture:** never lead with the word "design" as Orin's
    category. "Design system" is fine as the buyer's word for the
    artefact; "design agency" or "design studio" is not.
 
 ## Sitemap (locked)
 
-Five pages. FigJam reference: the Site Map board.
+Five pages in the locked sitemap. Nine shipped: the five below, plus
+`/tokens` (the proof artefact), `/work/vivo-energy`, `404.html`, and the
+`/og` and `/icon` source pages the social card and favicon render from.
+The five are the sitemap; the other four are machinery. FigJam reference:
+the Site Map board.
 
 - **Home** — the filter. One-liner, the problem in the buyer's language,
   the four shapes compressed, the Vivo proof point, one CTA.
@@ -66,7 +87,8 @@ Five pages. FigJam reference: the Site Map board.
   Foundation, Build, Retainer, in that order, with prices, plus a
   "When it's a no". Content from Offer.md.
 - **Work** — case study index. Three essays: Vivo Energy, IDEM, KRM.
-  (Essays are Phase 6 — build the structure now, placeholder gracefully.)
+  Vivo Energy is written and shipped at `/work/vivo-energy`. IDEM and KRM
+  are still Phase 6 and read "Essay coming" on the index.
 - **Contact** — direct. Email link, no forms-into-the-void.
 
 Conversion logic: every case study and How it works ends with a single
@@ -128,10 +150,14 @@ CTA to Contact. One action sitewide: get in touch.
 
 ## Open items (not this session's job, but don't block on them)
 
-- Case study essays (Phase 6) — structure the Work page to receive them.
-- 3-minute positioning version — pending, lives in positioning.md when done.
-- Business admin in progress: HMRC sole trader registration, business
-  bank account, PI insurance, contract template.
+- Case study essays: structure built and Vivo Energy written. IDEM and KRM
+  remain Phase 6.
+- 3-minute positioning version: **done.** `positioning.md` §3-minute
+  version, in the 1.1 revision of 14 July 2026.
+- Business admin: HMRC sole trader registration, business bank account,
+  PI insurance, contract template. Status not verifiable from the repo;
+  contract templates were active work as of 2026-08-16.
+- **`orindesign.co` does not redirect.** See the domain note above.
 
 ## Working agreement
 
