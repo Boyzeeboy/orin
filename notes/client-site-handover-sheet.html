@@ -331,6 +331,10 @@ border-radius: var(--{prefix}-radius-md);</span>
             <td>A colour, size or font slipped into the CSS directly. Swap it for the semantic token that means the same thing. If nothing means the same thing, that's a gap worth telling me about — see below.</td>
           </tr>
           <tr>
+            <td>A primitive is being consumed</td>
+            <td>Something in the CSS reads a raw scale value rather than a role — the difference shown above. It resolves today, which is why this is a check and not a bug you'd notice: primitives get re-pointed when the palette moves, and anything reading one directly moves with it, unasked. Find the semantic token for the job it's doing. If none exists, that's the same gap as the row above and worth sending to me.</td>
+          </tr>
+          <tr>
             <td>Sync is out of date</td>
             <td>The committed <code>vendor/tokens.css</code> doesn't match the pinned version. Re-run the sync and commit the result. If it still differs, the file was hand-edited at some point.</td>
           </tr>
