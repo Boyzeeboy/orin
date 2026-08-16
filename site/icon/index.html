@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <title>Icon source — Orin</title>
+  <meta name="description" content="Source for the site's favicon and touch icon. Rendered at 512×512 and rasterised to /icon-512.png.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only).
+       Absolute paths so they resolve from a pretty URL served with a trailing slash. -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- SOURCE, NOT A PAGE. Companion to /og/, same reasoning: the mark is built
+       from the token layer rather than drawn in a graphics tool, so the accent
+       colour on a browser tab is the same token as the accent colour on a
+       button, and a palette change reaches both.
+
+       To regenerate (dev server on :4173, from the repo root):
+
+         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+           --headless --disable-gpu --hide-scrollbars \
+           --window-size=512,512 \
+           --screenshot=site/icon-512.png \
+           http://localhost:4173/icon/
+         sips -z 180 180 site/icon-512.png --out site/apple-touch-icon.png
+         sips -z 32 32   site/icon-512.png --out site/favicon-32.png
+
+       No .ico: sips cannot write that format, and every page declares its
+       icons with link tags, so nothing depends on a bare /favicon.ico. -->
+  <style>
+    /* A fixed-size artefact, not a responsive surface. 512 is the master size;
+       the smaller icons are downscaled from it rather than rendered again. */
+    body { margin: 0; width: 512px; height: 512px; overflow: hidden; }
+    .icon {
+      width: 512px; height: 512px;
+      background: var(--accent);
+      color: var(--on-accent);
+      display: grid; place-items: center;
+      font-family: var(--font-display);
+      font-weight: var(--orin-font-weight-semibold);
+      /* Sized to fill the tile: this is a mark, so it is set by eye against the
+         square rather than off the type scale, which exists for running text. */
+      font-size: 340px;
+      line-height: 1;
+    }
+    /* Optical centring: the O's round bowl sits slightly low on the baseline
+       box, so nudge it up. A rendering correction, not a spacing value. */
+    .icon span { display: block; transform: translateY(-0.045em); }
+  </style>
+</head>
+<body>
+  <div class="icon"><span>O</span></div>
+</body>
+</html>
