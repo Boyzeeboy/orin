@@ -1674,6 +1674,66 @@ the site grows enough nav that a mistyped URL needs search rather than links.
 
 ---
 
+## 2026-08-16 — The batched QA pass: two defects found and fixed, one left open
+
+**Decision:** Ran build-order step 4 across all eight pages. Two defects fixed;
+CLS left open as a decision for the architecture rather than a bug to patch.
+
+**Fixed — an AA contrast failure on every inverse band.** `.eyebrow` uses
+`--ink-muted`, a mid neutral chosen against paper. On `--paper-inverse` it
+measures **2:1**, against the 4.5:1 minimum for text at that size. It appears on
+Home, How it works and Work, in the Close band each page ends on. The rail was
+flipped to `--ink-inverse` in Step 0 and the eyebrow beside it was not — the
+same defect, missed twice, so the two are one rule now. This is precisely the
+shape the Step-0 inverse-band decision was about, and it still got through:
+that decision reasoned about *links* on inverse and nothing checked the rest.
+
+**Fixed — a heading-level skip on /work.** The card grid runs `h1` → `h3`,
+because the cards carry `h3` and the section has no heading of its own. Added a
+`.visually-hidden` `h2` reading "Case studies" — the section's own name from the
+existing HTML comment, not new copy, and invisible so the approved page is
+unchanged. `.visually-hidden` is an accessibility utility, not a component, and
+does not spend the component budget.
+
+**Method, because it matters for what these results mean.** Contrast was
+computed from *rendered* styles — every element with its own text, its computed
+colour against its effective background walked up the ancestor chain, at the
+correct WCAG threshold for its size and weight. Not eyeballed, and not read off
+the token file, which would have missed the eyebrow entirely: both values are
+legitimate tokens, and the defect is in their pairing.
+
+**Results after the fixes.** Eight pages, all clean: 0 contrast failures, no
+horizontal overflow at 360px, one `h1` each, no heading skips, `lang` set, no
+images without `alt`, skip link present and targeting a real `<main>`.
+Keyboard: real Tab presses, every stop matching `:focus-visible` with a
+2px teal outline at 3px offset; the skip link moves from `-9999px` to `16,16`
+on focus. Lighthouse on Home and How it works: **accessibility 100,
+best practices 100, SEO 100, performance 94**.
+
+**Left open — CLS 0.14, above the 0.1 threshold.** One shift accounts for
+0.1397 of it: `<main>` dropping when `includes.js` injects the nav after
+`DOMContentLoaded`. The web-font shift is 0.00002, i.e. nothing. This is the
+known cost of the client-side include, which exists to stop nav and footer
+diverging across pages — the KR five-variants bug, named in `includes.js`.
+
+The available fix is a `min-height` on the placeholder, derivable from tokens
+as `calc(var(--orin-space-6) * 2 + var(--orin-font-line-height-body-medium) * 1em)`
+≈ 71px against a measured 70. It is not applied, for one reason: the nav is
+70px at every width down to 480 and **115px at 360**, where it wraps, so the
+reservation fixes desktop and leaves 44px of shift on mobile — and it silently
+goes wrong the day the nav gains a sixth link, with nothing checking it. A
+magic number nothing verifies is the failure mode this repo keeps naming.
+
+The real fix is a build step that inlines the partials, which the site does not
+have and has not earned. Recorded as a known v1 characteristic rather than
+patched.
+
+**Revisit if:** a build step arrives for any other reason — inline the partials
+then and CLS goes to roughly zero — or the nav changes, at which point the
+measured 70/115 numbers above are stale.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
