@@ -2762,6 +2762,36 @@ today's entries quoting the errors they describe. All correct as written.
 
 ---
 
+## 2026-08-16 — The contract templates come off the public remote
+
+**Decision:** `notes/contracts/` is gitignored and untracked. The files stay
+on disk; they stop being published. Same reasoning as the shadcn adapter and
+the outreach pack, plus one specific to these: they carry the legal name, the
+address line, and the commercial terms Orin contracts on. Templates today,
+filled instruments tomorrow, and the first time a real client name lands in
+one there is no undo on a public remote.
+
+**Gitignoring alone would have done nothing.** They were already tracked, so
+the rule needed `git rm --cached` behind it — otherwise the ignore is inert
+and the files keep being committed. Verified after: both files still on disk,
+`git check-ignore` resolves to the new rule, and a probe file dropped into the
+directory came back ignored too, so the rule covers what gets added later
+rather than just the two files that exist now.
+
+**The limit, stated plainly: this is not a delete.** Both files are in the
+history of a public remote and remain retrievable from earlier commits.
+Untracking stops the bleeding; it does not undo it. Scrubbing them properly
+means rewriting history and force-pushing, which is disruptive and worth it
+only if something genuinely sensitive is in there. Today there is not — every
+client-identifying field is still a placeholder. The judgement to record is
+that this was checked rather than assumed.
+
+**Checked before untracking:** neither `deliverable.md` nor
+`verify-deliverable.mjs` classifies these paths, so the guardrail's "6
+correctly absent" count is unaffected. `npm test` green after.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
