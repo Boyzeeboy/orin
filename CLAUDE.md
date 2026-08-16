@@ -68,45 +68,41 @@ ship and stop.
 
 ---
 
-## Where the build stands (as of 2026-08-15)
+## The site is v1. Stop building it. (declared 2026-08-16)
 
-**Step 0 and Step 0.5 are closed.** Both judgement calls that used to sit
-here were settled on 2026-07-09 and logged in `decisions.md`: the accent
-tokens went in with the recommended semantic names
-(`colour/background/accent`, `…/accent-hover`, `colour/text/on-accent`),
-and inverse bands stay **link-free** — option (a), so no
-`colour/text/link-on-inverse` token exists. Don't reopen either.
+All five build-order steps are closed and v1 is logged in `decisions.md`.
+Nine pages shipped against a sitemap of five: the five, plus `/tokens`,
+`/work/vivo-energy`, `404.html`, and the `/og` and `/icon` source pages
+the social card and favicon render from. Pages are folders with an
+`index.html` — `404.html` is the one deliberate exception, because
+Cloudflare Pages looks for it by name.
 
-**All five pages are built**, plus two beyond the sitemap: `/tokens` (the
-token demo, moved not deleted — it backs the "this site runs on the
-pipeline it sells" claim) and `/work/vivo-energy`. Pages are folders with
-an `index.html`, never `.html` files. Home carries the Step-0.5 grid.
+Measured at v1, not asserted: Lighthouse accessibility 100, best
+practices 100, SEO 100, performance 94; zero contrast failures across
+eight pages; no overflow at 360px; real focus states on every tab stop.
+CLS is 0.14 and is a **known, logged** characteristic of the client-side
+partial include — do not "fix" it with a height reservation, and read the
+2026-08-16 QA entry before touching it.
 
-**The batched QA pass (`BUILD-SEQUENCE.md`, build order step 4) is
-partly done, and v1 has not been declared.** Verified state:
+**The stopping rule now applies.** A change to `site/` needs a reason
+beyond "it could be better." The deferred list — Phase 6, the two unwritten
+case-study essays, per-page social cards, the infographic restyle — is in
+the v1 entry with the reasoning. Don't start any of it because it is
+sitting there looking unfinished.
 
-- Every page has a `meta name="description"`. ✓
-- **No page has OG tags** — outreach links will not unfurl, and the
-  launch pack depends on them.
-- **No favicon** is linked anywhere.
-- **No `site/404.html`.**
-- Keyboard nav, focus states, AA contrast, 360px and Lighthouse are not
-  verifiable from the files alone — treat them as unconfirmed, not done.
-
-Step 5 (declare v1 in `decisions.md` — date, what shipped, what was
-deferred) has not been logged.
+Settled long ago and not to be reopened: the accent token names, and
+inverse bands staying **link-free** (so no `colour/text/link-on-inverse`
+token exists) — both from 2026-07-09.
 
 ## What is actually active
 
-Since 2026-08-05 the work has moved off the site and onto the commercial
-layer: the positioning word, `Offer.md`, **The Foundation** (greenfield
-entry engagement, added 2026-08-12), the contract templates, and the
-material in `notes/`. `Offer.md`, `PIPELINE-LEDGER.md` and `decisions.md`
-all have uncommitted changes.
+Since 2026-08-05 the work has been the commercial layer, and v1 changes
+nothing about that: the positioning word, `Offer.md`, **The Foundation**
+(greenfield entry engagement, 2026-08-12), the contract templates, and the
+material in `notes/`.
 
-So: **do not assume the site is the current task.** Ask before starting
-site work. If the answer is "finish v1," it is the QA gaps above plus the
-v1 entry — not new pages and not new components.
+So: **the site is not the current task**, and now has a declared version
+saying so. Ask before starting site work.
 
 ## Before starting anything
 
