@@ -2741,6 +2741,27 @@ stood.
 
 ---
 
+## 2026-08-16 — The contract templates take the legal name too
+
+**Decision:** Warren confirmed the legal name is also plain **Warren
+Rossiter**, so the conditional left open in the entry above is closed. All
+four occurrences in `notes/contracts/` updated: the MSA parties clause and
+its signature block, and the engagement letter's letterhead and sign-off.
+
+**Why these waited for an answer when the other four didn't.** A trading
+name on a website is a style choice; the name in a parties clause is the
+thing that makes the contract bind the right person. Getting it wrong in a
+signature block is not a typo, it is a defect in an executed agreement. The
+same string in two kinds of document warranted two different levels of care,
+and the contracts were worth one round-trip.
+
+**Nothing else carries it.** A sweep of every tracked `.md` and `.html`
+confirms the only remaining instances of "Warren G Rossiter" or "Warren
+Grossiter" are in this log — the July entry quoting the old signature, and
+today's entries quoting the errors they describe. All correct as written.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]

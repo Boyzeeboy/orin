@@ -18,7 +18,7 @@ want to change. Understand it before you're asked about it.
 
 **Between:**
 
-**(1) Warren G Rossiter**, a sole trader trading as **Orin**, of [address]
+**(1) Warren Rossiter**, a sole trader trading as **Orin**, of [address]
 ("**Orin**"); and
 
 **(2) [Client company name]**, a company registered in [jurisdiction] under
@@ -306,7 +306,7 @@ enforcing clause 6 harder and more expensive.*
 
 | Orin | [Client company name] |
 |---|---|
-| Name: Warren G Rossiter | Name: |
+| Name: Warren Rossiter | Name: |
 | Position: Principal | Position: |
 | Date: | Date: |
 

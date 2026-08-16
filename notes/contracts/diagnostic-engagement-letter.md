@@ -11,7 +11,7 @@ agreement (`master-services-agreement.md`) comes out when the Build does.
 
 ---
 
-[ORIN LETTERHEAD — Warren G Rossiter, trading as Orin]
+[ORIN LETTERHEAD — Warren Rossiter, trading as Orin]
 [Address] · hello@orinsystems.co · [UTR / VAT status if applicable]
 
 [Date]
@@ -146,7 +146,7 @@ for my own tax and National Insurance.
 
 Yours sincerely,
 
-**Warren G Rossiter**
+**Warren Rossiter**
 Orin
 
 ---
