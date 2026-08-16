@@ -1949,6 +1949,35 @@ the Figma-first path may fit them better than the Foundation does.
 
 ---
 
+## 2026-08-16 — The Build's published floor is £12,000
+
+**Decision:** The site said "From £14,000" and, two sentences later, "usually
+£12,000–£18,000". Those contradict: a floor of £14,000 rules out the bottom of
+the range printed beside it. Warren's call, taken today — **the floor is
+£12,000**. Both pages now say so.
+
+**Reasoning:** `Offer.md` reads "£14,000 base. Scoped £12,000–£18,000", which is
+coherent as an anchor plus a range when you are the one saying it out loud on a
+call. Compressed onto a page it stops being coherent, because "from" is a floor
+and £14,000 is not the floor. A prospect who noticed would be right to ask which
+number was true, and there is no good answer to that question.
+
+**Why this is a v1 exception and not a reopening.** v1 declared a stopping rule
+three hours earlier: a change to `site/` needs a reason beyond "it could be
+better." A published price contradicting itself is that reason. The rule exists
+to stop polish, not to freeze errors.
+
+**`Offer.md` is left alone deliberately.** Its "£14,000 base" is internal
+anchoring language for a conversation, and the range beneath it already carries
+the floor. Changing it was not asked for and the two documents no longer
+disagree about anything a client can see.
+
+**Found by** cross-reading the Foundation sheet against the site while checking
+something else, which is now the fourth defect today found by comparing two
+documents rather than by any check firing.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
