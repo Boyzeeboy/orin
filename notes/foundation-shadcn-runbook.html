@@ -421,11 +421,11 @@
         exist, and it is invisible until the day it costs you.
       </p>
       <p>
-        <b>On your setup this is a convention, not a check.</b> The guardrail catches a
-        colour typed straight into a component, but it can't yet tell a role from a raw
-        value once both are proper tokens. So this one is on you and me rather than on
-        the build. If you're unsure which layer a name belongs to, ask — that question
-        is cheap and the wrong answer is quiet.
+        <b>The build checks this for you.</b> Reading a raw <code>--ref-</code> value from
+        your own code fails the guardrail, with the file and line. Generated files are
+        exempt, because pointing a role at a raw value is exactly what they do. If you
+        hit it and no role seems to fit the job, that's a genuine gap rather than a
+        rule to work around: send it over, and it becomes a new role in the source.
       </p>
     </div>
   </section>

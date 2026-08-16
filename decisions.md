@@ -2032,6 +2032,52 @@ the same way the consumer contract is.
 
 ---
 
+## 2026-08-16 — The shadcn adapter gets a semantic-only check
+
+**Decision:** Built it. The adapter's guardrail is five checks, not four:
+contract coverage, mode parity, consumer contract, **semantic-only**, and
+discipline. Closes the gap logged an hour earlier the same day, when the
+standard block had to say "convention, not a check" for Foundation clients.
+
+**What it does.** Hand-written code reading a `--ref-*` value fails the build,
+with file and line. The ref layer is the raw scale; roles sit on top. Ref names
+are not exposed as Tailwind utilities, so `var()` is the only route in and one
+test covers it.
+
+**Why it needed a check rather than a rule.** It is the subtlest of the five and
+the only one invisible to the other four: a ref token is real, defined, and
+satisfies the consumer contract. Nothing was wrong except the *layer* — and it
+comes due at the next rebrand, when the scale moves and everything pinned to it
+moves too, unreviewed. Same shape as the KR failure where a stated rule sat in
+the docs for months while the site broke it in nine places.
+
+**The design decision worth recording: generated files are exempt.** A generated
+file legitimately references the ref layer, because aliasing a role onto a raw
+value is precisely its job — `--primary: var(--ref-brand-500)`. Without the
+exemption the check would fail on every correctly generated `globals.css`, which
+is the fastest way to get a guardrail switched off. Generated output is
+identified by its header, which is the same way the runbook already tells
+clients to identify it: *if in doubt, look at the first line.* If that header is
+ever missing, the runbook's advice is broken too, so one signal covers both.
+
+**Verified, both directions.** The clean fixture still passes. The dirty fixture
+fails with the new finding named and located, at 11 problems rather than 10. And
+the exemption was tested directly rather than assumed: a generated file with two
+`var(--ref-…)` aliases and a hand-written file with one, in the same directory —
+exactly one failure, from the hand-written file.
+
+**Three documents moved with it**, because they described the old behaviour: the
+Foundation runbook's semantic-only block now says the build checks this rather
+than that it is a convention, and `client-situations.md` and the diagnostic
+walkthrough both say five checks. The adapter README's table gained a row and
+its finding count went 10 → 11.
+
+**Note what this cost.** The gap was found by writing a client-facing block that
+had to be honest about enforcement, not by anything failing. Prose forced the
+code to improve, which is the opposite of the usual direction and worth noticing.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
