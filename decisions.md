@@ -1637,6 +1637,43 @@ nothing checks that they match — or a dark mode arrives.
 
 ---
 
+## 2026-08-16 — A 404 that keeps the chrome, and the one file that isn't a folder
+
+**Decision:** `site/404.html` — eyebrow, heading, one sentence, a link home, and
+the site's own nav and footer. It carries the icons and `noindex`, and no Open
+Graph.
+
+**It is deliberately a file, not a folder.** Pages are folders with an
+`index.html` (2026-07-14), and this is the single exception: Cloudflare Pages
+looks for `404.html` by name at the output root and serves it for any unmatched
+route. A `/404/index.html` would never be found. The reason is written into the
+file so the exception doesn't read as a lapse.
+
+**Every path on it is absolute, and has to be.** It is served in place of
+whatever URL was asked for, at any depth — `/no/such/deep/path` renders it as
+readily as `/typo`. A relative `styles.css` would resolve against the bogus
+path and 404 in turn, leaving an unstyled error page, which is the failure mode
+this page exists to avoid. Same class of bug as the relative `partials/` paths
+fixed in Step 0.
+
+**No Open Graph on it**, unlike every other page. The tags would have to claim
+an `og:url`, and this page has no URL of its own — it answers at all of them.
+An error page has no business unfurling.
+
+**Keeping the nav is the whole point.** "One line and a link home" was the
+Step-4 note, and a bare line is the conventional 404. But the nav is five links
+to everything the site has; a visitor who mistyped is one click from what they
+wanted rather than two. It costs nothing — the chrome is already a partial.
+
+**Verified** against a deep unmatched path, not just the file: `serve` returns
+**404** for `/no/such/deep/path` with this document, styled, nav and footer
+rendered, no console errors. `npm test` 8/8, verify clean.
+
+**Revisit if:** Cloudflare Pages changes how it resolves the error document, or
+the site grows enough nav that a mistyped URL needs search rather than links.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]

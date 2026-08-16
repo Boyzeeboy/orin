@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Page not found — Orin</title>
+  <meta name="description" content="That page isn't here. The rest of the site is.">
+  <!-- The one .html file in site/ rather than a folder: Cloudflare Pages looks
+       for 404.html by name at the output root and serves it for any unmatched
+       route. A /404/index.html would never be found. -->
+  <meta name="robots" content="noindex">
+  <!-- No Open Graph. This page can be served at any URL, so an og:url on it
+       would be a lie, and an error page has no business unfurling. -->
+
+  <!-- Icons. PNG only, declared here: sips cannot write .ico, and nothing
+       falls back to a bare /favicon.ico when the tags are present. -->
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/icon-512.png" sizes="512x512" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only).
+       Every path on this page is absolute, and has to be: it is served in place
+       of whatever URL was asked for, at any depth. -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div data-include="/partials/nav.html"></div>
+
+  <main id="main">
+
+    <section class="section">
+      <div class="container">
+        <div class="section-grid">
+          <div class="col-main">
+            <p class="eyebrow">404</p>
+            <h1 class="hero-heading">That page isn't here.</h1>
+            <p>Either it moved or the link was wrong. The nav above goes
+               everywhere this site goes, or you can
+               <a href="/">start from the home page</a>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/includes.js"></script>
+</body>
+</html>
