@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <title>OG card source — Orin</title>
+  <meta name="description" content="Source for the site's Open Graph image. Rendered at 1200×630 and rasterised to /og.png.">
+  <meta name="robots" content="noindex">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only).
+       Absolute paths so they resolve from a pretty URL served with a trailing slash. -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+
+  <!-- SOURCE, NOT A PAGE.
+       This renders the Open Graph image so the card is built from the token
+       layer rather than eyedropped in a graphics tool: every value below
+       resolves through vendor/tokens.css like any other surface, so a palette
+       change reaches the social card the same way it reaches the site.
+
+       To regenerate after a change (dev server on :4173, from the repo root):
+
+         "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" \
+           --headless --disable-gpu --hide-scrollbars \
+           --window-size=1200,630 \
+           --screenshot=site/og.png \
+           http://localhost:4173/og/
+
+       The 1200×630 below and the --window-size above must agree; that ratio is
+       what LinkedIn, Slack and X expect for a large summary card. -->
+  <style>
+    /* The card is a fixed-size artefact, not a responsive surface — 1200×630 is
+       dictated by the unfurlers, so it is stated here rather than tokenised. */
+    body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+    .og {
+      width: 1200px; height: 630px; box-sizing: border-box;
+      padding: var(--orin-space-24);
+      background: var(--paper);
+      display: flex; flex-direction: column; justify-content: space-between;
+    }
+    .og-mark {
+      font-family: var(--font-display);
+      font-size: var(--orin-font-size-700);
+      font-weight: var(--orin-font-weight-semibold);
+      letter-spacing: var(--orin-font-letter-spacing-title-small);
+      color: var(--ink);
+      margin: 0;
+    }
+    .og-line {
+      font-family: var(--font-display);
+      font-size: var(--orin-font-size-1000);
+      font-weight: var(--orin-font-weight-semibold);
+      line-height: var(--orin-font-line-height-display-large);
+      letter-spacing: var(--orin-font-letter-spacing-display-large);
+      color: var(--ink);
+      margin: 0;
+      max-width: 22ch;
+    }
+    /* The accent bar: teal, sized off the spacing scale. */
+    .og-rule {
+      width: var(--orin-space-16); height: var(--orin-space-1);
+      background: var(--accent); border: none; border-radius: var(--orin-radius-sm);
+      margin: var(--orin-space-8) 0 0;
+    }
+    .og-foot {
+      display: flex; justify-content: space-between; align-items: baseline;
+      font-family: var(--font-ui);
+      font-size: var(--orin-font-size-400);
+      color: var(--ink-muted);
+    }
+    .og-foot .eyebrow { margin: 0; color: var(--link); }
+  </style>
+</head>
+<body>
+  <div class="og">
+    <p class="og-mark">Orin</p>
+    <div>
+      <p class="og-line">The design system your developers ship from.</p>
+      <hr class="og-rule">
+    </div>
+    <div class="og-foot">
+      <p class="eyebrow">A systems practice — Bath, UK</p>
+      <p>orinsystems.co</p>
+    </div>
+  </div>
+</body>
+</html>

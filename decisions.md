@@ -1546,6 +1546,56 @@ alter what fits.
 
 ---
 
+## 2026-08-16 — OG tags on every page, and a social card generated from the tokens
+
+**Decision:** All seven pages carry Open Graph and X card tags, plus a
+`rel="canonical"`. The image is `site/og.png`, 1200×630, rasterised from
+`site/og/index.html` — a real page in `site/` that consumes `vendor/tokens.css`
+like any other surface. Regeneration is one headless-Chrome command, documented
+in that file's own comment.
+
+**Reasoning:** `notes/launch-and-outreach-pack.md` is built on posting links.
+Without these tags they unfurl as a bare title and a grey box.
+
+**The tags cannot be shared.** `includes.js` fetches partials client-side, and
+unfurlers do not run JavaScript, so nothing in `<head>` can come from a partial
+the way nav and footer do. Seven copies is the only option available, which is
+also why they were generated from each page's existing `<title>` and
+description rather than retyped — the card cannot disagree with the page.
+
+**The image is the part worth recording.** A social card is normally drawn in a
+graphics tool, which would have put Orin's palette into a PNG by eyedropper —
+invisible to every guardrail, since `verify-build` reads `.css`, `.html` and
+`.js`, not pixels. Exactly the "a rule nothing checks is a preference" failure.
+So the card is a page: it resolves `--paper`, `--accent`, `--ink`, the type
+scale and the spacing scale through the token layer, and a palette change
+reaches the social card the same way it reaches the site. Re-run the command
+and the PNG follows.
+
+**The guardrail earned its place immediately.** The first version referenced
+`--orin-font-letter-spacing-heading-small`, `--orin-font-line-height-heading-large`
+and `--orin-font-letter-spacing-heading-large`. None exists — the scale says
+*title* and *display*, not *heading*. `verify-build` failed the build and named
+all three. Three invented tokens that a hand-drawn PNG would have carried
+silently, caught before the file was committed.
+
+**Two literals in `site/og/index.html`, both deliberate:** the 1200×630 card
+size, which is dictated by the unfurlers rather than by the design, and the
+matching `--window-size` in the screenshot command. They must agree, and the
+comment says so.
+
+**Deferred:** per-page card images. One sitewide card for v1; a page-specific
+card is a nice-to-have that would multiply the regeneration step by seven.
+Also deferred: any check that `og.png` is current against `og/index.html`. The
+staleness window is real but small, and a check with nothing to compare against
+would be theatre.
+
+**Revisit if:** the positioning line on the card stops matching
+`positioning.md`, or a page's `<title>` changes without the tags being
+regenerated — at which point a verify step earns its place.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
