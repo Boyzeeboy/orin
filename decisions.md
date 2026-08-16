@@ -2866,11 +2866,49 @@ despite the page roughly doubling.
 **Left alone deliberately:** the page still uses `.wrap` rather than the
 12-column grid and rail every other page uses, so it demonstrates the token
 layer but not the layout system. That is a bigger change than this one and
-was not part of the ask.
+was not part of the ask. *(Done the same day — see the entry below.)*
 
 ---
 
-## YYYY-MM-DD — [Short decision title]
+## 2026-08-16 — /tokens moves onto the grid and rail
+
+**Decision:** The proof artefact now uses the same 12-column grid and numbered
+rail as every other page. `.wrap` is gone from it. Closes the item the entry
+above left open.
+
+**Why it was worth doing rather than leaving.** The page argues that the site
+runs on its own substrate, and it was the one page not laid out on that
+substrate. It proved the token layer while visibly opting out of the layout
+layer, which is a strange thing for a proof artefact to do. A technical buyer
+comparing it to the other four pages would see a different site.
+
+**Structure.** Seven sections: an intro with no rail (matching `/work` and
+`/how-it-works`, where the first section carries the h1 and no number), then
+rails 01–06 for colours, type, spacing, radius, links and the button. The
+four scale sections use `.col-main` because their grids want the full width;
+links and the button use the `.col-heading` / `.col-body` split, the same
+shape as Home's "The problem". Nothing was invented — every class already
+existed.
+
+**Two small copy additions**, because the layout change made them true: a line
+in the intro saying the page is on the same grid as the rest, and a sentence
+on the button section naming the three tokens it resolves through. The button
+previously sat under a bare heading with no explanation, which was the
+thinnest part of the page.
+
+**The h1 gained `.hero-heading`**, the fluid clamp the other intro pages use.
+It had been a plain h1, which is why the page read a step quieter than
+`/work` and `/how-it-works` despite doing the same job.
+
+**Verified at both ends:** 12 columns at 1280px with all six rails aligned on
+the same left edge, `col-main` and `col-heading` starting at column 2 and
+`col-body` at column 7 — the same geometry as the other pages. At 360px the
+grid collapses, rails stack above their headings in DOM order, no overflow,
+38/38 values still resolving, no console errors. Tag balance checked before
+rendering, since the conversion moved every closing tag on the page.
+
+**No CSS changed.** This was HTML only, so no other page could be affected by
+it.
 
 **Decision:** [What was decided.]
 
