@@ -52,12 +52,11 @@ honest pushback over validation.
    People close enough to the work to see the value. Copy is written in
    their language (velocity, defects, source of truth, dev overhead),
    never in designer language (brand cohesion, visual polish, delight).
-3. **Domain:** orinsystems.co. This document said "orindesign.co redirects
-   to it". As of 2026-08-16 it does not: `orindesign.co` returns 200 and
-   serves a separate page titled "Orin Design", carrying Google Analytics
-   and Rewardful tags, from Cloudflare. It is not the Orin site and not a
-   redirect. Unresolved: it is live under a name that decision 5 below
-   rules out. Needs Warren's DNS action, not a repo change.
+3. **Domain:** orinsystems.co. `orindesign.co` still serves Warren's first
+   site ("Orin Design"), which is due to be retired. So the redirect this
+   document described is pending, not broken: it is the end state, not the
+   current one. Checked 2026-08-16. When the old site comes down, a 301 to
+   orinsystems.co makes the claim true and keeps any inbound links.
 4. **Offer:** four shapes, two doors. Diagnostic (£3,000 fixed, 1–2 weeks)
    for a product that exists, or Foundation (£4,000 fixed, 2 weeks) for one
    that doesn't. Either scopes the Build (published as **from £12,000**,
@@ -157,7 +156,8 @@ CTA to Contact. One action sitewide: get in touch.
 - Business admin: HMRC sole trader registration, business bank account,
   PI insurance, contract template. Status not verifiable from the repo;
   contract templates were active work as of 2026-08-16.
-- **`orindesign.co` does not redirect.** See the domain note above.
+- Retire the first site at `orindesign.co` and point the domain at
+  orinsystems.co. See the domain note above.
 
 ## Working agreement
 
