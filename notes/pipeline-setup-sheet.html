@@ -274,8 +274,10 @@
           <div class="check"><span>dist ↔ vendor in sync</span><span class="tag gate">GATE</span></div>
           <div class="check"><span>Consumer contract holds</span><span class="tag gate">GATE</span></div>
           <div class="check"><span>Fonts link ↔ tokens match</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Semantic-only consumption</span><span class="tag gate">GATE</span></div>
           <div class="check"><span>Hardcoded value in the surface</span><span class="tag fail">FAILS</span></div>
           <div class="check"><span>Unitless font number</span><span class="tag fail">FAILS</span></div>
+          <div class="check"><span>Doubled group names</span><span class="tag fail">FAILS</span></div>
         </div>
         <p style="margin-top:var(--space-4)">
           Nine checks, regenerated from the real build every time — so it cannot describe a
@@ -313,9 +315,17 @@ and resync. Then continue with the real token.</pre>
   <footer>
     <div class="mark">Orin<span>The design system your developers ship from · orinsystems.co</span></div>
     <p class="foot-note">
-      Colour, type and spacing above are Orin's own semantic tokens.
-      One exception, flagged honestly: <code>--family-mono</code> has no token —
-      the scale has no mono family yet. If this sheet ever ships, that's a token proposal.
+      Colour, type and spacing above are Orin's own semantic tokens, transcribed.
+      This is a standalone sheet: it does not read <code>vendor/tokens.css</code>
+      and is not covered by <code>npm test</code>. If it ever moves into
+      <code>site/</code>, it must consume the tokens instead.
+      One exception, flagged honestly: <code>--family-mono</code> has no token, because
+      the scale has no mono family. That line used to read "if this sheet ever ships,
+      that's a token proposal" — it shipped on 16 August 2026, so the conditional is
+      spent and the gap is simply open. Adding a mono family is a token proposal, an
+      edit to the canonical fonts link, and a third webfont on a site already
+      render-blocked by two; it has not been judged worth that, and this sheet is
+      outside the guardrail either way.
     </p>
   </footer>
 
