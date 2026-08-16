@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New client site — setup sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Orin's real tokens, transcribed from tokens/src/*.json.
+     Standalone artefact — not part of site/, not covered by npm test.
+     INTERNAL RUNBOOK. Not a client handout, not a sales artefact.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-inverse:var(--neutral-50);  --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0); --bg-sunken:var(--neutral-50);
+    --bg-inverse:var(--neutral-900);  --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default);color:var(--text-default);
+    font-family:var(--family-base);font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* header */
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  .kicker{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    background:var(--neutral-900);color:var(--neutral-0);
+    font-family:var(--family-mono);font-size:10.5px;font-weight:500;
+    letter-spacing:.13em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);
+  }
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:44px;
+    letter-spacing:-.025em;line-height:1.1;margin:var(--space-4) 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16px;color:var(--text-muted);line-height:1.55;max-width:52ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+
+  .aside{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:262px;
+  }
+  .aside-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:11.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .aside p{font-size:13px;color:var(--text-muted);line-height:1.6}
+  .aside p + p{margin-top:var(--space-3)}
+  .aside b{color:var(--text-default);font-weight:600}
+
+  /* band */
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3);align-items:stretch}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);width:100%;
+    display:flex;flex-direction:column;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step p{font-size:12.5px;color:var(--text-muted);line-height:1.5;margin-bottom:var(--space-3)}
+  .cmd{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);
+  }
+  .cmd code,.step code{
+    font-family:var(--family-mono);font-size:10.5px;color:var(--neutral-800);
+    line-height:1.7;word-break:break-all;display:block;
+  }
+  .step .dimcode code{color:var(--neutral-500)}
+  .pill{
+    margin-top:auto;background:var(--bg-accent);color:var(--text-on-accent);
+    font-size:11px;font-weight:500;border-radius:999px;text-align:center;
+    padding:var(--space-2) var(--space-3);
+  }
+  .pill.warn{background:var(--neutral-900)}
+  .arrow{position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);color:var(--neutral-300);z-index:2}
+
+  /* two-up */
+  .twoup{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-6);
+  }
+  .panel-title small{font-weight:400;letter-spacing:.04em;color:var(--neutral-500);text-transform:none;font-size:11.5px}
+  .tree{font-family:var(--family-mono);font-size:12px;line-height:1.95;white-space:pre;color:var(--neutral-800)}
+  .tree .gen{color:var(--teal-600)}
+  .tree .dim{color:var(--neutral-500)}
+
+  .locks{display:flex;flex-direction:column;gap:var(--space-4)}
+  .lock{display:grid;grid-template-columns:18px 132px 1fr;gap:var(--space-3);align-items:baseline}
+  .lock .k{font-size:13px;font-weight:500}
+  .lock .v{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-700);word-break:break-all}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--neutral-0);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12px;color:var(--text-muted);line-height:1.55}
+  .note code{font-family:var(--family-mono);font-size:11.5px}
+
+  /* failure modes */
+  .traps{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+  .trap{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-left:3px solid var(--teal-500);border-radius:var(--radius-sm);
+    padding:var(--space-4) var(--space-6);
+  }
+  .trap b{display:block;font-size:13.5px;font-weight:600;margin-bottom:var(--space-2)}
+  .trap p{font-size:12.5px;color:var(--text-muted);line-height:1.55}
+  .trap code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+
+  /* release */
+  .semver{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:var(--space-4)}
+  .sv{background:var(--neutral-0);border:1px solid var(--border-divider);border-radius:var(--radius-sm);padding:var(--space-4)}
+  .sv b{display:block;font-family:var(--family-mono);font-size:11px;letter-spacing:.08em;color:var(--teal-600);margin-bottom:var(--space-2)}
+  .sv p{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);
+    padding:var(--space-8);display:flex;gap:var(--space-6);align-items:flex-start;margin-top:var(--space-6);
+  }
+  .closing h3{font-family:var(--family-display);font-size:19px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6}
+  .closing p + p{margin-top:var(--space-3)}
+  .closing .ico{flex:none;color:var(--teal-300)}
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .steps{grid-template-columns:1fr 1fr}
+    .twoup,.traps,.semver,.masthead{grid-template-columns:1fr}
+    .arrow{display:none}
+    h1{font-size:33px}
+    .aside{width:auto}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ============ MASTHEAD ============ -->
+  <header class="masthead">
+    <div>
+      <span class="kicker">Internal runbook · site repo</span>
+      <h1>Wiring a new client site to the <em>token pipeline</em></h1>
+      <p class="standfirst">
+        The consumer side of a Build. Assumes the pipeline repo is already scaffolded
+        and tagged. Modelled on the KR site — the worked example — with the seams it
+        closed in July already accounted for.
+      </p>
+      <div class="rule"></div>
+    </div>
+
+    <aside class="aside">
+      <div class="aside-head">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        The rule
+      </div>
+      <p>
+        <b>All token changes start in Figma, never in code.</b> The site consumes;
+        it never authors.
+      </p>
+      <p>
+        A value the site needs but the tokens don't have is a token proposal —
+        authored at the source, then pinned and pulled. Never a literal in
+        <code>styles.css</code>.
+      </p>
+    </aside>
+  </header>
+
+  <!-- ============ THE WIRING ============ -->
+  <section class="band">
+    <div class="band-title"><span>Day one · wiring the site repo</span></div>
+
+    <div class="steps">
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Pin</span></div>
+          <p>Add the tokens as a <b>devDependency</b>, pinned to a git tag.</p>
+          <div class="cmd"><code>"{client}-tokens":<br>"github:{org}/{repo}#v1.0.0"</code></div>
+          <div class="dimcode"><code>devDependency, not prod — deploys never need repo access</code></div>
+          <div class="pill" style="margin-top:var(--space-3)">Pinned, rollback-able</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Sync</span></div>
+          <p>Copy from <code>node_modules</code> into the committed vendor file.</p>
+          <div class="cmd"><code>npm run sync</code></div>
+          <div class="dimcode"><code>node_modules/{client}-tokens/<br>dist/light/variables.css<br>→ vendor/tokens.css</code></div>
+          <div class="pill" style="margin-top:var(--space-3)">Prints the version</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Commit</span></div>
+          <p><b>Commit <code>vendor/tokens.css</code>.</b> Deliberate — the deploy needs no build.</p>
+          <div class="dimcode"><code>git add vendor/tokens.css</code></div>
+          <div class="dimcode" style="margin-top:var(--space-2)"><code>never hand-edit it — regenerated on every sync</code></div>
+          <div class="pill warn" style="margin-top:var(--space-3)">Generated file</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Consume</span></div>
+          <p>Link the vendor file. Use the <b>semantic</b> layer only.</p>
+          <div class="dimcode"><code>&lt;link href="vendor/tokens.css"&gt;</code></div>
+          <div class="dimcode" style="margin-top:var(--space-2)"><code>var(--{prefix}-colour-text-default)</code></div>
+          <div class="pill" style="margin-top:var(--space-3)">Never primitives</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">5</span><span class="step-label">Gate</span></div>
+          <p>Run the <b>consumer contract</b> from this repo's CI, against the pinned tokens.</p>
+          <div class="cmd"><code>npm test</code></div>
+          <div class="dimcode"><code>every var(--{prefix}-…) the site uses must exist in dist/</code></div>
+          <div class="pill" style="margin-top:var(--space-3)">PR-gated</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ STRUCTURE + CONTRACT ============ -->
+  <section class="band">
+    <div class="twoup">
+
+      <div class="panel">
+        <div class="panel-title">Site repo structure</div>
+<div class="tree">{client}-site/
+├── package.json          <span class="dim">tokens pinned here</span>
+├── scripts/
+│   └── sync-tokens.sh    <span class="dim">copies from node_modules</span>
+├── vendor/
+│   └── tokens.css        <span class="gen">← synced, committed</span>
+├── styles.css            <span class="dim">aliases + layout only</span>
+├── .github/workflows/
+│   └── ci.yml            <span class="dim">consumer contract on PR</span>
+└── index.html            <span class="dim">links vendor/tokens.css</span></div>
+
+        <div class="note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01" stroke-linecap="round"/></svg>
+          <div>
+            <b>Two files carry the whole seam</b>
+            <p><code>package.json</code> (which version) and <code>vendor/tokens.css</code> (what came through). If they disagree, someone hand-edited the vendor file.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Locked contract <small>(set on day one)</small></div>
+        <div class="locks">
+          <div class="lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span class="k">Source of truth</span><span class="v">Figma — never this repo</span></div>
+          <div class="lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span class="k">Transport</span><span class="v">pinned git tag, not a sibling path</span></div>
+          <div class="lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span class="k">Vendor file</span><span class="v">committed, generated, never edited</span></div>
+          <div class="lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span class="k">Consumption</span><span class="v">semantic layer only</span></div>
+          <div class="lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span class="k">Prefix</span><span class="v">--{prefix}- , set in pipeline.config.mjs</span></div>
+          <div class="lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span class="k">The gate</span><span class="v">consumer contract, on PR, in this repo</span></div>
+          <div class="lock"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span class="k">Upgrades</span><span class="v">bump the pin deliberately, never float</span></div>
+        </div>
+
+        <div class="note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+          <div>
+            <b>Run the contract here, not there</b>
+            <p>The pipeline repo's CI skips the contract when the site is absent — which is always. The strongest check only really runs from this side.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ FAILURE MODES ============ -->
+  <section class="band">
+    <div class="band-title"><span>Known failure modes · learned the hard way</span></div>
+    <div class="traps">
+
+      <div class="trap">
+        <b>The contract silently skips</b>
+        <p>It's the strongest check in the system, and it no-ops when the site repo isn't present. In pipeline-only CI it never runs. <code>Wire it into the site's CI on day one.</code></p>
+      </div>
+
+      <div class="trap">
+        <b>A floating pin isn't a pin</b>
+        <p>A tag pin gives rollback and an audit trail. Point at a branch and you've rebuilt the sibling-path problem with extra steps.</p>
+      </div>
+
+      <div class="trap">
+        <b>The vendor file gets hand-edited</b>
+        <p>Twice in KR a generated file was edited and silently overwritten on next sync. If a value looks wrong, fix it in Figma — the fix must survive the rebuild.</p>
+      </div>
+
+      <div class="trap">
+        <b>Dark is built but never shipped</b>
+        <p>The pipeline gates both modes; <code>sync</code> copies light only. Either wire <code>data-theme</code> consumption or stop gating dark. Don't leave it half-live.</p>
+      </div>
+
+      <div class="trap">
+        <b>Docs assert what the system knows</b>
+        <p>Every doc failure in KR was a fact a machine could answer — a count, a command, a version. If the system can answer it, the doc must not assert it.</p>
+      </div>
+
+      <div class="trap">
+        <b>Colours with no token</b>
+        <p>Expect a handful in any real site — KR had six, incl. a navy spanning contact, thank-you and the email templates. Log them; they're a palette decision, not engineering.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ UPGRADES ============ -->
+  <section class="band">
+    <div class="band-title"><span>Taking an upgrade</span></div>
+    <div class="panel">
+      <p style="font-size:13.5px;color:var(--text-muted);line-height:1.6;max-width:80ch">
+        Tokens change in Figma → the pipeline lands it through its gated PR flow → version bumped and tagged.
+        Nothing reaches the site until <b>the pin is bumped here, deliberately</b>. Semver is written for tokens, not code:
+      </p>
+      <div class="semver">
+        <div class="sv"><b>MAJOR</b><p>A token is removed, renamed, or changes meaning — an existing <code>var()</code> in the site stops resolving.</p></div>
+        <div class="sv"><b>MINOR</b><p>Tokens added, or a new mode. Nothing existing breaks.</p></div>
+        <div class="sv"><b>PATCH</b><p>A value retuned, or a build/doc fix. Visual change possible; contract unaffected.</p></div>
+      </div>
+      <div class="note">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01" stroke-linecap="round"/></svg>
+        <div>
+          <b>Bump, sync, run the contract, then look at it</b>
+          <p>A MAJOR is the only one that can break the build — but a PATCH can still change how the site looks. The contract proves it resolves, not that it's right.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="closing">
+      <svg class="ico" width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 7h16M4 12h16M4 17h10"/><circle cx="18.5" cy="17" r="2.5"/>
+      </svg>
+      <div>
+        <h3>The site is a consumer. Keep it that way.</h3>
+        <p>
+          Every seam above exists to stop one thing: a value reaching the page without
+          passing through the token layer. The transport is pinned so it can't drift,
+          the vendor file is generated so it can't be edited, the contract runs here so
+          it can't skip.
+        </p>
+        <p>
+          Nobody operates this without you in the room — the setup is commoditised,
+          the design judgement is not.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      <b>Sourced from the repo, not invented.</b> Transport, CI, versioning and the contract-skip behaviour come from
+      <code>PIPELINE-REVIEW.md</code> §3.1–3.4 and §4; the failure modes and the docs rule from <code>EXTRACTION-BRIEF.md</code>.
+      Placeholders (<code>{client}</code>, <code>{prefix}</code>, <code>{org}</code>) are filled by <code>scaffold-client.mjs</code> from <code>pipeline.config.mjs</code>.
+    </p>
+    <p style="margin-top:var(--space-3)">
+      <b>Internal.</b> Not a client handout and not a sales artefact — <code>EXTRACTION-BRIEF.md</code> is explicit that the baseline is not a product
+      and carries no error handling for unattended use. Colour, type and spacing are Orin's own tokens, transcribed from <code>tokens/src/</code>;
+      this file is standalone and not covered by <code>npm test</code>. <code>--family-mono</code> still has no token.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

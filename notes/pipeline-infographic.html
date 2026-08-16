@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Orin Token Pipeline</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Orin's real tokens, transcribed from tokens/src/*.json.
+     Standalone artefact — NOT part of site/, so it does not read
+     vendor/tokens.css and is not covered by npm test. If it ever
+     moves into site/, it must consume the tokens instead.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-inverse:var(--neutral-50);  --text-link:var(--teal-500);
+    --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0);  --bg-raised:var(--neutral-0);
+    --bg-sunken:var(--neutral-50);  --bg-inverse:var(--neutral-900);
+    --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default); color:var(--text-default);
+    font-family:var(--family-base); font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* ---------- header ---------- */
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:46px;
+    letter-spacing:-.025em;line-height:1.1;margin:var(--space-6) 0 var(--space-4);
+  }
+  h1.lede{margin-top:0}
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16.5px;color:var(--text-muted);line-height:1.5;max-width:48ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+
+  .promise{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:250px;
+  }
+  .promise-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .promise p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+
+  /* ---------- section headings ---------- */
+  .band{margin-top:var(--space-12)}
+  .band-title{
+    display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6);
+  }
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+
+  /* ---------- pipeline ---------- */
+  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3);align-items:stretch}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--bg-raised);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);
+    display:flex;flex-direction:column;align-items:center;text-align:center;width:100%;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);align-self:flex-start;margin-bottom:var(--space-4)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .glyph{margin:var(--space-2) 0 var(--space-4)}
+  .step p{font-size:12.5px;color:var(--text-muted);line-height:1.5;margin-bottom:var(--space-3)}
+  .step code{
+    font-family:var(--family-mono);font-size:11px;color:var(--neutral-800);
+    display:block;line-height:1.7;word-break:break-all;
+  }
+  .cmd{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);
+    margin:var(--space-2) 0;width:100%;
+  }
+  .pill{
+    margin-top:auto;background:var(--bg-accent);color:var(--text-on-accent);
+    font-size:11.5px;font-weight:500;border-radius:999px;
+    padding:var(--space-2) var(--space-4);white-space:nowrap;
+  }
+  .arrow{
+    position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);
+    color:var(--neutral-300);z-index:2;
+  }
+
+  /* ---------- benefits ---------- */
+  .benefits{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-8) var(--space-4);
+    display:grid;grid-template-columns:repeat(5,1fr);
+  }
+  .benefit{text-align:center;padding:0 var(--space-4);border-right:1px solid var(--border-strong)}
+  .benefit:last-child{border-right:0}
+  .benefit h3{font-family:var(--family-display);font-size:15px;font-weight:600;margin:var(--space-4) 0 var(--space-2)}
+  .benefit p{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+
+  /* ---------- two-up ---------- */
+  .twoup{display:grid;grid-template-columns:1fr 1.15fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-6);
+  }
+  .panel-title small{font-weight:400;letter-spacing:.04em;color:var(--neutral-500);text-transform:none;font-size:11.5px}
+  .tree{font-family:var(--family-mono);font-size:12px;line-height:1.95;white-space:pre;color:var(--neutral-800)}
+  .tree .gen{color:var(--teal-600)}
+  .tree .dim{color:var(--neutral-500)}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--bg-raised);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12px;color:var(--text-muted);line-height:1.5}
+  .note code{font-family:var(--family-mono);font-size:11.5px}
+
+  .locks{display:flex;flex-direction:column;gap:var(--space-4)}
+  .lock{display:grid;grid-template-columns:20px 150px 1fr;gap:var(--space-3);align-items:baseline}
+  .lock .k{font-size:13px;font-weight:500}
+  .lock .v{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-700);word-break:break-all}
+
+  /* ---------- stack ---------- */
+  .stackrow{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);align-items:stretch}
+  .stack{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .stack-items{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-2);margin-top:var(--space-6)}
+  .tool{text-align:center;position:relative}
+  .tool .badge{
+    width:44px;height:44px;margin:0 auto var(--space-3);border-radius:var(--radius-sm);
+    display:grid;place-items:center;background:var(--neutral-900);color:var(--neutral-0);
+  }
+  .tool b{display:block;font-size:12px;font-weight:600}
+  .tool span{display:block;font-size:11px;color:var(--neutral-500);line-height:1.4;margin-top:2px}
+  .tool .dash{position:absolute;top:22px;right:-12px;color:var(--neutral-300);font-size:11px;letter-spacing:2px}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);
+    padding:var(--space-8);display:flex;gap:var(--space-6);align-items:flex-start;
+  }
+  .closing h3{font-family:var(--family-display);font-size:20px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6}
+  .closing .rocket{flex:none;color:var(--teal-300)}
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .pipeline,.benefits,.stack-items{grid-template-columns:1fr 1fr}
+    .twoup,.stackrow,.masthead{grid-template-columns:1fr}
+    .benefit{border-right:0;border-bottom:1px solid var(--border-strong);padding-bottom:var(--space-6);margin-bottom:var(--space-6)}
+    .arrow{display:none}
+    h1{font-size:34px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <!-- ================= MASTHEAD ================= -->
+  <header class="masthead">
+    <div>
+      <h1 class="lede">The <em>Orin</em> Token Pipeline</h1>
+      <p class="standfirst">
+        One source of truth for every value on the site.<br>
+        Built, synced, verified — before a single line of CSS is written.
+      </p>
+      <div class="rule"></div>
+    </div>
+
+    <aside class="promise">
+      <div class="promise-head">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/>
+        </svg>
+        The promise
+      </div>
+      <p>
+        Design and code, in sync. Values flow from the token source to the
+        site through one loop — no manual copies, no drift, no literal
+        slipping in unnoticed.
+      </p>
+    </aside>
+  </header>
+
+  <!-- ================= PIPELINE ================= -->
+  <section class="band">
+    <div class="band-title"><span>The pipeline</span></div>
+
+    <div class="pipeline">
+
+      <!-- 1 -->
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Edit tokens</span></div>
+          <div class="glyph">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--neutral-800)" stroke-width="1.8">
+              <path d="M16 8h20l12 12v36H16z" stroke-linejoin="round"/><path d="M36 8v12h12" stroke-linejoin="round"/>
+              <text x="32" y="43" text-anchor="middle" font-family="monospace" font-size="15" fill="var(--neutral-800)" stroke="none">{ }</text>
+            </svg>
+          </div>
+          <p>Author the value in the DTCG source. The only place values exist.</p>
+          <code>primitives.json<br>semantic.json<br>layout.json<br>type.json</code>
+          <code style="color:var(--neutral-500);margin-top:var(--space-2)">in tokens/src/</code>
+          <div class="pill" style="margin-top:var(--space-4)">Source of truth</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <!-- 2 -->
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Build</span></div>
+          <div class="glyph">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--neutral-800)" stroke-width="1.8">
+              <rect x="10" y="12" width="44" height="40" rx="3"/><path d="M10 22h44"/>
+              <circle cx="16" cy="17" r="1.4" fill="var(--neutral-800)" stroke="none"/><circle cx="21" cy="17" r="1.4" fill="var(--neutral-800)" stroke="none"/>
+              <path d="M20 32l6 5-6 5M30 42h12" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>Style Dictionary v4 resolves aliases and emits the outputs.</p>
+          <div class="cmd"><code>npm run build</code></div>
+          <div class="pill">Style Dictionary v4</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <!-- 3 -->
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Sync</span></div>
+          <div class="glyph">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--neutral-800)" stroke-width="1.8">
+              <path d="M16 8h20l12 12v36H16z" stroke-linejoin="round"/><path d="M36 8v12h12" stroke-linejoin="round"/>
+              <text x="32" y="44" text-anchor="middle" font-family="monospace" font-size="11" fill="var(--neutral-800)" stroke="none">CSS</text>
+            </svg>
+          </div>
+          <p>The build output is copied to the one file the site is allowed to read.</p>
+          <div class="cmd"><code>npm run sync</code></div>
+          <code style="color:var(--neutral-500)">dist/light/variables.css<br>→ site/vendor/tokens.css</code>
+          <div class="pill" style="margin-top:var(--space-4)">Never edit by hand</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <!-- 4 -->
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Consume</span></div>
+          <div class="glyph">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--neutral-800)" stroke-width="1.8">
+              <rect x="10" y="12" width="44" height="40" rx="3"/><path d="M10 22h44"/>
+              <circle cx="16" cy="17" r="1.4" fill="var(--neutral-800)" stroke="none"/><circle cx="21" cy="17" r="1.4" fill="var(--neutral-800)" stroke="none"/>
+              <path d="M25 30l-6 6 6 6M39 30l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>The site links the vendor file and uses the semantic layer only.</p>
+          <code>&lt;link href=<br>"vendor/tokens.css"&gt;</code>
+          <code style="color:var(--neutral-500);margin-top:var(--space-2)">var(--orin-colour-…)</code>
+          <div class="pill" style="margin-top:var(--space-4)">Semantic only</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <!-- 5 -->
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">5</span><span class="step-label">Verify</span></div>
+          <div class="glyph">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--teal-500)" stroke-width="1.8">
+              <path d="M32 8l20 7v17c0 13-8.5 21-20 24-11.5-3-20-11-20-24V15z" stroke-linejoin="round"/>
+              <path d="M23 32l6.5 6.5L42 26" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>Two guardrails: the consumer contract, then eight static lints.</p>
+          <div class="cmd"><code>npm test</code></div>
+          <code style="color:var(--neutral-500)">verify-build + report<br>target 8/8</code>
+          <div class="pill" style="margin-top:var(--space-4)">Run before every push</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= BENEFITS ================= -->
+  <section class="band">
+    <div class="band-title"><span>What this gives you</span></div>
+    <div class="benefits">
+
+      <div class="benefit">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.4">
+          <circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.4" fill="var(--teal-500)"/>
+        </svg>
+        <h3>Consistency</h3>
+        <p>One value, one place. The page cannot disagree with the source.</p>
+      </div>
+
+      <div class="benefit">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.4" stroke-linecap="round">
+          <circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M4 5l2-2M20 5l-2-2"/>
+        </svg>
+        <h3>Efficiency</h3>
+        <p>No manual exports, no copy-paste between design and code.</p>
+      </div>
+
+      <div class="benefit">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.4">
+          <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke-linejoin="round"/>
+          <path d="M8.5 12l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <h3>Reliability</h3>
+        <p>A hardcoded hex fails the report before it ever reaches the site.</p>
+      </div>
+
+      <div class="benefit">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.4" stroke-linejoin="round">
+          <path d="M12 2.5l4.5 2.6v5.2L12 12.9 7.5 10.3V5.1z"/><path d="M6 13l4.5 2.6v5.2L6 23.4 1.5 20.8v-5.2z" transform="translate(0,-2)"/>
+          <path d="M18 13l4.5 2.6v5.2L18 23.4l-4.5-2.6v-5.2z" transform="translate(0,-2)"/>
+        </svg>
+        <h3>Scalability</h3>
+        <p>Dark mode is authoring, not a retrofit — the site reads semantics.</p>
+      </div>
+
+      <div class="benefit">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="9"/><path d="M9.5 9L7 12l2.5 3M14.5 9l2.5 3-2.5 3"/>
+        </svg>
+        <h3>Developer-ready</h3>
+        <p>Plain CSS custom properties. No framework to adopt.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= TWO-UP ================= -->
+  <section class="band">
+    <div class="twoup">
+
+      <div class="panel">
+        <div class="panel-title">Repository structure</div>
+<div class="tree">orin/
+├── <b>tokens/</b>
+│   ├── src/
+│   │   ├── primitives.json
+│   │   ├── semantic.json
+│   │   ├── layout.json
+│   │   └── type.json
+│   ├── sd.config.mjs
+│   ├── scripts/
+│   │   ├── sync-tokens.sh
+│   │   ├── verify-build.mjs
+│   │   └── report.mjs
+│   └── dist/light/      <span class="gen">← generated</span>
+└── <b>site/</b>
+    ├── vendor/tokens.css <span class="gen">← synced</span>
+    └── styles.css        <span class="dim">aliases only</span></div>
+
+        <div class="note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px">
+            <circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01" stroke-linecap="round"/>
+          </svg>
+          <div>
+            <b>Only edit <code>tokens/src/</code></b>
+            <p><code>dist/</code> and <code>vendor/tokens.css</code> are generated and overwritten on every build. Editing them loses the change.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">Locked contract <small>(what the guardrails protect)</small></div>
+
+        <div class="locks">
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">Source of truth</span><span class="v">tokens/src/*.json only</span>
+          </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">The one loop</span><span class="v">build → sync → use the token</span>
+          </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">Build output</span><span class="v">tokens/dist/light/variables.css</span>
+          </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">What site reads</span><span class="v">site/vendor/tokens.css — never dist/</span>
+          </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">Variable prefix</span><span class="v">--orin-</span>
+          </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">Consumption</span><span class="v">semantic layer only, never primitives</span>
+          </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">The gate</span><span class="v">npm test → 8/8, verify clean</span>
+          </div>
+        </div>
+
+        <div class="note">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.6" style="flex:none;margin-top:1px"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+          <div>
+            <b>Why it's locked</b>
+            <p>Each rule closes a route by which a value could reach the page without passing through a token. Break one and drift becomes possible again — silently.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= STACK ================= -->
+  <section class="band">
+    <div class="stackrow">
+
+      <div class="stack">
+        <div class="panel-title">Tech stack</div>
+        <div class="stack-items">
+          <div class="tool">
+            <div class="badge" style="font-family:var(--family-mono);font-size:15px">{ }</div>
+            <b>DTCG JSON</b><span>Token source format</span>
+            <span class="dash">···</span>
+          </div>
+          <div class="tool">
+            <div class="badge" style="font-family:var(--family-display);font-size:13px;font-weight:600">SD4</div>
+            <b>Style Dictionary</b><span>Build engine, v4</span>
+            <span class="dash">···</span>
+          </div>
+          <div class="tool">
+            <div class="badge" style="font-family:var(--family-mono);font-size:11px">--</div>
+            <b>CSS variables</b><span>Runtime consumption</span>
+            <span class="dash">···</span>
+          </div>
+          <div class="tool">
+            <div class="badge">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8l6-4 6 4M4 8v8l6 4 6-4V8M4 8l6 4 6-4M10 12v8"/></svg>
+            </div>
+            <b>Cloudflare Pages</b><span>Static deploy, no build step</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="closing">
+        <svg class="rocket" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2c3 2.5 5 6.5 5 11l-2.5 3h-5L7 13c0-4.5 2-8.5 5-11z"/><circle cx="12" cy="10" r="2"/><path d="M9.5 19l1 3 1.5-2 1.5 2 1-3"/>
+        </svg>
+        <div>
+          <h3>Define once. Use everywhere.</h3>
+          <p>
+            The site is the proof of the practice: no hardcoded value anywhere in it,
+            because the pipeline makes the honest path the easy one.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      <b>Four corrections against the reference infographic, verified in the repo.</b>
+      (1) The build command is <code>npm run build</code> then <code>npm run sync</code>, run from <code>tokens/</code> — there is no <code>tokens:build</code> script.
+      (2) The output is <code>tokens/dist/light/variables.css</code>, not <code>tokens/dist/css/tokens.css</code>.
+      (3) The site links <code>vendor/tokens.css</code> with a <code>&lt;link&gt;</code> tag; it does not <code>@import</code> it.
+      (4) There is no CI. <code>SETUP.md</code>: “CI does not run these. Protection is local.” Step 5 is <code>npm test</code>, run by hand before every push — so GitHub Actions is not in the stack.
+    </p>
+    <p style="margin-top:var(--space-3)">
+      Colour, type, spacing and radius above are Orin's own tokens, transcribed from <code>tokens/src/</code>.
+      This is a standalone artefact — it does not read <code>vendor/tokens.css</code> and is not covered by <code>npm test</code>.
+      <code>--family-mono</code> has no token; if this ever ships, that is a token proposal.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
