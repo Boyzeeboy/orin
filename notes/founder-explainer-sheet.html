@@ -271,8 +271,15 @@
         </p>
         <p>
           The important part isn't the list. It's the <b>wiring</b>: the names flow
-          automatically from the design file into the code, so there's no step where a
-          human copies a value across and gets it slightly wrong.
+          automatically from wherever they're defined into the code, so there's no step
+          where a human copies a value across and gets it slightly wrong.
+        </p>
+        <p>
+          <b>Where "the one place" lives depends on your team.</b> If you have designers,
+          it's the design file, and they own it. If you don't yet, it's a plain file of
+          named values in your own repository, and it moves to the design file the day
+          you hire someone to own it. The mechanism below is identical either way, which
+          is the point: the wiring doesn't care who decides, only that one place does.
         </p>
       </div>
 
@@ -306,7 +313,7 @@
       <div class="stepwrap">
         <div class="step">
           <div class="step-head"><span class="dot">1</span><span class="step-label">Decide</span></div>
-          <p>The change is made once, in the design file — the agreed home for every visual decision.</p>
+          <p>The change is made once, in the agreed home for every visual decision — a design file, or a file of named values if you've no designers yet.</p>
           <div class="who">A person decides</div>
         </div>
         <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
@@ -375,7 +382,7 @@
     <div class="panel">
       <h3>One habit, and it's the whole thing.</h3>
       <p>
-        <b>Visual decisions are made in the design file, never typed straight into the code.</b>
+        <b>Visual decisions are made in the one agreed place, never typed straight into a screen.</b>
         That's it. That's the discipline the entire system rests on.
       </p>
       <p>
@@ -424,7 +431,7 @@
       <div class="own">
         <h3>Yours, outright</h3>
         <ul>
-          <li><span class="tick">✓</span><span>The design file and the list of decisions in it.</span></li>
+          <li><span class="tick">✓</span><span>The list of decisions itself, and whatever holds it — a design file, or a file in your own repository.</span></li>
           <li><span class="tick">✓</span><span>The wiring, running inside your own systems — not on anything of mine.</span></li>
           <li><span class="tick">✓</span><span>A report, regenerated automatically, showing every value in use and whether the system is healthy.</span></li>
           <li><span class="tick">✓</span><span>Your product, obviously. Nothing here takes a position on what you build.</span></li>
