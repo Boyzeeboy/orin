@@ -217,6 +217,20 @@ Builds are lumpy; retainers are what make the practice sustainable.
 Every Build proposal presents the Retainer as the default continuation,
 not an upsell.
 
+**The trigger to watch for on a Foundation client: they hire a designer.**
+That is the moment the direction of truth has to be settled, and it cannot
+be settled before it happens. A Foundation ships code-first, because a
+founder with no designer has nobody to author in Figma. The day someone
+arrives who expects to author there, the question is whether to flip them
+onto the Figma-first pipeline, and that is a real piece of work with a real
+decision inside it. Not something to pre-build during the Foundation, and
+not something to improvise in a Slack message either.
+
+What to say when a founder asks about Figma before that day comes: the
+token source is DTCG, the format design tooling imports, so nothing is
+locked away and their future designer starts from what exists. What we are
+not doing today is building a Figma file nobody is opening yet.
+
 ---
 
 ## The model against the floor
