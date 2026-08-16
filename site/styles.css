@@ -69,7 +69,12 @@ body {
 .col-main { grid-column: 2 / -1; }
 .col-heading { grid-column: 2 / 7; }
 .col-body { grid-column: 7 / -1; }
-.section--inverse .rail { color: var(--ink-inverse); }
+/* On an inverse band both the rail and the eyebrow have to flip. --ink-muted
+   is a mid neutral chosen against paper; on the inverse ground it lands at
+   2:1, well under AA. The rail was flipped in Step 0 and the eyebrow was not,
+   which is the same defect twice — so they are one rule now. */
+.section--inverse .rail,
+.section--inverse .eyebrow { color: var(--ink-inverse); }
 
 h1, h2, h3 {
   font-family: var(--font-display);
@@ -98,6 +103,18 @@ p { margin: 0 0 var(--orin-space-4); max-width: var(--measure); }
 a { color: var(--link); text-underline-offset: 0.15em; transition: color 120ms var(--ease); }
 a:hover { color: var(--link-hover); }
 a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+
+/* Off-screen but announced. For a heading a section needs structurally but
+   the approved copy doesn't print — the /work card grid runs h1 → h3 without
+   it. Not a component; an accessibility utility, same technique as .skip-link
+   below. */
+.visually-hidden {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
 
 .skip-link {
   position: absolute;
