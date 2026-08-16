@@ -2140,6 +2140,34 @@ console errors, `/how-it-works` re-read end to end after the edits.
 
 ---
 
+## 2026-08-16 — The Vivo number is a development-time saving
+
+**Decision:** Warren settled it: **60 per cent is a saving in development
+time.** Not a defect reduction. This closes the item flagged as unresolved
+in the entry above, which is now stale on that point.
+
+**Fixed in two places.** The manifesto said "the 60 per cent defect
+reduction at Vivo Energy" and now says "the 60 per cent development-time
+saving at Vivo Energy". `HANDOVER.md` said the same wrong thing in the rule
+that governs how the number is written, so it was corrected there too and
+given the distinction explicitly, plus the "60 per cent" spelling. Fixing
+the site without fixing the rulebook would have left the error sitting in
+the document a future writer copies from.
+
+**The mechanism, stated so it stops drifting.** Fewer defects were the
+*mechanism*; the time was the *outcome*. The case study has always had this
+right — "The defects were the mechanism. The time was the outcome." The
+manifesto had compressed two links of the chain into one wrong claim, which
+is how a summary usually goes wrong.
+
+**What was deliberately not touched.** The 2026-06 entry at line 538 records
+the number as a defect reduction. That is what was believed then and the log
+is a record, not a wiki. It stays wrong on purpose.
+
+**Verified live** after deploy, on both pages.
+
+---
+
 ## YYYY-MM-DD — [Short decision title]
 
 **Decision:** [What was decided.]
