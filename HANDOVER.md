@@ -84,8 +84,11 @@ CTA to Contact. One action sitewide: get in touch.
 - Honest, direct, conversational. No agency-speak, no "passionate about
   pixel-perfect experiences," no superlatives.
 - Prose over bullet walls. Short sentences that can be read aloud.
-- Numbers as evidence inside stories, not as headline claims. The 60%
-  defect reduction at Vivo Energy lives inside its narrative.
+- Numbers as evidence inside stories, not as headline claims. The 60 per
+  cent development-time saving at Vivo Energy lives inside its narrative.
+  It is a saving in development time, not a defect reduction: fewer
+  defects were the mechanism, the time was the outcome. Written "60 per
+  cent" — digits, British, one spelling sitewide.
 - Attribution rules: Vivo Energy work was "contracted via Rethink."
   IDEM is a personal rebuild done after the original Momentum Studio
   engagement closed — it is Warren's own work, no client attribution.
