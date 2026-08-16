@@ -21,7 +21,10 @@ conversations. They outrank anything else, including this document.
 
 - MANIFESTO.md — the founding document and source of truth
 - positioning.md — locked one-liner and 60-second version
-- offer.md — the three engagement shapes, prices, and refusals
+- Offer.md — the four engagement shapes, prices, and refusals
+  (The Foundation was added 2026-08-12; this list said three until
+  2026-08-16)
+- voice.md — how prose gets written; governs every word of page copy
 - SOUL.md — who Warren is and how he works
 - decisions.md — dated log of every significant decision
 
@@ -55,12 +58,13 @@ honest pushback over validation.
 Five pages. FigJam reference: the Site Map board.
 
 - **Home** — the filter. One-liner, the problem in the buyer's language,
-  the three shapes compressed, the Vivo proof point, one CTA.
+  the four shapes compressed, the Vivo proof point, one CTA.
 - **Manifesto** — top-level page with its own URL (decided 2 July 2026).
   Published close to verbatim from MANIFESTO.md. It is the About page;
   no separate About exists.
-- **How it works** — one scrolling page, three sections: Diagnostic,
-  Build, Retainer, in that order, with prices. Content from offer.md.
+- **How it works** — one scrolling page, four sections: Diagnostic,
+  Foundation, Build, Retainer, in that order, with prices, plus a
+  "When it's a no". Content from Offer.md.
 - **Work** — case study index. Three essays: Vivo Energy, IDEM, KRM.
   (Essays are Phase 6 — build the structure now, placeholder gracefully.)
 - **Contact** — direct. Email link, no forms-into-the-void.
