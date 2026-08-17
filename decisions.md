@@ -3475,6 +3475,50 @@ being wrong.
 
 ---
 
+## 2026-08-17 — The check is included and never charged for; the mirror is charged
+
+**Decision:** Warren settled it: `check:figma` is included, unpriced, and never
+sold on its own. The mirror stays the only chargeable half of the Figma
+conversation. This is the pricing call the entry above left open.
+
+**The asymmetry is the whole reason, and it is about marginal cost.** The check
+is a feature of the pipeline. Once built, including it in a client engagement
+costs nothing per client, so charging for it would be nickel-and-diming
+something free to give — while giving it away strengthens the two engagements
+where the money already is. The mirror is genuinely different: until the
+JSON→Figma write automation exists it is real hand-work every time, and work
+done per client is work that gets quoted.
+
+**Where it landed in `Offer.md`, two places rather than one.** The Build gains
+it as something that ships with the pipeline: it names what moved, names both
+readings because the meaning depends on which way truth flows, counts
+descriptions as well as values, and runs on demand rather than in CI. The
+Retainer's "keeping the pipeline healthy" became running the gate, so Figma and
+the code are known to agree rather than assumed to. That was the vaguest promise
+in the Retainer section and is now a specific monthly act, which is what a
+retainer needs on a renewal call.
+
+**The Diagnostic was left alone deliberately.** Its opening move already runs
+the same comparison as a one-off audit. That is a diagnosis, and gate language
+there would blur two different things the pipeline does with one command.
+
+**A free control is also a sales asset, which is worth saying out loud.** The
+strongest version of the Diagnostic's opening move is now "here is the gate you
+would have, and it is not an upsell." A check that costs the buyer nothing is a
+more credible demonstration that the practice believes in it than one behind a
+line item.
+
+**Still blank: the mirror's price.** Two entries above flagged it as a soft edge
+to close the first time someone asks. Nothing about this decision closes it, and
+it is now the last open commercial question in the Figma thread.
+
+**Revisit if:** the mirror write automation lands. At that point the mirror's
+marginal cost collapses toward the check's, and the argument made here starts
+applying to it as well — which would be the moment to ask whether it should stay
+a priced line at all, or become another thing the pipeline simply does.
+
+---
+
 
 **Decision:** [What was decided.]
 
