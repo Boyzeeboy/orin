@@ -3202,6 +3202,77 @@ spot, which is the signal the blank price has cost something.
 
 ---
 
+## 2026-08-17 — If the mirror is built, it is automated. Manual is retired.
+
+**Decision:** Warren settled the *how*: JSON→Figma mirroring will be automated
+or it will not be offered. The hand-maintained mirror, with a periodic human
+diff as its mitigation, is retired as an approach. Whether to build it at all is
+still open, and depends on a constraint named at the bottom of this entry.
+
+**The scale is what settles it.** `SETUP.md` records five collections mirroring
+the JSON 1:1 — Primitives, Semantic, Fonts, Spacing, Radius — and
+`verify-build` counts 117 tokens. The 2026-07-09 entry's mitigation was me
+remembering to diff that against `tokens/src/*.json`. One operator, 117
+variables, no automation, and a note to check periodically. That was never going
+to hold, and `SETUP.md` flags its own Figma section as "trusted, not confirmed",
+so the Orin file may already have drifted and nobody has looked.
+
+**The defence, in its stronger form: the short-term contract designer.** Warren's
+framing, and better than the general "buys evidence" version. A contractor is
+temporary by definition, so handing them the source of truth is obviously wrong,
+and when the contract ends there is nothing to unwind.
+
+**With one correction: the guardrail is not the mirror.** The mirror enforces
+nothing; a Figma variable is a suggestion a designer overrides with a typed hex
+in two seconds. The guardrail is *the decision not to flip* — truth stays in
+code, held by the people who remain. The mirror's job is to remove the
+designer's legitimate complaint that they cannot see the tokens, which is what
+makes not-flipping tolerable to work under rather than obstructive. Control and
+courtesy, and they are different things.
+
+**What would make "guardrail" literally true: a check mode.** Automation that
+only pushes is a favour. Automation that also reports where the Figma file has
+diverged from the JSON — a variable the designer added, an alias overridden with
+a raw hex, a collection left behind — is a control that can fail, which is the
+standard checks 7 and 9 were held to today and the standard 2026-08-01 set. It
+is the automated form of the periodic diff, and `sync:figma --dry-run` already
+does diagnostics in the other direction, so the shape is symmetrical.
+
+That is also the sellable difference. "We generate your Figma file" is a favour.
+"We tell you when your Figma file stops agreeing with your code" is a guardrail,
+and for a contract designer it covers the risk that actually matters: finding
+out whether they invented things before the contract ends rather than after.
+
+**The naming collision, re-flagged.** Two artefacts share one name: the `Orin
+Token Pipeline` *repo* (the client baseline, Figma authors and code consumes,
+what is for sale) and the `Orin-Token-Pipeline` *Figma file* (Orin's own, a
+mirror target populated from the JSON). Same name, opposite directions. The
+2026-08-16 infographic entry already caught a version of this and marked it
+"Settle this before any markup." Still unsettled, and it is now a live trap on
+a call, because a mirror conversation puts both artefacts in the same sentence.
+
+**The constraint to resolve first, before any build.** Figma has gated the
+Variables REST API by plan, with the variable endpoints restricted to
+Enterprise. If that still holds and clients are not on Enterprise, REST-based
+mirroring is unavailable and this becomes a Figma plugin, which is a different
+build with different distribution. The evidence is in the baseline repo: check
+how `sync:figma` currently reads variables, and note that the write direction
+may be gated differently from the read. This decides whether the thing is a
+script or a plugin, so it is the first question, not a detail.
+
+**Consequence for the `Offer.md` line written earlier today.** It promises a
+mirror "generated once and not maintained." If automation with a check mode
+lands, that copy becomes an undersell and should be rewritten to "regenerated on
+demand, drift reported" — a better product, and probably a different price than
+the blank currently sitting there.
+
+**Revisit if:** the API gating question is answered, which unblocks the
+build-or-not decision. Also if a Foundation client hires a contractor before any
+of this exists, in which case the honest answer is the manual one-off, sold as
+exactly that.
+
+---
+
 
 **Decision:** [What was decided.]
 
