@@ -115,7 +115,11 @@ against the repo; this section is trusted, not confirmed.*
 
 A synced Figma view of the tokens lives in the Orin team:
 
-- **File:** Orin-Token-Pipeline
+- **File:** Orin Tokens (mirror) — renamed 2026-08-17 from `Orin-Token-Pipeline`,
+  which collided with the `Orin Token Pipeline` *repo*. The repo is the
+  Figma-first baseline that is for sale; this file is the opposite direction,
+  generated from this repo's JSON. The name now says so. **The file key below is
+  the stable identifier — match on that, not the name.**
 - **File key:** `b0iEr8pYmfepSj4YkzFsoY`
 - **URL:** https://www.figma.com/design/b0iEr8pYmfepSj4YkzFsoY
 

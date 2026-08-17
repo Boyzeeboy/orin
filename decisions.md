@@ -3337,6 +3337,58 @@ once and not maintained" and becomes something with a control attached.
 
 ---
 
+## 2026-08-17 — The naming collision is settled: the Figma file renames
+
+**Decision:** Two names, flagged unsettled since 2026-08-16 and three times in
+this log, are now settled.
+
+1. **The Figma file becomes "Orin Tokens (mirror)"**, from
+   `Orin-Token-Pipeline`. The `Orin Token Pipeline` *repo* keeps its name.
+2. **The infographic is labelled "How this site is built"**, from "The Orin
+   Token Pipeline". Title and `h1` both changed in
+   `notes/pipeline-infographic.html`. The page itself stays parked for Phase 6;
+   this settles only what it is called, which the 2026-08-16 entry asked for
+   before any markup.
+
+**Why the Figma file moved and not the repo.** The asymmetry decided it.
+Renaming the Figma file costs two lines in `SETUP.md` and nothing functional:
+`figmaFileName` in the baseline config is empty, filled per client at scaffold,
+and this repo has no Figma config at all. Renaming the repo would have touched
+`PIPELINE-LEDGER.md`, `deliverable.md`, `SETUP.md`, three files in `notes/`
+including an HTML `<title>`, the sibling's `package.json` name, and a
+load-bearing default path in `scripts/verify-deliverable.mjs` that `npm test`
+depends on from the repo root. The cheap fix was also the right one: the repo is
+the product with recorded lineage, IDEM → KR → baseline. The Figma file is an
+internal artefact of this site.
+
+**Why "(mirror)" is in the name.** The file is generated from this repo's JSON
+and is not authoritative. Anyone opening it should know that before they touch
+anything, and the name is the only thing guaranteed to reach them. Same
+principle as everything else settled today: put the constraint where it cannot
+be missed rather than in a document someone might read.
+
+**`SETUP.md` now says the file key is the stable identifier**, not the name.
+That is true of any Figma file and was worth writing down while renaming one.
+
+**The infographic label keeps its steps honest.** Its five steps are Orin's own
+loop, JSON-first, where code authors and Figma mirrors — the flipped direction
+from the Figma-first baseline that is for sale. Calling it "The Orin Token
+Pipeline" would show a prospect the pipeline running backwards from the one they
+would buy. "How this site is built" is accurate as it stands, needs no rewrite
+of the diagram, and reinforces the runs-on-what-it-sells claim rather than
+undermining it.
+
+**Outstanding, and not something this repo can do:** the rename inside Figma
+itself. `SETUP.md` records the new name and the old one, so the two reconcile
+either way, but until the file is renamed in the Figma team the manual is ahead
+of reality.
+
+**Revisit if:** the infographic is ever rewritten Figma-first, which would make
+it a diagram of the product rather than of this site, and would want the other
+title back.
+
+---
+
 
 **Decision:** [What was decided.]
 
