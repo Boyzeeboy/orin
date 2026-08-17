@@ -2910,6 +2910,91 @@ rendering, since the conversion moved every closing tag on the page.
 **No CSS changed.** This was HTML only, so no other page could be affected by
 it.
 
+---
+
+## 2026-08-17 — styles.css defines no custom properties
+
+**Decision:** Deleted the 17-name alias block from `site/styles.css` and pointed
+all 71 call sites at `var(--orin-…)` directly. Promoted `--measure` and `--ease`
+into the token source, added a `motion` category, added a `font.family.ui`
+semantic token, and added a ninth report check that fails if any custom property
+is defined in site source at all. `styles.css` now defines nothing.
+
+**Why this was worth reopening a v1 site.** Not because the aliases were wrong.
+They pointed at semantics rather than primitives, and checks 5 and 7 already
+guarded that — the mapping was correct and verified. The reason is that a
+developer evaluating me opens DevTools, and the first thing on `:root` was a
+block of names (`--ink`, `--paper`, `--rule`) that appear nowhere in
+`tokens/src/*.json`. That is a thing I would have to explain. The claim is that
+everything resolves through the pipeline, and any explanation at all is a cost
+when the site is meant to *be* the proof rather than describe it.
+
+Two sharper versions of the same point. First, a local alias layer is the exact
+shape of the failure logged on 2026-08-01 — the client site routing 195 uses
+through local aliases onto primitives. Someone who knows design systems reads a
+local alias layer as where drift starts, and has to check 17 lines before
+believing me. Second, a client consuming my tokens writes `--orin-…`; the
+nicknames don't travel. So the site was demonstrating a variant of the
+deliverable customised for my own typing comfort, which is the same
+care-goes-into-mine, generalisation-goes-into-theirs split that entry named.
+
+**The alias layer was never a design layer.** It added no meaning — `--ink` says
+nothing `--orin-colour-text-default` didn't. The standard third tier is a
+*component* layer, which earns its place by scoping to a thing. This was a
+rename, and it correlated with name length: colour and family got nicknames,
+`--orin-space-6` didn't need one. Ergonomics, not architecture.
+
+**Four values moved into the pipeline rather than being deleted.** `--measure`
+and `--ease` had been carved out as "layout mechanics, not
+values-that-should-be-tokens". That was the convenient reading. Line length is a
+typographic decision and easing is a first-class DTCG type, so both were token
+proposals under my own rule. `120ms`, sitting as a literal next to the easing
+curve, became `motion.duration.fast` for the same reason. And `--font-ui` and
+`--font-body` both aliased `family.base`, so collapsing them would have quietly
+deleted a role distinction — `font.family.ui` now carries it in the layer where
+it belongs.
+
+**The one transform in the build.** `cubicBezier` is the only DTCG type here
+with no CSS scalar form: `[0.2, 0, 0, 1]` serialises to `0.2,0,0,1`, which is
+invalid. Rather than hand-author the string and make the source non-conformant,
+I registered `cubicBezier/css` to wrap the array. This does not reopen the
+footgun `sd.config.mjs` deliberately avoids — that risk is *arithmetic*, a
+transform multiplying a bare number by a base and changing what a value means.
+This one adds function syntax. The distinction is written into the config header
+so a later reader doesn't take it as permission to add a size transform.
+
+**Check 9 can fail, which was the point.** Verified by reintroducing
+`--ink: var(--orin-colour-text-default)` and watching the report drop to 8/9
+naming the offender. Check 3 was also widened to cover `container` and `measure`
+dimensions and to accept `ch`, because adding a dimension token the unit check
+didn't cover would have been the observation-wearing-the-costume-of-a-control
+problem from 2026-08-01 all over again.
+
+**Verified:** `npm test` from the repo root — 9/9, verify-build clean, 117
+tokens resolve. All nine pages return 200, no console errors. Computed values
+identical to before at every checked point: body `#f4f5f5` on `#1f343a`, button
+`#007582`, h1 Inter Tight, prose measure 526.5px (68ch), link transition
+resolving to `color 0.12s cubic-bezier(0.2, 0, 0, 1)`. All 11 `/tokens`
+specimens still resolve and its live readout still prints real values. Zero
+custom properties defined anywhere outside `vendor/tokens.css`.
+
+**Docs updated:** the 8/8 targets in `CLAUDE.md`, `SETUP.md` and
+`BUILD-SEQUENCE.md` are now 9/9, and SETUP's lint list names the new check.
+The 8/8 references in *this* file were left alone — they record what was true
+when written.
+
+**Deferred:** `CONSUMABLE` in `report.mjs` is dead — declared, never read. Left
+in place because deleting it is unrelated to this change and wants its own look
+at whether check 7 should have been using it as an allowlist all along.
+
+**Revisit if:** a real second consumer of the token set appears. An alias layer
+earns its place as an insulation seam when you don't own both ends; I own both.
+If that stops being true, the seam is worth rebuilding — but as a component
+layer with scoped meaning, not as nicknames.
+
+---
+
+
 **Decision:** [What was decided.]
 
 **Reasoning:** [Why. Include the context, the alternatives considered,
