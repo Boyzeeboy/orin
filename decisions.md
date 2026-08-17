@@ -3273,6 +3273,70 @@ exactly that.
 
 ---
 
+## 2026-08-17 — The gating question is answered: it is a plugin, and it exists
+
+**Decision:** The constraint the entry above called "the first question, not a
+detail" is resolved. JSON→Figma mirroring is not blocked by Figma's plan gating,
+because the baseline already routes around it. The recommendation that follows
+is to build the **drift check first** and treat the mirror write as separate,
+later work.
+
+**The answer was already written down, in `Orin Token Pipeline`.** The header of
+`scripts/figma-sink.mjs` states it outright: the Variables REST endpoint is
+Enterprise-only, the Plugin API only runs inside Figma, and a plugin can make
+network requests on any plan, so a POST to a loopback sink is the route that
+works without an Enterprise licence. The gating is real. It was solved weeks ago
+and I had forgotten the shape of the solution.
+
+**What exists.** A working Figma plugin at `plugin/` — *Token Sync*, 151 lines,
+`manifest.json` with `networkAccess` already declaring localhost. It reads
+variables through the Plugin API and posts them to `figma-sink.mjs`, which
+accepts exactly one POST, writes to disk, and exits. Around it sit the parts
+that are usually the hard bit: `pipeline.config.mjs`, collections matched by
+name, and a provenance check that refuses a dump from the wrong Figma file.
+
+**What the write direction would actually cost.** The plugin calls two variable
+APIs today, `getLocalVariableCollectionsAsync` and `getLocalVariablesAsync`,
+both reads. Writing means new code — `createVariable`, `setValueForMode`, alias
+binding — but as an extension of a working plugin rather than a new build, and
+the data flow reverses symmetrically: `figma-sink.mjs` receives, so a
+`figma-source.mjs` serves the token JSON on loopback for the plugin to fetch.
+Same trick, same plan-independence, and `networkAccess` already permits it.
+
+**The finding that reshapes the plan: the drift check needs almost no new code,
+and does not need the mirror at all.** The read path already produces a full
+dump of a file's variables. Comparing that dump to `tokens/src/*.json` is a
+diff. That is the entire check — the guardrail half, the half the entry above
+argued is the sellable one — available from what exists today with no write
+capability whatsoever.
+
+**So the two halves separate, and they are worth different amounts:**
+
+- **The check.** Cheap, close to existing capability, and valuable to any client
+  who already has a Figma file — Diagnostic and Build clients, not only
+  greenfield ones. This is "we tell you when your Figma file stops agreeing with
+  your code," and it could be offered now.
+- **The mirror write.** Real work, unblocked but not free, and only needed where
+  no Figma file exists yet. The contract-designer case from the entry above
+  needs **both**: the mirror makes the contractor productive, the check protects
+  the client from what the contractor does.
+
+**Build the check first.** It is the guardrail, it is nearly free, and it has a
+wider market than the mirror does. It is also the control that can fail, which
+the mirror on its own is not.
+
+**A process note worth keeping.** The blocking question was answerable by
+reading a comment in a sibling repo, and it sat flagged as blocking for the
+length of a conversation instead. Two repos, one practice, and the reasoning in
+one is invisible from the other. Worth remembering the next time something in
+Orin looks blocked on a capability question.
+
+**Revisit if:** the check gets built, at which point the `Offer.md` mirror line
+and its blank price both need rewriting — the promise stops being "generated
+once and not maintained" and becomes something with a control attached.
+
+---
+
 
 **Decision:** [What was decided.]
 
