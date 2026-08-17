@@ -3163,6 +3163,45 @@ not scope invented inside a fixed price.
 
 ---
 
+## 2026-08-17 — The mirror gets an Offer.md line, triggered and priced apart
+
+**Decision:** Of the three shapes set out in the entry above, the mirror now has
+explicit words in `Offer.md`. It sits in the trigger passage as the smaller of
+two answers available when a Foundation client hires a designer: flip, or
+mirror. It is **not** in the Foundation's fixed scope, and it is quoted
+separately at the point it is wanted.
+
+**Why triggered rather than bundled.** Putting it in the Foundation would have
+contradicted a line already in the document, that what we are not doing today is
+building a Figma file nobody is opening yet. A Foundation client by definition
+has no designer, so a mirror delivered at handover is precisely a file nobody is
+opening. Triggering it on the designer arriving keeps that sentence true, keeps
+the £4,000 fixed, and puts the work at the moment `Offer.md` already names as
+when the direction of truth gets settled.
+
+**The copy says three things deliberately.** That the code stays the source and
+Figma is generated from it. That it is generated once and not maintained, said
+plainly rather than buried, because a Figma file drifting quietly from the
+source is worse than no Figma file. And that keeping it current is either the
+flip or a Retainer line, so the maintained version has somewhere to go rather
+than being smuggled into a one-off.
+
+**Left blank on purpose: the price.** The line says "quoted separately at the
+point it's wanted" and names no figure, because inventing one is Warren's call
+and not mine. That is a soft edge in a document whose whole discipline is
+bounded, priced work, and it should be closed with a real number the first time
+someone asks.
+
+**What this does not decide.** Nothing about which answer any given client
+should get. Flip against mirror is still a decision at the trigger, with a real
+piece of work behind either. This only means both are written down, where
+before only the flip was.
+
+**Revisit if:** a real trigger arrives and the quote has to be invented on the
+spot, which is the signal the blank price has cost something.
+
+---
+
 
 **Decision:** [What was decided.]
 
