@@ -3101,6 +3101,68 @@ not stay that way.
 
 ---
 
+## 2026-08-17 — The Figma question for a Foundation, stated properly
+
+**Decision:** None. This entry restates the item the 2026-08-16 entry left open
+in one clause, because the clause was too small to hold the question and one of
+its premises was wrong. Nothing is decided here and nothing shipped.
+
+**The premise that was wrong.** The open item was phrased as whether a
+Foundation should mirror tokens into Figma, "the JSON-to-Figma direction Orin's
+own site uses." Orin's own site does not use it. There is no Figma automation
+in this repo at all — no `sync:figma`, no Figma script, no Figma-related file;
+`sync:figma` lives in `Offer.md`, `PIPELINE-REVIEW.md` and this log as a
+description of the *client* pipeline, and it runs the other way. The 2026-07-09
+mirroring of the three accent tokens was done **by hand**: each variable created
+individually as a `VARIABLE_ALIAS`, scopes read off existing variables first.
+One direction is a pipeline; the other is something I did once, manually, to
+thirteen variables. Calling them both "directions the site uses" flattered the
+second.
+
+**The question is not "should we do Figma."** `Offer.md` already answers the
+founder who asks, and answers it without building anything: the source is DTCG,
+the format design tooling imports, so nothing is locked away and their future
+designer starts from what exists. It also names the trigger — *they hire a
+designer* — and frames that moment as whether to flip them onto the Figma-first
+pipeline. The gap is that flipping is not the only coherent answer, and it is
+the only one written down. At that moment there are three:
+
+1. **Flip.** Truth moves to Figma, the designer authors there, `sync:figma`
+   pulls. The pipeline already sold, applied to an existing client.
+2. **Mirror.** Truth stays in code. Figma gets a generated variable collection
+   the designer designs *against* but does not author in.
+3. **Neither, deliberately.** Hand over DTCG and let the designer's tooling
+   import it, which is what `Offer.md` already tells founders today.
+
+These are different products, with different prices, different failure modes,
+and a different answer to who holds the pen. Nothing has chosen between them.
+
+**The evidence against the mirror being cheap is already in this log.** The
+2026-07-09 entry exists *because the mirror had drifted* — Step 0 shipped as CSS
+while the Figma side lagged, which that entry calls exactly the drift the
+JSON→Figma mirror is supposed to prevent. Its recorded mitigation is a manual
+periodic check of this file's last-mirrored state against `tokens/src/*.json`.
+So on my own substrate, one operator, thirteen semantic tokens, the mirror
+direction drifted and the fix was a human remembering. Selling it inside a fixed
+£4,000 two-week Foundation means either shipping that same manual promise to a
+client, or first building the automation this repo does not have. By the rule
+from 2026-08-01, an unautomated mirror is an observation wearing the costume of
+a control.
+
+**Which does not kill option 2**, and this is the distinction worth keeping: a
+mirror *generated once at handover and explicitly not maintained* is a
+legitimate, honest shape. "We mirrored your tokens into Figma" and "we mirror
+your tokens into Figma" are different promises, and a client will hear the
+second. If option 2 is ever taken, the tense is the deliverable.
+
+**Revisit if:** a Foundation client hires a designer — the trigger `Offer.md`
+already names — or a prospect asks what happens to Figma often enough that the
+current answer stops covering it. Whichever shape wins becomes an explicit line
+in `Offer.md` or a Retainer conversation, not an improvisation on the call, and
+not scope invented inside a fixed price.
+
+---
+
 
 **Decision:** [What was decided.]
 
