@@ -3077,6 +3077,30 @@ in exactly one place on the site.
 
 ---
 
+## 2026-08-17 — the stacked /tokens sections were checked on the live page
+
+**Follow-up to the entry above,** which shipped saying "not verified visually"
+and recorded the geometry as the whole of the evidence. It has now been looked
+at on orinsystems.co and it is right: rail number in the margin, heading, prose
+beneath it on the same left edge, and the button directly under its own
+paragraph rather than off to the right. It matches sections 01–04.
+
+**How the image was obtained, because it was not a plain screenshot.**
+Screenshots of that tab only captured at scroll position 0 — every scrolled
+capture came back blank while the DOM reported correct geometry, and the native
+scroll call kept returning that the browser pane was hidden. The workaround was
+to set `display:none` on the five sections above, capture, then restore them;
+all seven were confirmed back afterwards and the document height was unchanged
+at 4087px. Section layout on this page is independent of what precedes it, so
+the capture is faithful for those two sections, but it is worth writing down
+that it was a workaround rather than a straight view of the page as loaded.
+
+**Nothing changed as a result.** No code, no copy, no tokens. This entry exists
+only so the log does not keep asserting the page went out unseen when it did
+not stay that way.
+
+---
+
 
 **Decision:** [What was decided.]
 
