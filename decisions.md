@@ -3414,6 +3414,67 @@ already landed.
 
 ---
 
+## 2026-08-17 — The drift check is built: `check:figma`
+
+**Decision:** Built the check recommended two entries above. It lives in the
+`Orin Token Pipeline` repo, not this one, because that is where the read path
+already is and its collections are matched by name — so the same command points
+at a client file or at "Orin Tokens (mirror)" without a code change. Committed
+there on branch `figma-drift-check` as `d08b241`.
+
+**It was even cheaper than estimated, for an unflattering reason.** The
+comparison already existed. `sync:figma --dry-run` has been computing added,
+removed, changed and description deltas all along — and then printing them and
+exiting 0. So the machinery was there and nothing could fail on it. `--check` is
+the same comparison with an exit code. The gap between "we have a diff" and "we
+have a control" was one `process.exit`.
+
+**`DRY` is now derived from `CHECK`** rather than passed alongside it, so there
+is no way to spell "check the tokens, and also overwrite them."
+
+**The comparison moved to `scripts/lib/token-diff.mjs`.** A gate deserves unit
+tests; a print statement did not, which is exactly why it went untested for as
+long as it did. Semantics are unchanged, so `--dry-run` output is byte-identical.
+Eleven tests, taking the suite from 75 to 86.
+
+**Descriptions count toward the total, and there is a test named for it.** A
+rewritten usage rule changes no colour, ships to the client as that token's
+contract, and is invisible to any check comparing only values. That is the
+defect this catches that a hex-diff would not.
+
+**The failure names both readings, because the script cannot tell which it is
+looking at.** Where Figma authors, divergence means `tokens/` is stale and the
+answer is to sync. Where code authors and Figma mirrors, it means someone edited
+a generated file. Same number, opposite meanings, and the direction of truth is
+a property of the engagement rather than of the dump. Guessing one would be
+confidently wrong half the time, so it reports the divergence and names both.
+
+**Deliberately NOT in `npm test`.** It needs a fresh dump that only a human at
+Figma can produce, so in CI it would fail every run on a stale dump rather than
+on real drift — a check that fails for the wrong reason trains people to ignore
+it, which is worse than not having one.
+
+**Verified by probe, not assertion.** A clean dump exits 0. A dump with one hex
+nudged exits 1, naming `primitives/neutral/0: #ffffff → #fefefe` and the mode it
+diverged in. `tokens/` is untouched by both runs. `npm test` in the baseline: 86
+passing, report 5/5, docs verified at 141 references.
+
+**What this unblocks commercially.** The check is the half of the mirror
+conversation that is an actual control, and it is now real rather than proposed.
+It also applies to clients who already have a Figma file, which the mirror does
+not — so it is sellable to Diagnostic and Build clients, not only greenfield
+ones. The `Offer.md` mirror line and its blank price should now be revisited, as
+the entry two above predicted.
+
+**Still not built:** the mirror write itself, JSON→Figma. Unblocked, not free,
+and only needed where no Figma file exists yet.
+
+**Revisit if:** a client's Figma file legitimately diverges as part of a
+workflow, which would mean the gate is being run at the wrong point rather than
+being wrong.
+
+---
+
 
 **Decision:** [What was decided.]
 
