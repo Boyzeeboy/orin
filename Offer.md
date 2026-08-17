@@ -169,6 +169,16 @@ from. Fewer duplicated components. Fewer design calls made in silos.
 Less defect debt. A system that exists in their codebase, not in a
 Figma file they have to translate.
 
+**The drift gate ships with it.** The pipeline includes a check that compares
+their Figma file against the tokens in their repo and fails when the two
+disagree, naming exactly what moved. It also names both readings, because what
+a failure means depends on which way truth flows in their setup: where Figma
+authors, their tokens are stale and the answer is to sync; where code authors
+and Figma mirrors, someone has edited a generated file. Descriptions count as
+well as values, so a usage rule quietly rewritten in Figma is caught by it too.
+It runs on demand rather than in CI, because it needs a live read from Figma
+that a person has to trigger.
+
 **The defence on a call:** "Your team of twelve developers costs you
 roughly £70k a month. If duplicated components and design churn are
 costing you even ten per cent of velocity, this pays for itself inside
@@ -198,8 +208,10 @@ there is a door at all does not move.
 
 **What happens:** Roughly 3–4 days of attention a month. Iterating the
 system as the product grows. Reviewing new components before they
-fragment. Keeping the pipeline healthy. Being the design brain the
-developers can call on when they're making a call they're not sure about.
+fragment. Keeping the pipeline healthy, which includes running the drift
+gate, so Figma and the code are known to agree rather than assumed to.
+Being the design brain the developers can call on when they're making a
+call they're not sure about.
 
 **What the client gets:** The system doesn't decay back into an
 artefact. New features ship consistent with the system. The design
