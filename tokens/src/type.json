@@ -3,7 +3,8 @@
     "family": {
       "$type": "fontFamily",
       "display": { "$value": "{family.display}" },
-      "base":    { "$value": "{family.base}" }
+      "base":    { "$value": "{family.base}" },
+      "ui":      { "$value": "{family.base}" }
     },
     "size": {
       "$type": "dimension",

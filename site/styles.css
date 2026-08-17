@@ -1,49 +1,25 @@
 /* Orin site styles.
  *
- * THE LAW: no literal colour, size, or family value lives in this file, in any
- * page, or in any inline style. :root below maps the semantic vendor tokens to
- * short ergonomic names; everything downstream uses those or the --orin-* token
- * directly. A value the design needs but doesn't have is a TOKEN PROPOSAL —
- * edit the JSON, rebuild, sync — never a literal added here.
+ * THE LAW: this file defines no custom properties and holds no literal values.
+ * Every value is read straight from the semantic token layer in
+ * vendor/tokens.css as var(--orin-…), which is what a client consuming the
+ * token set writes too — so what an inspector shows here is the deliverable,
+ * not a local dialect of it. A value the design needs but doesn't have is a
+ * TOKEN PROPOSAL: edit the JSON, rebuild, sync. Never a literal added here,
+ * and never a convenience alias — the shorter name is worth less than the
+ * property of having one source of truth visible in the inspector.
+ *
+ * Enforced by check 9 in tokens/scripts/report.mjs.
  */
-
-:root {
-  /* semantic colour aliases (onto vendor tokens — never onto primitives) */
-  --ink:          var(--orin-colour-text-default);
-  --ink-muted:    var(--orin-colour-text-muted);
-  --ink-inverse:  var(--orin-colour-text-inverse);
-  --link:         var(--orin-colour-text-link);
-  --link-hover:   var(--orin-colour-text-link-hover);
-  --paper:        var(--orin-colour-background-default);
-  --paper-raised: var(--orin-colour-background-raised);
-  --paper-inverse:var(--orin-colour-background-inverse);
-  --accent:       var(--orin-colour-background-accent);
-  --accent-hover: var(--orin-colour-background-accent-hover);
-  --on-accent:    var(--orin-colour-text-on-accent);
-  --rule:         var(--orin-colour-border-divider);
-  --rule-strong:  var(--orin-colour-border-strong);
-
-  /* type role aliases */
-  --font-display: var(--orin-font-family-display);
-  --font-body:    var(--orin-font-family-base);
-  --font-ui:      var(--orin-font-family-base);
-
-  /* layout aliases (onto vendor tokens) */
-  --container-max: var(--orin-container-max);
-
-  /* purely-local layout mechanics — not values-that-should-be-tokens */
-  --measure: 68ch;
-  --ease: cubic-bezier(0.2, 0, 0, 1);
-}
 
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-body);
+  background: var(--orin-colour-background-default);
+  color: var(--orin-colour-text-default);
+  font-family: var(--orin-font-family-base);
   font-size: var(--orin-font-size-400);
   line-height: var(--orin-font-line-height-body-large);
   letter-spacing: var(--orin-font-letter-spacing-body-large);
@@ -53,19 +29,19 @@ body {
 /* section band (full-bleed background) + wrap (68ch measure, inline padding only) */
 .section { padding-block: var(--orin-space-16); }
 .section--hero { padding-block: var(--orin-space-24); }
-.section--inverse { background: var(--paper-inverse); color: var(--ink-inverse); }
-.wrap { max-width: var(--measure); margin-inline: auto; padding-inline: var(--orin-space-6); }
+.section--inverse { background: var(--orin-colour-background-inverse); color: var(--orin-colour-text-inverse); }
+.wrap { max-width: var(--orin-measure-prose); margin-inline: auto; padding-inline: var(--orin-space-6); }
 
 /* --- 12-col grid scaffolding (Step 0.5). .container is the wide (75rem)
    outer measure; .section-grid is the 12-col layer inside it. Prose still
    clamps to --measure (68ch) via the existing p{} rule — wide scaffolding,
    narrow text. --- */
-.container { max-width: var(--container-max); margin-inline: auto; padding-inline: var(--orin-space-6); }
+.container { max-width: var(--orin-container-max); margin-inline: auto; padding-inline: var(--orin-space-6); }
 .section-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: var(--orin-space-6); }
 .section-grid--center { align-items: center; }
 .section-grid h2 { margin-top: 0; }
 
-.rail { grid-column: 1 / 2; margin: 0; color: var(--link); }
+.rail { grid-column: 1 / 2; margin: 0; color: var(--orin-colour-text-link); }
 .col-main { grid-column: 2 / -1; }
 .col-heading { grid-column: 2 / 7; }
 .col-body { grid-column: 7 / -1; }
@@ -74,10 +50,10 @@ body {
    2:1, well under AA. The rail was flipped in Step 0 and the eyebrow was not,
    which is the same defect twice — so they are one rule now. */
 .section--inverse .rail,
-.section--inverse .eyebrow { color: var(--ink-inverse); }
+.section--inverse .eyebrow { color: var(--orin-colour-text-inverse); }
 
 h1, h2, h3 {
-  font-family: var(--font-display);
+  font-family: var(--orin-font-family-display);
   font-weight: var(--orin-font-weight-semibold);
   margin: 0 0 var(--orin-space-6);
 }
@@ -98,11 +74,11 @@ h3 {
   letter-spacing: var(--orin-font-letter-spacing-headline-medium);
 }
 
-p { margin: 0 0 var(--orin-space-4); max-width: var(--measure); }
+p { margin: 0 0 var(--orin-space-4); max-width: var(--orin-measure-prose); }
 
-a { color: var(--link); text-underline-offset: 0.15em; transition: color 120ms var(--ease); }
-a:hover { color: var(--link-hover); }
-a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+a { color: var(--orin-colour-text-link); text-underline-offset: 0.15em; transition: color var(--orin-motion-duration-fast) var(--orin-motion-easing-standard); }
+a:hover { color: var(--orin-colour-text-link-hover); }
+a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offset: 3px; }
 
 /* Off-screen but announced. For a heading a section needs structurally but
    the approved copy doesn't print — the /work card grid runs h1 → h3 without
@@ -121,8 +97,8 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
   left: -9999px;
   top: 0;
   z-index: 100;
-  background: var(--paper-raised);
-  color: var(--ink);
+  background: var(--orin-colour-background-raised);
+  color: var(--orin-colour-text-default);
   padding: var(--orin-space-2) var(--orin-space-4);
   border-radius: var(--orin-radius-md);
 }
@@ -133,26 +109,26 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 
 .button {
   display: inline-block;
-  font-family: var(--font-ui);
+  font-family: var(--orin-font-family-ui);
   font-size: var(--orin-font-size-300);
   font-weight: var(--orin-font-weight-medium);
   text-decoration: none;
-  background: var(--accent);
-  color: var(--on-accent);
+  background: var(--orin-colour-background-accent);
+  color: var(--orin-colour-text-on-accent);
   border: none;
   border-radius: var(--orin-radius-md);
   padding: var(--orin-space-3) var(--orin-space-6);
   cursor: pointer;
-  transition: background-color 120ms var(--ease);
+  transition: background-color var(--orin-motion-duration-fast) var(--orin-motion-easing-standard);
 }
-.button:hover { background: var(--accent-hover); color: var(--on-accent); }
-.button:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
+.button:hover { background: var(--orin-colour-background-accent-hover); color: var(--orin-colour-text-on-accent); }
+.button:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offset: 3px; }
 
 .card {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--rule-strong);
-  background: var(--paper-raised);
+  border: 1px solid var(--orin-colour-border-strong);
+  background: var(--orin-colour-background-raised);
   border-radius: var(--orin-radius-md);
   padding: var(--orin-space-6);
 }
@@ -160,14 +136,14 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 .card :last-child { margin-bottom: 0; }
 
 .eyebrow, .rail, .card__index {
-  font-family: var(--font-ui);
+  font-family: var(--orin-font-family-ui);
   font-size: var(--orin-font-size-200);
   font-weight: var(--orin-font-weight-medium);
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
-.eyebrow { color: var(--ink-muted); }
-.card__index { color: var(--link); margin: 0 0 var(--orin-space-2); }
+.eyebrow { color: var(--orin-colour-text-muted); }
+.card__index { color: var(--orin-colour-text-link); margin: 0 0 var(--orin-space-2); }
 
 /* --- hero: fluid type + decorative 12-col overlay (Step 0.5) --- */
 .hero-heading {
@@ -182,18 +158,18 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: var(--orin-space-6);
-  max-width: var(--container-max);
+  max-width: var(--orin-container-max);
   margin-inline: auto;
   padding-inline: var(--orin-space-6);
   pointer-events: none;
 }
 .grid-overlay span {
-  border-left: 1px solid var(--rule);
+  border-left: 1px solid var(--orin-colour-border-divider);
   padding-top: var(--orin-space-2);
   padding-left: var(--orin-space-2);
-  font-family: var(--font-ui);
+  font-family: var(--orin-font-family-ui);
   font-size: var(--orin-font-size-100);
-  color: var(--ink-muted);
+  color: var(--orin-colour-text-muted);
   opacity: 0.6;
 }
 
@@ -213,17 +189,17 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 }
 /* margin-top: auto pushes the rule + link to the card bottom, so slack from
    shorter cards sits above the rule and links align across the row */
-.card-rule { border: none; border-top: 1px solid var(--rule); margin: auto 0 var(--orin-space-4); }
+.card-rule { border: none; border-top: 1px solid var(--orin-colour-border-divider); margin: auto 0 var(--orin-space-4); }
 
 /* section-level "more →" link sitting below a section's content (e.g. below the cards) */
 .section-more { margin-top: var(--orin-space-6); }
 
 /* --- shared chrome --- */
-.site-nav, .site-footer { font-family: var(--font-ui); font-size: var(--orin-font-size-300); }
-.site-nav { display: flex; flex-wrap: wrap; gap: var(--orin-space-6); padding: var(--orin-space-6); border-bottom: 1px solid var(--rule); }
-.site-nav a { text-decoration: none; color: var(--ink); }
-.site-nav a:hover { color: var(--link); }
-.site-footer { padding: var(--orin-space-8) var(--orin-space-6); border-top: 1px solid var(--rule); color: var(--ink-muted); }
+.site-nav, .site-footer { font-family: var(--orin-font-family-ui); font-size: var(--orin-font-size-300); }
+.site-nav { display: flex; flex-wrap: wrap; gap: var(--orin-space-6); padding: var(--orin-space-6); border-bottom: 1px solid var(--orin-colour-border-divider); }
+.site-nav a { text-decoration: none; color: var(--orin-colour-text-default); }
+.site-nav a:hover { color: var(--orin-colour-text-link); }
+.site-footer { padding: var(--orin-space-8) var(--orin-space-6); border-top: 1px solid var(--orin-colour-border-divider); color: var(--orin-colour-text-muted); }
 
 /* --- specimen: pipeline proof, lives at /tokens. Do not delete — it's the
    proof artefact for technical buyers ("this site runs on its own pipeline").
@@ -234,7 +210,7 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
    because each row differs by exactly one token and thirteen near-identical
    modifier classes would be worse. Those inline styles still resolve through
    var(--orin-…), so the law holds. --- */
-.swatch { width: var(--orin-space-16); height: var(--orin-space-16); border-radius: var(--orin-radius-md); border: 1px solid var(--rule-strong); flex: none; }
+.swatch { width: var(--orin-space-16); height: var(--orin-space-16); border-radius: var(--orin-radius-md); border: 1px solid var(--orin-colour-border-strong); flex: none; }
 
 /* Colour and radius: a grid of labelled samples. */
 .token-grid {
@@ -248,15 +224,15 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
 .token-item { display: flex; align-items: center; gap: var(--orin-space-3); }
 .token-meta { display: flex; flex-direction: column; gap: var(--orin-space-1); min-width: 0; }
 .token-name {
-  font-family: var(--font-ui);
+  font-family: var(--orin-font-family-ui);
   font-size: var(--orin-font-size-200);
-  color: var(--ink);
+  color: var(--orin-colour-text-default);
   overflow-wrap: anywhere;
 }
 .token-value {
-  font-family: var(--font-ui);
+  font-family: var(--orin-font-family-ui);
   font-size: var(--orin-font-size-200);
-  color: var(--ink-muted);
+  color: var(--orin-colour-text-muted);
   /* Reserved so the runtime value swap doesn't shift the row. */
   min-width: 11ch;
 }
@@ -264,8 +240,8 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
   width: var(--orin-space-16);
   height: var(--orin-space-16);
   flex: none;
-  background: var(--paper-raised);
-  border: 1px solid var(--rule-strong);
+  background: var(--orin-colour-background-raised);
+  border: 1px solid var(--orin-colour-border-strong);
 }
 
 /* Spacing: name, a bar drawn at the token's own width, then the value. */
@@ -275,13 +251,13 @@ a:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; }
   align-items: center;
   gap: var(--orin-space-4);
   padding: var(--orin-space-2) 0;
-  border-bottom: 1px solid var(--rule);
+  border-bottom: 1px solid var(--orin-colour-border-divider);
 }
 .scale-row .token-name { min-width: 7ch; flex: none; }
-.scale-row .bar { height: var(--orin-space-3); background: var(--accent); flex: none; }
+.scale-row .bar { height: var(--orin-space-3); background: var(--orin-colour-background-accent); flex: none; }
 .scale-row .token-value { margin-left: auto; text-align: right; }
-.specimen-row { display: flex; align-items: baseline; gap: var(--orin-space-4); padding: var(--orin-space-2) 0; border-bottom: 1px solid var(--rule); }
-.specimen-row .label { font-family: var(--font-ui); font-size: var(--orin-font-size-200); color: var(--ink-muted); min-width: 9rem; }
+.specimen-row { display: flex; align-items: baseline; gap: var(--orin-space-4); padding: var(--orin-space-2) 0; border-bottom: 1px solid var(--orin-colour-border-divider); }
+.specimen-row .label { font-family: var(--orin-font-family-ui); font-size: var(--orin-font-size-200); color: var(--orin-colour-text-muted); min-width: 9rem; }
 
 @media (prefers-reduced-motion: reduce) {
   a, .button { transition: none; }

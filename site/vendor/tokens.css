@@ -18,9 +18,12 @@
   --orin-radius-md: 0.5rem;
   --orin-radius-lg: 1rem;
   --orin-container-max: 75rem;
+  --orin-measure-prose: 68ch;
   --orin-breakpoint-sm: 40rem;
   --orin-breakpoint-md: 48rem;
   --orin-breakpoint-lg: 64rem;
+  --orin-motion-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+  --orin-motion-duration-fast: 120ms;
   --orin-neutral-0: #ffffff;
   --orin-neutral-50: #f4f5f5;
   --orin-neutral-100: #e6e9ea;
@@ -98,6 +101,7 @@
   --orin-colour-border-strong: var(--orin-neutral-300);
   --orin-font-family-display: var(--orin-family-display);
   --orin-font-family-base: var(--orin-family-base);
+  --orin-font-family-ui: var(--orin-family-base);
   --orin-font-letter-spacing-display-large: var(--orin-font-letter-spacing-scale-x-tight);
   --orin-font-letter-spacing-display-medium: var(--orin-font-letter-spacing-scale-tight);
   --orin-font-letter-spacing-display-small: var(--orin-font-letter-spacing-scale-normal);

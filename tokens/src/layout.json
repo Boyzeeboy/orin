@@ -23,6 +23,10 @@
     "$type": "dimension",
     "max": { "$value": "75rem" }
   },
+  "measure": {
+    "$type": "dimension",
+    "prose": { "$value": "68ch" }
+  },
   "breakpoint": {
     "$type": "dimension",
     "sm": { "$value": "40rem" },

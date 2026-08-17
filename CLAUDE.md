@@ -44,7 +44,7 @@ flag it to Warren and log it in `decisions.md`.
   sync. Never add a literal colour/size/family to `styles.css` or a page.
 - **`npm test` green before every push.** From the repo root it runs
   `verify:deliverable` (does `deliverable.md` still describe the real
-  client pipeline?) then the token chain in `tokens/` — report 8/8,
+  client pipeline?) then the token chain in `tokens/` — report 9/9,
   verify-build clean. CI does not run these; protection is local.
 - **WCAG AA minimum.** Real focus states, real contrast.
 - **Static-first.** No frameworks that aren't earned. Cloudflare Pages,
@@ -116,5 +116,5 @@ cover the area you're touching. It is the log of what was already
 decided, and it is long — the stale block this section replaced is what
 happens when a task description outlives the work it described.
 
-`cd tokens && npm test` → 8/8, verify clean, before every push. Log what
+`cd tokens && npm test` → 9/9, verify clean, before every push. Log what
 you change in `decisions.md` (date, what changed, what was deferred).

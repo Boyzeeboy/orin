@@ -60,9 +60,10 @@ command before every push. (First time only: `cd tokens && npm install`.)
   `package.json`, via `scripts/verify-deliverable.mjs`.
 - **verify-build** — fails if the site references any `var(--orin-…)` the build
   doesn't define. The consumer contract.
-- **report** — 8 lints, target 8/8: dist↔vendor sync, no doubled segments,
+- **report** — 9 lints, target 9/9: dist↔vendor sync, no doubled segments,
   dimensions carry units, no `$value`+children, no hardcoded hex, no hardcoded
-  font-family, semantic-only consumption, fonts-link↔tokens match.
+  font-family, semantic-only consumption, fonts-link↔tokens match, no local
+  custom properties.
 
 **CI does not run these. Protection is local.** There is no `.github/`; nothing
 checks this on the server.
@@ -85,7 +86,7 @@ pre-step; `vendor/tokens.css` is committed).
 
 ## Pre-push checklist
 
-- [ ] `npm test` **from the repo root** → deliverable ok, report 8/8, verify
+- [ ] `npm test` **from the repo root** → deliverable ok, report 9/9, verify
       clean. Not `cd tokens && npm test`: that skips `verify:deliverable`.
 - [ ] No new literal value anywhere in `site/` (a new value = a token proposal)
 - [ ] Fonts link still matches the tokens (the report proves it)

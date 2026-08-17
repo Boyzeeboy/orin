@@ -106,7 +106,7 @@ short list:
     prose; the tokens and the fonts link are Inter. Correct the note so
     it doesn't mislead a later session.
 
-Run `cd tokens && npm test` (build → sync → verify-build → report 8/8)
+Run `cd tokens && npm test` (build → sync → verify-build → report 9/9)
 after the token additions, before touching pages.
 
 ---
@@ -204,7 +204,7 @@ the eyebrow holds the label. Read them as number-plus-eyebrow:
 The reference's "07 SYSTEM" colophon strip is already satisfied by the
 `/tokens` page and the quiet footer link — no inline duplicate needed.
 
-**Done when:** `cd tokens && npm test` → 8/8, verify clean; Home reflows
+**Done when:** `cd tokens && npm test` → 9/9, verify clean; Home reflows
 to the grid at ≥`lg` and stacks cleanly at 360px; the layout decision and
 the `@media`/breakpoint exception are logged in `decisions.md`.
 
@@ -284,7 +284,7 @@ question about which direction of truth it describes. Scope is parked in
 - Every value resolves through the token layer. A value the design
   needs but doesn't have is a **token proposal** (edit JSON, rebuild,
   sync) — never a literal in `styles.css` or a page.
-- `npm test` green **from the repo root** (deliverable ok, report 8/8,
+- `npm test` green **from the repo root** (deliverable ok, report 9/9,
   verify clean) before every push. Not `cd tokens && npm test`: that runs
   the token chain only and skips `verify:deliverable`. The Step-0 and
   Step-0.5 instructions above name the `tokens/` command because it was the

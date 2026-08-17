@@ -1,4 +1,4 @@
-// report.mjs — the tripwire suite. Target: 8/8 from the first build.
+// report.mjs — the tripwire suite. Target: 9/9 from the first build.
 //
 // On a fresh client these are not archaeology; they are guards that make a
 // violation fail loudly the day it is introduced. Each check maps to a
@@ -12,8 +12,9 @@
 //   6. no hardcoded font-family  (families come from tokens only)
 //   7. semantic-only consumption (site never reads a raw primitive var)
 //   8. fonts link == token fonts (load exactly the families/weights used)
+//   9. no local custom properties (one source of truth, visible in DevTools)
 //
-// Exit 0 only if all 8 pass.
+// Exit 0 only if all 9 pass.
 
 import { readFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
@@ -78,8 +79,8 @@ check('no doubled path segments', () => {
 check('dimensions carry units', () => {
   const flat = JSON.parse(read(FLAT) || '{}');
   const offenders = Object.entries(flat)
-    .filter(([k]) => /^orin-(space|radius|font-size)-/.test(k))
-    .filter(([, v]) => !/(rem|px|em|%|vh|vw)$/.test(String(v)))
+    .filter(([k]) => /^orin-(space|radius|font-size|container|measure)-/.test(k))
+    .filter(([, v]) => !/(rem|px|em|ch|%|vh|vw)$/.test(String(v)))
     .map(([k]) => k);
   return offenders.length ? `unitless: ${offenders.join(', ')}` : '';
 });
@@ -157,6 +158,23 @@ check('fonts link ↔ tokens match', () => {
   if (wMissing.length) return `link missing weights: ${wMissing.join(', ')}`;
   if (wExtra.length) return `link loads unused weights: ${wExtra.join(', ')}`;
   return '';
+});
+
+// 9 — no custom property is DEFINED anywhere in site source. Every --orin-*
+// comes from the generated vendor file (excluded by walk()), so a developer
+// inspecting :root in DevTools sees exactly one custom-property block and it
+// is the auto-generated one. A local alias layer would be harmless to render
+// and corrosive to the claim: it puts names in the inspector that exist
+// nowhere in tokens/src, and it is the same shape as the drift this pipeline
+// exists to prevent. Convenience names are not worth defending.
+check('no local custom properties', () => {
+  const hits = [];
+  for (const f of siteSources()) {
+    for (const m of read(f).matchAll(/(?:^|[;{"'\s])(--[a-z][a-z0-9-]*)\s*:/gim)) {
+      hits.push(`${rel(f)}: ${m[1]}`);
+    }
+  }
+  return hits.length ? `defined locally: ${hits.join('; ')}` : '';
 });
 
 // ---- output ----
