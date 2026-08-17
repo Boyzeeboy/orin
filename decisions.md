@@ -3389,6 +3389,31 @@ title back.
 
 ---
 
+## 2026-08-17 — The Figma file is renamed; the naming collision is fully closed
+
+**Follow-up to the entry above,** which shipped with the Figma-side rename listed
+as outstanding and `SETUP.md` therefore ahead of reality. Warren has renamed it.
+The file at `b0iEr8pYmfepSj4YkzFsoY` now resolves as
+`figma.com/design/b0iEr8pYmfepSj4YkzFsoY/Orin-Tokens--mirror-`, which is Figma's
+encoding of "Orin Tokens (mirror)" exactly, parentheses included. `SETUP.md` is
+now accurate as written and needs no further edit.
+
+**Confirmed by the URL slug, not by opening the file.** The Figma connectors were
+not authorised in the session that recorded this, so the evidence is Figma's own
+rendering of the file name in the URL rather than a look inside. Strong, and
+worth marking as second-hand.
+
+**Both halves of the collision are now closed.** The repo `Orin Token Pipeline`
+is the Figma-first baseline that is for sale. The Figma file "Orin Tokens
+(mirror)" is generated from this repo's JSON and says so in its name. The
+infographic is "How this site is built". Nothing left sharing a name with
+something pointing the other way.
+
+**Nothing else changed.** No code, no tokens, no copy beyond what the entry above
+already landed.
+
+---
+
 
 **Decision:** [What was decided.]
 
