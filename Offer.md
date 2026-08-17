@@ -243,11 +243,12 @@ source: the designer authors variables there, `sync:figma` pulls them, the
 code follows. The smaller one is a mirror. The code stays the source, and
 I generate the Figma variable collection from it once, each semantic
 aliased to its primitive exactly as the JSON resolves, so the designer has
-something real to design against from their first day. A mirror is bounded
-work, quoted separately at the point it's wanted, and it is generated once
-and not maintained. I say that part plainly, because a Figma file drifting
-quietly from the source is worse than no Figma file at all. Keeping it
-current is either the flip or a Retainer line.
+something real to design against from their first day. A mirror is
+included rather than billed. The boundary that makes that sustainable is
+that it is generated once and not maintained. I say that part plainly,
+because a Figma file drifting quietly from the source is worse than no
+Figma file at all. Keeping it current is either the flip or a Retainer
+line.
 
 What to say when a founder asks about Figma before that day comes: the
 token source is DTCG, the format design tooling imports, so nothing is

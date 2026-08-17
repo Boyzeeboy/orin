@@ -3519,6 +3519,47 @@ a priced line at all, or become another thing the pipeline simply does.
 
 ---
 
+## 2026-08-17 — The mirror is free too. Nothing in the Figma thread is billed.
+
+**Decision:** Warren reversed the entry above within the hour: the mirror is
+included rather than billed. Neither half of the Figma conversation carries a
+price. The blank price that had been the last open commercial question is closed
+by deleting the line rather than filling it.
+
+**The concern I raised, recorded because it did not change the decision.** The
+mirror is hand-work today. Mirroring this site's own 117 variables took a
+session; a client's set could be larger, and the request arrives at an
+unpredictable moment — after a Foundation's money has stopped, whenever they
+happen to hire a designer. Free work of unpredictable size, triggered by
+someone else, is close to the unscoped work the rest of `Offer.md` exists to
+refuse.
+
+**What makes it safe is the boundary, not the price.** The copy already said the
+mirror is generated once and not maintained. That sentence was incidental when
+there was a quote attached and is now load-bearing, so it was rewritten to say
+so: *"A mirror is included rather than billed. The boundary that makes that
+sustainable is that it is generated once and not maintained."* One generation
+per client, at a moment that happens at most once per engagement, is a bounded
+gift. An open-ended one would not be.
+
+**The case for free is real and probably the stronger one.** A simpler offer with
+nothing to defend on a call. Consistency with the check. And the trigger moment
+— a client hiring their first designer — is a relationship expanding, which is a
+strange place to produce an invoice for half a day's work. Goodwill there points
+at a Retainer, which is the £2,000/month line the practice actually wants.
+
+**Both free things are now the same argument.** "Here is the gate, and here is
+your Figma file, and neither is an upsell" is a more credible demonstration of
+believing in the substrate than either would be behind a line item. Orin sells
+engagements, never features.
+
+**Revisit if:** a mirror request lands that is materially bigger than a session's
+work, or a client asks for a second one. Either is the signal that "generated
+once" stopped being a real boundary, and the answer then is to fix the boundary
+or build the write automation, rather than to start charging.
+
+---
+
 
 **Decision:** [What was decided.]
 
