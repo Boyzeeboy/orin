@@ -3044,6 +3044,39 @@ to `CONSUMABLE` deliberately, rather than widening the rule to make it quiet.
 
 ---
 
+## 2026-08-17 — /tokens sections 05 and 06 stack under their headings
+
+**Decision:** Links and Button primitive moved from the `col-heading` /
+`col-body` two-column split to `col-main`, so their prose and the button sit
+under their headings rather than beside them. The page now has one section
+shape throughout.
+
+**Reasoning:** Warren asked for it looking at the live page. The 2026-08-16
+entry chose the split for these two because it matched Home's "The problem",
+but on this page it made them the odd pair — the four scale sections above
+already stacked inside `col-main`, so the eye had to change tack twice near the
+bottom of a page whose argument is that everything here follows one system.
+Consistency within the page beat consistency with a section on a different one.
+
+**HTML only.** No CSS changed, so no other page could be affected. Nothing was
+invented — `col-main` already existed and is what the other five sections use.
+
+**Verified:** all seven `section-grid` blocks now report `col-main` at grid
+column `2 / -1` with the rail at `1 / 2`; heading and prose share a left edge at
+162px in both changed sections (previously 162 and ~1016), the button sits below
+its own heading with `background/accent` intact, and there is no horizontal
+overflow. `npm test` 9/9, verify-build clean.
+
+**Not verified visually.** The browser pane was hidden while this was checked,
+so scrolled screenshots came back blank and the geometry above is the whole of
+the evidence. The numbers are unambiguous, but nobody has looked at it.
+
+**Revisit if:** Home's "The problem" section ever changes shape. The two are no
+longer the same pattern, which is deliberate, but it means the split now lives
+in exactly one place on the site.
+
+---
+
 
 **Decision:** [What was decided.]
 
