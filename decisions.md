@@ -2994,6 +2994,56 @@ layer with scoped meaning, not as nicknames.
 
 ---
 
+## 2026-08-17 — check 7 becomes an allowlist and fails closed
+
+**Decision:** Rewrote check 7 to use `CONSUMABLE` as an allowlist instead of
+`PRIMITIVE` as a denylist. `CONSUMABLE` had been declared and never read since
+the suite was written; the choice was to delete it as dead code or to make it
+the check. It became the check.
+
+**Why the denylist was the weaker of the two.** It flagged four known primitive
+prefixes and silently permitted everything else, so its coverage was frozen at
+the moment it was written. The entry above added `motion-` and `measure-`
+tokens; a denylist would never have had an opinion about either, and would not
+have noticed the site consuming a new primitive category had one been added.
+An allowlist fails closed: a category added to `tokens/src` is unconsumable
+until someone names it here, which makes consumption a decision rather than a
+default. This is the same objection as 2026-08-01 — a check whose coverage
+cannot grow is closer to an observation than a control.
+
+**The list is the seven prefixes the site actually consumes:** `colour-`,
+`font-`, `space-`, `radius-`, `container-`, `measure-`, `motion-`. Verified
+against the source rather than assumed — 72 `font-` references, 58 `colour-`,
+57 `space-`, 9 `radius-`, 4 `motion-`, 2 each for `measure-` and `container-`.
+
+**`breakpoint-` is deliberately excluded.** CSS `@media` cannot read custom
+properties, so breakpoints are single-sourced in `layout.json` and referenced by
+comment — the documented exception from 2026-07-13. That decision means a
+`var(--orin-breakpoint-…)` in site source is always a mistake, so the allowlist
+should reject it, and now does. The denylist could not have: `breakpoint-` is
+not a primitive.
+
+**`PRIMITIVE` stayed, demoted to diagnostics.** It no longer decides anything;
+it distinguishes "raw primitive — use the semantic token" from "not a consumable
+layer" in the failure message. The first tells you what to do, the second tells
+you to think. Deleting it would have made every rejection read the same.
+
+**Verified:** `npm test` from the repo root — 9/9, verify-build clean. Both
+rejection classes proved by probe: `var(--orin-teal-500)` and
+`var(--orin-breakpoint-md)` added to `styles.css` together, each flagged with
+its own message, then reverted. The breakpoint case is the one the old check
+would have passed.
+
+**No doc changes needed** — `SETUP.md` lists check 7 by name only and never
+described the mechanism.
+
+**Revisit if:** a token category is added that the site should consume. The
+symptom will be check 7 failing with "not a consumable layer" on a name that
+looks perfectly reasonable. That failure is the check working; add the prefix
+to `CONSUMABLE` deliberately, rather than widening the rule to make it quiet.
+
+---
+
 
 **Decision:** [What was decided.]
 

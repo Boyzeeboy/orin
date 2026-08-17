@@ -10,7 +10,7 @@
 //   4. no $value + children      (Style Dictionary silently drops children)
 //   5. no hardcoded hex in site  (no literal colour ever reaches a page)
 //   6. no hardcoded font-family  (families come from tokens only)
-//   7. semantic-only consumption (site never reads a raw primitive var)
+//   7. semantic-only consumption (allowlist: site reads consumable layers only)
 //   8. fonts link == token fonts (load exactly the families/weights used)
 //   9. no local custom properties (one source of truth, visible in DevTools)
 //
@@ -29,9 +29,21 @@ const FLAT = join(ROOT, 'dist', 'light', 'tokens.flat.json');
 const SRC_DIR = join(ROOT, 'src');
 const INDEX = join(SITE, 'index.html');
 
-// Prefixes the site is ALLOWED to consume (the semantic + system layers)…
-const CONSUMABLE = ['colour-', 'font-', 'space-', 'radius-'];
-// …and the raw primitives it must NEVER reference directly.
+// Prefixes the site is ALLOWED to consume (the semantic + system layers).
+// Check 7 uses this as an ALLOWLIST, so it fails closed: a token category
+// added to tokens/src is unconsumable until it is named here, and adding it
+// is a deliberate decision rather than an oversight. A denylist would have
+// silently permitted every prefix nobody thought to ban.
+//
+// Deliberately absent: `breakpoint-`. CSS `@media` cannot read custom
+// properties, so breakpoints are single-sourced in layout.json and referenced
+// by comment in each query (the documented exception, 2026-07-13). A
+// var(--orin-breakpoint-…) in site source is therefore always a mistake.
+const CONSUMABLE = [
+  'colour-', 'font-', 'space-', 'radius-', 'container-', 'measure-', 'motion-'
+];
+// The raw primitives, kept so the failure message can say WHY a reference is
+// rejected — "raw primitive" is actionable, "not consumable" is a shrug.
 const PRIMITIVE = ['neutral-', 'teal-', 'family-', 'weight-'];
 // Canonical font facts, derived from the tokens (see primitives.json).
 const TOKEN_FAMILIES = ['Inter', 'Inter Tight'];
@@ -130,12 +142,18 @@ check('no hardcoded font-family', () => {
   return hits.length ? hits.join('; ') : '';
 });
 
-// 7 — semantic-only consumption: site references no raw primitive var
+// 7 — semantic-only consumption: every var(--orin-…) the site reads sits in a
+// consumable layer. Allowlist, not denylist — see CONSUMABLE above.
 check('semantic-only consumption', () => {
   const hits = [];
   for (const f of siteSources()) {
     for (const m of read(f).matchAll(/var\(\s*--orin-([a-z0-9-]+)/gi)) {
-      if (PRIMITIVE.some((p) => m[1].startsWith(p))) hits.push(`${rel(f)}: --orin-${m[1]}`);
+      const name = m[1];
+      if (CONSUMABLE.some((p) => name.startsWith(p))) continue;
+      const why = PRIMITIVE.some((p) => name.startsWith(p))
+        ? 'raw primitive — use the semantic token'
+        : 'not a consumable layer';
+      hits.push(`${rel(f)}: --orin-${name} (${why})`);
     }
   }
   return hits.length ? hits.join('; ') : '';
