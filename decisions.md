@@ -3560,6 +3560,90 @@ or build the write automation, rather than to start charging.
 
 ---
 
+## 2026-08-18 — A second infographic: the baseline, drawn Figma-first
+
+**Decision:** Added `notes/baseline-pipeline-infographic.html`, titled **"The
+Orin Token Pipeline"**. It diagrams the Figma-first baseline that is for sale,
+in the same visual language as `notes/pipeline-infographic.html`, which stays
+exactly as it is.
+
+**This is the rewrite the 2026-08-17 naming entry predicted.** That entry moved
+the infographic's title to "How this site is built" and closed with *"Revisit
+if: the infographic is ever rewritten Figma-first, which would make it a diagram
+of the product rather than of this site, and would want the other title back."*
+Rather than rewrite the one that exists, the product got its own sheet and took
+the freed title. Both now exist, pointing opposite ways, each labelled with the
+direction it runs in.
+
+**Why a second sheet and not a rewrite.** The site sheet earns its keep as proof
+that the practice runs on what it sells; deleting it to make room for the product
+would trade a demonstration for a brochure. And the pair carries an argument
+neither half can make alone, the one `pipeline-comparison.md` already frames:
+the direction of truth is the axis everything else hangs off. A prospect who sees
+both sees that the shape is portable and the direction is a choice.
+
+**Five steps, matching the sibling:** author in Figma, sync, build, consume,
+gate. Three things the site sheet has no equivalent for got their own space: the
+return path (`check:figma`, with both readings of a failure), the ten report
+checks with nine marked as gates, and CI, which this pipeline has and the site
+deliberately does not.
+
+**Everything on it was read out of the baseline repo, not remembered.** The
+commands come from its `package.json`, the ten check ids from
+`scripts/generate-report.mjs`, the loop from `PROCESS.md`, the collection and
+mode names from the generated `CLAUDE.md`, and the CI behaviour from
+`.github/workflows/ci.yml`. Where the two sheets disagree with each other, the
+newer one is right: the setup sheet tags `hardcoded` as FAILS, and it does not.
+That is a real error in `notes/pipeline-setup-sheet.html`, left standing for now
+and logged here so it is not rediscovered as a surprise.
+
+**Same standalone status as its sibling.** Orin's tokens are transcribed rather
+than consumed, it is outside `npm test`, and `--family-mono` still has no token.
+Nothing in `site/`, `tokens/` or the baseline repo was touched.
+
+**Revisit if:** the mirror write gets built, which would give the baseline a
+second return path and make the "return path" band a two-way diagram. Or if the
+setup sheet's `hardcoded` tag gets corrected, at which point this entry's note
+about it is spent.
+
+---
+
+## 2026-08-18 — The setup sheet's gate card is corrected
+
+**Follow-up to the entry above,** which found the error while building the second
+infographic and left it standing. Warren asked for it fixed the same day, so the
+note in that entry is now spent.
+
+**What was wrong.** `notes/pipeline-setup-sheet.html` tagged "Hardcoded value in
+the surface" as **FAILS**. It cannot fail: `generate-report.mjs` sets the colour
+audit to `status: 'pass'` unconditionally, and the gate comment says so in as
+many words. The sheet promised a prospect a control that does not exist, which is
+the worst direction for an error on a sales artefact to run in.
+
+**The second error was the taxonomy.** The card had two tags, GATE and FAILS, for
+what was one category: both meant "this stops the build". A grey FAILS badge next
+to a teal GATE badge implied a distinction the reader then had to invent. The
+tags now carry the real split, GATE and LOOK, and the grey badge means what its
+colour always suggested.
+
+**And the count was under by one.** The sheet said nine checks. There are ten
+check ids; the sheet collapses `build-light` and `build-dark` into a single row,
+which is the right call for a sales sheet but made the total wrong. It now reads
+"ten checks (build integrity runs once per mode)", with nine of them gating, so
+the row count and the real count reconcile without splitting the row.
+
+**Nothing else on the sheet was touched.** The tree, the lock levels, the loop,
+the proposal rule, the ownership card and the paste band were each checked
+against the baseline repo and are accurate as written. The em dash in the
+rewritten paragraph went with it, `voice.md` §2 being what it is.
+
+**Revisit if:** the colour audit is ever made to fail, which has been considered
+and rejected once already in the baseline (an earlier version failed whenever a
+hex lacked a token, and it could never stop doing it). That would make LOOK wrong
+and collapse the taxonomy back to one tag.
+
+---
+
 
 **Decision:** [What was decided.]
 
