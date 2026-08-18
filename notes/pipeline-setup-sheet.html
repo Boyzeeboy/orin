@@ -150,7 +150,7 @@
     flex:none;
   }
   .tag.gate{background:var(--teal-50);color:var(--teal-600)}
-  .tag.fail{background:var(--neutral-100);color:var(--neutral-700)}
+  .tag.look{background:var(--neutral-100);color:var(--neutral-700)}
 
   /* ---- paste band ---- */
   .paste{
@@ -273,16 +273,21 @@
           <div class="check"><span>Mode parity, by value</span><span class="tag gate">GATE</span></div>
           <div class="check"><span>dist ↔ vendor in sync</span><span class="tag gate">GATE</span></div>
           <div class="check"><span>Consumer contract holds</span><span class="tag gate">GATE</span></div>
-          <div class="check"><span>Fonts link ↔ tokens match</span><span class="tag gate">GATE</span></div>
           <div class="check"><span>Semantic-only consumption</span><span class="tag gate">GATE</span></div>
-          <div class="check"><span>Hardcoded value in the surface</span><span class="tag fail">FAILS</span></div>
-          <div class="check"><span>Unitless font number</span><span class="tag fail">FAILS</span></div>
-          <div class="check"><span>Doubled group names</span><span class="tag fail">FAILS</span></div>
+          <div class="check"><span>Fonts link ↔ tokens match</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Doubled group names</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Unitless font number</span><span class="tag gate">GATE</span></div>
+          <div class="check"><span>Colour audit of the surface</span><span class="tag look">LOOK</span></div>
         </div>
         <p style="margin-top:var(--space-4)">
-          Nine checks, regenerated from the real build every time — so it cannot describe a
-          system that no longer exists. <b>A red check fails the build</b>, rather than shipping
-          as a warning nobody reads.
+          Ten checks (build integrity runs once per mode), regenerated from the real build every
+          time, so the report cannot describe a system that no longer exists. <b>Nine of them fail
+          the build</b>, rather than shipping as a warning nobody reads.
+        </p>
+        <p>
+          The colour audit is the deliberate exception. A hex matching a token's value doesn't make
+          that token the semantically right one, so it names the colours with nothing behind them
+          and leaves the judgement to a person.
         </p>
       </div>
 
