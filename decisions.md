@@ -3644,6 +3644,58 @@ and collapse the taxonomy back to one tag.
 
 ---
 
+## 2026-08-18 — "How this site is built" is refreshed, and gains a mirror band
+
+**Decision:** Updated `notes/pipeline-infographic.html` on three counts, all
+verified against the repo before editing. This supersedes the line in this
+morning's infographic entry saying the sheet "stays exactly as it is"; Warren
+asked for it brought current the same day.
+
+**1. The lint target was a version behind.** The sheet said 8/8 in three places.
+`tokens/scripts/report.mjs` line 1 says "Target: 9/9 from the first build" and
+its header lists nine numbered checks, ending "Exit 0 only if all 9 pass". The
+prose said "eight static lints" and now says nine.
+
+**2. `tokens/src/` grew a fifth file.** `motion.json` landed in `f8f2683` and the
+sheet still listed four. Added in both places it appears, the step-1 card and the
+repository tree.
+
+**3. The Figma thread was missing entirely.** Zero occurrences of the word before
+today. The sheet predates the mirror, the 2026-08-17 rename, and `check:figma`,
+which is a real gap rather than a stylistic one: the direction of truth is the
+whole argument of the diagram, and the mirror is the half that demonstrates it.
+
+**The new band is called "Downstream of all of it".** `tokens/src/*.json` tagged
+SOURCE, "Orin Tokens (mirror)" tagged SYNCED VIEW, a solid arrow forward and a
+dashed one back for the check. It states the reading that applies here: a
+divergence means a generated file was edited, which is a defect and not a signal
+to sync.
+
+**Two limits are on the sheet rather than in this log only.** The check lives in
+the `Orin Token Pipeline` repo and not this one, and the forward arrow is manual
+because the JSON to Figma write automation is still unbuilt. Both were true
+before today and neither was written anywhere a reader of the diagram would find
+them. A diagram that implies an automation that does not exist is the same class
+of error as the setup sheet's FAILS tag, caught earlier rather than later.
+
+**What was checked and deliberately left alone.** The footer's four corrections
+against the reference infographic all still hold, including the fourth: this repo
+still has no `.github/`, and `SETUP.md` line 68 still says protection is local.
+The mono-family footnote stays conditional here, because unlike the setup sheet
+this artefact has not shipped. A dated provenance paragraph now records what
+moved and when.
+
+**This is not the deferred restyle.** `CLAUDE.md` parks an infographic restyle
+behind the v1 stopping rule; that is about `site/` and about appearance. This was
+a correctness pass on a `notes/` artefact, plus one band carrying information
+that did not exist when the sheet was drawn.
+
+**Revisit if:** the JSON to Figma write gets automated, which would make the
+forward arrow no longer manual and retire half the "two honest limits" note. Or
+if the check moves into this repo, which would retire the other half.
+
+---
+
 
 **Decision:** [What was decided.]
 
