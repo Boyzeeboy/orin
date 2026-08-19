@@ -4012,6 +4012,48 @@ prose would stay as written.
 
 ---
 
+## 2026-08-19 — The setup sheet's loop closes with the gate
+
+**Decision:** Added a fifth beat to section 3 of
+`notes/pipeline-setup-sheet.html`, placed at **04** between Build and Consume
+rather than appended at the end: "Gate. The generated report runs. A red check
+stops the release." Consume renumbers to 05.
+
+**Why it was checked at all.** Warren asked whether the setup sheet's loop had
+the same gap as the baseline infographic's sync card, fixed earlier today. It
+does not, and the reason is worth recording so the question is not reopened: the
+infographic contradicted itself, promising "read the audit and the diff" in prose
+while the commands beneath skipped straight to applying. The setup sheet carries
+no commands at all. The only occurrence of `npm test` on it is a footnote saying
+this artefact is not covered by it. It names stages and rules rather than things
+to type, so there was no withheld command to restore.
+
+**The real issue was smaller and different.** The section is titled "The one loop
+· no other path" and listed four beats ending at Consume. The gate lived in
+section 5 as its own topic, so a reader taking section 3 at face value saw
+author, sync, build, consume, with verification arriving later as a separate
+subject. For a section claiming to describe the only path, that is an under-claim:
+the gate is on the path, and it is what stops the step after it.
+
+**Placed between Build and Consume, not after Consume.** The report is generated
+during the build and gates what ships, so a beat appended at the end would have
+read as an afterthought and put the check downstream of the thing it protects.
+
+**Written to point at section 5, not to duplicate it.** Section 5 carries the ten
+checks and the GATE/LOOK taxonomy corrected on 2026-08-18. The new beat states
+only that a red check stops the release, and leaves the detail where it already
+lives. No commands were added, keeping the sheet's register intact.
+
+**Scope.** A `notes/` artefact, outside the v1 stopping rule, which governs
+`site/`. Rendering checked in the browser: five beats sit in the card without
+crowding it and the numbering reads cleanly. Nothing in `site/`, `tokens/` or the
+baseline repo touched.
+
+**Revisit if:** the gate ever stops being a build-time artefact, which would move
+it in the sequence rather than only reword it.
+
+---
+
 
 **Decision:** [What was decided.]
 
