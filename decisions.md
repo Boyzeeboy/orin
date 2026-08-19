@@ -3888,6 +3888,55 @@ follow-on.
 
 ---
 
+## 2026-08-19 — Correction: the two motion typing bugs are not the same severity
+
+**Correcting the entry above,** written a few hours earlier the same day. Warren
+asked what the `fontFamily` mislabelling would actually cause, which is a question
+that entry asserted an answer to without having traced it. Traced now.
+
+**What that entry got wrong.** It called the STRING-to-`fontFamily` mapping "the
+same class of silent wrong-type failure the mode-parity check exists to catch."
+That comparison is too strong in both directions, and it inverted which of the
+two motion bugs matters.
+
+**STRING to `fontFamily` is a metadata mislabel, not an output bug.**
+`sd.config.mjs` has no `fontFamily` transform and no type-specific handling at
+all, so the built CSS is identical whatever the label says. The `fonts` report
+check selects tokens by NAME, `k.startsWith(`${PREFIX}-fonts-family`)`, so a
+token under a `motion/` branch never enters it regardless of type. Key parity and
+the sync assertions check that `$type` is present, never that it is correct. The
+damage is confined to the `$type` written into `tokens/tokens.{light,dark}.json`:
+the DTCG file says something untrue about itself, and nothing in this pipeline
+reads it back. It becomes real when something does — a design tool importing the
+DTCG, a second Style Dictionary config with type-based transforms, a docs
+generator, or a Figma write-back mapping DTCG types to variable types.
+
+**FLOAT to px is the one that reaches the browser,** and the earlier entry
+under-sold it by comparison. A duration of `120` emits `120px`, which is invalid
+CSS rather than a mislabelling: `transition-duration: 120px` does nothing. Add
+motion without touching the unit mapping and the durations silently fail while
+the easings work correctly under an odd label — the opposite of what the earlier
+entry implied.
+
+**And neither is the mode-parity class.** That check exists to catch a defect
+that ships white text on a white surface. These ship a wrong metadata field and
+an inert CSS declaration. Both worth fixing, neither worth that comparison.
+
+**Nothing in Synthesis is affected.** Its dump carries exactly two STRING
+variables, `Fonts/family/base` = "Inter Tight" and `Fonts/family/annotation` =
+"Roboto Mono", both genuinely font families. The assumption is correct for every
+string in the file, which is why it has stayed invisible.
+
+`notes/motion-as-seventh-collection.md` was edited in place, since it is a living
+proposal rather than a log entry, and it now carries the traced consequence and a
+line saying an earlier draft overstated it. This entry stands as the record of
+the correction rather than rewriting the entry above.
+
+**Revisit if:** anything starts reading `$type` back — the write-back is the most
+likely candidate, and it would promote the STRING mislabel from cosmetic to real.
+
+---
+
 
 **Decision:** [What was decided.]
 
