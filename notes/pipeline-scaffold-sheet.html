@@ -85,7 +85,7 @@
   .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
 
   /* steps */
-  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3);align-items:stretch}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);align-items:stretch}
   .stepwrap{position:relative;display:flex}
   .step{
     background:var(--neutral-0);border:1px solid var(--border-divider);
@@ -202,9 +202,9 @@
       <h1>Standing up a new client's <em>token pipeline</em></h1>
       <p class="standfirst">
         The producer side of a Build — everything that has to exist before
-        <code>client-site-setup-sheet</code> can begin. Modelled on the Synthesis
-        scaffold, which is the worked example: <code>686524f</code> is a complete
-        record of what one changes.
+        <code>client-site-setup-sheet</code> can begin. Drafted from the Synthesis
+        scaffold and then corrected by walking it end to end on the Onkey clone,
+        which is where four of the six steps turned out to be wrong or missing.
       </p>
       <div class="rule"></div>
     </div>
@@ -222,7 +222,7 @@
   </div>
 
   <section class="band">
-    <div class="band-title"><span>Day one · five steps</span></div>
+    <div class="band-title"><span>Day one · six steps</span></div>
     <div class="steps">
 
       <div class="stepwrap">
@@ -237,31 +237,32 @@
 
       <div class="stepwrap">
         <div class="step">
-          <div class="step-head"><span class="dot">2</span><span class="step-label">Rehearse</span></div>
-          <p>Same command with <code>--dry-run</code>. It prints every change and writes nothing.</p>
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Scaffold</span></div>
+          <p>Run it with <code>--dry-run</code> first: it prints every change and writes nothing. Then drop the flag.</p>
           <div class="cmd"><code>npm run scaffold-client -- \<br>&nbsp;&nbsp;--name "Acme" --prefix acme \<br>&nbsp;&nbsp;--figma-name "Acme DS" \<br>&nbsp;&nbsp;--figma-key AbC123 --dry-run</code></div>
-          <div class="pill">Nothing written</div>
+          <div class="dimcode"><code>quote any value with a space</code></div>
+          <div class="pill">Rehearse, then apply</div>
         </div>
         <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
       </div>
 
       <div class="stepwrap">
         <div class="step">
-          <div class="step-head"><span class="dot">3</span><span class="step-label">Scaffold</span></div>
-          <p>Drop the flag. Rewrites the config, the identity, the plugin, and regenerates the docs.</p>
-          <div class="cmd"><code>npm run scaffold-client -- …</code></div>
-          <div class="dimcode"><code>then commit, before Figma is involved</code></div>
-          <div class="pill">One command</div>
-        </div>
-        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
-      </div>
-
-      <div class="stepwrap">
-        <div class="step">
-          <div class="step-head"><span class="dot">4</span><span class="step-label">Prove</span></div>
-          <p>Green on the seed fixture <em>before</em> their Figma file is in the picture. Isolates scaffold errors from file errors.</p>
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Build, then commit</span></div>
+          <p>The scaffold <em>clears</em> <code>dist/</code>. Build before committing, or the commit holds a <code>dist/</code> no fresh build reproduces.</p>
           <div class="cmd"><code>npm install &amp;&amp; npm test</code></div>
-          <div class="pill">Green on the seed</div>
+          <div class="cmd"><code>git checkout -b chore/scaffold-{client}</code></div>
+          <div class="pill">Source and dist together</div>
+        </div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Install the plugin</span></div>
+          <p>The scaffold made a <em>new</em> plugin — new name, new id, new port. Figma has never seen it.</p>
+          <div class="dimcode"><code>Figma → Plugins → Development →<br>Import plugin from manifest…</code></div>
+          <div class="cmd"><code>{client}-token-pipeline/plugin/manifest.json</code></div>
+          <div class="pill">Or there is nothing to press</div>
         </div>
         <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
       </div>
@@ -269,10 +270,21 @@
       <div class="stepwrap">
         <div class="step">
           <div class="step-head"><span class="dot">5</span><span class="step-label">First sync</span></div>
-          <p>Sink first, then Sync in the plugin. Read the collection audit before applying anything.</p>
+          <p>Sink first, then Sync in the plugin. Expect a very large diff: the seed fixture against a real system.</p>
           <div class="cmd"><code>npm run sink</code></div>
           <div class="cmd"><code>npm run sync:figma -- --dry-run</code></div>
           <div class="pill warn">Read the audit</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">6</span><span class="step-label">Settle the red</span></div>
+          <p>A fresh config declares no mode-parity exceptions, so a real system usually fails the first build. Judge each one, declare it with a reason.</p>
+          <div class="cmd"><code>npm run sync:figma &amp;&amp; npm test</code></div>
+          <div class="dimcode"><code>modeParity.expectedIdentical</code></div>
+          <div class="pill">Day one ends green</div>
         </div>
       </div>
 
@@ -296,7 +308,11 @@ CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
           <div>
             <b>It does not touch <code>tokens/*.json</code></b>
             <p>The seed fixture stays until the first Figma sync overwrites it, so
-            the repo builds green immediately. That is what step 4 is proving.</p>
+            the repo builds green immediately. That is what step 3 is proving.</p>
+            <p style="margin-top:var(--space-2)">The counts differ by one between
+            runs: <code>--dry-run</code> lists the docs regeneration as a change,
+            the real run does it and does not list it. Nine reported, eight
+            reported, same work.</p>
           </div>
         </div>
       </div>
@@ -344,6 +360,25 @@ CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
         and a <code>sync:figma</code> without <code>--dry-run</code> would have
         overwritten it with nothing to return to. Commit the scaffold before the
         first sync, then the sync separately.</p>
+      </div>
+
+      <div class="trap">
+        <b>npm's echo makes a quoted value look split</b>
+        <p>npm re-prints the command without quotes, so
+        <code>--figma-name "Acme DS"</code> renders as
+        <code>--figma-name Acme DS</code>. Your shell quoting worked; copying that
+        echoed line would not. It sets the file name to the first word, scaffolds
+        happily, and surfaces much later as a provenance refusal.</p>
+      </div>
+
+      <div class="trap">
+        <b>The first sync diff looks catastrophic</b>
+        <p>Expect four figures. The seed fixture is a few dozen tokens and a real
+        system is several hundred, so the first sync reports the whole difference:
+        one Onkey run showed 1145 changes, with names restructuring as
+        <code>colour/action/primary</code> became
+        <code>colour/action/primary/DEFAULT</code>. Nothing is lost; read the
+        collection audit and the provenance line, not the change count.</p>
       </div>
 
       <div class="trap">
@@ -423,7 +458,8 @@ CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
     <code>{prefix}</code>, <code>{org}</code>) are filled by
     <code>scaffold-client.mjs</code> from <code>pipeline.config.mjs</code>. Picks up
     where this stops: <code>client-site-setup-sheet.html</code>, the consumer side.
-    Worked example: the Synthesis scaffold, <code>686524f</code>.
+    Worked examples: the Synthesis scaffold, <code>686524f</code>, and the Onkey
+    scaffold of 19 August 2026, which is the run this sheet was corrected against.
   </footer>
 
 </div>
