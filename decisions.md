@@ -4492,9 +4492,9 @@ wants hardening before the sheet wants expanding, and the sheet says so.
 ## 2026-08-19 — The scaffold runbook is corrected by walking it
 
 **Decision:** Rewrote the steps on `notes/pipeline-scaffold-sheet.html` from five
-to six and added two failure modes, after following the sheet end to end against a
-real clone. Four of the original five steps were wrong, incomplete, or in the
-wrong order. The sheet was written this evening from `scaffold-client.mjs`,
+to six and added three failure modes, after following the sheet end to end against
+a real clone. Eight corrections in total; four of the original five steps were
+wrong, incomplete, or in the wrong order. The sheet was written this evening from `scaffold-client.mjs`,
 `PROCESS.md` and the Synthesis commit, and it took one walk to find what reading
 could not.
 
@@ -4540,6 +4540,17 @@ worked but copying the echo would not, and it would scaffold happily and surface
 much later as a provenance refusal. And the first sync diff is four figures by
 nature — 1145 changes on this run — because it compares the seed fixture against a
 real system. Neither is a defect; both look like one.
+
+**Two more found while clearing the rehearsal down, after the first six were
+already written.** Step 1 stopped at the clone, but a fresh clone inherits the
+baseline's `origin`: `on-key` was sitting there with push pointed at
+`Boyzeeboy/orin-token-pipeline`, so one absent-minded `git push` would have put a
+client's scaffold branch on the baseline remote. Step 1 now detaches it. And the
+two dump files are gitignored, so `git checkout tokens/` restores everything
+around them and leaves them untouched — a repo that looks reset is still holding
+the last fetch. That is the stale-dump trap arriving by a route neither
+`notes/stale-dump-guard.md` nor this sheet described: not a failed sink, but a
+rehearsal nobody swept up. Ninth trap added.
 
 **Minor, folded in.** The dry-run reports nine changes and the applied run eight,
 the docs regeneration being listed only in the dry branch. `package-lock.json`

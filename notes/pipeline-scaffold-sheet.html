@@ -228,9 +228,10 @@
       <div class="stepwrap">
         <div class="step">
           <div class="step-head"><span class="dot">1</span><span class="step-label">Clone</span></div>
-          <p>A fresh clone of the baseline. It ships as <code>projectName: "Unconfigured"</code> with prefix <code>tok</code>.</p>
+          <p>A fresh clone of the baseline. It ships as <code>projectName: "Unconfigured"</code> with prefix <code>tok</code>, and it inherits the baseline's <code>origin</code>.</p>
           <div class="cmd"><code>git clone &lt;baseline&gt; {client}-token-pipeline</code></div>
-          <div class="pill">Fresh clone</div>
+          <div class="cmd"><code>git remote remove origin</code></div>
+          <div class="pill">Detach before anything else</div>
         </div>
         <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
       </div>
@@ -379,6 +380,17 @@ CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
         <code>colour/action/primary</code> became
         <code>colour/action/primary/DEFAULT</code>. Nothing is lost; read the
         collection audit and the provenance line, not the change count.</p>
+      </div>
+
+      <div class="trap">
+        <b>The dumps outlive the tidy-up</b>
+        <p><code>tokens/.figma-dump.json</code> and
+        <code>.figma-descriptions.json</code> are gitignored, so
+        <code>git checkout tokens/</code> restores everything around them and
+        leaves them exactly where they were. A repo that looks reset is still
+        holding the last fetch, and the next dry-run will read it if a Sync ever
+        fails to land. Delete them when a rehearsal ends, not only when one
+        starts.</p>
       </div>
 
       <div class="trap">
