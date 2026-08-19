@@ -4219,6 +4219,55 @@ this disjunction unnecessary and collapse it back to the original sentence.
 
 ---
 
+## 2026-08-19 — Both infographics checked against the claim, and both were right
+
+**Decision:** No change to either infographic. Logged anyway, because a negative
+result that took a forced failure to establish is worth more written down than
+re-derived, and because the reason they were right is the useful part.
+
+**`notes/pipeline-infographic.html` is accurate.** It says "A hardcoded hex fails
+the report before it ever reaches the site," and it describes Orin's own site,
+which does gate exactly that. `tokens/scripts/report.mjs` check 5 is "no
+hardcoded hex in site", its header comment reads "no literal colour ever reaches
+a page", and line 17 says "Exit 0 only if all 9 pass."
+
+**Proven by forcing the failure rather than by reading the code.** `ORIN_SITE_DIR`
+was pointed at a throwaway directory containing a copy of `vendor/tokens.css` and
+one file holding `.x{color:#ff0000}`. The report returned 7/9 with "✗ no hardcoded
+hex in site" and exited 1. The real `site/` was never touched and the temporary
+directory was deleted; `git status` was clean afterwards. The second failure in
+that run, the fonts link check, is an artefact of the fake site having no
+Google Fonts link and is not a finding.
+
+**`notes/baseline-pipeline-infographic.html` was already correct.** Its check list
+tags `hardcoded` as **Look**, not Gate, which is what `generate-report.mjs`
+actually does.
+
+**The pattern is the point.** The claim was wrong in four places and right in two,
+and the split is not random. The two that were right are the two drawn from the
+code: the 2026-08-18 entry records that everything on the baseline infographic
+was read out of the repo rather than remembered, the check ids straight from
+`generate-report.mjs`. The four that were wrong were written from knowledge of how
+the practice works, where the sentence is true of Orin's site, true of the
+Foundation, and false only of the baseline. Sheets derived from the code inherited
+the exception; sheets derived from understanding inherited the general case.
+
+**That suggests the cheap defence,** if this ever needs one: a sheet that names a
+check should name it in the code's own vocabulary, ids and tags included, because
+the transcription is what catches the exception. Not proposed as work, recorded as
+the observation.
+
+**Every sheet in `notes/` has now been checked against running code.** Two were
+already correct, four were corrected today, and two carry the claim truthfully
+about a different check or a different stack.
+
+**Revisit if:** the baseline's colour audit is ever made to gate, which would make
+all four corrections unnecessary at once and would want this entry read alongside
+them.
+
+---
+
+
 
 **Decision:** [What was decided.]
 
