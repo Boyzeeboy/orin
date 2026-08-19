@@ -3768,6 +3768,65 @@ into.
 
 ---
 
+## 2026-08-19 — Synthesis is synced, committed, and finally has a remote
+
+**Decision:** Ran a real Figma sync against the Synthesis pipeline, committed two
+weeks of work that was sitting uncommitted, and gave the repo its first remote.
+Logged here because Synthesis has no `decisions.md` of its own; this file is the
+practice-wide log and already carries the baseline and the mirror.
+
+**The sync was a no-op, which is the point.** 6/6 collections matched, 331 tokens
+per mode, key parity held, 220 descriptions loaded, and both modes came back
+`+0 added -0 removed ~0 changed`. Figma and `tokens/` agree, so nothing was
+applied. Provenance verified rather than merely declining to object:
+`figmaFileName` is `"Synthesis Token Pipeline"` and the fetched dump said the
+same, so the run printed `ok` where an unconfigured pipeline would have warned.
+
+**Descriptions were unchanged too, and that is provable rather than assumed.**
+This clone tracks `$description` separately so prose edits cannot land silently,
+but it prints the `$description:` line only when the delta is non-zero, and that
+delta feeds the same total that reported 0. Silence here is a real zero.
+
+**The uncommitted work was the actual risk.** The last commit was 2026-08-03. The
+working tree held 15 modified files and 9,818 insertions: the `scaffold-client`
+run that parameterised the repo, plus the 4 August first sync that replaced the
+seed fixture with the real token set, about 1,660 lines added to each of
+`tokens.light.json` and `tokens.dark.json`. Writing a sync over that would have
+left the August work recoverable from nowhere, since there was no committed state
+behind it. Committed first, on a branch, with `npm test` verified green
+beforehand: 69 unit tests, report 5/5 with five site-facing checks skipped
+because `siteDir` is null. Source and `dist/` went in one commit per `PROCESS.md`,
+and `dist/report.html` stayed out.
+
+**Then the repo had no remote at all.** Two weeks of client token work existed on
+one laptop. It is now `Boyzeeboy/synthesis-token-pipeline`, **private**, matching
+`orin-token-pipeline` rather than `kr-token-pipeline`, which is public because
+KRM is fully owned and Synthesis is not. Tracked files were scanned for
+credential-shaped strings and `.env` paths before the first push; the only
+identifier that travels is `figmaFileKey`, which is the key from the file's URL
+rather than a credential.
+
+**The fetch path is now rehearsed for real.** This afternoon's rehearsal simulated
+the plugin by posting a payload straight at the sink. Tonight's run was the whole
+chain on the demo machine: sink first, Sync pressed in the plugin, `✓ wrote N
+bytes`, then the dry-run. The byte counts differed from the August files, 28,892
+against 28,893 and 70,329 against 70,486, which is how the run was confirmed as a
+fresh fetch rather than the stale read `notes/stale-dump-guard.md` describes.
+
+**One thing the note gets sharper about.** Synthesis has no `check:figma`; its
+scripts stop at `sync:figma`, and `--check` with `lib/token-diff.mjs` arrived
+after this clone was taken. So the stale-dump exposure here is confined to the
+manual loop, and the guard matters most in repos where the drift gate exists to
+be fooled.
+
+**Revisit if:** Synthesis is next opened for real work, which is the moment to
+decide whether `--check` and the guard are worth porting into a clone that cannot
+take the baseline file by copy. Or if the 157-byte drop in the descriptions file,
+which reached nothing in the output and could not be diffed because the August
+copy is gitignored and was overwritten, turns out to matter after all.
+
+---
+
 
 **Decision:** [What was decided.]
 
