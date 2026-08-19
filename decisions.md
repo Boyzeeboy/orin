@@ -4109,6 +4109,69 @@ cautious rather than too strong.
 
 ---
 
+## 2026-08-19 — The hardcoded-gate claim, swept across every sheet
+
+**Decision:** Corrected `notes/client-site-handover-sheet.html` in two places and
+swept the remaining sheets. The sweep's result is more useful than the fix: the
+claim is **true on one stack and false on another**, and every sheet that got it
+wrong was describing the baseline in language borrowed from somewhere it holds.
+
+**The handover sheet had the error in both directions at once.** Its "When a
+check goes red" table listed "A hardcoded value was found" alongside three rows
+that map to checks which genuinely gate, implying this one does too. Then, further
+down, "Why it's worth the extra step" said a hardcoded value "doesn't show up in
+the token report" — the opposite error, and also false, because the colour audit
+is exactly what lists it, by hex, with the files it appears in. Two contradictory
+claims surviving side by side is good evidence neither was ever checked.
+
+**Both now say the same true thing:** it is reported, and it does not block. The
+table row explains why, in the code comment's own terms, that a hex often matches
+several tokens by coincidence so the report cannot tell you which was meant. The
+paragraph keeps its force by noting that the safety net depends on somebody
+reading, which is more alarming to a developer than "invisible" was.
+
+**The sweep, with each verdict traced rather than assumed:**
+
+| Sheet | Claim | Verdict |
+|---|---|---|
+| `founder-explainer-sheet.html` | "fails the build and never reaches your customers" | false — fixed earlier today |
+| `client-site-handover-sheet.html` | filed under checks going red; and "doesn't show up in the token report" | false both ways — fixed here |
+| `client-site-setup-sheet.html` | "the semantic-only check fails the build" | **true** — a different check, which does gate |
+| `foundation-shadcn-runbook.html` | "Hardcoding a colour fails the build" | **true** — see below |
+| `foundation-shadcn-sheet.html` | no such claim | n/a |
+
+**The Foundation runbook is correct, and that was verified by running it.** The
+Foundation ships `notes/shadcn-adapter/guardrail.mjs`, whose fifth check is
+DISCIPLINE: no arbitrary dimension values, no inline style dimensions, no raw
+colour literals outside the token source. Run against its own dirty fixture it
+exits 1 and names them, "colour literal #e5e5e5 — belongs in src/ref.json". So on
+that stack a hardcoded colour really does fail the build.
+
+**Which is the finding worth keeping.** The baseline deliberately does not gate
+colour literals, for the reason its comment gives. Orin's own site does, as one
+of the nine. The Foundation does, via the guardrail. Three of the four contexts
+this practice works in gate it, and the one that does not is the one the client
+sheets describe. That is why the same wrong sentence appeared independently in
+three artefacts: it is true nearly everywhere, and the sheets that describe the
+exception inherited it.
+
+**The answer to give if asked.** On a Figma-first baseline a hand-typed value is
+reported, not blocked, and blocking it was tried and withdrawn because value
+equality does not imply the token is semantically right. On the Foundation it is
+blocked. Both answers are stronger than the one the sheets used to imply, because
+the distinction is the practice's own argument: a generated audit produces
+evidence, not conclusions.
+
+**Verified in the DOM rather than by screenshot,** the preview pane having gone
+blank mid-check: both edits present, and `document.body.scrollWidth` equals
+`window.innerWidth`, so nothing overflows.
+
+**Revisit if:** the baseline's colour audit is ever made to gate, which has been
+considered and rejected once already. That would make the two corrected sheets
+too cautious and would collapse this whole distinction.
+
+---
+
 
 **Decision:** [What was decided.]
 
