@@ -4054,6 +4054,61 @@ it in the sequence rather than only reword it.
 
 ---
 
+## 2026-08-19 — The founder sheet promised a gate that cannot fail
+
+**Decision:** Corrected the claim in "What it asks of your team" on
+`notes/founder-explainer-sheet.html`. It said a value typed directly into the
+code "fails the build and never reaches your customers." In the baseline
+pipeline it does neither.
+
+**This is the 2026-08-18 setup-sheet error, in a second artefact.** That entry
+found the setup sheet tagging "Hardcoded value in the surface" as FAILS and fixed
+it, because `generate-report.mjs` sets the colour audit to `status: 'pass'`
+unconditionally and the comment above it reads "Informational, never a gate."
+The founder sheet carried the same promise, was not checked at the time, and
+stated it more strongly: as an absolute, on the artefact aimed at whoever signs.
+Warren asked for this sheet to be checked against today's work, which is what
+surfaced it.
+
+**Traced rather than assumed.** A literal typed into a client's app hits nothing.
+`contract` passes, because no undefined variable is referenced. `semantic-only`
+passes, because no primitive is used. `hardcoded` is informational. Nothing
+fails.
+
+**Why it read as true.** Orin's own repo does gate it: "no hardcoded hex in site"
+is one of the nine checks in `tokens/scripts/report.mjs`. So the sentence is
+accurate about this site and false about what a client receives. That is exactly
+the confusion the two-sheet split exists to prevent, and it is the second time
+today a claim has been true of one pipeline and wrong about the other.
+
+**What it says now.** The checks catch what can be caught mechanically: a token
+that doesn't exist, a dark theme quietly carrying its light values, a published
+file that no longer matches the source. A second paragraph then says why hand
+typed colours are listed rather than blocked, in the words the code's own comment
+uses: a hex often matches several tokens by coincidence, so swapping one in blind
+would be worse than the literal.
+
+**The correction is stronger than what it replaced.** It names the mode-parity
+defect, which is the best real story available and the one demonstrated tonight
+on the Synthesis pipeline. And the machine-versus-judgement split it introduces is
+the Diagnostic's central argument in `Offer.md`: a generated audit produces
+evidence, not conclusions, and no tool draws that line.
+
+**Two softer echoes left standing,** both defensible because plenty does gate:
+"Anything inconsistent fails an automated check before release" in the After list,
+and "The checks stop bad values reaching customers" under what it won't do.
+
+**Everything else on the sheet was checked and holds:** the four-step mechanism,
+the versioned ship step, the report claim, "it keeps working without me", and the
+whole "What it won't do" section. Rendering verified in the browser; the panel
+carries both paragraphs without crowding.
+
+**Revisit if:** the colour audit is ever made to fail, which has been considered
+and rejected once already in the baseline. That would make this wording too
+cautious rather than too strong.
+
+---
+
 
 **Decision:** [What was decided.]
 
