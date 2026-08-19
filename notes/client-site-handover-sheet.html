@@ -328,7 +328,7 @@ border-radius: var(--{prefix}-radius-md);</span>
           </tr>
           <tr>
             <td>A hardcoded value was found</td>
-            <td>A colour, size or font slipped into the CSS directly. Swap it for the semantic token that means the same thing. If nothing means the same thing, that's a gap worth telling me about — see below.</td>
+            <td>A colour, size or font slipped into the CSS directly. This one is listed rather than failed — a hex often matches several tokens by coincidence, so the report can't tell you which was meant. Swap it for the semantic token that means the same thing. If nothing means the same thing, that's a gap worth telling me about — see below.</td>
           </tr>
           <tr>
             <td>A primitive is being consumed</td>
@@ -369,8 +369,9 @@ border-radius: var(--{prefix}-radius-md);</span>
       <div class="panel">
         <div class="panel-title">Why it's worth the extra step</div>
         <p>
-          A hardcoded value is invisible: it doesn't appear in the design file, doesn't
-          show up in the token report, and won't change when the palette does. It's how a
+          A hardcoded value doesn't appear in the design file, and won't change when the
+          palette does. The report lists it in the colour audit, but as a prompt to look
+          rather than a failure — nothing stops it shipping. It's how a
           system quietly stops being true.
         </p>
         <p style="margin-bottom:0">
