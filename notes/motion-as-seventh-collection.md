@@ -43,19 +43,36 @@ wrong for motion:
 | FLOAT | `${n}px`, `$type: dimension` | `120ms`, `$type: duration` |
 | STRING | `$type: fontFamily`, unconditionally | `$type: cubicBezier`, from an array |
 
-**FLOAT is hardcoded to px.** A duration authored as `120` in Figma emits
-`120px` as a dimension. There is one existing escape hatch, `cfg.unitlessNumber`,
-which is a list of path patterns that emit a bare `number` instead. It is the
-right shape to copy but the wrong destination: motion needs a *different unit*,
-not the absence of one.
+**FLOAT is hardcoded to px, and this one is a real output bug.** A duration
+authored as `120` in Figma emits `120px` as a dimension, which is not a
+mislabelling but invalid CSS: `transition-duration: 120px` does nothing. There is
+one existing escape hatch, `cfg.unitlessNumber`, a list of path patterns that
+emit a bare `number` instead. It is the right shape to copy but the wrong
+destination: motion needs a *different unit*, not the absence of one. Anyone
+adding motion without touching this ships durations that silently do nothing.
 
-**STRING is hardcoded to fontFamily.** This is the sharper problem. Any string
-variable anywhere in the file becomes a `fontFamily` token. An easing curve
-written as `"0.2, 0, 0, 1"` would emit typed as a font family, and nothing
-downstream would object, because the value is structurally valid and the key
-parity check compares names rather than meanings. That is the same class of
-silent-wrong-type failure the mode-parity check exists to catch, in a different
-place.
+**STRING is hardcoded to fontFamily, and this one is milder than it looks.** Any
+string variable anywhere in the file becomes a `fontFamily` token, so an easing
+curve written as `"0.2, 0, 0, 1"` emits typed as a font family. Traced downstream
+on 19 August, the consequence is narrower than first written here:
+
+- `sd.config.mjs` has no `fontFamily` transform, and no type-specific handling at
+  all, so the built CSS is correct regardless of the label.
+- The `fonts` report check selects by NAME, `k.startsWith(`${PREFIX}-fonts-family`)`,
+  so a token under `motion/` never enters it whatever its type.
+- Key parity and the sync assertions check that `$type` is present, never that it
+  is right.
+
+So the damage is confined to the `$type` written into `tokens/tokens.{light,dark}.json`.
+The DTCG file says something untrue about itself, and nothing in this pipeline
+reads it back. It starts to matter the moment something does: a design tool
+importing the DTCG, a second Style Dictionary config with type-based transforms,
+a docs generator, or a Figma write-back that maps DTCG types to variable types.
+
+**The two are not the same severity, and an earlier draft of this note said they
+were.** The FLOAT bug reaches the browser. The STRING bug reaches a metadata
+field nobody currently reads. Comparing either to the mode-parity defect, which
+ships white text on a white surface, overstates both.
 
 ## So the work is a typing rule, not a collection
 
