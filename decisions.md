@@ -4331,6 +4331,60 @@ existed, and its runbook is accurate because the guardrail was built first.
 
 ---
 
+## 2026-08-19 — The Foundation sheet overstated its dark-mode check, and the check is genuinely missing
+
+**Decision:** Corrected one line on `notes/foundation-shadcn-sheet.html` and filed
+`notes/foundation-mode-parity-by-value.md` for the gap behind it. The wording was
+wrong; the thing the wording described is also absent, and those are two different
+problems with two different sizes.
+
+**The claim.** Step 2 of the fortnight said light and dark are both built and
+checked, "including that dark actually resolves, which is the one that silently
+fails for months elsewhere." That phrase can only mean the July 2026 incident, in
+which 148 of 150 dark colours carried their light values for months. That is a
+value failure.
+
+**The guardrail checks keys.** `guardrail.mjs` check 2 compares key sets and fails
+when a token is defined in one mode and not the other, which its comment calls the
+most common shadcn theming bug. Grepped across `guardrail.mjs` and `build.mjs`:
+there is no light-versus-dark value comparison anywhere in the adapter. A token
+defined in both modes with the same value in both passes all five checks.
+
+**Key parity provably cannot catch the referenced defect.** The baseline's own
+comment says key parity "already passes in the sync" and "that is not the same as
+the modes actually differing." Throughout the incident every key was present in
+both modes; only the values were wrong.
+
+**The sheet already carried the true version two panels earlier**, under what
+shadcn hasn't got: "Dark built from the same source and checked, rather than a
+second copy kept by hand that drifts out of step with the first." Accurate. So the
+sheet said the right thing once and reached past it once, which is the same
+internal contradiction the setup sheet's standfirst had against its own section 5.
+The corrected line now matches the accurate one.
+
+**The gap is real, not just rhetorical.** The original mechanism is unreachable
+here, there being no Figma alias resolver in this stack, but the defect is not: a
+dark contract that repeats a light value, typed or pasted or left behind when the
+light value moved, produces a theme that exists in the file and does nothing on
+screen. The conclusion the baseline reached was not "resolve aliases correctly", it
+was "compare the values and make somebody justify each identical pair", and that
+travels to any stack with two modes.
+
+**Not built tonight, deliberately.** No Foundation engagement has been sold, the
+adapter has no consumer, and the sheet now describes what the guardrail does. The
+note records the shape a fix would take, including the two Foundation-specific
+details: `radius` falls out naturally once the comparison is scoped to colours,
+and shadcn's channel syntax means the baseline's hex filter cannot be copied
+verbatim.
+
+**Revisit if:** a Foundation engagement is sold. The check should be built before
+the fortnight starts rather than during it, because the sheet promises "light and
+dark, both resolved and verified" as a deliverable and this is what would make
+that sentence true.
+
+---
+
+
 
 
 
