@@ -3696,6 +3696,78 @@ if the check moves into this repo, which would retire the other half.
 
 ---
 
+## 2026-08-19 — The fetch path is rehearsed, and the dump has no freshness check
+
+**Decision:** Added `notes/stale-dump-guard.md` and deliberately did not act on
+what it records. A guard belongs in `scripts/sync-from-figma.mjs` in the
+`Orin Token Pipeline` repo, and it is scheduled for after tomorrow's Diagnostic
+demo rather than before it.
+
+**Why the rehearsal happened at all.** `Offer.md` §1 calls the live dry-run
+against a prospect's own Figma file the strongest thing available in a first
+meeting. The first such meeting is tomorrow afternoon, against an existing
+product with a Figma file, so the path was walked end to end first. Posting a
+plugin-shaped `{values, descriptions}` payload straight at the sink exercises
+everything downstream of the plugin without needing a file: the sink binds both
+loopback families, writes both dumps, exits, and the dry-run then reads them and
+prints the audit. Against a deliberately skewed dump it named the missing
+collection, named both strays, and listed the six semantic tokens that vanish as
+a result, which is the finding Offer.md promises made concrete.
+
+**The finding.** The sync reads `tokens/.figma-dump.json` from a fixed path and
+never asks how old it is. There is no `statSync` on it, and the plugin sends
+nothing to compare against: no `fetchedAt`, no `Date.now`, no `toISOString`. The
+dump carries the file name and the variables and no notion of when. So a Sync
+pressed while the sink was not listening leaves the previous dump in place, and
+the next dry-run reports on it with a full green audit and no way for a reader to
+tell.
+
+**The part that matters commercially.** `check:figma` is the same script with
+`--check`, reading the same path. Against a stale dump the drift gate can report
+agreement while Figma has moved on, which is the one answer a drift gate must
+never give wrongly. That gate went into `Offer.md` on 2026-08-17 in both the
+Build and the Retainer, so its soundness is now a promise rather than a local
+convenience. CI does not run it: the workflow runs `npm test`, which is build,
+verify, verify:docs, test:unit and report:strict. It is human-invoked, which is
+where a silent stale read survives longest.
+
+**Blast radius, narrower than it looks.** Client pipelines are clones of the
+baseline taken at a moment in time, per the header of `scaffold-client.mjs`, and
+the package is `private: true` with `files: ["dist"]`, so the scripts never
+travel by npm. A guard added to the baseline reaches every future client pipeline
+and no existing one. KR and Synthesis are 86 lines adrift from the baseline and
+predate `--check`, and their `scripts/lib/` has no `token-diff.mjs`,
+`token-name.mjs` or `mode-parity-label.mjs`, so the baseline file cannot simply
+be copied across. IDEM has no such script at all.
+
+**What was deferred, and the reason.** Writing the guard the night before the
+demo would put an untested code path into the script being run in front of a
+prospect, in exchange for removing a trap that costs nothing to avoid: the sink
+prints `✓ wrote N bytes`, and that line is the operator-level proof the dump is
+the right one. The note also leaves the design question open on purpose, because
+"is this dump old" and "did the sink run I just did produce this" are two checks
+rather than one, and the precise version needs either a sink-written sidecar or a
+plugin change that every existing client would have to reinstall.
+
+**One correction to the record.** The 2026-08-18 entry above describes work that
+did not reach `main` that day. Its commit was pushed to
+`docs/baseline-pipeline-infographic` after PR #3 had already merged, so it sat
+stranded until it was cherry-picked onto a clean branch and landed as PR #4 on
+2026-08-19. The dated provenance paragraph on the sheet itself is unaffected.
+
+**Nothing was touched outside `notes/`.** No change to `site/`, `tokens/`, or the
+baseline repo; the rehearsal dumps are gitignored and were deleted afterwards,
+and both repos were left clean. `cd tokens && npm test` green, 9/9, verify-build
+clean.
+
+**Revisit if:** the guard gets built, at which point this entry is superseded by
+one recording which of the two checks was chosen and what level it fails at. Or
+if KR or Synthesis is next opened for other work, which is the cheap moment to
+decide whether the fix is worth porting into a repo it cannot simply be copied
+into.
+
+---
+
 
 **Decision:** [What was decided.]
 
