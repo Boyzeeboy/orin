@@ -3827,6 +3827,67 @@ copy is gitignored and was overwritten, turns out to matter after all.
 
 ---
 
+## 2026-08-19 — Motion is proposed as a seventh collection, and deliberately not built
+
+**Decision:** Filed `notes/motion-as-seventh-collection.md` as a proposal and
+scheduled nothing. The question came up directly — can the six-collection
+convention grow for a bigger design system — and the answer is yes, but not for
+the reason the question assumes.
+
+**Adding the collection is one line.** `Motion: { branch: 'motion' }` in
+`CONFIG.collections`. The collection audit, the key-parity assertion and the diff
+all need nothing, and a single-mode collection already emits into both outputs,
+which is what durations and easing curves want.
+
+**The type mapping is the real blocker, and it is a latent defect rather than a
+missing feature.** `toToken` in `figma-to-dtcg.mjs` handles three Figma resolved
+types and hardcodes two of them. FLOAT becomes `${n}px` typed `dimension`, so a
+duration of 120 emits `120px`. STRING becomes `fontFamily` unconditionally, so an
+easing curve written as `"0.2, 0, 0, 1"` emits typed as a font family. Nothing
+downstream objects, because key parity compares token names rather than meanings.
+That is the same class of silent wrong-type failure the mode-parity check exists
+to catch, sitting in a different place, and it constrains what any client's Figma
+file is allowed to contain today rather than only when motion arrives.
+
+**So the work is a typing rule, not a collection.** The shape is to make the
+FLOAT and STRING arms consult path-matched configuration the way
+`cfg.unitlessNumber` already does, with `fontFamily` kept as the STRING default so
+existing behaviour is unchanged. That is worth doing on its own merits: the
+convention claims that pointing the pipeline at an unseen file is a naming
+question rather than a code change, and a string type with one possible meaning
+quietly narrows that claim.
+
+**One Figma-side decision comes first.** Figma variables are COLOR, FLOAT, STRING
+or BOOLEAN, with no curve type, so an easing token is either one STRING parsed
+into the four-number array DTCG wants, or four FLOAT variables assembled on the
+way out. The first is better for whoever draws the file and worse for the
+transform. That trade wants a real motion set in front of it rather than a
+decision made in the abstract.
+
+**Why nothing was built.** Synthesis has no motion variables. Orin's own motion
+tokens, one easing curve and one duration in `tokens/src/motion.json`, live in a
+code-first repo that does not use this transform at all. Building a seventh
+collection for two values nobody has asked for is the wrong order, and the
+convention's own comment says an empty override block is the goal because every
+entry in it records a file that diverged from the standard.
+
+**What travels with it whenever it lands.** `templates/agent-rules.md` names the
+six collections in prose and `verify:docs` checks the generated `CLAUDE.md` and
+`AGENTS.md` against reality, so the template changes and the docs get
+regenerated. `notes/pipeline-setup-sheet.html` and
+`notes/baseline-pipeline-infographic.html` both list the convention. And, as with
+the stale-dump guard, existing clones receive none of it: KR and Synthesis were
+taken from the baseline at a moment in time.
+
+**Revisit if:** a prospect's file turns up with a motion collection, which the
+audit will report as unknown the first time the pipeline is pointed at it. That
+is the right trigger, because it means a real file is asking the convention to
+grow. Or if the STRING-to-`fontFamily` assumption breaks something before then,
+which would make the typing rule urgent on its own and leave the collection as a
+follow-on.
+
+---
+
 
 **Decision:** [What was decided.]
 
