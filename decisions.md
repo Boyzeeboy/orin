@@ -3937,6 +3937,45 @@ likely candidate, and it would promote the STRING mislabel from cosmetic to real
 
 ---
 
+## 2026-08-19 — The baseline infographic's sync step gains the dry-run
+
+**Decision:** Added `npm run sync:figma -- --dry-run` to step 2 of
+`notes/baseline-pipeline-infographic.html`, above the applying command, so the
+card reads sink, dry-run, apply.
+
+**The sheet disagreed with itself.** Step 2's prose already said "read the audit
+and the diff, then apply", but the only commands shown were `npm run sink` and
+`npm run sync:figma`. The command that produces an audit *without writing* was
+absent, so anyone following the card literally would apply immediately and skip
+the review the same card asked for. `PROCESS.md` has the canonical loop and the
+dry-run is explicitly in it, between pressing Sync and applying. The sheet was
+under-specified against the repo's own documented process, which is the same
+class of drift as the 8/8 lint count on the sibling sheet.
+
+**Framed as a review, not a check.** Warren's question asked whether it belonged
+there "since it checks output", and it does not check output. The dry-run prints
+provenance, the collection audit, the structural assertions and the diff, then
+writes nothing. It inspects nothing about whether the values are right — proven
+the same day, when a deliberately broken `colour/text/on-brand` passed the
+dry-run cleanly in the Synthesis pipeline and died only at the build. Implying
+otherwise on a client-facing sheet would undercut the diagram's strongest claim,
+that the gate is at step 5 and a green sync is not a green build. So the command
+was added and the prose left exactly as it was, because "read the audit and the
+diff, then apply" becomes accurate the moment the audit's command is visible.
+
+**Checked in the browser rather than assumed.** Three stacked commands still fit
+the card, no overflow, and step 2 still balances against step 1.
+
+**Scope.** A `notes/` artefact, so the v1 stopping rule in `CLAUDE.md` does not
+apply; that rule governs `site/`. This is a correctness pass of the same kind the
+2026-08-18 entry made on the sibling sheet. Nothing in `site/`, `tokens/` or the
+baseline repo was touched.
+
+**Revisit if:** the loop in `PROCESS.md` changes shape, which is what this card is
+meant to mirror.
+
+---
+
 
 **Decision:** [What was decided.]
 
