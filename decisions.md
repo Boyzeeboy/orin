@@ -4384,6 +4384,56 @@ that sentence true.
 
 ---
 
+## 2026-08-19 — Two Token Sync plugins are registered in Figma, and which one to use
+
+**Decision:** Recorded which plugin is which, because there are two, they sit one
+line apart in Plugins → Development, and their names differ by a suffix. Nothing
+was changed. This is a fact about the demo machine that is currently only in a
+screenshot and in Figma's local storage.
+
+**Both are registered and both have been run.** Figma's
+`recent-plugins-figma-design` entry in the desktop profile's local storage carries
+`orin-token-sync`, last run 2026-07-30, and `synthesis-token-sync`, last run
+2026-08-03. The Development menu shows them as:
+
+| Menu entry | Manifest id | Repo |
+|---|---|---|
+| **Token Sync** | `orin-token-sync` | `Orin Token Pipeline`, the baseline |
+| **Token Sync — Synthesis** | `synthesis-token-sync` | `Synthesis Token Pipeline` |
+
+**Use "Token Sync", the plain one,** for anything demonstrating the baseline,
+including a prospect's own file. That is the one already in use.
+
+**Both allow `http://localhost:9231`,** because Synthesis was scaffolded without
+changing the sink port from the baseline default. `scaffold-client` writes the
+port into the manifest and the plugin UI together and `npm run test:unit` fails if
+they drift, so this is a configuration choice rather than a bug — but it does mean
+the two plugins are interchangeable in practice, and picking the wrong one is
+invisible.
+
+**Which is what happened tonight, harmlessly.** All three Synthesis syncs ran
+through the **baseline's** plugin: the panel title in the screenshots reads "Token
+Sync", not "Token Sync — Synthesis". It worked because the plugin reads whichever
+file is open and POSTs to whatever port is in its field, and provenance verified
+the file name on each run and printed `ok`.
+
+**That is an accidental demonstration of why `provenance.mjs` exists.** Its header
+says the plugin is not addressed per client, that the sink writes to whichever
+repo it runs in, and that the file name is the only thing that can tell two
+clients apart. Tonight the wrong plugin was used against the right file with the
+right sink, and the only reason that was safe is the check written for exactly
+this. Worth saying out loud on a call: the guard is not theoretical, it caught
+nothing tonight because it had nothing to catch, and it is the reason nothing
+needed catching.
+
+**Revisit if:** a second client pipeline is ever checked out alongside Synthesis.
+The baseline comment recommends a different sink port per client precisely so two
+sinks cannot both be listening on 9231, and at that point the shared port stops
+being a harmless duplication.
+
+---
+
+
 
 
 
