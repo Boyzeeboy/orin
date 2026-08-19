@@ -393,8 +393,15 @@
       </p>
       <p>
         So the system doesn't rely on everyone being disciplined. The automated checks
-        <b>catch it when they aren't</b> — a value typed directly into the code fails the
-        build and never reaches your customers. Good intentions are optional. That's the point.
+        <b>catch what can be caught mechanically</b> — a token that doesn't exist, a dark
+        theme quietly carrying its light values, a published file that no longer matches
+        the source. Any of those stops the build before your customers see it.
+      </p>
+      <p>
+        The one thing a machine can't settle is whether a colour typed in by hand should
+        have been a token: a hex often matches several by coincidence, and swapping one in
+        blind would be worse than the literal. So those are listed in the report rather
+        than blocked — visible and cheap to review, instead of invisible.
       </p>
     </div>
   </section>
