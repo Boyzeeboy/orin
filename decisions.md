@@ -3976,6 +3976,42 @@ meant to mirror.
 
 ---
 
+## 2026-08-19 — Step 1 of the baseline infographic says what the six names are
+
+**Decision:** Gave the collection list on the Author card a lead-in and a label.
+The prose now ends "The file follows the convention the pipeline expects:", and
+the list carries a muted `collections:` above it, matching the `modes: Light,
+Dark` line already sitting below.
+
+**The card contained the evidence that it was wrong.** Two lists sat under the
+prose. The modes line was labelled and the collections line was not, so a reader
+who already knew the convention supplied the missing noun silently while a
+prospect seeing it cold got six capitalised words with nothing attaching them to
+anything. Warren spotted it; the inconsistency between the two sibling lines is
+what settles it.
+
+**It was also a missed argument rather than only a gap.** That the six names are
+a *convention* is the most commercially useful fact on the sheet, because
+matching by name is why the pipeline can be pointed at a file it has never seen
+without a code change. Step 2 already carries a `Matched by name` pill, which
+until now asserted something whose subject the sheet had never introduced. The
+lead-in sets it up two cards earlier.
+
+**Kept to the card's existing idiom.** `collections:` takes the same
+`--neutral-500` as `modes:` and sits on its own line rather than inline, because
+the list runs to three lines and an inline label would have unbalanced it.
+Checked in the browser: both cards still match in height and nothing overflows.
+
+**Scope.** A `notes/` artefact, so the v1 stopping rule does not apply. Second
+correctness pass on this sheet today, after the dry-run command was added to step
+2. Nothing in `site/`, `tokens/` or the baseline repo touched.
+
+**Revisit if:** the convention grows, which `notes/motion-as-seventh-collection.md`
+proposes and does not schedule. A seventh name would change this list and the
+prose would stay as written.
+
+---
+
 
 **Decision:** [What was decided.]
 
