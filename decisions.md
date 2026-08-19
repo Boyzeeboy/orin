@@ -4172,6 +4172,53 @@ too cautious and would collapse this whole distinction.
 
 ---
 
+## 2026-08-19 — The setup sheet's standfirst carried the claim its own section 5 denies
+
+**Decision:** Corrected the standfirst of `notes/pipeline-setup-sheet.html`. It
+said the pipeline "makes the other two machine-detectable, so a hardcoded value
+fails the build instead of reaching `main`." It now says the other two are made
+machine-detectable, "so what used to be invisible now either fails the build or
+turns up in the report before anything reaches `main`."
+
+**This sheet was corrected for exactly this error yesterday, and the correction
+missed it.** The 2026-08-18 entry retagged the check row from FAILS to LOOK and
+stated that "nothing else on the sheet was touched," having checked the tree, the
+lock levels, the loop, the proposal rule, the ownership card and the paste band.
+The standfirst was not on that list. So the sheet has spent a day asserting in its
+first sentence the thing its section 5 tags as non-gating, which is a
+self-contradiction rather than only an inaccuracy.
+
+**Worth naming why that happened.** Yesterday's pass was scoped to the artefact
+that raised the question, the check table, and the sweep instinct did not extend
+to prose elsewhere on the same page. Today's sweep repeated the shape at a larger
+scale: it covered `client-site-setup-sheet.html` and both Foundation sheets and
+did not revisit this one, on the assumption that yesterday had settled it. Warren
+asked for it to be checked anyway. Both misses were the same move, trusting a
+prior correction's scope rather than re-reading.
+
+**What the new wording buys.** "Machine-detectable" was already true and is kept.
+"Either fails the build or turns up in the report" is the honest disjunction, and
+it maps exactly onto the GATE and LOOK tags twelve lines further down, so the lede
+now introduces the taxonomy the sheet goes on to use. It is also more accurate
+about the agent case this sheet is written for: an invented token name fails the
+consumer contract, and a primitive reached past fails semantic-only. Only a raw
+literal is merely reported.
+
+**Fourth artefact carrying the claim, and the most prominent placement of the
+four.** The other three were mid-document; this was the first sentence a reader
+sees. The running tally is now `founder-explainer-sheet.html`,
+`client-site-handover-sheet.html` in both directions, this standfirst, and the
+check tag fixed yesterday. All four were the baseline's exception being described
+in language that is true of Orin's own site and of the Foundation.
+
+**Verified in the DOM:** the standfirst reads as intended, the colour audit row
+still carries LOOK, and nothing overflows.
+
+**Revisit if:** the baseline's colour audit is ever made to gate, which would make
+this disjunction unnecessary and collapse it back to the original sentence.
+
+---
+
 
 **Decision:** [What was decided.]
 
