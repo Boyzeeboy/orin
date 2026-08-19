@@ -4489,6 +4489,79 @@ wants hardening before the sheet wants expanding, and the sheet says so.
 
 ---
 
+## 2026-08-19 — The scaffold runbook is corrected by walking it
+
+**Decision:** Rewrote the steps on `notes/pipeline-scaffold-sheet.html` from five
+to six and added two failure modes, after following the sheet end to end against a
+real clone. Four of the original five steps were wrong, incomplete, or in the
+wrong order. The sheet was written this evening from `scaffold-client.mjs`,
+`PROCESS.md` and the Synthesis commit, and it took one walk to find what reading
+could not.
+
+**The walk.** A fresh clone of the baseline at `d08b241` into
+`Projects/on-key`, scaffolded as Onkey with prefix `onkey` and sink port 9232,
+pointed at a duplicate of the Synthesis Figma file standing in until the real
+Onkey file arrives. Warren ran every command; nothing below is inferred.
+
+**What the sheet got right, and it is worth saying.** A fresh clone really does
+ship as `projectName: "Unconfigured"` with prefix `tok`. `--dry-run` really writes
+nothing. `tokens/*.json` really is left alone, which is the claim the whole
+day-one sequence rests on. The eight files, the config values, the plugin rename,
+the port guard and the exact-match provenance all behaved as documented.
+
+**Four corrections:**
+
+**1. It never said to install the plugin.** The scaffold creates a *new* Figma
+plugin — new name, new id, new port — that Figma has never seen. The old step 5
+said "Sync in the plugin" as though it were there. This is now step 4, with the
+manifest path and the import route. It is the omission that would have cost the
+most: sink listening, nothing to press, in front of a prospect.
+
+**2. The commit was one step too early.** The old step 3 said "commit, before
+Figma is involved." But the scaffold *clears* `dist/`, so that commit holds an
+empty `dist/` that a fresh build does not reproduce — the exact thing
+`PROCESS.md`'s "source and built outputs go in the same commit" rule exists to
+prevent. Build and commit are now one step, in that order.
+
+**3. It said "commit" without saying where.** Branching is now in the step.
+
+**4. It ended at a red build without saying so.** `scaffold-client` writes
+`expectedIdentical: {}`, so any real system containing a legitimately identical
+colour fails mode-parity on the first build. On the Onkey walk it did, naming
+`--onkey-components-button-primary-border = rgba(0, 0, 0, 0) in BOTH modes`, which
+was predicted from the diff before the command was run. That is the check working
+perfectly on a four-minute-old pipeline, and a runbook that walks you into it and
+stops is incomplete. New step 6, "Settle the red": judge each one, declare it with
+a reason.
+
+**Two failure modes added.** npm re-prints the command without quotes, so
+`--figma-name "Acme DS"` echoes as `--figma-name Acme DS`; the shell quoting
+worked but copying the echo would not, and it would scaffold happily and surface
+much later as a provenance refusal. And the first sync diff is four figures by
+nature — 1145 changes on this run — because it compares the seed fixture against a
+real system. Neither is a defect; both look like one.
+
+**Minor, folded in.** The dry-run reports nine changes and the applied run eight,
+the docs regeneration being listed only in the dry branch. `package-lock.json`
+moves because the package name does.
+
+**Six steps now read as two rows of three** rather than five across, which the
+grid handles by column count alone.
+
+**The pattern from earlier today, demonstrated rather than argued.** This morning's
+entry concluded that sheets written from worked examples are the accurate ones and
+sheets written from understanding are not. This sheet was written from source
+files and a commit — closer to the code than most, and still wrong in four places
+until somebody typed the commands. Reading a script tells you what it does.
+Running it tells you what happens.
+
+**Revisit if:** the next scaffold is done against a client's own Figma file rather
+than a duplicate. The Onkey walk used a copy of a conforming file, so the
+collection audit came back 6/6 and the interesting half of step 5 went untested.
+
+---
+
+
 
 
 
