@@ -4267,6 +4267,71 @@ them.
 
 ---
 
+## 2026-08-19 — The client site setup sheet checks out, and sharpens the pattern
+
+**Decision:** No change to `notes/client-site-setup-sheet.html`. Read in full
+rather than grepped, because the previous two entries record what trusting a
+narrower earlier pass costs. Logged for the refinement it forces on the entry
+above, which had the pattern half right.
+
+**Its enforcement claim is true, and was proven by running it.** The sheet says
+the semantic-only check "fails the build when the consuming site references a
+`--{prefix}-primitives-*` token." A throwaway consuming site was built with one
+line of `var(--tok-primitives-accent-500)` and the baseline's `SITE_DIR` pointed
+at it:
+
+```
+8/10 checks passing:
+  ✗ Semantic-only consumption: 1 primitive token(s) used directly by the site
+strict exit: 1
+```
+
+The failure names its own fix, `--tok-primitives-accent-500 (index.html) → use
+--tok-colour-action-primary`, and points at `report.allowedPrimitives` for genuine
+exceptions "with a reason each" — the same declare-it-with-a-reason shape as
+`modeParity.expectedIdentical`. The baseline repo was untouched and the temporary
+directory deleted.
+
+**That run incidentally proved the sheet's other claim.** It says the contract
+"silently skips" and that "the strongest check only really runs from this side."
+Ten checks ran with a site present, against the five that ran on Synthesis tonight
+where `siteDir` is null. The sheet is describing something real, not a caution.
+
+**And it is the one sheet that got hardcoded colours right from the start.** Under
+its known failure modes: "Colours with no token — expect a handful in any real
+site. KR had six, incl. a navy spanning contact, thank-you and the email
+templates. **Log them; they're a palette decision, not engineering.**" Log them.
+Not "they fail the build". That is the exact framing the other four sheets got
+wrong.
+
+**Which corrects the entry above.** That one said the sheets drawn from the code
+were right and the sheets written from understanding were wrong. This sheet is not
+drawn from the code. Its own standfirst says it is "modelled on the KR site — the
+worked example — with the seams it closed in July already accounted for." So there
+are three categories, not two, and the third is the strongest:
+
+- **Transcribed from code.** Right, because the transcription carries the
+  exception. The baseline infographic.
+- **Written from what actually happened.** Right, and more specifically right. This
+  sheet knows KR had six untokenised colours because somebody counted them, and
+  knows the vendor file gets hand-edited because it happened twice.
+- **Written from understanding of the practice.** Wrong, four times. A correct
+  general model of how this works, in which the sentence is true of Orin's site,
+  true of the Foundation, and false only of the baseline.
+
+**The useful form of that.** A sheet written from scars does not over-promise,
+because the scars are the places the promise already failed. That is a better
+defence than any process, and it is not something that can be adopted on demand;
+it is a reason to prefer worked examples over explanations when writing the next
+one.
+
+**Revisit if:** a sheet is ever written for an engagement shape with no worked
+example behind it. The Foundation was in that position until the shadcn adapter
+existed, and its runbook is accurate because the guardrail was built first.
+
+---
+
+
 
 
 **Decision:** [What was decided.]
