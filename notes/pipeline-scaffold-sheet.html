@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>New client pipeline — scaffold sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Orin's real tokens, transcribed from tokens/src/*.json.
+     Standalone artefact — not part of site/, not covered by npm test.
+     INTERNAL RUNBOOK. Not a client handout, not a sales artefact.
+     Sibling to client-site-setup-sheet.html, which picks up where
+     this one stops. Same stylesheet, deliberately.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-inverse:var(--neutral-50);  --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0); --bg-sunken:var(--neutral-50);
+    --bg-inverse:var(--neutral-900);  --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default);color:var(--text-default);
+    font-family:var(--family-base);font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* header */
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  .kicker{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    background:var(--neutral-900);color:var(--neutral-0);
+    font-family:var(--family-mono);font-size:10.5px;font-weight:500;
+    letter-spacing:.13em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);
+  }
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:44px;
+    letter-spacing:-.025em;line-height:1.1;margin:var(--space-4) 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16px;color:var(--text-muted);line-height:1.55;max-width:52ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+
+  .aside{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:262px;
+  }
+  .aside-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:11.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .aside p{font-size:13px;color:var(--text-muted);line-height:1.6}
+  .aside p + p{margin-top:var(--space-3)}
+  .aside b{color:var(--text-default);font-weight:600}
+
+  /* band */
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3);align-items:stretch}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);width:100%;
+    display:flex;flex-direction:column;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step p{font-size:12.5px;color:var(--text-muted);line-height:1.5;margin-bottom:var(--space-3)}
+  .cmd{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);
+  }
+  .cmd code,.step code{
+    font-family:var(--family-mono);font-size:10.5px;color:var(--neutral-800);
+    line-height:1.7;word-break:break-all;display:block;
+  }
+  .step .dimcode code{color:var(--neutral-500)}
+  /* Inline code inside a step's prose must stay inline — the rule above sets
+     `display:block` for command blocks, which would otherwise break sentences
+     onto their own lines. Local to this sheet; the sibling has no inline code
+     inside a step. */
+  .step p code{display:inline;font-size:11.5px;word-break:normal;color:var(--neutral-800)}
+  .pill{
+    margin-top:auto;background:var(--bg-accent);color:var(--text-on-accent);
+    font-size:11px;font-weight:500;border-radius:999px;text-align:center;
+    padding:var(--space-2) var(--space-3);
+  }
+  .pill.warn{background:var(--neutral-900)}
+  .arrow{position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);color:var(--neutral-300);z-index:2}
+
+  /* two-up */
+  .twoup{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-6);
+  }
+  .panel-title small{font-weight:400;letter-spacing:.04em;color:var(--neutral-500);text-transform:none;font-size:11.5px}
+  .tree{font-family:var(--family-mono);font-size:12px;line-height:1.95;white-space:pre;color:var(--neutral-800)}
+  .tree .gen{color:var(--teal-600)}
+  .tree .dim{color:var(--neutral-500)}
+
+  .locks{display:flex;flex-direction:column;gap:var(--space-4)}
+  .lock{display:grid;grid-template-columns:18px 132px 1fr;gap:var(--space-3);align-items:baseline}
+  .lock .k{font-size:13px;font-weight:500}
+  .lock .v{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-700);word-break:break-all}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--neutral-0);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12px;color:var(--text-muted);line-height:1.55}
+  .note code{font-family:var(--family-mono);font-size:11.5px}
+
+  /* failure modes */
+  .traps{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+  .trap{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-left:3px solid var(--teal-500);border-radius:var(--radius-sm);
+    padding:var(--space-4) var(--space-6);
+  }
+  .trap b{display:block;font-size:13.5px;font-weight:600;margin-bottom:var(--space-2)}
+  .trap p{font-size:12.5px;color:var(--text-muted);line-height:1.55}
+  .trap code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+
+  /* release */
+  .semver{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:var(--space-4)}
+  .sv{background:var(--neutral-0);border:1px solid var(--border-divider);border-radius:var(--radius-sm);padding:var(--space-4)}
+  .sv b{display:block;font-family:var(--family-mono);font-size:11px;letter-spacing:.08em;color:var(--teal-600);margin-bottom:var(--space-2)}
+  .sv p{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);
+    padding:var(--space-8);display:flex;gap:var(--space-6);align-items:flex-start;margin-top:var(--space-6);
+  }
+  .closing h3{font-family:var(--family-display);font-size:19px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6}
+  .closing p + p{margin-top:var(--space-3)}
+  .closing .ico{flex:none;color:var(--teal-300)}
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .steps{grid-template-columns:1fr 1fr}
+    .twoup,.traps,.semver,.masthead{grid-template-columns:1fr}
+    .arrow{display:none}
+    h1{font-size:33px}
+    .aside{width:auto}
+  }
+
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <div>
+      <span class="kicker">Internal runbook · pipeline repo</span>
+      <h1>Standing up a new client's <em>token pipeline</em></h1>
+      <p class="standfirst">
+        The producer side of a Build — everything that has to exist before
+        <code>client-site-setup-sheet</code> can begin. Modelled on the Synthesis
+        scaffold, which is the worked example: <code>686524f</code> is a complete
+        record of what one changes.
+      </p>
+      <div class="rule"></div>
+    </div>
+    <div class="aside">
+      <div class="aside-head">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v5c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V7z"/></svg>
+        The rule
+      </div>
+      <p><b>One clone per client, scaffolded once.</b> A fresh clone of the
+      baseline, not a fork and not a branch.</p>
+      <p>Scaffolding is a day-one act. Re-running it on a live pipeline resets
+      the snapshot and the changelog, which is how a client's token history
+      disappears.</p>
+    </div>
+  </div>
+
+  <section class="band">
+    <div class="band-title"><span>Day one · five steps</span></div>
+    <div class="steps">
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Clone</span></div>
+          <p>A fresh clone of the baseline. It ships as <code>projectName: "Unconfigured"</code> with prefix <code>tok</code>.</p>
+          <div class="cmd"><code>git clone &lt;baseline&gt; {client}-token-pipeline</code></div>
+          <div class="pill">Fresh clone</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Rehearse</span></div>
+          <p>Same command with <code>--dry-run</code>. It prints every change and writes nothing.</p>
+          <div class="cmd"><code>npm run scaffold-client -- \<br>&nbsp;&nbsp;--name "Acme" --prefix acme \<br>&nbsp;&nbsp;--figma-name "Acme DS" \<br>&nbsp;&nbsp;--figma-key AbC123 --dry-run</code></div>
+          <div class="pill">Nothing written</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Scaffold</span></div>
+          <p>Drop the flag. Rewrites the config, the identity, the plugin, and regenerates the docs.</p>
+          <div class="cmd"><code>npm run scaffold-client -- …</code></div>
+          <div class="dimcode"><code>then commit, before Figma is involved</code></div>
+          <div class="pill">One command</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Prove</span></div>
+          <p>Green on the seed fixture <em>before</em> their Figma file is in the picture. Isolates scaffold errors from file errors.</p>
+          <div class="cmd"><code>npm install &amp;&amp; npm test</code></div>
+          <div class="pill">Green on the seed</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">5</span><span class="step-label">First sync</span></div>
+          <p>Sink first, then Sync in the plugin. Read the collection audit before applying anything.</p>
+          <div class="cmd"><code>npm run sink</code></div>
+          <div class="cmd"><code>npm run sync:figma -- --dry-run</code></div>
+          <div class="pill warn">Read the audit</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="twoup">
+
+      <div class="panel">
+        <div class="panel-title">What scaffold-client rewrites <small>five steps in its header, eight files on disk</small></div>
+        <div class="tree">pipeline.config.mjs   <span class="gen">← the client's values</span>
+package.json          <span class="gen">← name, version 0.1.0</span>
+dist/{light,dark}/    <span class="dim">cleared</span>
+tokens/snapshot.json  <span class="dim">reset to {}</span>
+tokens/changelog.json <span class="dim">reset to []</span>
+plugin/manifest.json  <span class="gen">← name, id, sink port</span>
+plugin/ui.html        <span class="gen">← default port</span>
+CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
+        <div class="note">
+          <div>
+            <b>It does not touch <code>tokens/*.json</code></b>
+            <p>The seed fixture stays until the first Figma sync overwrites it, so
+            the repo builds green immediately. That is what step 4 is proving.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">The flags <small>four required, the rest optional</small></div>
+        <div class="locks">
+          <div class="lock"><span class="ico">▲</span><span class="k">--name</span><span class="v">"Acme" — display name, and the plugin's suffix</span></div>
+          <div class="lock"><span class="ico">▲</span><span class="k">--prefix</span><span class="v">acme → --acme-colour-…</span></div>
+          <div class="lock"><span class="ico">▲</span><span class="k">--figma-name</span><span class="v">exact file name. Provenance matches on it</span></div>
+          <div class="lock"><span class="ico">▲</span><span class="k">--figma-key</span><span class="v">from the file URL. Recorded, never resolved</span></div>
+          <div class="lock"><span class="ico">△</span><span class="k">--sink-port</span><span class="v">default 9231. Must be 9224–9232</span></div>
+          <div class="lock"><span class="ico">△</span><span class="k">--site</span><span class="v">path to their app, or the site checks skip</span></div>
+          <div class="lock"><span class="ico">△</span><span class="k">--scope</span><span class="v">@acme → @acme/tokens, else acme-tokens</span></div>
+        </div>
+        <div class="note">
+          <div>
+            <b>A missing required flag exits 1 before anything is written</b>
+            <p><code>--help</code> prints the usage block. <code>--author</code> and
+            <code>--repo</code> set package.json identity and are worth passing if
+            the repo already exists.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-title"><span>Known failure modes · learned the hard way</span></div>
+    <div class="traps">
+
+      <div class="trap">
+        <b>Scaffolding twice</b>
+        <p>It resets <code>snapshot.json</code> and <code>changelog.json</code>
+        unconditionally. On a live pipeline that erases the client's token history
+        while leaving the tokens themselves in place, so nothing looks wrong.
+        Scaffold once, on day one, and never again.</p>
+      </div>
+
+      <div class="trap">
+        <b>The scaffold sits uncommitted</b>
+        <p>Synthesis was scaffolded and first-synced on 3–4 August and committed on
+        the 19th. For a fortnight the only record of it was a dirty working tree,
+        and a <code>sync:figma</code> without <code>--dry-run</code> would have
+        overwritten it with nothing to return to. Commit the scaffold before the
+        first sync, then the sync separately.</p>
+      </div>
+
+      <div class="trap">
+        <b>A port outside 9224–9232</b>
+        <p>The script refuses it, correctly: the plugin manifest's
+        <code>devAllowedDomains</code> covers only that range, so a port outside it
+        would import fine and fail at request time, which is a worse way to find
+        out.</p>
+      </div>
+
+      <div class="trap">
+        <b>Two clients on the same port</b>
+        <p>The default is 9231 for everyone. Give each client a different one, or
+        two sinks can both be listening and a payload lands in the wrong repo. The
+        provenance check catches it — but a caught error is still an error, and the
+        port is the cheaper fix.</p>
+      </div>
+
+      <div class="trap">
+        <b>The Figma file name is not exact</b>
+        <p>Provenance compares strings with no trimming and no case folding. You
+        only reliably know the name after fetching once, so the honest order is
+        scaffold with your best guess, fetch, then correct
+        <code>figmaFileName</code> from what the dump reports.</p>
+      </div>
+
+      <div class="trap">
+        <b>Their Figma does not follow the convention</b>
+        <p>The step-5 audit will say so, by name. Fix it by <em>renaming in
+        Figma</em> wherever possible. An override in the <code>figma</code> block is
+        the fallback and a standing record that their file diverges, so it should
+        feel slightly worse than renaming.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-title"><span>Cutting the first release</span></div>
+    <div class="panel">
+      <p style="font-size:13.5px;color:var(--text-muted);line-height:1.6;max-width:74ch">
+        Nothing reaches their app until a tag exists and they pin to it. Semver here
+        is written for tokens, not for code.
+      </p>
+      <div class="semver">
+        <div class="sv"><b>MAJOR</b><p>A token renamed or removed, or a shipped value changed shape. An existing <code>var()</code> stops resolving.</p></div>
+        <div class="sv"><b>MINOR</b><p>Tokens added, or a new mode. Existing names keep their meaning.</p></div>
+        <div class="sv"><b>PATCH</b><p>A value changed within its existing name and type. A brand colour moving two shades is a PATCH, however loud it looks.</p></div>
+      </div>
+      <div class="note">
+        <div>
+          <b>Bump <code>package.json</code> before cutting the tag</b>
+          <p>Tag annotated, with the reasoning in the message. <code>npm run tag</code>
+          does it. Never move a published tag: consumers cache them, so a moved tag
+          means two people have different code under one name. Bump their pin
+          separately, and only when you mean to.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <span class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2v20M2 12h20" stroke-linecap="round"/></svg></span>
+    <div>
+      <h3>The scaffold is deliberately unpolished</h3>
+      <p>Its own header says so: nobody operates this pipeline without me in the
+      room, so it does not need to survive a stranger holding it wrong. That is a
+      scope decision, not an oversight — and it is why this sheet exists rather
+      than a friendlier script.</p>
+      <p>When that stops being true, the script needs hardening before this sheet
+      needs expanding.</p>
+    </div>
+  </div>
+
+  <footer>
+    <b>Internal.</b> Not a client handout. Placeholders (<code>{client}</code>,
+    <code>{prefix}</code>, <code>{org}</code>) are filled by
+    <code>scaffold-client.mjs</code> from <code>pipeline.config.mjs</code>. Picks up
+    where this stops: <code>client-site-setup-sheet.html</code>, the consumer side.
+    Worked example: the Synthesis scaffold, <code>686524f</code>.
+  </footer>
+
+</div>
+</body>
+</html>

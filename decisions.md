@@ -4433,6 +4433,63 @@ being a harmless duplication.
 
 ---
 
+## 2026-08-19 — The pipeline scaffold gets its own sheet
+
+**Decision:** Added `notes/pipeline-scaffold-sheet.html`, an internal runbook for
+standing up a new client's pipeline repo. It is the producer-side sibling of
+`notes/client-site-setup-sheet.html` and stops exactly where that one starts.
+
+**The gap was named in three sheets and filled by none.** `client-site-setup-sheet`
+opens "assumes the pipeline repo is already scaffolded and tagged";
+`pipeline-setup-sheet` says "assumes the pipeline is scaffolded" above its paste
+block; the handover sheet refers to the prefix being "set when the pipeline was
+scaffolded". The baseline infographic carries one card stating that
+`npm run scaffold-client` exists, which is an argument for the one-file-per-client
+design rather than a runbook. So the consumer side of day one was documented and
+the producer side was not.
+
+**Written from the worked example, per the pattern logged earlier today.**
+Synthesis was scaffolded on 3 August and committed tonight as `686524f`, so a
+complete record of what a scaffold changes existed to write from. Everything on
+the sheet was read out of `scripts/scaffold-client.mjs`, `PROCESS.md` and that
+commit rather than remembered: the four required flags, the 9224–9232 port guard
+and why it exists, the eight files touched, the fact that `tokens/*.json` is
+deliberately left alone so the repo builds green on the seed fixture, and the
+release rules.
+
+**Five steps, and the second one is `--dry-run`.** Clone, rehearse, scaffold,
+prove, first sync. Putting the rehearsal in its own step matches how the sync is
+taught elsewhere and reflects that the script prints every change and writes
+nothing under the flag.
+
+**Six failure modes, two of them learned tonight.** Scaffolding twice, which
+resets the snapshot and changelog unconditionally and so erases a client's token
+history while leaving the tokens in place. And the scaffold sitting uncommitted,
+which is exactly what Synthesis did for a fortnight: a `sync:figma` without
+`--dry-run` would have overwritten it with nothing to return to. The other four
+are the port range, two clients sharing 9231, the exact-match file name, and a
+Figma file that does not follow the convention.
+
+**Two corrections during the build, both caught by looking rather than assuming.**
+The sibling stylesheet sets `display:block` on `code` inside a step, which broke
+inline code in prose onto its own lines; a scoped `.step p code` rule was added
+with a comment saying why. And the panel subtitle read "five things, nothing else"
+above eight visible files, which reconciles the script header's five numbered
+steps against the files on disk only if it says so — it now reads "five steps in
+its header, eight files on disk".
+
+**Same stylesheet as its sibling, deliberately,** so the pair reads as a matched
+set. Standalone artefact, outside `npm test`, with the same transcribed-tokens
+header the other sheets carry.
+
+**Revisit if:** `scaffold-client.mjs` stops being deliberately unpolished. Its
+header says nobody operates the pipeline without Warren in the room, which is the
+scope decision this sheet exists to compensate for. If that changes, the script
+wants hardening before the sheet wants expanding, and the sheet says so.
+
+---
+
+
 
 
 
