@@ -86,7 +86,7 @@
   .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
 
   /* ---------- pipeline ---------- */
-  .pipeline{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3);align-items:stretch}
+  .pipeline{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);align-items:stretch}
   .stepwrap{position:relative;display:flex}
   .step{
     background:var(--bg-raised);border:1px solid var(--border-divider);
@@ -337,24 +337,22 @@
           <code style="color:var(--neutral-500)">dist/{light,dark}/<br>variables.css<br>tokens.js<br>tokens.flat.json</code>
           <div class="pill" style="margin-top:var(--space-4)">Style Dictionary v4</div>
         </div>
-        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
-      </div>
+              </div>
 
       <!-- 4 -->
       <div class="stepwrap">
         <div class="step">
-          <div class="step-head"><span class="dot">4</span><span class="step-label">Consume</span></div>
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Gate</span></div>
           <div class="glyph">
             <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--neutral-800)" stroke-width="1.8">
-              <rect x="10" y="12" width="44" height="40" rx="3"/><path d="M10 22h44"/>
-              <circle cx="16" cy="17" r="1.4" fill="var(--neutral-800)" stroke="none"/><circle cx="21" cy="17" r="1.4" fill="var(--neutral-800)" stroke="none"/>
-              <path d="M25 30l-6 6 6 6M39 30l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M32 8l20 9v14c0 12-8.5 21.5-20 25-11.5-3.5-20-13-20-25V17z"/>
+              <path d="M23 32l7 7 13-14" stroke="var(--teal-500)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <p>The product reads its vendored token file. Semantic layer only, pinned by tag.</p>
-          <code>vendor/tokens.css</code>
-          <code style="color:var(--neutral-500);margin-top:var(--space-2)">var(--acme-colour-…)</code>
-          <div class="pill" style="margin-top:var(--space-4)">Semantic only</div>
+          <p>Build, verify the outputs, verify the docs, unit tests, then the report in strict mode.</p>
+          <div class="cmd"><code>npm test</code></div>
+          <code style="color:var(--neutral-500)">CI runs it on every<br>PR to main</code>
+          <div class="pill" style="margin-top:var(--space-4)">Red check, no ship</div>
         </div>
         <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
       </div>
@@ -362,17 +360,35 @@
       <!-- 5 -->
       <div class="stepwrap">
         <div class="step">
-          <div class="step-head"><span class="dot">5</span><span class="step-label">Gate</span></div>
+          <div class="step-head"><span class="dot">5</span><span class="step-label">Release</span></div>
           <div class="glyph">
-            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--teal-500)" stroke-width="1.8">
-              <path d="M32 8l20 7v17c0 13-8.5 21-20 24-11.5-3-20-11-20-24V15z" stroke-linejoin="round"/>
-              <path d="M23 32l6.5 6.5L42 26" stroke-linecap="round" stroke-linejoin="round"/>
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--neutral-800)" stroke-width="1.8">
+              <path d="M33 10H16a6 6 0 0 0-6 6v17a6 6 0 0 0 1.8 4.3l19 19a6 6 0 0 0 8.5 0l14.4-14.4a6 6 0 0 0 0-8.5l-19-19A6 6 0 0 0 33 10z" stroke-linejoin="round"/>
+              <circle cx="23" cy="23" r="4" fill="var(--teal-500)" stroke="none"/>
             </svg>
           </div>
-          <p>Build, verify the outputs, verify the docs, unit tests, then the report in strict mode.</p>
-          <div class="cmd"><code>npm test</code></div>
-          <code style="color:var(--neutral-500)">CI runs it on every<br>PR to main</code>
-          <div class="pill" style="margin-top:var(--space-4)">Red check, no ship</div>
+          <p>Bump the version, then tag it. Semver is written for tokens, not for code.</p>
+          <div class="cmd"><code>npm run tag</code></div>
+          <code style="color:var(--neutral-500)">MAJOR renamed · MINOR added<br>PATCH revalued</code>
+          <div class="pill" style="margin-top:var(--space-4)">Nothing ships until this</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <!-- 6 -->
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">6</span><span class="step-label">Consume</span></div>
+          <div class="glyph">
+            <svg width="56" height="56" viewBox="0 0 64 64" fill="none" stroke="var(--neutral-800)" stroke-width="1.8">
+              <rect x="8" y="12" width="48" height="40" rx="3"/><path d="M8 22h48"/>
+              <path d="M24 34l-5 5 5 5M40 34l5 5-5 5" stroke="var(--teal-500)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <p>Their app bumps the pin, pulls the tag, and reads its vendored token file. Semantic layer only.</p>
+          <code>vendor/tokens.css</code>
+          <code style="color:var(--neutral-500);margin-top:var(--space-2)">var(--acme-colour-…)</code>
+          <div class="pill" style="margin-top:var(--space-4)">Their call, their timing</div>
         </div>
       </div>
 
