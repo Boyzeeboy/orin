@@ -4620,6 +4620,153 @@ separating build from gate.
 
 ---
 
+## 2026-08-20 — Onkey's integration runs through an MUI theme contract, and the Diagnostic comes first
+
+**Decision:** Wrote `notes/onkey-meeting-2026-08-20.md` after the first Onkey
+call: a summary, a sequenced integration plan, and the open questions. Two
+things settled in it. The pipeline's export target at Onkey is an **MUI theme
+contract** rather than a free-form `--onkey-*` sheet. And the month-to-month
+tactical arrangement I described in the room gets renamed on paper to the
+Diagnostic, because the stock take they asked for is the Diagnostic.
+
+**Reasoning:** Harald, their UI architect, pushed back twice and both pushes
+were fair. Their variables rarely change, and MUI owns the naming layer with
+an upgrade-maintenance cost attached to going off-piste. That is the shadcn
+adapter problem again, so it takes the shadcn adapter answer: the vendor's
+names are a fixed export target we fill in, the app namespace is the only
+place they invent vocabulary, and the guardrail is the product rather than
+the build.
+
+What the meeting surfaced underneath the token conversation is that Onkey has
+no versioned visual artefact. Development commits to a component, the master
+Figma file moves under them, and QA opens it later to find something else.
+That reframes the sale: the token build makes a release trustworthy, and the
+tag plus a per-tag Storybook is the thing their Aha! feature and TFS work item
+can point at.
+
+On the commercial order: I pitched the Retainer before the Diagnostic in the
+room, which inverts `Offer.md`. Correcting that on paper costs nothing now and
+keeps the arc intact, since the stock take Stefan asked for is exactly the
+Diagnostic's scope.
+
+**Deferred:** the MUI adapter itself. No code written, and none should be until
+Step 0 has run against their master file. Seven open questions in the note gate
+the scope, and the cheapest of them (do they have Figma Enterprise, which would
+drop the plugin and the sink entirely) is a two-minute ask.
+
+**Revisit if:** they turn out to have Figma Enterprise, or their MUI version
+predates CSS-variables mode. Either one changes the shape of the proposal.
+
+---
+
+## 2026-08-20 — Onkey is an adapter build, and the two areas split Build from Retainer
+
+**Decision:** Added sections 8 and 9 to `notes/onkey-meeting-2026-08-20.md`.
+Two calls in them. The MUI integration is an **adapter**, built in the shadcn
+adapter's shape with a different output format. And the two areas Onkey named
+at the end of the meeting map onto two different engagements rather than two
+workstreams.
+
+**Reasoning on the adapter:** the front half of the baseline transfers
+untouched. Sink, plugin, sync, the provenance guard, name matching, the tag.
+`pipeline.config.mjs` already holds everything per-client, so pointing it at
+their master costs no code. The back half does not transfer, for one
+structural reason: Orin emits a prefixed stylesheet a consumer vendors, and
+MUI consumes a theme object in JavaScript and generates its own `--mui-*`
+properties from it. Moving the export target from a CSS file to a theme module
+changes everything downstream of the build, which is the definition of an
+adapter here.
+
+Same three parts as shadcn: a contract file keyed to the vendor's names, an
+app layer as the only place the client invents vocabulary, and a guardrail
+that is the actual product. Plus a new Style Dictionary format emitting one
+entry per colour scheme.
+
+**The expensive item is white labelling, and it was nearly missed.**
+`sd.config.mjs` ends with two literal calls, `buildMode('light')` and
+`buildMode('dark')`, and fourteen files under `on-key/` mention dark, down to
+the `exports` map. Harald raised white labelling as an aside. It is real
+engineering across the pipeline and it gets priced as its own item.
+
+**Reasoning on the split:** the variables have an end state and the master
+Figma file does not. Converging their variables onto MUI's names finishes and
+stays finished while the gate holds. Branching, versioning and sign-off on the
+master never finish, and decay the moment attention leaves. So the variables
+are the Build and the master file is the Retainer, with the Diagnostic sizing
+the first. That falls out of the nature of the two areas, so it needs no
+separate argument on the call.
+
+**One piece of governance jumps the queue:** stopping the Material Manager
+file writing upstream into the master. Converge the master over three weeks
+while a second file still pushes into it and part of the convergence gets
+overwritten mid-flight, unattributably. Branch it off on day one even if every
+other governance change waits.
+
+**Deferred:** still no code. The collection-naming question (rename their
+collections to the convention, or absorb the difference into `figma: {}`
+overrides) is deliberately left for the Diagnostic conversation with Amanda,
+because overrides run in an afternoon and leave the shape of their system
+unexamined, and choosing that quietly would be choosing it wrongly.
+
+**Revisit if:** MUI's theme factory stops accepting a plain object, or Onkey
+moves off MUI. Neither is remotely likely; they hold premium licences and the
+paid Figma kit.
+
+---
+
+## 2026-08-20 — Correcting the scope of Onkey's queue-jumping item
+
+**Decision:** The entry above says the piece of governance that jumps the queue
+at Onkey is "stopping the Material Manager file writing upstream into the
+master." That is too narrow. The item is **closing the write path into the
+master**, of which Material Manager is one example. Section 8 of
+`notes/onkey-meeting-2026-08-20.md` has been rewritten accordingly. The earlier
+entry stands as written, per this file's rule.
+
+**Reasoning:** two problems with the original phrasing, one factual and one of
+scope.
+
+**Factual: the merge already happened.** Amanda said on the call that they had
+merged the Material Manager file back into the master and let go of the old way
+of working. So describing that file as currently pushing upstream states a past
+condition as a live one. Said out loud to her, it would have sounded like I had
+not listened in the meeting where she explained it, which is an expensive way to
+open a Diagnostic.
+
+**Scope: one file was the example, the open door is the cause.** Their master
+accepts writes from anyone with edit rights. Amanda's description of today is
+that the BAs "can go in and they can work in Figma directly", and the rule that
+they cannot work inside the master is future tense: branch-per-project is her
+stated strategy and it is not in place. Naming one file makes it sound solved
+once that file is dealt with.
+
+**What the correction changes in practice.** One item becomes two, needing
+different responses at different times.
+
+- **Present contamination**, which is Diagnostic work. Whatever Material Manager
+  pushed sits in the master now and reads as a whole-system decision. Most
+  likely the source of Stefan's two button masters and Harald's status-change
+  component that moves when profile manager moves. The stock take has to
+  separate system-level decisions from module-level ones, and the file records
+  nothing about which is which.
+- **The open write path**, which is the precondition. Four moves: settle who may
+  publish, turn on branching, give modules a consuming file that cannot push
+  back, and freeze new variable creation for the length of the convergence. Only
+  the freeze is urgent, and it is cheap and reversible.
+
+**Why it still jumps the queue, unchanged.** Every other item in that area
+(tags, per-tag Storybook, the sign-off artefact, ticketing) can be built after
+the variables work and loses nothing by waiting. This is the only governance
+change the variables work depends on. Arriving late, it invalidates the work
+done while it was missing rather than merely delaying it: a diff shows that a
+value moved and cannot show which of two people moved it.
+
+**Revisit if:** branching goes on for the master and holds for a month. At that
+point this stops being a precondition and becomes ordinary hygiene, and the
+freeze can lift.
+
+---
+
 
 
 
