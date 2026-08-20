@@ -4572,6 +4572,55 @@ collection audit came back 6/6 and the interesting half of step 5 went untested.
 
 ---
 
+## 2026-08-20 — The baseline infographic gains the release step, and the order is corrected
+
+**Decision:** Added a sixth tile, **Release**, to
+`notes/baseline-pipeline-infographic.html`, and reordered the loop to Author,
+Sync, Build, Gate, Release, Consume. The grid moves from five columns to three, so
+six tiles read as two rows of three rather than five across with a widow.
+
+**Warren found it by comparing two documents.** `notes/baseline-pipeline-flow.pdf`,
+written this morning, ends its pipeline half with `npm run tag`. The infographic
+showed `npm run build` and never mentioned tagging at all. A grep confirmed it:
+zero occurrences of tag, tagged or version anywhere on the sheet.
+
+**The gap was real, not cosmetic.** The Consume tile already said the site is
+"pinned by tag" — so the diagram named the tag as the thing a consumer pins to,
+while nothing on it said how a tag comes to exist. The tag is the entire interface
+between the two repos, and the sheet's job is to show a prospect how a value
+reaches their product. Leaving out the step where it becomes releasable left the
+most important boundary undrawn.
+
+**Fixing it also fixed an ordering error.** The old numbering ran Build 3, Consume
+4, Gate 5, which reads as consume-then-gate. Defensible as a diagram, because that
+Gate tile describes CI standing over everything rather than a step you arrive at,
+but wrong as the sequence the numbers imply. Inserting Release between the gate
+and the consumer forced the correction: nothing is released until the gate passes,
+and nothing is consumed until it is released.
+
+**The new tile carries the semver rule** rather than only the command, because the
+rule is the part clients get wrong: MAJOR renamed, MINOR added, PATCH revalued.
+Its pill reads "Nothing ships until this", which is the sentence the tile exists
+to make.
+
+**The Consume tile was rewritten to name the pull.** It now says their app bumps
+the pin, pulls the tag, and reads its vendored file, with the pill "Their call,
+their timing" in place of "Semantic only" — the semantic-layer point is already
+made by the code line beneath it, and the timing point was not made anywhere.
+
+**Checked in the browser:** six tiles in order, six commands, arrows after 1, 2, 4
+and 5 only, since 3 and 6 now end their rows. Tile 3 kept a trailing arrow from
+the five-across layout and it was removed.
+
+**`npm run build` on tile 3 is correct and stays.** It is a real script and emits
+exactly what the tile claims. It is a subset of `npm test`, which is the point of
+separating build from gate.
+
+**Revisit if:** the release stops being a manual tag. Nothing suggests it will.
+
+---
+
+
 
 
 
