@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Onkey diagnostic — runbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Orin's real tokens, transcribed from tokens/src/*.json.
+     Standalone artefact — not part of site/, not covered by npm test.
+     INTERNAL RUNBOOK. Not a client handout.
+     Same stylesheet as pipeline-scaffold-sheet.html, deliberately.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-inverse:var(--neutral-50);  --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0); --bg-sunken:var(--neutral-50);
+    --bg-inverse:var(--neutral-900);  --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default);color:var(--text-default);
+    font-family:var(--family-base);font-size:15px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* header */
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  .kicker{
+    display:inline-flex;align-items:center;gap:var(--space-2);
+    background:var(--neutral-900);color:var(--neutral-0);
+    font-family:var(--family-mono);font-size:10.5px;font-weight:500;
+    letter-spacing:.13em;text-transform:uppercase;
+    padding:var(--space-2) var(--space-3);border-radius:var(--radius-sm);
+  }
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:44px;
+    letter-spacing:-.025em;line-height:1.1;margin:var(--space-4) 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16px;color:var(--text-muted);line-height:1.55;max-width:52ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+
+  .aside{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:262px;
+  }
+  .aside-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:11.5px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .aside p{font-size:13px;color:var(--text-muted);line-height:1.6}
+  .aside p + p{margin-top:var(--space-3)}
+  .aside b{color:var(--text-default);font-weight:600}
+
+  /* band */
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+
+  /* steps */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);align-items:stretch}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);width:100%;
+    display:flex;flex-direction:column;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step p{font-size:12.5px;color:var(--text-muted);line-height:1.5;margin-bottom:var(--space-3)}
+  .cmd{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);margin-bottom:var(--space-2);
+  }
+  .cmd code,.step code{
+    font-family:var(--family-mono);font-size:10.5px;color:var(--neutral-800);
+    line-height:1.7;word-break:break-all;display:block;
+  }
+  .step .dimcode code{color:var(--neutral-500)}
+  /* Inline code inside a step's prose must stay inline — the rule above sets
+     `display:block` for command blocks, which would otherwise break sentences
+     onto their own lines. Local to this sheet; the sibling has no inline code
+     inside a step. */
+  .step p code{display:inline;font-size:11.5px;word-break:normal;color:var(--neutral-800)}
+  .pill{
+    margin-top:auto;background:var(--bg-accent);color:var(--text-on-accent);
+    font-size:11px;font-weight:500;border-radius:999px;text-align:center;
+    padding:var(--space-2) var(--space-3);
+  }
+  .pill.warn{background:var(--neutral-900)}
+  .arrow{position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);color:var(--neutral-300);z-index:2}
+
+  /* two-up */
+  .twoup{display:grid;grid-template-columns:1fr 1.1fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-6);
+  }
+  .panel-title small{font-weight:400;letter-spacing:.04em;color:var(--neutral-500);text-transform:none;font-size:11.5px}
+  .tree{font-family:var(--family-mono);font-size:12px;line-height:1.95;white-space:pre;color:var(--neutral-800)}
+  .tree .gen{color:var(--teal-600)}
+  .tree .dim{color:var(--neutral-500)}
+
+  .locks{display:flex;flex-direction:column;gap:var(--space-4)}
+  .lock{display:grid;grid-template-columns:18px 132px 1fr;gap:var(--space-3);align-items:baseline}
+  .lock .k{font-size:13px;font-weight:500}
+  .lock .v{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-700);word-break:break-all}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--neutral-0);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12px;color:var(--text-muted);line-height:1.55}
+  .note code{font-family:var(--family-mono);font-size:11.5px}
+
+  /* failure modes */
+  .traps{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-4)}
+  .trap{
+    background:var(--neutral-0);border:1px solid var(--border-divider);
+    border-left:3px solid var(--teal-500);border-radius:var(--radius-sm);
+    padding:var(--space-4) var(--space-6);
+  }
+  .trap b{display:block;font-size:13.5px;font-weight:600;margin-bottom:var(--space-2)}
+  .trap p{font-size:12.5px;color:var(--text-muted);line-height:1.55}
+  .trap code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+
+  /* release */
+  .semver{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4);margin-top:var(--space-4)}
+  .sv{background:var(--neutral-0);border:1px solid var(--border-divider);border-radius:var(--radius-sm);padding:var(--space-4)}
+  .sv b{display:block;font-family:var(--family-mono);font-size:11px;letter-spacing:.08em;color:var(--teal-600);margin-bottom:var(--space-2)}
+  .sv p{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);
+    padding:var(--space-8);display:flex;gap:var(--space-6);align-items:flex-start;margin-top:var(--space-6);
+  }
+  .closing h3{font-family:var(--family-display);font-size:19px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6}
+  .closing p + p{margin-top:var(--space-3)}
+  .closing .ico{flex:none;color:var(--teal-300)}
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .steps{grid-template-columns:1fr 1fr}
+    .twoup,.traps,.semver,.masthead{grid-template-columns:1fr}
+    .arrow{display:none}
+    h1{font-size:33px}
+    .aside{width:auto}
+  }
+
+
+  /* Audit outcomes carry severity in the stripe. The family's single teal rule
+     cannot distinguish a pass from a refusal, and this sheet is read under
+     pressure. */
+  .trap.ok{border-left-color:#1f7a5c}
+  .trap.warn{border-left-color:#8a5a10}
+  .trap.stop{border-left-color:#a2352f}
+  .trap .line{
+    display:block;font-family:var(--family-mono);font-size:12px;font-weight:500;
+    margin-bottom:var(--space-2);color:var(--neutral-900);
+  }
+  .trap.ok .line{color:#1f7a5c}
+  .trap.warn .line{color:#8a5a10}
+  .trap.stop .line{color:#a2352f}
+  .rehearsal{border:1px dashed var(--border-strong);background:var(--neutral-0)}
+  .rehearsal .warnline{
+    font-family:var(--family-mono);font-size:11px;font-weight:500;letter-spacing:.1em;
+    text-transform:uppercase;color:#a2352f;margin-bottom:var(--space-4);display:block;
+  }
+
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="masthead">
+    <div>
+      <span class="kicker">Internal runbook · on-key</span>
+      <h1>Running the diagnostic against <em>Onkey's file</em></h1>
+      <p class="standfirst">
+        Every command points at <code>~/Documents/Claude/Projects/on-key</code>.
+        The sink is on <b>9232</b>, not 9231. Written 20 August 2026, the morning
+        of the meeting, from the scaffold walked the night before.
+      </p>
+      <div class="rule"></div>
+    </div>
+    <div class="aside">
+      <div class="aside-head">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3l7 4v5c0 4.2-2.9 7.6-7 9-4.1-1.4-7-4.8-7-9V7z"/></svg>
+        The rule
+      </div>
+      <p><b>Sink first, then Sync.</b> The plugin POSTs to a listener. If it is not
+      already running, Sync gets connection refused and nothing says so.</p>
+      <p>Read the audit out loud before applying anything. The dry-run writes
+      nothing, and it is the whole conversation.</p>
+    </div>
+  </div>
+
+  <section class="band">
+    <div class="band-title"><span>Before they arrive</span></div>
+    <div class="steps">
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Match the name</span></div>
+          <p>Provenance compares exactly, with no trimming and no case folding. Rename their file to match, or change the config to match their file.</p>
+          <div class="cmd"><code>grep figmaFileName pipeline.config.mjs</code></div>
+          <div class="dimcode"><code>currently "Onkey Token Pipeline"</code></div>
+          <div class="pill">Either side can move</div>
+        </div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Clear the rehearsal</span></div>
+          <p>The dumps are gitignored, so a repo that looks reset can still be holding last night's fetch.</p>
+          <div class="cmd"><code>git checkout tokens/ dist/</code></div>
+          <div class="cmd"><code>rm -f tokens/.figma-dump.json \<br>&nbsp;&nbsp;tokens/.figma-descriptions.json</code></div>
+          <div class="pill">5/5, five skipped</div>
+        </div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Check access</span></div>
+          <p>Plugins need edit rights; a viewer has no Plugins menu. And the plugin reads <em>local</em> variables only.</p>
+          <div class="dimcode"><code>ask for the file that DEFINES<br>the variables, not one that<br>consumes a library</code></div>
+          <div class="pill warn">Edit, on the library</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-title"><span>The run</span></div>
+    <div class="steps">
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Sink</span></div>
+          <p>Start the listener first. This is a dependency, not a preference.</p>
+          <div class="cmd"><code>npm run sink</code></div>
+          <div class="dimcode"><code>wait for: listening on 9232</code></div>
+          <div class="pill">9232, not 9231</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Sync</span></div>
+          <p>Plugin <b>Token Sync — Onkey</b>. Three plugins share that name, so check the path in the picker reads <code>…/on-key/plugin</code>.</p>
+          <div class="dimcode"><code>✓ wrote N bytes — both files</code></div>
+          <div class="pill warn">No ✓, no next command</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Read the audit</span></div>
+          <p>Writes nothing. Provenance first, then the collections, then the token count.</p>
+          <div class="cmd"><code>npm run sync:figma -- --dry-run</code></div>
+          <div class="pill">The ten minutes</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Only if going further</span></div>
+          <p>Applies and gates. Expect mode parity to fail on a real system: a fresh config declares no exceptions.</p>
+          <div class="cmd"><code>npm run sync:figma &amp;&amp; npm test</code></div>
+          <div class="pill">Red here is not a fault</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-title"><span>Reading the audit, in order</span></div>
+    <div class="traps">
+
+      <div class="trap ok">
+        <span class="line">ok  dump is from "…", matching pipeline.config.mjs</span>
+        <p>Right file, actively verified rather than merely not objected to. Read this line before anything else.</p>
+      </div>
+
+      <div class="trap stop">
+        <span class="line">✗ Wrong Figma file</span>
+        <p>Refused, and <b>nothing was written</b>. The name does not match. Fix the config or rename the file. This is the guard working.</p>
+      </div>
+
+      <div class="trap ok">
+        <span class="line">Collections: 6/6 matched by name</span>
+        <p>Their file follows the convention. Then read the token count and key-parity line beneath it.</p>
+      </div>
+
+      <div class="trap warn">
+        <span class="line">! expects a collection named "X"; this file has none</span>
+        <p>A layer missing or misnamed. <b>This is the finding</b> — the second of the three, in increasing order of discomfort.</p>
+      </div>
+
+      <div class="trap warn">
+        <span class="line">· Collection "Y" is not in the convention — skipped</span>
+        <p>Variables living somewhere nothing downstream will look. Either genuinely out of scope, or a layer nothing can reach.</p>
+      </div>
+
+      <div class="trap warn">
+        <span class="line">a mode maps to nothing</span>
+        <p>A theme that exists in Figma and cannot exist in code. Worth asking what they believed was shipping.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-title"><span>If it goes wrong</span></div>
+    <div class="traps">
+
+      <div class="trap">
+        <b>✗ No dump at tokens/.figma-dump.json</b>
+        <p>The sink was not listening when Sync was pressed. Start the sink, press Sync again, <em>then</em> re-run. Since the dumps were cleared, this error is the safety net rather than a nuisance.</p>
+      </div>
+
+      <div class="trap">
+        <b>The audit looks like yesterday's</b>
+        <p>A stale dump. Did the sink print <code>✓ wrote N bytes</code>? If not, nothing new landed and you are reading the last fetch.</p>
+      </div>
+
+      <div class="trap">
+        <b>No Onkey plugin in the menu</b>
+        <p>Plugins → Development → Import plugin from manifest… → <code>on-key/plugin/manifest.json</code>. The scaffold made a new plugin Figma has never seen.</p>
+      </div>
+
+      <div class="trap">
+        <b>Few or no collections found</b>
+        <p>Probably a consuming file rather than the library. <code>getLocalVariablesAsync</code> returns local variables only. Looks like a damning finding; it is the wrong file.</p>
+      </div>
+
+      <div class="trap">
+        <b>Plugins menu greyed out</b>
+        <p>View-only access. Plugins need edit rights. Duplicate to your own drafts and run it there — and say so, because not touching their file is worth saying.</p>
+      </div>
+
+      <div class="trap">
+        <b>sink listening on 9231</b>
+        <p>Wrong repo. That is Synthesis or the baseline. Onkey is 9232.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-title"><span>Rehearsing the gates · on a duplicate only</span></div>
+    <div class="panel rehearsal">
+      <span class="warnline">Never in their file</span>
+
+      <div class="note" style="margin-top:0">
+        <div>
+          <b>White on brand · late and quiet, fails at the build</b>
+          <p>Semantic collection, <code>colour/text/on-brand</code>, raw hex
+          <code>FFFFFF</code> typed into <em>both</em> modes. Not an alias: every
+          sibling row aliases a primitive, and a primitive flips per mode. A
+          literal cannot. Sink, Sync, dry-run shows <code>+1 added</code> and
+          raises nothing; <code>npm test</code> then fails naming
+          <code>--onkey-colour-text-on-brand</code>. The sync checks structure;
+          the gate is in the build. Whether it is a real defect depends on their
+          palette — white on brand is only wrong if the brand lightens for dark.
+          On Synthesis it fell from 5.43:1 to 2.73:1.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <div>
+          <b>A name collision · early and loud, fails at the sync</b>
+          <p>One variable named <code>X/DEFAULT</code> where <code>X</code>
+          already exists. The uppercase sentinel is stripped on exact match, so
+          both resolve to the same emitted name and
+          <code>npm run sync:figma</code> throws before writing anything, naming
+          every collision at once as Figma names. Running both tells you which
+          half of the pipeline caught what, which is what a developer in the room
+          will ask.</p>
+        </div>
+      </div>
+
+      <div class="note">
+        <div>
+          <b>Undo</b>
+          <p><code>git checkout tokens/ dist/</code>, clear the dumps, and delete
+          the variable in Figma — otherwise the next sync brings it straight
+          back.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <span class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v18M3 12h18" stroke-linecap="round"/></svg></span>
+    <div>
+      <h3>What the checks cannot do</h3>
+      <p>The plugin resolves aliases inside Figma before anything leaves the
+      machine, so by the time any check runs, a reference and a hard-typed hex
+      look identical. The pipeline can prove the two themes differ. It cannot
+      prove the semantics are wired to the primitives.</p>
+      <p>Reading the file is still a person's job, and that is the honest half of
+      what the two weeks buys: a generated audit produces evidence, not
+      conclusions.</p>
+    </div>
+  </div>
+
+  <footer>
+    <b>Internal.</b> Not a client handout. Repo on branch
+    <code>chore/scaffold-onkey</code> with no remote, so <code>git push</code> has
+    nowhere to go — deliberately. Full day-one detail in
+    <code>pipeline-scaffold-sheet.html</code>; the consumer side in
+    <code>client-site-setup-sheet.html</code>.
+  </footer>
+
+</div>
+</body>
+</html>
