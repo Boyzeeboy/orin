@@ -91,7 +91,7 @@ misreadings on it and turn it into a scope of work. Before that:
 - A follow-on with Gerhard if needed.
 - Gerhard is sending the MUI link so I can read their theming surface.
 - I offered to send some HTML sheets. **Check which of those are client-safe
-  before sending.** `onkey-diagnostic-runbook.html` is marked internal and
+  before sending.** `pragma-diagnostic-runbook.html` is marked internal and
   does not go out.
 
 They can give me a full Figma seat immediately, probably a Claude seat, and
@@ -107,7 +107,7 @@ Sequenced. Each step is worth doing even if the next one never happens.
 
 The scaffold already exists on `on-key` and matching is by name, so this
 runs with no code change. Sink, sync, `npm run sync:figma -- --dry-run`,
-read the audit out loud. See `onkey-diagnostic-runbook.html` for the run.
+read the audit out loud. See `pragma-diagnostic-runbook.html` for the run.
 
 What it tells us in ten minutes: how many of their collections the
 convention recognises, whether a mode maps to nothing, whether a layer is
