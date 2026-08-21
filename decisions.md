@@ -4824,6 +4824,54 @@ Figma, which returns the earlier argument to service.
 
 ---
 
+## 2026-08-21 — Pragma is priced in GBP and paid by bank transfer
+
+**Decision:** The Pragma proposal goes out in pounds sterling, invoiced from
+the UK by bank transfer, with no Stripe. The letterhead reads Pragma rather
+than On Key. Branching is stated as unavailable because they are on Figma
+Professional, confirmed rather than assumed. All three were the blockers on
+sending, and all three are now struck through in the draft block.
+
+**Reasoning on currency:** never take FX risk on a fixed-price engagement. A
+rand quote decays between proposal and final invoice, so protecting against it
+means adding a buffer, which reads as more expensive for no benefit to either
+side. GBP also frames this as a UK practice at UK rates rather than an offshore
+vendor competing on price, which matters given `Offer.md`'s no-discount
+posture. USD was the defensible second choice, since Pragma already thinks in
+dollars for tooling, and it was rejected for putting an FX leg between the
+invoice and my own bank for nothing.
+
+Their side of it is routine. They buy MUI, Figma, Claude, Aha! and Azure
+DevOps across borders already. South African exchange control means their bank
+attaches a balance-of-payments code, which is paperwork their finance team does
+weekly. The proposal now offers to fix the rand equivalent at the rate on the
+date of signature, so the number stops moving once agreed. That costs nothing
+and removes an objection before it forms.
+
+**Reasoning on bank transfer:** Stripe would have taken a non-UK card rate plus
+a currency conversion fee on settlement, directionally 3 to 5 per cent. On the
+£14,000 Build that is several hundred pounds for convenience nobody needed.
+Warren is deregistered with SARS, so there is no South African tax position to
+work around and a plain transfer is clean on both sides.
+
+**Payment mechanics deliberately stay out of the proposal.** The proposal is a
+scope-of-work document. Terms, transfer details and who pays the bank charges
+belong in `notes/contracts/diagnostic-engagement-letter.md`, which already
+carries a `[DECIDE]` on terms.
+
+**Deferred, and both are Monday questions for Stefan:** their approval
+threshold, because `Offer.md` prices the Diagnostic under about £5,000 so that
+no procurement is triggered, and that logic is a UK assumption that may not
+survive translation into roughly R70,000. And their standard payment terms,
+since the engagement letter recommends 14 days and South African corporates
+commonly run 30.
+
+**Revisit if:** a client turns up whose finance team refuses anything but their
+own currency. The answer then is a fixed rate at signature rather than a
+floating quote, which is the mechanism already offered here.
+
+---
+
 
 
 
