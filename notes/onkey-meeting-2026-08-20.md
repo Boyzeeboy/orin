@@ -1,10 +1,14 @@
 # Onkey — first meeting, 20 August 2026
 
 Notes from the intro call. Written the same afternoon, from the transcript.
-Names are as heard on a poor line: **Amanda** (UX design, PMO), **Harald**
-(UI architect), **Stefan** (the senior one, chaired the close), **Darren**
-(PM, asset performance management), plus a second PM on enterprise asset
-management and a team of BAs. Check the spellings before anything goes out.
+Who was there: **Mauritz** (product manager, enterprise asset management, and
+he chaired the introductions), **Darren** (product manager, asset performance
+management), **Amanda** (UX design, PMO), **Gerhard** (UI architect), and
+**Stefan** (the senior one, closed the meeting), plus a team of BAs.
+
+Gerhard and Mauritz were corrected after the fact; the line was poor enough
+that both came through several different ways. The PMO director is still
+unconfirmed, heard as Simone and as Sincla.
 
 ---
 
@@ -17,7 +21,7 @@ modes, re-ran, and let mode parity fail in front of them. That landed.
 Amanda said it was impressive and she has a development background, so
 that is worth something.
 
-Harald read it correctly and immediately: "what you're trying to solve is
+Gerhard read it correctly and immediately: "what you're trying to solve is
 that the variables don't go out of sync." Then he pushed back, twice, and
 both pushes are the real content of the meeting.
 
@@ -47,7 +51,7 @@ Both pushes are fair and neither one kills the work. They relocate it.
   air.
 - **A second Figma file for the Material Manager module** that has been
   pushing components and variables *upstream* into the master. That is the
-  bleed. Harald's example: a status change component shared with profile
+  bleed. Gerhard's example: a status change component shared with profile
   manager, changed on one design, and it turns up in the other.
 - **Storybook endpoint exists**, unused since last year. A Figma MCP is set
   up, the BAs work in Figma directly and are moving to prototyping in
@@ -60,7 +64,7 @@ Both pushes are fair and neither one kills the work. They relocate it.
 
 ## 3. The problem underneath the problem they described
 
-They talked about tokens for twenty minutes and then Harald said the thing
+They talked about tokens for twenty minutes and then Gerhard said the thing
 that matters, which is that he has nothing stable to build against and QA
 has nothing stable to test against. He commits to deliver a query builder
 by end of sprint. The Figma keeps moving. By the time test opens the file
@@ -84,8 +88,8 @@ misreadings on it and turn it into a scope of work. Before that:
 
 - **Tomorrow, 3pm, with Amanda.** She walks me through the master design
   system. Diary invite promised to my email.
-- A follow-on with Harald if needed.
-- Harald is sending the MUI link so I can read their theming surface.
+- A follow-on with Gerhard if needed.
+- Gerhard is sending the MUI link so I can read their theming surface.
 - I offered to send some HTML sheets. **Check which of those are client-safe
   before sending.** `onkey-diagnostic-runbook.html` is marked internal and
   does not go out.
@@ -126,7 +130,7 @@ Three inventories:
 1. **Variables.** Every collection and mode in the master. Which resolve to
    an MUI token name, which are Onkey additions, which are duplicates, which
    are literals typed inline rather than aliased to a primitive.
-2. **Components.** Where two masters exist for one thing. Harald and Stefan
+2. **Components.** Where two masters exist for one thing. Gerhard and Stefan
    both suspect there are two buttons. Also: which components are MUI
    defaults, which are MUI with theming, which are genuinely domain-level.
 3. **The Material Manager pushes.** What that file sent upstream and whether
@@ -156,7 +160,7 @@ MUI's, you may not rename it. If it is in the app namespace, you may.**
 Everything MUI has no word for goes in an `app` layer above, via module
 augmentation, and that is the only place Onkey gets to invent vocabulary.
 
-Two rules I would write down and hold Harald to, because they are his
+Two rules I would write down and hold Gerhard to, because they are his
 maintenance fear made concrete:
 
 - Stay inside MUI's supported theming surface. Palette, typography, shape,
@@ -167,7 +171,7 @@ maintenance fear made concrete:
 
 ### Step 3 — White labelling becomes a mode
 
-Harald flagged white labelling as a coming requirement and said to keep it
+Gerhard flagged white labelling as a coming requirement and said to keep it
 in mind when structuring the variables. Do it now, because it changes the
 collection structure and retrofitting it is expensive.
 
@@ -203,7 +207,7 @@ what is costing them.
 
 ### Step 5 — The versioned artefact, which is the actual sale
 
-This is what Harald asked for and did not get an answer to in the meeting.
+This is what Gerhard asked for and did not get an answer to in the meeting.
 He asked what he signs off against and what QA tests against.
 
 - The master design system gets **branches per project**, so Material
@@ -216,7 +220,7 @@ He asked what he signs off against and what QA tests against.
   tests against it, and the answer to "did this change or did I imagine it"
   is a diff between two tags.
 
-Harald's objection to Storybook was that MUI already documents its own
+Gerhard's objection to Storybook was that MUI already documents its own
 components, and he is right about that. Here it does a different job: it is
 the frozen, versioned, visual thing their process currently has nowhere to
 point at. Chromatic on top gives the diff and the approval step. Worth
@@ -227,7 +231,7 @@ thing he was refusing.
 
 Everything above collapses without one owner of the master and a queue for
 changes to it. Amanda is the obvious owner. A change downstream goes back
-up to her, gets prioritised, gets versioned, and comes back down. Harald
+up to her, gets prioritised, gets versioned, and comes back down. Gerhard
 does not invent, and neither does a BA in a branch.
 
 Their tooling for that queue does not matter. Aha! and TFS work. What
@@ -236,7 +240,7 @@ master without someone deciding it should.
 
 ---
 
-## 6. Open questions, for tomorrow and for Harald
+## 6. Open questions, for tomorrow and for Gerhard
 
 1. **Do they have Figma Enterprise?** If yes, the variables REST endpoint is
    available, the plugin and sink drop out, and the sync can run on a build
@@ -285,7 +289,7 @@ the master, and if I clear it without fixing that, it refills.
 ## 8. Shape and priority
 
 The meeting closed on two areas: **the variables**, and **the master Figma
-file development consumes.** Harald put them in order himself, and he was
+file development consumes.** Gerhard put them in order himself, and he was
 right, so take his order instead of inventing one. His words: start at the
 variables, because that flows to the buttons, and the buttons flow to the
 components. Stefan agreed on the call.
@@ -325,7 +329,7 @@ work.
 **The merge already happened.** So this is present contamination in their
 master today. Whatever Material Manager pushed is sitting there now, and it
 looks identical to a decision somebody made on purpose for the whole system.
-That is the likeliest source of Stefan's two button masters, and of Harald's
+That is the likeliest source of Stefan's two button masters, and of Gerhard's
 status-change component that moves when profile manager moves. Separating
 system-level decisions from module-level ones is a real part of the stock
 take, and the file itself records nothing about which is which.
@@ -440,7 +444,7 @@ calls, `buildMode('light')` then `buildMode('dark')`. Fourteen files under
 `snapshot-tokens.mjs`, `verify-build.mjs`, `tag-release.mjs`, the plugin, and
 the `exports` map in `package.json` (`./light.css`, `./dark.css`).
 
-So Harald's white-labelling requirement is a real piece of engineering across
+So Gerhard's white-labelling requirement is a real piece of engineering across
 the pipeline, well beyond a line in a config file. **Price it as its own item
 and say so on the call**, because it will sound like a checkbox otherwise.
 
@@ -457,7 +461,7 @@ against MUI's `Theme` with augmentation for the app layer, and a misspelled
 palette path becomes a build error for free. The remaining half is a scan for
 `--app-*` referenced in `sx` and never defined.
 
-**Say the TypeScript half to Harald directly.** It is his language, it costs
+**Say the TypeScript half to Gerhard directly.** It is his language, it costs
 him nothing at upgrade time, and it answers his maintenance fear with
 something he already trusts.
 

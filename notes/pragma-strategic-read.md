@@ -12,7 +12,7 @@ out loud, and those parts are marked.*
 
 Amanda mentioned it almost in passing. The new SPA UI ships into the same
 production environment as the old one, so a user sees old work-order feedback
-and new Material Manager inside a single login. Harald pushed some tokens into
+and new Material Manager inside a single login. Gerhard pushed some tokens into
 the old UI by hand to get "a little bit of visual consistency". The
 productionizing team cannot fund two environments.
 
@@ -28,7 +28,7 @@ their own account.
 
 **This is also the strongest argument for the substrate that nobody has made.**
 Shared tokens across old and new are the only mechanism that makes a
-two-UI transition survivable. Harald already reached for it instinctively,
+two-UI transition survivable. Gerhard already reached for it instinctively,
 under pressure, by hand. Nobody named it as a strategy.
 
 ### Nobody owns the design system as a product
@@ -36,7 +36,7 @@ under pressure, by hand. Nobody named it as a strategy.
 Amanda owns it as a person doing the work. There is no roadmap, no version, no
 changelog, and no register of who consumes it. Three consumers already exist:
 the Material Manager file, Darren's APM through his MCP, and the old UI
-through Harald's hand-applied tokens. Not one of them has a contract with the
+through Gerhard's hand-applied tokens. Not one of them has a contract with the
 thing they depend on.
 
 That is an unmanaged internal platform, and every symptom they described
@@ -46,7 +46,7 @@ follows from it.
 
 The solution architect who drove the SPA proof of concept has gone to AI. The
 contract designer was decoupled in March. Amanda is a year in and is the only
-designer, in a role that did not exist before her. Harald owns all UI
+designer, in a role that did not exist before her. Gerhard owns all UI
 development.
 
 The system currently lives in a Figma file and in two people's heads. If
@@ -70,7 +70,7 @@ and the design system are being funded and discussed as separate things.
 ### They costed the environment and not the workaround
 
 "The productionizing team can't give us two separate environments. The cost is
-just too high." So the cost moved rather than disappearing: onto Harald's
+just too high." So the cost moved rather than disappearing: onto Gerhard's
 stop-gap token work, onto the users, and onto whoever eventually reconciles two
 interaction models. Nobody has put a number against the workaround to compare.
 
@@ -141,12 +141,12 @@ seats. Nobody inside can see it whole, because of where they sit.
 
 | They experience | It is actually |
 |---|---|
-| Amanda's housekeeping, Harald's token pain, 486 unfetched changes | One absent versioned release |
+| Amanda's housekeeping, Gerhard's token pain, 486 unfetched changes | One absent versioned release |
 | Amanda has no time for strategy | Three Figma seats, so she is the human API for every spec |
 | Darren's tokens "aren't quite right" | The AI ceiling is the substrate's quality |
 | A sprint of screens drawn and never used | No agreed screen inventory before drawing |
 | "We want to leave Figma" | You cannot leave a tool holding the only copy of the truth |
-| Harald hand-patching tokens into the old UI | The two-UI transition needs shared tokens as strategy |
+| Gerhard hand-patching tokens into the old UI | The two-UI transition needs shared tokens as strategy |
 
 **The seat one is the sharpest and the cheapest.** Developers cannot open Dev
 Mode, so they message Amanda on Teams. A licensing decision is consuming the
@@ -174,7 +174,7 @@ release with a version number on it.
 
 **Phase 3. Make the release the artefact.** The version goes on the Aha!
 feature and the TFS work item. Design signs off a version, development builds
-against a version, QA tests a version. This is the answer to Harald's question
+against a version, QA tests a version. This is the answer to Gerhard's question
 that nobody gave him.
 
 **Phase 4. Design ops, minimum viable.** A journey and screen inventory agreed
@@ -224,7 +224,7 @@ can offer him.
 ## 6. How I optimise my own role
 
 **Be the connector.** My actual advantage is that I am the only person who has
-heard Amanda's, Harald's and Stefan's problems in the same week and can see
+heard Amanda's, Gerhard's and Stefan's problems in the same week and can see
 they are one problem. Nobody inside can do that. That is worth more than the
 pipeline and it is what a retainer is really buying.
 
@@ -232,7 +232,7 @@ pipeline and it is what a retainer is really buying.
 Stefan asked for. It buys real goodwill, it fixes their felt pain, and it keeps
 me out of the sprint queue.
 
-**Win Harald early. He is the veto.** He has not been persuaded yet. Three
+**Win Gerhard early. He is the veto.** He has not been persuaded yet. Three
 things in his language: the MUI restraint as a written commitment, TypeScript
 catching bad palette paths at compile time, and above all that the codebase
 change is incremental with no big-bang refactor and no sprint surrendered.
@@ -244,7 +244,7 @@ numbers she can quote, not conclusions she has to defend on my behalf.
 The user risk in a two-UI rollout. The AI ceiling. He can act on those.
 
 **Deliver something before the first invoice.** They are mid-crisis. The seat
-finding, or the naming cause of Harald's token problem that Amanda identified
+finding, or the naming cause of Gerhard's token problem that Amanda identified
 herself, costs me nothing and buys credibility ahead of the money.
 
 **Write everything down, and count that as the deliverable.** Their memory
