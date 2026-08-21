@@ -135,6 +135,13 @@ as well as the Figma.
   Figma, because drift only becomes visible when you compare two things.
 - Time with Harald and Amanda, and whoever else is carrying the load.
 
+Nothing is measured against my taste. Findings are held against MUI's own
+token documentation, which is the standard Amanda has already chosen to
+follow, against WCAG AA, and against what your team currently believes to be
+true. The gaps between those three and what is actually in the file are the
+diagnosis. Everything is measured so it can be measured again, so you can see
+later whether any of it moved.
+
 You get a written diagnosis: where the substrate is broken, what it is
 costing, and what fixing it involves, scoped and priced. Yours to act on
 whether or not you take a next step with me.
