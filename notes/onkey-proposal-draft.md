@@ -4,19 +4,16 @@
 >
 > Rewritten 21 August 2026, after the session with Amanda. Check these first:
 >
-> - **Currency.** Priced in £ from `Offer.md`. Pragma is South African, so
->   decide: GBP, ZAR at a stated rate, or GBP with a note. Do not send until
->   this is settled.
-> - **Company and product names.** Amanda referred to the company as Pragma
->   and the product as On Key. Confirm which one Stefan expects on a
->   proposal, and confirm "On Key" against "Onkey".
+> - ~~Currency~~ **Settled: GBP, bank transfer, no Stripe.** Payment
+>   mechanics stay out of this document and go in the engagement letter.
+>   Ask Stefan on Monday for their approval threshold and standard payment
+>   terms.
+> - ~~Company name~~ **Settled: Pragma on the letterhead.**
+> - ~~Figma plan and branching~~ **Settled: Professional, so branching is
+>   unavailable to them.** Sections 4 and 6 are written on that basis.
 > - **Names and spellings.** Amanda, Harald, Darren, Stefan are as heard.
 >   Several others came off a poor line and are deliberately not used here.
 > - **Aha! and TFS.** Confirm TFS is current and not Azure DevOps.
-> - **Figma plan.** Amanda believes Professional, not Enterprise, and said
->   she would check. Sections 4 and 8 depend on it.
-> - **Branching.** Written here as unavailable on their plan. Confirm before
->   sending, since it is stated as fact.
 > - The engagement letter in `notes/contracts/` comes after this.
 
 ---
@@ -181,7 +178,7 @@ it as its own line and show you the number.
 
 **The artefact that stops moving.** This is what Harald asked for and did not
 get an answer to: what does he build against, and what does QA test against.
-Since branching is not available on your Figma plan, the mechanism is a
+Branching is an Organization-plan feature and you are on Professional, so the mechanism is a
 versioned token release plus a controlled publishing discipline between the
 master and the project files, rather than a branch-and-merge flow. The release
 gets a version number, and that number is what an Aha! feature and a TFS work
@@ -190,6 +187,11 @@ item point at.
 This part does not finish. It changes how you work and it decays the moment
 nobody is holding it, which is what a **retainer at £2,000 a month** is for,
 cancellable on 30 days' notice.
+
+**On the numbers themselves.** All figures here are pounds sterling, invoiced
+from the UK by bank transfer. If your finance team needs a rand figure to
+approve against, I am happy to fix the equivalent at the rate on the date we
+sign, so the number stops moving once it is agreed.
 
 **On the return, since you will be asked:** at Vivo Energy, contracted via
 Rethink, putting a basic component library and colour system in front of the
