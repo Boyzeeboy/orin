@@ -1,224 +1,259 @@
-# Onkey proposal — draft
+# Pragma / On Key proposal — draft
 
 > **DRAFT NOTES. Delete this block before sending.**
 >
-> Written 20 August 2026, before the session with Amanda. Check these first:
+> Rewritten 21 August 2026, after the session with Amanda. Check these first:
 >
-> - **Names and spellings.** Taken off a poor line. Stefan, Harald, Amanda,
->   Darren. Get the surnames and the correct spelling of every one.
-> - **Currency.** Priced in £ from `Offer.md`. Onkey reads South African, so
->   decide whether these go out as GBP, ZAR at a stated rate, or GBP with a
->   note. Do not send until this is settled.
-> - **"Onkey" or "On Key".** The repo uses Onkey throughout. Check.
-> - **Section 8 assumes the Amanda session has not happened yet.** After it,
->   either strike the questions it answers or send the proposal with the
->   follow-up note promised at the end.
-> - **Aha! and TFS** are their tools as I heard them. Confirm TFS is the
->   current name and not Azure DevOps.
-> - The engagement letter in `notes/contracts/` comes after this, if they
->   say yes.
+> - **Currency.** Priced in £ from `Offer.md`. Pragma is South African, so
+>   decide: GBP, ZAR at a stated rate, or GBP with a note. Do not send until
+>   this is settled.
+> - **Company and product names.** Amanda referred to the company as Pragma
+>   and the product as On Key. Confirm which one Stefan expects on a
+>   proposal, and confirm "On Key" against "Onkey".
+> - **Names and spellings.** Amanda, Harald, Darren, Stefan are as heard.
+>   Several others came off a poor line and are deliberately not used here.
+> - **Aha! and TFS.** Confirm TFS is current and not Azure DevOps.
+> - **Figma plan.** Amanda believes Professional, not Enterprise, and said
+>   she would check. Sections 4 and 8 depend on it.
+> - **Branching.** Written here as unavailable on their plan. Confirm before
+>   sending, since it is stated as fact.
+> - The engagement letter in `notes/contracts/` comes after this.
 
 ---
 
 **From:** Warren Rossiter, Orin
-**To:** Stefan [surname], Onkey
+**To:** Stefan [surname], Pragma
 **Date:** [date]
 **Re:** The design system substrate, and a first piece of work
 
 Stefan,
 
 You asked me to write up what I heard and what I think I can help with, so
-your team can correct it and turn it into a scope of work. Here it is. Take
-issue with any of it. The parts I am least sure about are in section 8.
+your team can correct it and turn it into a scope of work. Here it is, after
+a second session with Amanda on Friday. Take issue with any of it.
 
 ## 1. What I heard
 
 Compressed, so you can tell me where I have it wrong.
 
-You are modernising a mature asset management product. MUI is the component
-baseline and it is not moving: you hold premium licences and the paid Figma
-kit, and you ship Material 2 deliberately because Material 3 is too modern
-for your users. Figma is your declared source of truth, in one master design
-system file. Development builds against that file, QA tests against it, and
-your BAs work in it directly.
+MUI is your component baseline and it is not moving. You hold the paid tier
+and the Figma kit, you ship Material 2 deliberately, and Amanda's rule is a
+good one: rely on mui.com first and fall back to Material Design where MUI
+falls short. Custom components exist where the framework genuinely has no
+answer, and the multi-toast case for bulk operations is a fair example.
 
-The master has no version. No branching, no sign-off, no ticket, no owner
-with a veto. Changes arrive from several directions, including the separate
-Material Manager file that pushed components and variables back up into the
-master while that module was being built. That file has since been merged
-back in, so what it pushed is now sitting in the master looking exactly like
-a decision somebody made deliberately for the whole system.
+The master design system and the Material Manager build started in parallel,
+against a June deadline, with a team doing solution architecture for the
+first time. That is a hard set of conditions and the work I saw on Friday is
+better than those conditions deserved.
 
-What that produces, in the words used on the call:
+What it cost is visible now. A previous designer had to draw components while
+the components themselves were still changing, so binding variables to them
+was impractical and a lot of what shipped is decoupled from the system.
+Roughly **486 library changes** stacked up unfetched between the master and
+the Material Manager file. Screens carry AI output that was never linked to a
+master. A sprint's worth of screens were drawn and never used.
 
-- Harald commits a component for end of sprint. The Figma moves underneath
-  it. By the time QA opens the file it looks different, and nobody can say
-  whether the difference was meant.
-- Two masters exist for things that should have one. You suspected two
-  buttons, and I would expect you to be right.
-- A status change component moves when profile manager moves, through a
-  shared master neither team is watching.
-- Time goes into fault-finding and investigations. Where did this bleed in
-  from.
+None of that reads to me as a team doing the wrong things. It reads as a
+system with no version, being built by people who were never given the room
+to version it.
 
-Capacity is the pain you actually feel. Your phrase for the fix was cleaning
-the kitchen and keeping it clean, and the second half of that is the harder
-one.
+## 2. What I think the problem is, and why it matters more now
 
-## 2. What I think the problem is
+Most of it comes back to one thing: **nothing holds still.**
 
-Most of what I saw comes back to one thing: **you have no versioned
-artefact.**
+Figma is your source of truth and it is also a live document several people
+edit. Those two jobs fight. A source of truth has to hold still long enough
+for somebody to build against it, test against it, and afterwards prove what
+it said at the time. Yours cannot, so every consumer absorbs that cost
+privately, and it reaches you as scattered fault-finding rather than as one
+visible problem.
 
-Figma is your source of truth and it is also a live document anyone can
-edit. Those two jobs fight each other. A source of truth has to hold still
-long enough for somebody downstream to build against it, test against it,
-and afterwards prove what it said at the time. Yours cannot, so every
-consumer absorbs that cost privately and separately, which is why it reaches
-you as scattered fault-finding instead of as one visible problem.
+**The part that changes my advice is where you are heading.** Amanda was clear
+that the intention is to move off Figma and let the BAs prototype in Claude,
+with the Figma file as a hybrid for now. I think that is the right direction.
+It also raises the stakes on the substrate, for a reason worth being plain
+about.
 
-The token layer is how you get a version worth trusting. A tag on a release
-means something only if what it names was checked before it left.
+Your design decisions currently live inside a Figma file. Values, naming,
+rules, all of it. Every month that continues without an extracted, versioned
+token layer is another month of dependency on a tool you have decided to
+leave. **A token layer in your own repository, in the open DTCG format, is
+what makes leaving Figma survivable.** It is portable, it is diffable, and it
+does not care which design surface authored it.
 
-## 3. Two things Harald raised
+So the work below is worth doing whether you stay on Figma or not. That is
+the main reason I would start here rather than anywhere else.
 
-He was right about both, and neither changes the plan much.
+## 3. Three things your team raised
 
-**"Our variables barely change."** True, and a fair objection to a machine
-whose job sounds like guarding colour values. The gate earns its place doing
-two other things. It stops a value entering the system that cannot work: a
-semantic colour typed as a literal cannot flip between light and dark, or
-between white labels, and nothing in Figma will tell you so. And it makes a
-release solid enough for a person to sign off. Your variables may well be
-stable. Your artefacts plainly are not, and the artefacts are the expensive
-half.
+**"Our variables barely change."** Harald is right, and it is a fair
+objection to a machine whose job sounds like guarding colour values. The gate
+earns its place doing two other things. It stops a value entering the system
+that cannot work, since a semantic colour typed as a literal cannot flip
+between light and dark or between white labels, and nothing in Figma will
+tell you so. And it makes a release solid enough for a person to sign off.
+Your variables may well be stable. Your artefacts plainly are not, and the
+artefacts are the expensive half.
 
 **"MUI owns the theming, and going off-piste costs us at every upgrade."**
 Agreed, and I will hold myself to it in writing. Everything I generate stays
 inside MUI's supported theming surface: palette, typography, shape, spacing,
-and `styleOverrides` on documented slots. Nothing reaches into MUI's
-internal selectors from outside. Where a component needs something the theme
-cannot express, that is a finding about the component and it goes back up
-the chain. It does not quietly become a deep selector.
+and `styleOverrides` on documented slots. Nothing reaches into MUI's internal
+selectors from outside. Where a component needs something the theme cannot
+express, that is a finding about the component and it goes back up the chain.
 
-Two consequences, both in Harald's favour:
+Two consequences, both in Harald's favour. MUI's names stay fixed and I fill
+them in, with Pragma inventing vocabulary in one place only, an app layer
+above. And the generated theme is TypeScript, typed against MUI's own
+`Theme`, so a misspelled palette path becomes a compile error instead of a
+component silently falling back to an MUI default.
 
-- MUI's names are fixed and I fill them in. Onkey invents vocabulary in one
-  place only, an app layer sitting above, and the boundary is mechanical:
-  MUI's names may not be renamed, app names may.
-- The generated theme is TypeScript, typed against MUI's own `Theme`. A
-  misspelled palette path becomes a compile error instead of a component
-  silently falling back to an MUI default.
+**"Darren already connected Claude to our tokens."** He did, and it works
+reasonably well. What it cannot do is prove that a value in your code came
+from your system, or stop a release when it didn't. An agent produces a
+plausible answer; a pipeline produces the same answer every time and fails
+loudly when it can't. Those sit next to each other rather than competing, and
+the more your team generates, the more the check is worth having.
 
 ## 4. What I would do first
 
-The stock take you asked for. In my practice that is the Diagnostic, and
-every engagement starts with one.
+Amanda told me her most urgent piece of work is housekeeping on the masters:
+going back through the screens that were drawn, finding what has been
+detached, and asking why, and what need the master failed to meet.
+
+**That is the same activity I would start with.** The difference is that mine
+ends in a written document rather than a tidier file, and it covers the code
+as well as the Figma.
 
 **Two weeks. £3,000, fixed.**
 
-What happens:
-
 - I point my token pipeline at your master file and audit how much of your
-  design system actually reaches your code. It runs on my machine, reads
-  your variables locally, and uploads nothing anywhere.
-- Three inventories: your variables, your components, and what Material
-  Manager left behind in the master. Each read against your code as well as
-  your Figma, because drift only becomes visible when you compare two
-  things.
+  design system actually reaches your code. It runs on my machine, reads your
+  variables locally, and uploads nothing. Your plan does not include the
+  variables API, so this uses a local plugin and stays a deliberate,
+  human-triggered step. That suits a first engagement.
+- Three inventories: your variables, your components, and what the Material
+  Manager work left behind. Each read against your code as well as your
+  Figma, because drift only becomes visible when you compare two things.
 - Time with Harald and Amanda, and whoever else is carrying the load.
 
-What you get is a written diagnosis: where the substrate is broken, what it
-is costing you, and what fixing it involves, scoped and priced. It is yours
-to act on whether or not you take a next step with me.
+You get a written diagnosis: where the substrate is broken, what it is
+costing, and what fixing it involves, scoped and priced. Yours to act on
+whether or not you take a next step with me.
 
-I walk the findings through with you live before I write any of it up. An
-audit produces evidence, and deciding which of that evidence matters is the
-part you are paying for. Run against my own system, the same check flagged
-nine colours as broken. Eight were real, including white text sitting at
-1.16:1 in dark mode. The ninth was a transparent border that was always
-going to look identical in both. Waving all nine through would have buried
-the eight behind a green build, and no tool draws that line.
+I walk the findings through with you live before writing them up. An audit
+produces evidence, and deciding which of it matters is the part you are
+paying for. Run against my own system, the same check flagged nine colours as
+broken. Eight were real, including white text at 1.16:1 in dark mode. The
+ninth was a transparent border that was always going to look identical.
+Waving all nine through would have buried the eight behind a green build.
 
-## 5. What likely follows
+## 5. Two things I would tell you now, for free
 
-I can describe the shape of these. I would not price the middle one properly
-until the Diagnostic is done, because I do not quote work I have not scoped.
+**Your Figma seat count is costing Amanda her week.** With three paid seats,
+your developers cannot open Dev Mode, so the way they get specifications is
+to message Amanda on Teams. That routes the entire handover of a complex
+product through one person, and it is a licensing decision rather than a
+design problem. Costing a few more seats against the hours it currently
+consumes is the cheapest thing on this list.
 
-**The variables.** Converge your Figma set onto MUI's token names,
-restructure the primitives and semantics so the modes genuinely resolve,
-generate your theme from that, and install the checks that stop it drifting
-again. This piece has an end state you can count down to. **4 to 6 weeks,
-£12,000 to £18,000, exact figure set by the Diagnostic.**
+**Part of Harald's token problem has a small, specific cause.** Amanda
+identified it herself: the support-and-branding grouping she used to organise
+the file, and the custom accent naming she added for flexibility. Those two
+sit between his code and MUI's vocabulary. Worth looking at before assuming
+the problem is large.
+
+## 6. What likely follows
+
+Shapes rather than quotes. I do not price work I have not scoped.
+
+**The variables.** Converge your Figma set onto MUI's token names, restructure
+the primitives and semantics so the modes genuinely resolve, generate your
+theme from that, and install the checks that stop it drifting. This has an
+end state you can count down to. **4 to 6 weeks, £12,000 to £18,000, exact
+figure set by the Diagnostic.**
 
 One item inside it I want to flag now, because it sounds smaller than it is.
 Harald mentioned white labelling. Supporting brands beyond a light and dark
-pair is real engineering through the length of the pipeline, so I would
-price it as its own line and show you the number rather than absorb it
-quietly and be slow later.
+pair is real engineering through the length of the pipeline, so I would price
+it as its own line and show you the number.
 
-On the return, since you will be asked: at Vivo Energy, contracted via
+**The artefact that stops moving.** This is what Harald asked for and did not
+get an answer to: what does he build against, and what does QA test against.
+Since branching is not available on your Figma plan, the mechanism is a
+versioned token release plus a controlled publishing discipline between the
+master and the project files, rather than a branch-and-merge flow. The release
+gets a version number, and that number is what an Aha! feature and a TFS work
+item point at.
+
+This part does not finish. It changes how you work and it decays the moment
+nobody is holding it, which is what a **retainer at £2,000 a month** is for,
+cancellable on 30 days' notice.
+
+**On the return, since you will be asked:** at Vivo Energy, contracted via
 Rethink, putting a basic component library and colour system in front of the
-developers took roughly 60% out of their development time within two or
-three sprints. Your situation is more complex than theirs was and I am not
-promising that number. It is why I think this work pays for itself, offered
-as a reason rather than a projection.
+developers took roughly 60% out of their development time within two or three
+sprints. Your situation is more complex than theirs was and I am not promising
+that number. It is why I think this work pays for itself, offered as a reason
+rather than a projection.
 
-**The master file.** Branching, a versioned release, a Storybook build per
-version, and that version linked from the Aha! feature and the TFS work
-item. That is what development builds against, what QA tests against, and
-the answer to "did this change or did I imagine it". This piece has no end
-state. It changes how you work, and it decays the moment nobody is holding
-it, which is what a **retainer at £2,000 a month** is for, cancellable on 30
-days' notice.
+## 7. The layer above, which is where I think you are actually going
 
-**One thing has to happen before the variables work starts, and it costs you
-nothing.** Freeze new variable creation in the master for the length of the
-convergence. Additions queue up and land at the end. It slows no delivery,
-because a module can still ship against everything that already exists.
-Without it, a diff will show you that a value moved and will not show you
-whether I moved it or somebody shipping a module did, and that evidence
-trail is what the whole engagement is built on.
+Amanda described your ask as getting the BAs prototyping in Claude with rules
+that go beyond gating variables and tokens. Her example was the right one: a
+BA can choose a data grid or a kanban board, and if the journey should not
+block the user, they should not be handed a modal.
 
-## 6. What this is commercially
+That is the same problem as the token gate, one level up. A token gate
+constrains **values**. What you are describing constrains **patterns**, which
+is the harder and more valuable half, and nobody in your current setup is
+building it. Your consultancy sells capability, your internal team builds
+agents, and Darren has written a skill. The constraint layer is the gap.
 
-Amanda asked whether this is a product or a service and summarised my answer
-back accurately, so for the rest of your team:
+It is also the part that cannot be bought. It is your layout patterns, your
+elevation rules and Amanda's composition decisions written down in a form an
+agent has to obey, with a mechanism for proposing a new pattern rather than
+inventing one silently.
 
-It is a service. What lands in your repositories is yours, and it is an
-ordinary repo needing ordinary maintenance. Take it in-house whenever you
-want and nothing breaks, nothing expires, and nothing phones home. Harald
-takes it over and I hand it over properly. I keep the underlying machinery,
-which I use across engagements, and you hold a permanent licence to use your
-instance of it. Skills transfer is part of the work rather than a favour at
-the end.
+I would not put this in the first engagement. It depends on the token layer
+existing underneath it, and on your team having room to breathe after June.
+I am naming it because it is the reason I think this is worth doing properly
+rather than quickly.
 
-## 7. What I need from you
+## 8. On design capacity
 
-Amanda expects no blockers here, so this is short.
+You asked whether I know freelance designers you could slot in. I will come
+back to you with names I would genuinely vouch for.
+
+One thing worth agreeing before anyone starts: whoever arrives will be working
+inside the same master file. Extra hands in a file with no version and no
+owner is a good part of how most systems end up where yours is. That is a
+short conversation rather than a project.
+
+To be plain about my own boundary: building screens sprint by sprint is a
+different job from the one above, and I think you get better value from me on
+the system than in the queue. Reviewing components, checking new patterns
+against the system, and being the person Harald and Amanda can call is
+included in the retainer.
+
+## 9. What I need from you
 
 - A Figma seat with **edit** rights on the file that defines the variables.
-  Edit rather than view, because plugins need it.
+  Edit rather than view, because the plugin needs it.
 - Read access to the UI repository.
 - Around three hours with Harald and Amanda across the two weeks.
 - A named contact who can answer a question inside two working days.
 
-## 8. What I could be wrong about
+## 10. What I could still be wrong about
 
-Open, and cheap to settle:
-
-1. **Do you have Figma Enterprise?** If so, the variables API is available,
-   the plugin I demoed drops out entirely, and the sync can run on a build
-   agent instead of my laptop.
-2. **Which MUI version, and is CSS variables mode switched on?**
-3. **Is the paid MUI Figma kit Material 2 or Material 3?** You ship M2
-   deliberately, so an M3 kit means a mismatch is already baked in.
-4. **How many collections and modes does the master hold**, and does a dark
-   mode exist in it at all?
-5. **What is the Storybook endpoint currently wired to**, and is it live?
-
-I am seeing Amanda on [date] to walk through the master design system.
-Several of these answer themselves in that session, and I will send a short
-note afterwards with anything that changes the shape above.
+- Which MUI version, and whether CSS-variables mode is switched on.
+- Whether the Figma kit you purchased is Material 2 or Material 3. You ship
+  M2 deliberately, so an M3 kit means a mismatch is already baked in.
+- Whether white labelling is a commitment or an aspiration, and how many
+  brands it means. Amanda did not think this was hers to answer.
+- Your Figma plan, which Amanda was going to confirm. If it turns out to be
+  Enterprise, the plugin drops out and the sync can run unattended, which
+  makes section 4 simpler and cheaper.
 
 Warren
