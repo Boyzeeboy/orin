@@ -4767,6 +4767,63 @@ freeze can lift.
 
 ---
 
+## 2026-08-21 — Pragma is leaving Figma, so the proposal argues portability
+
+**Decision:** Rewrote `notes/onkey-proposal-draft.md` after the second session,
+with Amanda walking the master design system. The proposal's central argument
+changes from "Figma is your source of truth, let me make it trustworthy" to
+**the token layer is what makes leaving Figma survivable**. Storybook comes out
+of the main line. A section on the pattern layer goes in. The company is
+Pragma; On Key is the product.
+
+**Reasoning:** four facts from that session undercut the previous draft.
+
+- **No Figma Enterprise.** They are on Professional with three paid seats. The
+  variables REST API is unavailable, so the plugin and the sink stay and the
+  sync remains a human-triggered step. Stated in the proposal as suiting a
+  first engagement, which is true and also the only option.
+- **No branching**, which is an Organization-plan feature. The day-one
+  recommendation logged on 2026-08-20 is not purchasable. The write-path
+  control becomes separate files plus publishing discipline, or a costed plan
+  upgrade.
+- **They intend to leave Figma.** Amanda: "the dream is to let go of Figma
+  completely", with the file as a hybrid master for now. A pipeline whose front
+  half is a Figma plugin is pointed at a tool they plan to retire, so the
+  argument had to change or die with it.
+- **Darren already connected Claude to their tokens by MCP** and it works
+  passably. Named in the proposal and answered honestly rather than ignored.
+
+The portability argument is stronger than the one it replaces. DTCG in their
+own repo survives the move; design decisions living inside a Figma file do not.
+It also stops the proposal fighting their strategy.
+
+**Storybook is dead as a requirement.** Amanda has no view on it and thought it
+was Harald's architectural requirement, inherited from a solution architect who
+has since left. Nobody owns it. What she named underneath it is real and cheap:
+three paid seats means developers cannot open Dev Mode, so specifications reach
+them by messaging Amanda on Teams. That went in as a free recommendation.
+
+**The pattern layer is the actual opportunity.** Stefan's ask, in Amanda's
+words, is BAs prototyping in Claude under rules that go "beyond gating just the
+variables". That is `notes/pattern-layer-governance.md`, parked on 2026-08-10,
+pointed at a client. It is named in the proposal and deliberately kept out of
+the first engagement.
+
+**On capacity:** Amanda's most urgent work is housekeeping on the masters,
+which is the Diagnostic under another name, and the proposal says so. Screen
+production is declined in one paragraph, and Stefan's referral request is the
+route out of that trap.
+
+**Deferred:** currency, the company-versus-product name, and confirmation of
+the Figma plan and branching availability. All three are flagged in the draft
+block and block sending.
+
+**Revisit if:** the Figma plan turns out to be Enterprise after all, which
+makes the sync unattended and section 4 cheaper. Or they abandon the move off
+Figma, which returns the earlier argument to service.
+
+---
+
 
 
 
