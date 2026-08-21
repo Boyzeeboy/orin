@@ -46,6 +46,11 @@ anyone else has read it yet.
 
 Follow with: **who else has seen it, and whose yes do you need?**
 
+Likely more than Stefan. Mauritz owns the EAM product that Material Manager
+sits inside, and he asked on the call what he and Darren are actually signing
+off. Gerhard has to live with whatever gets built. Both have a veto in
+practice even if neither has one on paper.
+
 ## 2. Three things to say, mostly as questions (15 min)
 
 These are the parts deliberately kept out of the document. Ask rather than

@@ -183,8 +183,11 @@ Gerhard mentioned white labelling. Supporting brands beyond a light and dark
 pair is real engineering through the length of the pipeline, so I would price
 it as its own line and show you the number.
 
-**The artefact that stops moving.** This is what Gerhard asked for and did not
-get an answer to: what does he build against, and what does QA test against.
+**The artefact that stops moving.** Gerhard and Mauritz both asked for this on
+the call, from opposite ends and without either getting an answer. Gerhard
+wanted something to build a component against and something QA could test
+against. Mauritz wanted to know what he and Darren are signing off, when the
+thing they are looking at changes while they look at it.
 Branching is an Organization-plan feature and you are on Professional, so the mechanism is a
 versioned token release plus a controlled publishing discipline between the
 master and the project files, rather than a branch-and-merge flow. The release

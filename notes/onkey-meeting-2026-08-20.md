@@ -1,10 +1,14 @@
 # Onkey — first meeting, 20 August 2026
 
 Notes from the intro call. Written the same afternoon, from the transcript.
-Names are as heard on a poor line: **Amanda** (UX design, PMO), **Gerhard**
-(UI architect), **Stefan** (the senior one, chaired the close), **Darren**
-(PM, asset performance management), plus a second PM on enterprise asset
-management and a team of BAs. Check the spellings before anything goes out.
+Who was there: **Mauritz** (product manager, enterprise asset management, and
+he chaired the introductions), **Darren** (product manager, asset performance
+management), **Amanda** (UX design, PMO), **Gerhard** (UI architect), and
+**Stefan** (the senior one, closed the meeting), plus a team of BAs.
+
+Gerhard and Mauritz were corrected after the fact; the line was poor enough
+that both came through several different ways. The PMO director is still
+unconfirmed, heard as Simone and as Sincla.
 
 ---
 
