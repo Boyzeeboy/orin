@@ -4872,6 +4872,50 @@ floating quote, which is the mechanism already offered here.
 
 ---
 
+## 2026-08-21 — Client notes are Pragma, pipeline artefacts stay On Key
+
+**Decision:** Renamed the four `notes/onkey-*` files to `notes/pragma-*` with
+`git mv`, so history follows them. The token prefix, the scaffold repo name and
+the Figma file name are all deliberately left alone.
+
+| Was | Now |
+|---|---|
+| `notes/onkey-amanda-session-questions.md` | `notes/pragma-amanda-session-questions.md` |
+| `notes/onkey-diagnostic-runbook.html` | `notes/pragma-diagnostic-runbook.html` |
+| `notes/onkey-meeting-2026-08-20.md` | `notes/pragma-meeting-2026-08-20.md` |
+| `notes/onkey-proposal-draft.md` | `notes/pragma-proposal-draft.md` |
+
+**Reasoning:** the second session made the distinction plain. **Pragma is the
+company. On Key is the product.** The engagement, the proposal and the invoice
+are with Pragma, so notes about the client take their name.
+
+The pipeline artefacts point at the product instead, and that is correct rather
+than an oversight. `--onkey-*` prefixes the custom properties of the
+application being themed, and prefixing a product's tokens with its parent
+company's name would be wrong. The `on-key` scaffold repo names the product for
+the same reason, and `figmaFileName: "Onkey Token Pipeline"` has to match the
+name of their actual Figma file, which the provenance guard compares exactly
+with no trimming and no case folding.
+
+So the rule is: **client notes are Pragma, anything the pipeline touches is On
+Key.**
+
+**Old entries above are left as written**, per this file's rule. Four of them
+cite `notes/onkey-*` paths that no longer resolve. Those citations were correct
+on the day, this entry is the forwarding address, and rewriting them to look
+prescient is exactly what the no-rewrite rule exists to prevent. Two other
+`--onkey-` references in older entries are token names and were never affected.
+
+**Checked before renaming:** `deliverable.md` does not reference any of these
+files and `verify:deliverable` does not scan `notes/`, so `npm test` is
+unaffected. Two internal cross-references to the runbook inside the meeting
+note were updated.
+
+**Revisit if:** the On Key product is renamed, or the engagement turns out to be
+with a Pragma subsidiary rather than Pragma itself.
+
+---
+
 
 
 
