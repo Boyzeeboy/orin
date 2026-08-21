@@ -72,7 +72,7 @@ happen before any variables work starts.
 - [ ] Is the paid MUI Figma kit Material 2 or Material 3? They ship M2
       deliberately, so an M3 kit means a mismatch is already baked in.
 - [ ] Has anyone designed a second brand for white labelling? She may not
-      know the commercial commitment; Stefan or Harald will on Monday.
+      know the commercial commitment; Stefan or Gerhard will on Monday.
 
 ## E. Components
 
@@ -80,7 +80,7 @@ happen before any variables work starts.
       she is sharing.
 - [ ] Which components are MUI defaults, which are MUI themed, and which
       are genuinely domain-level?
-- [ ] Harald's status-change component that moves when profile manager
+- [ ] Gerhard's status-change component that moves when profile manager
       moves. Look at it.
 
 ## F. Her world
@@ -96,7 +96,7 @@ answer as well as ask.
 
 ## G. Storybook
 
-Remember Harald pushed back on this. Amanda wants it. Do not treat it as
+Remember Gerhard pushed back on this. Amanda wants it. Do not treat it as
 agreed.
 
 - [ ] What is the existing Storybook endpoint wired to, and is it live?

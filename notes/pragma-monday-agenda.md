@@ -60,7 +60,7 @@ reaches the conclusion himself that it does not have a finish date, the
 retainer stops being an upsell and becomes obvious.
 
 **Continuity.**
-> "If Amanda or Harald were unavailable for a month, what happens to the
+> "If Amanda or Gerhard were unavailable for a month, what happens to the
 > system?"
 
 Today the answer is that it stops, because it lives in a Figma file and in
@@ -71,7 +71,7 @@ better than velocity.
 > "When Material Manager goes live beside the old UI, what happens to a
 > planner who meets both inside one session?"
 
-Harald is already hand-patching tokens into the old UI for consistency. Shared
+Gerhard is already hand-patching tokens into the old UI for consistency. Shared
 tokens are the only mechanism that makes that transition coherent. Ask the
 question, let him answer, then name the mechanism.
 
@@ -102,7 +102,7 @@ in before they start.
 
 If he pushes you towards screen production, the line is that he gets better
 value from you on the system than in the sprint queue, and that reviewing
-components and being the person Harald and Amanda can call is already in the
+components and being the person Gerhard and Amanda can call is already in the
 retainer.
 
 ## 5. Ask for the work (5 min)
@@ -120,9 +120,9 @@ Then stop talking.
 - The name of whoever else has to agree, and an offer to speak to them.
 - What specifically is missing that would let him say yes.
 
-## 6. Ask for Harald (2 min)
+## 6. Ask for Gerhard (2 min)
 
-Only if Harald is not on the call.
+Only if Gerhard is not on the call.
 
 He is the veto and he has not been won. Ask for thirty minutes with him this
 week. Three things to land when you get it, all in his language:

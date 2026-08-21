@@ -11,7 +11,7 @@
 > - ~~Company name~~ **Settled: Pragma on the letterhead.**
 > - ~~Figma plan and branching~~ **Settled: Professional, so branching is
 >   unavailable to them.** Sections 4 and 6 are written on that basis.
-> - **Names and spellings.** Amanda, Harald, Darren, Stefan are as heard.
+> - **Names and spellings.** Amanda, Gerhard, Darren, Stefan are as heard.
 >   Several others came off a poor line and are deliberately not used here.
 > - **Aha! and TFS.** Confirm TFS is current and not Azure DevOps.
 > - The engagement letter in `notes/contracts/` comes after this.
@@ -84,7 +84,7 @@ the main reason I would start here rather than anywhere else.
 
 ## 3. Three things your team raised
 
-**"Our variables barely change."** Harald is right, and it is a fair
+**"Our variables barely change."** Gerhard is right, and it is a fair
 objection to a machine whose job sounds like guarding colour values. The gate
 earns its place doing two other things. It stops a value entering the system
 that cannot work, since a semantic colour typed as a literal cannot flip
@@ -100,7 +100,7 @@ and `styleOverrides` on documented slots. Nothing reaches into MUI's internal
 selectors from outside. Where a component needs something the theme cannot
 express, that is a finding about the component and it goes back up the chain.
 
-Two consequences, both in Harald's favour. MUI's names stay fixed and I fill
+Two consequences, both in Gerhard's favour. MUI's names stay fixed and I fill
 them in, with Pragma inventing vocabulary in one place only, an app layer
 above. And the generated theme is TypeScript, typed against MUI's own
 `Theme`, so a misspelled palette path becomes a compile error instead of a
@@ -133,7 +133,7 @@ as well as the Figma.
 - Three inventories: your variables, your components, and what the Material
   Manager work left behind. Each read against your code as well as your
   Figma, because drift only becomes visible when you compare two things.
-- Time with Harald and Amanda, and whoever else is carrying the load.
+- Time with Gerhard and Amanda, and whoever else is carrying the load.
 
 Nothing is measured against my taste. Findings are held against MUI's own
 token documentation, which is the standard Amanda has already chosen to
@@ -162,7 +162,7 @@ product through one person, and it is a licensing decision rather than a
 design problem. Costing a few more seats against the hours it currently
 consumes is the cheapest thing on this list.
 
-**Part of Harald's token problem has a small, specific cause.** Amanda
+**Part of Gerhard's token problem has a small, specific cause.** Amanda
 identified it herself: the support-and-branding grouping she used to organise
 the file, and the custom accent naming she added for flexibility. Those two
 sit between his code and MUI's vocabulary. Worth looking at before assuming
@@ -179,11 +179,11 @@ end state you can count down to. **4 to 6 weeks, £12,000 to £18,000, exact
 figure set by the Diagnostic.**
 
 One item inside it I want to flag now, because it sounds smaller than it is.
-Harald mentioned white labelling. Supporting brands beyond a light and dark
+Gerhard mentioned white labelling. Supporting brands beyond a light and dark
 pair is real engineering through the length of the pipeline, so I would price
 it as its own line and show you the number.
 
-**The artefact that stops moving.** This is what Harald asked for and did not
+**The artefact that stops moving.** This is what Gerhard asked for and did not
 get an answer to: what does he build against, and what does QA test against.
 Branching is an Organization-plan feature and you are on Professional, so the mechanism is a
 versioned token release plus a controlled publishing discipline between the
@@ -243,7 +243,7 @@ short conversation rather than a project.
 To be plain about my own boundary: building screens sprint by sprint is a
 different job from the one above, and I think you get better value from me on
 the system than in the queue. Reviewing components, checking new patterns
-against the system, and being the person Harald and Amanda can call is
+against the system, and being the person Gerhard and Amanda can call is
 included in the retainer.
 
 ## 9. What I need from you
@@ -251,7 +251,7 @@ included in the retainer.
 - A Figma seat with **edit** rights on the file that defines the variables.
   Edit rather than view, because the plugin needs it.
 - Read access to the UI repository.
-- Around three hours with Harald and Amanda across the two weeks.
+- Around three hours with Gerhard and Amanda across the two weeks.
 - A named contact who can answer a question inside two working days.
 
 ## 10. What I could still be wrong about

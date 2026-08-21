@@ -4629,7 +4629,7 @@ contract** rather than a free-form `--onkey-*` sheet. And the month-to-month
 tactical arrangement I described in the room gets renamed on paper to the
 Diagnostic, because the stock take they asked for is the Diagnostic.
 
-**Reasoning:** Harald, their UI architect, pushed back twice and both pushes
+**Reasoning:** Gerhard, their UI architect, pushed back twice and both pushes
 were fair. Their variables rarely change, and MUI owns the naming layer with
 an upgrade-maintenance cost attached to going off-piste. That is the shadcn
 adapter problem again, so it takes the shadcn adapter answer: the vendor's
@@ -4685,7 +4685,7 @@ entry per colour scheme.
 **The expensive item is white labelling, and it was nearly missed.**
 `sd.config.mjs` ends with two literal calls, `buildMode('light')` and
 `buildMode('dark')`, and fourteen files under `on-key/` mention dark, down to
-the `exports` map. Harald raised white labelling as an aside. It is real
+the `exports` map. Gerhard raised white labelling as an aside. It is real
 engineering across the pipeline and it gets priced as its own item.
 
 **Reasoning on the split:** the variables have an end state and the master
@@ -4745,7 +4745,7 @@ different responses at different times.
 
 - **Present contamination**, which is Diagnostic work. Whatever Material Manager
   pushed sits in the master now and reads as a whole-system decision. Most
-  likely the source of Stefan's two button masters and Harald's status-change
+  likely the source of Stefan's two button masters and Gerhard's status-change
   component that moves when profile manager moves. The stock take has to
   separate system-level decisions from module-level ones, and the file records
   nothing about which is which.
@@ -4798,7 +4798,7 @@ own repo survives the move; design decisions living inside a Figma file do not.
 It also stops the proposal fighting their strategy.
 
 **Storybook is dead as a requirement.** Amanda has no view on it and thought it
-was Harald's architectural requirement, inherited from a solution architect who
+was Gerhard's architectural requirement, inherited from a solution architect who
 has since left. Nobody owns it. What she named underneath it is real and cheap:
 three paid seats means developers cannot open Dev Mode, so specifications reach
 them by messaging Amanda on Teams. That went in as a free recommendation.
