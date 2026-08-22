@@ -59,6 +59,19 @@ to version it.
 
 Most of it comes back to one thing: **nothing holds still.**
 
+Worth saying first that this is not old mess. Moving to a SPA is what created
+the need for a design system in the first place: server-rendered pages each
+carry their own markup, so inconsistency is cheap to make and invisible until
+it accumulates, while a SPA is assembled from components and components need a
+value layer underneath them. This work is the second half of a migration you
+have already committed to.
+
+And it is forced in one specific way. The old UI and the new one are different
+rendering technologies sharing a production environment and a login session, so
+they cannot share a component library. There is nothing to share it through.
+Tokens are the only substrate that can cross that boundary at all, which is why
+Gerhard reached for exactly that when he pushed values into the old UI by hand.
+
 Figma is your source of truth and it is also a live document several people
 edit. Those two jobs fight. A source of truth has to hold still long enough
 for somebody to build against it, test against it, and afterwards prove what
