@@ -1,22 +1,4 @@
-# Pragma / On Key proposal — draft
-
-> **DRAFT NOTES. Delete this block before sending.**
->
-> Rewritten 21 August 2026, after the session with Amanda. Check these first:
->
-> - ~~Currency~~ **Settled: GBP, bank transfer, no Stripe.** Payment
->   mechanics stay out of this document and go in the engagement letter.
->   Ask Stefan on Monday for their approval threshold and standard payment
->   terms.
-> - ~~Company name~~ **Settled: Pragma on the letterhead.**
-> - ~~Figma plan and branching~~ **Settled: Professional, so branching is
->   unavailable to them.** Sections 4 and 6 are written on that basis.
-> - **Names and spellings.** Amanda, Gerhard, Darren, Stefan are as heard.
->   Several others came off a poor line and are deliberately not used here.
-> - **Aha! and TFS.** Confirm TFS is current and not Azure DevOps.
-> - The engagement letter in `notes/contracts/` comes after this.
-
----
+# Pragma proposal
 
 **From:** Warren Rossiter, Orin
 **To:** Stefan [surname], Pragma
