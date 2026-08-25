@@ -30,3 +30,7 @@ notes/client-situations.md
 # name or address lands in one there is no undo on a public remote. Untracked
 # 2026-08-16; they were tracked before that, so they remain in the history.
 notes/contracts/
+
+# Gitdir for the private companion repo (Boyzeeboy/orin-private). Same working
+# tree, own index, tracks only the paths excluded above. See scripts/private.
+.private.git/

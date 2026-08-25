@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# scripts/private — git for the private companion repo (Boyzeeboy/orin-private).
+#
+# Why it exists: several files in this working tree are deliberately excluded
+# from the public remote (see the commented blocks in .gitignore) — the outreach
+# copy naming real clients, the contract templates, the findings walkthrough
+# script, the extraction brief. Excluded meant unversioned and unbacked-up, so
+# they get a second repo over the same working tree: own gitdir (.private.git),
+# own index, same files in the same places. Nothing moves, so the paths that
+# decisions.md refers to stay correct.
+#
+#   scripts/private status
+#   scripts/private commit -am "..."
+#   scripts/private push
+#
+# Untracked files are hidden (status.showUntrackedFiles=no) so the public repo's
+# files don't show as noise. Adding a NEW private file needs -f, because the
+# in-tree .gitignore excludes it by design:
+#
+#   scripts/private add -f notes/whatever.md
+#
+# Never `add` anything from the public repo here, and never add anything from
+# here to the public repo. That is the whole point.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+exec git --git-dir=.private.git --work-tree=. "$@"
