@@ -34,3 +34,7 @@ notes/contracts/
 # Gitdir for the private companion repo (Boyzeeboy/orin-private). Same working
 # tree, own index, tracks only the paths excluded above. See scripts/private.
 .private.git/
+
+# Deal state, timing, and a referral. Private for the same reason as the
+# outreach copy above.
+notes/pragma-log.md
