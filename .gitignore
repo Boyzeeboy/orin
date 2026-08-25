@@ -35,6 +35,12 @@ notes/contracts/
 # tree, own index, tracks only the paths excluded above. See scripts/private.
 .private.git/
 
-# Deal state, timing, and a referral. Private for the same reason as the
-# outreach copy above.
-notes/pragma-log.md
+# The Pragma client material. Same public-remote reasoning as the outreach copy
+# above, and one more besides: between them these name Pragma's staff, quote
+# what each person said in a real meeting, describe their systems as broken,
+# and set out how to sell to them. None of it is untrue and some of it is the
+# analysis that won their architect over, but it reads differently to the
+# person named than to the person who wrote it. Tracked in orin-private from
+# 2026-08-25; they were tracked here before that, so they remain in the history.
+notes/pragma-*
+scripts/derive-team-proposal.mjs
