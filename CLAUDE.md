@@ -33,6 +33,14 @@ flag it to Warren and log it in `decisions.md`.
   tokens.css` (synced from the build — never edit it by hand, never read
   from `dist/`). `site/styles.css` holds semantic aliases + local layout
   vars only.
+- **Two repos, one working tree.** This remote is public. `orin-private`
+  holds everything client-specific; `.gitignore` lists the paths with the
+  reason for each. Same files on disk, separate gitdir at `.private.git`,
+  driven through `scripts/private`. A *new* private file needs `scripts/private
+  add -f`, because the in-tree `.gitignore` excludes it by design.
+  `notes/shadcn-adapter/` is a third repo, also private. After any `git pull`
+  that deletes files, run `scripts/private status` — a public-side deletion
+  removes them from disk, and `scripts/private checkout -- .` puts them back.
 - Two token layers exist: primitives (`neutral`, `teal`) and semantic
   (`colour/text`, `colour/background`, `colour/border`). There is no
   component-token layer yet, and MVP does not add one.
@@ -58,6 +66,15 @@ flag it to Warren and log it in `decisions.md`.
 - **Component budget** (PHASE5-BUILD.md): primitives only — heading set,
   body, link, one primary button, nav, footer, section wrapper,
   case-study card. Build nothing else unless a page demands it.
+- **Client material goes to `orin-private` from its first commit.** Anything
+  naming a live client, their people, their systems, or how to sell to them:
+  meeting notes, proposals, strategic reads, session questions, contracts,
+  outreach copy. Write it, then `scripts/private add -f` and add the path to
+  `.gitignore` in the same pass. Generic practice material stays here —
+  infographics, setup sheets, doctrine notes. Getting this backwards is what
+  2026-08-25 cost: a history rewrite across 188 commits and a support ticket
+  to GitHub, because a public remote serves deleted files by SHA long after
+  they leave `main`.
 - Never frame Orin as a "design agency" or "design studio." "Design
   system" is fine as the artefact's name.
 - Attribution: Vivo = "contracted via Rethink"; IDEM = personal rebuild,

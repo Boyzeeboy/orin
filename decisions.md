@@ -4914,6 +4914,67 @@ with a Pragma subsidiary rather than Pragma itself.
 
 ---
 
+## 2026-08-25 — Client material moves to a private repo, and the public history is rewritten
+
+**Decision:** Client-specific material now lives in `Boyzeeboy/orin-private`,
+sharing this working tree through a second gitdir. Twenty files: the twelve
+Pragma notes, the contract templates, the outreach copy, the walkthrough
+script, the extraction brief, the running log, and the script that derives the
+proposal's team copy. The public history was rewritten to remove all of it.
+`CLAUDE.md` gains the rule so a new client does not repeat this.
+
+**Reasoning:** this remote is public, and the Pragma set between them named the
+client's staff, quoted what each person said in a real meeting, described their
+systems as broken, and set out how to sell to them. None of it untrue and some
+of it the analysis that won their architect over, but a live prospect can run a
+search, and there is no version of that conversation worth having.
+
+The material had also been outside version control entirely. `.gitignore` had
+excluded the contracts, the outreach copy and the walkthrough script since
+2026-08-16 for exactly the right reasons, but excluded meant backed up nowhere:
+around eight thousand words of commercial material on one disk. The private
+repo fixes both problems at once.
+
+**Nothing moved on disk.** `decisions.md` cites these paths, the private files
+cross-reference each other, and relocating them into a subdirectory would have
+broken references in a tracked public file to buy nothing.
+
+**The history rewrite was necessary and I nearly did not recommend it.** The
+first assessment weighed the contracts, which are unsigned templates with
+placeholder counterparties, and concluded a rewrite was not worth forty broken
+commit links. That reasoning did not transfer to a live client's meeting notes.
+Twenty-two commits over six days held the material, and a fresh clone could
+retrieve all of it.
+
+`git filter-repo --invert-paths` over 188 commits, leaving 160; the rest were
+commits that touched nothing else and became empty. Verified from a clean clone
+before and after.
+
+**What the rewrite does not close.** GitHub still serves unreferenced objects
+by direct SHA, and the old SHAs are printed on the merged PR pages, so the path
+from a public PR to the meeting note is short. Only garbage collection on
+GitHub's side removes them. A support ticket is open work, not done work.
+
+**`decisions.md` itself was tightened rather than moved.** Named individuals
+became roles, direct quotes from private sessions were paraphrased or dropped,
+and one line that had a colleague characterising another's architectural
+requirement now reads as a statement about the requirement. Every decision,
+every reasoning, every technical fact stays: 43,798 words to 43,779, so this
+was redaction rather than compression. The client name stays as the
+navigational anchor.
+
+**Deferred:** the GitHub garbage-collection ticket. One filename in the
+`onkey-*` to `pragma-*` rename table still carries a first name; editing it
+would make the log wrong about what happened. Renaming the real file pair is
+available and was not taken.
+
+**Revisit if:** the public remote ever goes private, which collapses the whole
+arrangement back to one repo. Or a client engagement produces material that is
+genuinely publishable, in which case it is a deliberate move rather than a
+default.
+
+---
+
 
 
 
