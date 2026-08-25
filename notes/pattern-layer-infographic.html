@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Layer Above the Tokens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Sibling of baseline-pipeline-infographic.html. That one diagrams
+     the value layer, where a token gate decides whether a VALUE is
+     allowed. This one diagrams the layer above it, where something
+     has to decide whether a PATTERN is. Same visual language.
+
+     Status: parked mechanism, nothing here is adopted. See
+     notes/pattern-layer-governance.md, filed 2026-08-10, and the
+     second source added 2026-08-15. Attribution is in the footer and
+     it matters: this is outside thinking, reviewed and not taken.
+
+     Orin's real tokens, transcribed from tokens/src/*.json.
+     Standalone artefact, NOT part of site/, so it does not read
+     vendor/tokens.css and is not covered by npm test.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0);  --bg-raised:var(--neutral-0);
+    --bg-sunken:var(--neutral-50);  --bg-inverse:var(--neutral-900);
+    --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default); color:var(--text-default);
+    font-family:var(--family-base); font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* ---------- header ---------- */
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:46px;
+    letter-spacing:-.025em;line-height:1.1;margin:0 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16.5px;color:var(--text-muted);line-height:1.5;max-width:48ch}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+  .promise{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:250px;
+  }
+  .promise-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .promise p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+  .promise p + p{margin-top:var(--space-3)}
+  .promise b{color:var(--text-default)}
+
+  /* ---------- section headings ---------- */
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+  .lede{font-size:15px;color:var(--text-muted);line-height:1.6;max-width:64ch;margin-bottom:var(--space-6)}
+  .lede b{color:var(--text-default);font-weight:600}
+
+  /* ---------- option / step tiles ---------- */
+  .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);align-items:stretch}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--bg-raised);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);
+    display:flex;flex-direction:column;width:100%;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step h3{font-family:var(--family-display);font-size:16px;font-weight:600;margin-bottom:var(--space-2)}
+  .step p{font-size:12.5px;color:var(--text-muted);line-height:1.55;margin-bottom:var(--space-3)}
+  .step code{font-family:var(--family-mono);font-size:11px;color:var(--neutral-800)}
+  .pill{
+    margin-top:auto;align-self:flex-start;background:var(--bg-accent);color:var(--text-on-accent);
+    font-size:11px;font-weight:500;border-radius:999px;padding:var(--space-1) var(--space-3);
+  }
+  .pill.quiet{background:var(--neutral-100);color:var(--neutral-700)}
+  .pill.bad{background:var(--neutral-200);color:var(--neutral-800)}
+  .step.bad{border-style:dashed;border-color:var(--neutral-300);background:var(--bg-sunken)}
+  .step.bad .dot{background:var(--neutral-400)}
+  .step.bad h3{color:var(--neutral-700)}
+  .arrow{
+    position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);
+    color:var(--neutral-300);z-index:2;
+  }
+
+  /* ---------- proposal record ---------- */
+  .record{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .locks{display:flex;flex-direction:column;gap:var(--space-4)}
+  .lock{display:grid;grid-template-columns:130px 1fr;gap:var(--space-4);align-items:baseline}
+  .lock .k{font-family:var(--family-mono);font-size:12px;font-weight:500;color:var(--teal-600)}
+  .lock .v{font-size:13px;color:var(--text-muted);line-height:1.55}
+  .lock .v b{color:var(--text-default);font-weight:600}
+  .counter{
+    margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--border-strong);
+    display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;
+  }
+  .ticks{display:flex;gap:var(--space-2)}
+  .tick{
+    width:26px;height:26px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);
+    background:var(--bg-raised);display:grid;place-items:center;font-size:12px;color:var(--neutral-400);
+  }
+  .tick.on{background:var(--teal-500);border-color:var(--teal-500);color:var(--text-on-accent)}
+  .counter p{font-size:12.5px;color:var(--text-muted);line-height:1.5;flex:1;min-width:220px}
+
+  /* ---------- homes ---------- */
+  .homes{display:flex;flex-direction:column;gap:var(--space-2)}
+  .home{
+    display:grid;grid-template-columns:auto 190px 1fr auto;gap:var(--space-4);align-items:baseline;
+    padding:var(--space-4) 0;border-bottom:1px solid var(--border-divider);
+  }
+  .home:last-child{border-bottom:0}
+  .home .n{font-family:var(--family-mono);font-size:11px;color:var(--neutral-400)}
+  .home .k{font-size:13.5px;font-weight:600}
+  .home .v{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+  .tag{
+    font-size:9.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    border-radius:var(--radius-sm);padding:2px var(--space-2);white-space:nowrap;
+  }
+  .tag.gate{background:var(--teal-500);color:var(--text-on-accent)}
+  .tag.info{background:var(--neutral-100);color:var(--neutral-700)}
+
+  /* ---------- two-up ---------- */
+  .twoup{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-4);
+  }
+  .panel ul{list-style:none}
+  .panel li{
+    font-size:13px;color:var(--text-muted);line-height:1.55;
+    padding-left:var(--space-4);position:relative;
+  }
+  .panel li + li{margin-top:var(--space-3)}
+  .panel li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--teal-300)}
+  .panel li b{color:var(--text-default);font-weight:600}
+  .panel.stop li::before{background:var(--neutral-300)}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--bg-raised);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);margin-top:var(--space-12);
+    padding:var(--space-8);display:flex;gap:var(--space-6);align-items:flex-start;
+  }
+  .closing h3{font-family:var(--family-display);font-size:20px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6}
+  .closing p + p{margin-top:var(--space-3)}
+  .closing .mark{flex:none;color:var(--teal-300)}
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer p + p{margin-top:var(--space-3)}
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .row3{grid-template-columns:1fr}
+    .twoup,.masthead{grid-template-columns:1fr}
+    .promise{width:100%}
+    .home{grid-template-columns:auto 1fr;row-gap:var(--space-2)}
+    .home .v{grid-column:2}
+    .arrow{display:none}
+    h1{font-size:34px}
+  }
+  @media print{
+    .sheet{max-width:none;padding:0}
+    .band{break-inside:avoid}
+    .closing{background:var(--bg-sunken)}
+    .closing h3{color:var(--text-default)}
+    .closing p{color:var(--text-muted)}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div>
+      <h1>The layer above <em>the tokens</em></h1>
+      <p class="standfirst">
+        A token gate decides whether a <b>value</b> is allowed. Almost nothing decides
+        whether a <b>pattern</b> is. Three parts close that gap, and the order they
+        arrive in is the whole difference between a system and a pile of one-offs.
+      </p>
+      <div class="rule"></div>
+    </div>
+    <aside class="promise">
+      <div class="promise-head">The gap</div>
+      <p>A value layer forbids invention everywhere, so it needs no zoning.</p>
+      <p><b>A pattern layer is different: composition is exactly where an agent is
+      allowed to be generative.</b></p>
+    </aside>
+  </header>
+
+  <!-- 1 -->
+  <section class="band">
+    <div class="band-title"><span>The problem — an agent has two options</span></div>
+    <p class="lede">
+      Faced with something the system cannot express, most agents can only follow the
+      rules or break them. Breaking them is silent, it looks like progress, and it is how
+      a library grows forty near-identical components nobody chose. <b>The fix is a third
+      option.</b>
+    </p>
+    <div class="row3">
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Available today</span></div>
+          <h3>Follow</h3>
+          <p>The system has a pattern for this. The agent instantiates it and everything
+          downstream stays true.</p>
+          <span class="pill quiet">Works</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step bad">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Available today</span></div>
+          <h3>Break</h3>
+          <p>The system has nothing, so the agent invents one. Nothing fails, nothing is
+          recorded, and nobody finds out until the next rebrand.</p>
+          <span class="pill bad">Silent</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">The missing one</span></div>
+          <h3>Propose</h3>
+          <p>The system has nothing, so the agent says so, in a structured record, and
+          builds from locked primitives in the meantime.</p>
+          <span class="pill">The third option</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="band">
+    <div class="band-title"><span>The three parts</span></div>
+    <div class="row3">
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">What exists</span></div>
+          <h3>The contract</h3>
+          <p>Every pattern, what it is built from, which tokens it may use, and which
+          zones are closed. Structured data a script can diff against the design source
+          and the code.</p>
+          <span class="pill">Generated, never written</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">When it has no answer</span></div>
+          <h3>The proposal</h3>
+          <p>A record carrying the gap, what it would be built from, and which existing
+          patterns were ruled out and why. Captured at the moment of proposing rather
+          than remembered later.</p>
+          <span class="pill">Lands at the source</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Before it is real</span></div>
+          <h3>The graduation</h3>
+          <p>A proposal becomes a pattern after two genuine uses. A counter is not taste,
+          it is auditable, and a report can read it.</p>
+          <span class="pill">Two uses, then it exists</span>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <span class="mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </span>
+      <div>
+        <b>Part 3 is the one that gets dropped, and it is the one that matters.</b>
+        <p>Without a graduation rule you collect forty one-off inventions and no system.
+        The counter also surfaces the opposite failure: a proposal sitting at one use for
+        three months is a pattern nobody actually needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="band">
+    <div class="band-title"><span>What a proposal carries</span></div>
+    <div class="record">
+      <div class="locks">
+        <div class="lock"><span class="k">Gap</span><span class="v">What the system cannot express. Stated as a need, <b>never as a solution</b>.</span></div>
+        <div class="lock"><span class="k">Built from</span><span class="v">Which locked primitives it composes. If it cannot be built from them, that is a finding about the primitives.</span></div>
+        <div class="lock"><span class="k">Why not X</span><span class="v">Which existing patterns were considered and rejected. <b>The field most often missing</b>, and the one that stops the same argument being had twice.</span></div>
+        <div class="lock"><span class="k">Used in</span><span class="v">The counter. Machine-readable, so a report can surface both graduations and stalls.</span></div>
+      </div>
+      <div class="counter">
+        <div class="ticks">
+          <span class="tick on" aria-hidden="true">✓</span>
+          <span class="tick" aria-hidden="true"></span>
+        </div>
+        <p><code style="font-family:var(--family-mono);font-size:11.5px">used in: 1/2</code>
+        &nbsp;· one real use. Still a proposal, not yet a pattern, and visible to anyone
+        reading the report.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="band">
+    <div class="band-title"><span>Where each part lives</span></div>
+    <p class="lede">
+      Prose gets <b>understood</b>, not <b>checked</b>. Write a rule into a markdown file
+      and a model will mostly follow it, with nothing at the end telling you where it
+      drifted. So the split is by what the rule has to survive: judgement in prose,
+      exactness in data, enforcement outside both.
+    </p>
+    <div class="homes">
+      <div class="home">
+        <span class="n">01</span>
+        <span class="k">The contract</span>
+        <span class="v">Structured data, generated from the source it describes, so it cannot drift from the system it claims to document.</span>
+        <span class="tag info">Data</span>
+      </div>
+      <div class="home">
+        <span class="n">02</span>
+        <span class="k">The guidance</span>
+        <span class="v">Prose in the router an agent reads first. Judgement calls where roughly right is fine and a person reviews the output anyway. Generated, not hand-maintained.</span>
+        <span class="tag info">Prose</span>
+      </div>
+      <div class="home">
+        <span class="n">03</span>
+        <span class="k">The check</span>
+        <span class="v">Continuous integration, in the repository, failing a build. Never in the prose, because a rule an agent can ignore is the "follow or break" problem again.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="home">
+        <span class="n">04</span>
+        <span class="k">The proposal</span>
+        <span class="v">At the source of truth, wherever that is. In a design-first pipeline a graduated pattern becomes a real component there and flows down like everything else. The written record is reasoning, never the thing the build consumes.</span>
+        <span class="tag info">Source</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="band">
+    <div class="band-title"><span>The skill is the packaging, not the mechanism</span></div>
+    <div class="twoup">
+      <div class="panel">
+        <div class="panel-title">A skill carries</div>
+        <ul>
+          <li><b>The guidance</b>, in prose, at the moment of generation.</li>
+          <li><b>The contract</b>, bundled as data the agent reads rather than infers.</li>
+          <li><b>The propose-and-graduate rules</b>, so the third option is available at all.</li>
+        </ul>
+      </div>
+      <div class="panel stop">
+        <div class="panel-title">A skill cannot carry</div>
+        <ul>
+          <li><b>Enforcement.</b> An agent can skip a skill, misread it, or run without it, and nothing anywhere fails.</li>
+          <li><b>A version.</b> Unless it ships from a repository with releases like everything else.</li>
+          <li><b>A verdict.</b> A model scoring its own work is softer than a build that goes red.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <span class="mark" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3l9 4.5v6.8c0 5.3-3.8 9.5-9 10.7-5.2-1.2-9-5.4-9-10.7V7.5L14 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 14l2.8 2.8L18.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <div>
+      <h3>Order matters more than any single part</h3>
+      <p>A rule that says "use the raised surface colour" is worth nothing if that value
+      does not resolve, is not versioned, or means something different in the code. The
+      pattern layer inherits whatever the value layer is worth.</p>
+      <p>Which is why this comes second. Build it on a substrate that holds still and it
+      constrains generation towards something true. Build it on one that does not and it
+      produces output that is confident, consistent and wrong, at speed.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      <b>Status: parked mechanism. Nothing here is adopted.</b> The value layer forbids
+      invention everywhere and needs no zoning, so this only comes into scope when a build
+      grows a real component library. See <code>notes/pattern-layer-governance.md</code>,
+      filed 10 August 2026.
+    </p>
+    <p>
+      <b>Attribution.</b> The three-options framing and the graduation counter come from
+      Carmen Rincon's setup sheet on letting Claude push a design system without breaking
+      it. The prose-versus-data split comes from Christine Vallaure de la Paz, who credits
+      Nathan Curtis for "component contract". Both were reviewed against the token
+      pipeline's own invariants and recorded rather than taken.
+    </p>
+    <p>
+      Colour, type, spacing and radius above are Orin's own tokens, transcribed from
+      <code>tokens/src/</code>. This is a standalone artefact: it does not read
+      <code>vendor/tokens.css</code> and is not covered by <code>npm test</code>.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
