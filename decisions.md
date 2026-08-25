@@ -4629,7 +4629,7 @@ contract** rather than a free-form `--onkey-*` sheet. And the month-to-month
 tactical arrangement I described in the room gets renamed on paper to the
 Diagnostic, because the stock take they asked for is the Diagnostic.
 
-**Reasoning:** Gerhard, their UI architect, pushed back twice and both pushes
+**Reasoning:** their UI architect pushed back twice and both pushes
 were fair. Their variables rarely change, and MUI owns the naming layer with
 an upgrade-maintenance cost attached to going off-piste. That is the shadcn
 adapter problem again, so it takes the shadcn adapter answer: the vendor's
@@ -4646,7 +4646,7 @@ can point at.
 
 On the commercial order: I pitched the Retainer before the Diagnostic in the
 room, which inverts `Offer.md`. Correcting that on paper costs nothing now and
-keeps the arc intact, since the stock take Stefan asked for is exactly the
+keeps the arc intact, since the stock take they asked for is exactly the
 Diagnostic's scope.
 
 **Deferred:** the MUI adapter itself. No code written, and none should be until
@@ -4685,7 +4685,7 @@ entry per colour scheme.
 **The expensive item is white labelling, and it was nearly missed.**
 `sd.config.mjs` ends with two literal calls, `buildMode('light')` and
 `buildMode('dark')`, and fourteen files under `on-key/` mention dark, down to
-the `exports` map. Gerhard raised white labelling as an aside. It is real
+the `exports` map. White labelling came up as an aside on the call. It is real
 engineering across the pipeline and it gets priced as its own item.
 
 **Reasoning on the split:** the variables have an end state and the master
@@ -4704,7 +4704,7 @@ other governance change waits.
 
 **Deferred:** still no code. The collection-naming question (rename their
 collections to the convention, or absorb the difference into `figma: {}`
-overrides) is deliberately left for the Diagnostic conversation with Amanda,
+overrides) is deliberately left for the Diagnostic conversation itself,
 because overrides run in an afternoon and leave the shape of their system
 unexamined, and choosing that quietly would be choosing it wrongly.
 
@@ -4726,18 +4726,18 @@ entry stands as written, per this file's rule.
 **Reasoning:** two problems with the original phrasing, one factual and one of
 scope.
 
-**Factual: the merge already happened.** Amanda said on the call that they had
-merged the Material Manager file back into the master and let go of the old way
-of working. So describing that file as currently pushing upstream states a past
-condition as a live one. Said out loud to her, it would have sounded like I had
-not listened in the meeting where she explained it, which is an expensive way to
+**Factual: the merge already happened.** They said on the call that the Material
+Manager file had been merged back into the master and the old way of working let
+go of. So describing that file as currently pushing upstream states a past
+condition as a live one. Said out loud, it would have sounded like I had not
+listened in the meeting where it was explained, which is an expensive way to
 open a Diagnostic.
 
 **Scope: one file was the example, the open door is the cause.** Their master
-accepts writes from anyone with edit rights. Amanda's description of today is
-that the BAs "can go in and they can work in Figma directly", and the rule that
-they cannot work inside the master is future tense: branch-per-project is her
-stated strategy and it is not in place. Naming one file makes it sound solved
+accepts writes from anyone with edit rights. Today the BAs can go in and work
+in Figma directly, and the rule that they cannot work inside the master is
+future tense: branch-per-project is the stated strategy and it is not in
+place. Naming one file makes it sound solved
 once that file is dealt with.
 
 **What the correction changes in practice.** One item becomes two, needing
@@ -4745,8 +4745,8 @@ different responses at different times.
 
 - **Present contamination**, which is Diagnostic work. Whatever Material Manager
   pushed sits in the master now and reads as a whole-system decision. Most
-  likely the source of Stefan's two button masters and Gerhard's status-change
-  component that moves when profile manager moves. The stock take has to
+  likely the source of the two button masters and the status-change component
+  that moves when profile manager moves. The stock take has to
   separate system-level decisions from module-level ones, and the file records
   nothing about which is which.
 - **The open write path**, which is the precondition. Four moves: settle who may
@@ -4770,7 +4770,7 @@ freeze can lift.
 ## 2026-08-21 — Pragma is leaving Figma, so the proposal argues portability
 
 **Decision:** Rewrote `notes/onkey-proposal-draft.md` after the second session,
-with Amanda walking the master design system. The proposal's central argument
+with their design lead walking the master design system. The proposal's central argument
 changes from "Figma is your source of truth, let me make it trustworthy" to
 **the token layer is what makes leaving Figma survivable**. Storybook comes out
 of the main line. A section on the pattern layer goes in. The company is
@@ -4786,33 +4786,31 @@ Pragma; On Key is the product.
   recommendation logged on 2026-08-20 is not purchasable. The write-path
   control becomes separate files plus publishing discipline, or a costed plan
   upgrade.
-- **They intend to leave Figma.** Amanda: "the dream is to let go of Figma
-  completely", with the file as a hybrid master for now. A pipeline whose front
+- **They intend to leave Figma**, with the file as a hybrid master for now. A pipeline whose front
   half is a Figma plugin is pointed at a tool they plan to retire, so the
   argument had to change or die with it.
-- **Darren already connected Claude to their tokens by MCP** and it works
+- **They have already connected Claude to their tokens by MCP** and it works
   passably. Named in the proposal and answered honestly rather than ignored.
 
 The portability argument is stronger than the one it replaces. DTCG in their
 own repo survives the move; design decisions living inside a Figma file do not.
 It also stops the proposal fighting their strategy.
 
-**Storybook is dead as a requirement.** Amanda has no view on it and thought it
-was Gerhard's architectural requirement, inherited from a solution architect who
-has since left. Nobody owns it. What she named underneath it is real and cheap:
-three paid seats means developers cannot open Dev Mode, so specifications reach
-them by messaging Amanda on Teams. That went in as a free recommendation.
+**Storybook is dead as a requirement.** Nobody owns it: it was understood to be
+an architectural requirement inherited from a solution architect who has since
+left. What sits underneath it is real and cheap: three paid seats means
+developers cannot open Dev Mode, so specifications reach them by messaging the
+design lead directly. That went in as a free recommendation.
 
-**The pattern layer is the actual opportunity.** Stefan's ask, in Amanda's
-words, is BAs prototyping in Claude under rules that go "beyond gating just the
-variables". That is `notes/pattern-layer-governance.md`, parked on 2026-08-10,
+**The pattern layer is the actual opportunity.** Their ask is BAs prototyping in
+Claude under rules that go beyond gating the variables. That is `notes/pattern-layer-governance.md`, parked on 2026-08-10,
 pointed at a client. It is named in the proposal and deliberately kept out of
 the first engagement.
 
-**On capacity:** Amanda's most urgent work is housekeeping on the masters,
-which is the Diagnostic under another name, and the proposal says so. Screen
-production is declined in one paragraph, and Stefan's referral request is the
-route out of that trap.
+**On capacity:** their design lead's most urgent work is housekeeping on the
+masters, which is the Diagnostic under another name, and the proposal says so.
+Screen production is declined in one paragraph, and their referral request is
+the route out of that trap.
 
 **Deferred:** currency, the company-versus-product name, and confirmation of
 the Figma plan and branching availability. All three are flagged in the draft
@@ -4859,7 +4857,7 @@ scope-of-work document. Terms, transfer details and who pays the bank charges
 belong in `notes/contracts/diagnostic-engagement-letter.md`, which already
 carries a `[DECIDE]` on terms.
 
-**Deferred, and both are Monday questions for Stefan:** their approval
+**Deferred, and both are Monday questions for the sponsor:** their approval
 threshold, because `Offer.md` prices the Diagnostic under about £5,000 so that
 no procurement is triggered, and that logic is a UK assumption that may not
 survive translation into roughly R70,000. And their standard payment terms,
