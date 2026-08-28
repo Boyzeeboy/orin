@@ -95,10 +95,22 @@ const doc = readFileSync(DOC, 'utf8');
 const failures = [];
 
 if (!existsSync(BASELINE)) {
-  // Same discipline as the pipeline's own site checks: not configured is not a
-  // failure, but say plainly that nothing was proven.
-  console.warn(`SKIP  baseline not found at ${BASELINE} — deliverable.md unverified.`);
-  console.warn('      Set BASELINE_DIR to check it.');
+  // Skipping is right for a public clone and wrong for this working tree.
+  // `deliverable.md` is public, the baseline pipeline repo is not, so anyone
+  // cloning the public remote can never satisfy this check and must not be
+  // failed for it. Here, a missing baseline means the sibling repo was renamed
+  // or moved, and the check would then go quiet for good behind one warning
+  // line in a suite whose headline output is "9/9 passing". `.private.git` is
+  // the marker that tells the two cases apart: it exists only in the two-repo
+  // working tree (see CLAUDE.md), never in a public clone.
+  const privateTree = existsSync(join(ROOT, '.private.git'));
+  console.warn(`baseline not found at ${BASELINE} — deliverable.md unverified.`);
+  if (privateTree && !process.env.DELIVERABLE_SKIP) {
+    console.error('FAIL  this is the two-repo working tree, so the baseline should be there.');
+    console.error('      Point BASELINE_DIR at it, or set DELIVERABLE_SKIP=1 to skip on purpose.');
+    process.exit(1);
+  }
+  console.warn('      SKIP — set BASELINE_DIR to check it.');
   process.exit(0);
 }
 

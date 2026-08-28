@@ -5310,6 +5310,61 @@ argues it is worth knowing early rather than at the end of a free fortnight.
 
 ---
 
+## 2026-08-28 — Two guardrails were guarding less than they claimed
+
+**Decision:** Closed two holes a code review found in the local checks, plus a
+third found while testing the fix. `verify:deliverable` now fails, rather than
+skipping, when the baseline pipeline repo is missing *and* the tree is the
+two-repo working tree. Check 8 of the token report now reads every page rather
+than `index.html` alone, derives the font families and weights from the built
+tokens rather than hardcoding them, and compares weights per family rather than
+pooling them.
+
+**Reasoning:** both scripts passed while proving less than their names said.
+
+`verify-deliverable.mjs` warned and exited 0 when `../Orin Token Pipeline` was
+absent, so root `npm test` reported green with `deliverable.md` unchecked. The
+review framed this as a CI risk, which it is not — there is no CI, and the
+protection is local by design. The real exposure is this machine after that
+sibling directory is renamed or moved: the check would go quiet permanently
+behind one warning line in a run whose headline output is "9/9 passing".
+
+The review's proposed fix, failing unless a skip variable is set, was the wrong
+direction. `deliverable.md` is tracked publicly and the baseline repo is not, so
+failing by default breaks `npm test` for anyone cloning the public remote for a
+reason they cannot satisfy. **`.private.git` is what tells the two cases apart.**
+It exists only in the two-repo working tree, so it gates the strictness: public
+clones still skip, this tree fails loudly, and `DELIVERABLE_SKIP=1` is there for
+a deliberate skip.
+
+Check 8 read `site/index.html` only, from when the site was one page. The head is
+duplicated across ten pages now, so a font change is a manual sweep and the check
+passed as long as the homepage happened to be one of the files that got swept.
+Its constants sat under a comment claiming they were derived from
+`primitives.json`, and they were not — they were copied from it, which meant a
+family change in the tokens left the check comparing the link against the old
+families and passing. It now reads them out of `tokens.flat.json`, the same file
+check 3 already loads.
+
+**The third hole was mine to find, not the review's.** Testing the per-page fix,
+a dropped weight on one page still passed: the weights from every family were
+pooled into one set, so `Inter Tight` losing 500 was masked by `Inter` still
+loading it, and that page rendered a synthesised face. Comparing per family
+closes it. All four failure modes were then confirmed to fail: a wrong family on
+one page, a missing link on one page, a per-family weight drop, and a token-side
+family change with the pages untouched.
+
+**Deferred:** nothing about the site changed, and the two partials stay exempt
+because they are fragments with no head. The check treats "has a `<head`" as the
+test for a document that must carry the link, so a new page is covered the day it
+is added rather than the day someone remembers to list it.
+
+**Revisit if:** the head stops being duplicated per page. If the fonts link ever
+moves into the client-side include, check 8 should follow it there and the
+per-page sweep becomes dead weight.
+
+---
+
 
 
 

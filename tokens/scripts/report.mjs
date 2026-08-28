@@ -11,7 +11,7 @@
 //   5. no hardcoded hex in site  (no literal colour ever reaches a page)
 //   6. no hardcoded font-family  (families come from tokens only)
 //   7. semantic-only consumption (allowlist: site reads consumable layers only)
-//   8. fonts link == token fonts (load exactly the families/weights used)
+//   8. fonts links == token fonts (every page loads exactly the token faces)
 //   9. no local custom properties (one source of truth, visible in DevTools)
 //
 // Exit 0 only if all 9 pass.
@@ -45,11 +45,29 @@ const CONSUMABLE = [
 // The raw primitives, kept so the failure message can say WHY a reference is
 // rejected — "raw primitive" is actionable, "not consumable" is a shrug.
 const PRIMITIVE = ['neutral-', 'teal-', 'family-', 'weight-'];
-// Canonical font facts, derived from the tokens (see primitives.json).
-const TOKEN_FAMILIES = ['Inter', 'Inter Tight'];
-const TOKEN_WEIGHTS = ['400', '500', '600'];
 
 const read = (p) => (existsSync(p) ? readFileSync(p, 'utf8') : null);
+
+// Canonical font facts, read out of the build rather than copied from it.
+// These were hand-written constants under a comment claiming they came from
+// primitives.json, which meant a family or weight change in the tokens left
+// check 8 comparing the fonts link against the OLD families and passing. The
+// flat JSON is the same file check 3 already reads.
+function tokenFonts() {
+  const flat = JSON.parse(read(FLAT) || '{}');
+  const families = new Set();
+  const weights = new Set();
+  for (const [k, v] of Object.entries(flat)) {
+    // The first entry of the stack is the webfont; the rest are fallbacks the
+    // link has no business loading. Style Dictionary quotes families that need
+    // it ('Inter Tight'), so strip quotes to compare against the link.
+    if (/^orin-font-family-/.test(k)) {
+      families.add(String(v).split(',')[0].trim().replace(/^['"]|['"]$/g, ''));
+    }
+    if (/^orin-font-weight-/.test(k)) weights.add(String(v));
+  }
+  return { families: [...families], weights: [...weights] };
+}
 
 function walk(dir) {
   if (!existsSync(dir)) return [];
@@ -159,23 +177,48 @@ check('semantic-only consumption', () => {
   return hits.length ? hits.join('; ') : '';
 });
 
-// 8 — the one Google Fonts link matches the token families/weights exactly
+// 8 — EVERY page's Google Fonts link matches the token families/weights exactly.
+// This read index.html alone, from when the site was one page. The head is
+// duplicated across every page, so a font change is a manual sweep and the
+// check passed as long as the homepage was one of the files that got swept.
 check('fonts link ↔ tokens match', () => {
-  const html = read(INDEX);
-  if (html == null) return 'index.html missing';
-  const link = (html.match(/https:\/\/fonts\.googleapis\.com\/css2\?[^"'\s]+/) || [])[0];
-  if (!link) return 'no fonts.googleapis.com css2 link in index.html';
-  const families = [...link.matchAll(/family=([^:&]+):wght@([0-9;]+)/g)];
-  const linkFamilies = families.map((m) => decodeURIComponent(m[1]).replace(/\+/g, ' '));
-  const linkWeights = new Set(families.flatMap((m) => m[2].split(';')));
-  const famMismatch =
-    [...TOKEN_FAMILIES].sort().join('|') !== [...linkFamilies].sort().join('|');
-  if (famMismatch) return `families ${linkFamilies.join(', ')} ≠ tokens ${TOKEN_FAMILIES.join(', ')}`;
-  const wMissing = TOKEN_WEIGHTS.filter((w) => !linkWeights.has(w));
-  const wExtra = [...linkWeights].filter((w) => !TOKEN_WEIGHTS.includes(w));
-  if (wMissing.length) return `link missing weights: ${wMissing.join(', ')}`;
-  if (wExtra.length) return `link loads unused weights: ${wExtra.join(', ')}`;
-  return '';
+  const { families: tokenFamilies, weights: tokenWeights } = tokenFonts();
+  if (!tokenFamilies.length || !tokenWeights.length) {
+    return 'no font tokens in dist/light/tokens.flat.json (run build)';
+  }
+  if (read(INDEX) == null) return 'index.html missing';
+
+  const hits = [];
+  for (const f of siteSources().filter((f) => f.endsWith('.html'))) {
+    const html = read(f);
+    // Partials are fragments injected by includes.js — no head, so no link.
+    // Anything with a head is a document a browser loads directly and must
+    // carry the link; anything carrying a link must have the right one.
+    const isDocument = /<head[\s>]/i.test(html);
+    const link = (html.match(/https:\/\/fonts\.googleapis\.com\/css2\?[^"'\s]+/) || [])[0];
+    if (!link) {
+      if (isDocument) hits.push(`${rel(f)}: no fonts.googleapis.com css2 link`);
+      continue;
+    }
+    const families = [...link.matchAll(/family=([^:&]+):wght@([0-9;]+)/g)];
+    const linkFamilies = families.map((m) => decodeURIComponent(m[1]).replace(/\+/g, ' '));
+    if ([...tokenFamilies].sort().join('|') !== [...linkFamilies].sort().join('|')) {
+      hits.push(`${rel(f)}: families ${linkFamilies.join(', ')} ≠ tokens ${tokenFamilies.join(', ')}`);
+      continue;
+    }
+    // Per family, not pooled. Pooling the weights into one set meant a family
+    // that lost a weight still passed as long as the OTHER family loaded it,
+    // and the page then rendered that face in a weight the browser synthesised.
+    for (const [i, m] of families.entries()) {
+      const linkWeights = new Set(m[2].split(';'));
+      const wMissing = tokenWeights.filter((w) => !linkWeights.has(w));
+      const wExtra = [...linkWeights].filter((w) => !tokenWeights.includes(w));
+      const where = `${rel(f)}: ${linkFamilies[i]}`;
+      if (wMissing.length) hits.push(`${where} missing weights: ${wMissing.join(', ')}`);
+      if (wExtra.length) hits.push(`${where} loads unused weights: ${wExtra.join(', ')}`);
+    }
+  }
+  return hits.join('; ');
 });
 
 // 9 — no custom property is DEFINED anywhere in site source. Every --orin-*
