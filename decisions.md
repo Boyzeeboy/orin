@@ -5213,6 +5213,55 @@ now more urgent than it was this morning.
 
 ---
 
+## 2026-08-28 — The Foundation goes to £6,500, and keeps its two weeks
+
+**Decision:** £6,500 fixed, duration unchanged. `Offer.md`, `HANDOVER.md`,
+`PHASE5-BUILD.md`, both site surfaces and the public Foundation sheet updated
+together. The deferred item from this morning is closed.
+
+**Reasoning:** on the fully loaded day, two weeks of delivery plus the
+three-day pre-sale budget is thirteen days, so £4,000 was £308. £6,500 is £500,
+inside the £450–650 range and slightly under the Build's implied £560. That gap
+is deliberate and sayable: a first engagement earns a small discount for being
+the low-risk way in.
+
+**It does not compress the way the Diagnostic did, and that is the whole
+difference between the two decisions.** The Diagnostic's second week existed
+because of a document, so deleting the document deleted the week and the price
+rise only had to cover the rest. The Foundation's two weeks is construction:
+the token layer authored, light and dark resolved and checked, the wiring, the
+build step, the guardrails, one real screen shipped. Cutting a week cuts the
+thing being bought. So it costs more rather than taking less.
+
+**The ~£5k threshold never applied to this buyer.** It exists because a
+technical leader inside a company holds a discretionary limit and crossing it
+triggers procurement. A founder spending their own money or a recent raise has
+no procurement to avoid. The section already said the buyer is different and
+then quoted the corporate buyer's constraint anyway, which is the sort of
+inherited reasoning that survives because nobody re-reads the paragraph they
+did not change. Removed and replaced with what actually governs the number,
+which is a founder's sense of proportion against their runway.
+
+**The ladder now ascends on the site**: £4,500, £6,500, from £12,000, then
+£2,000 a month. It read £4,500 then £4,000 for about four hours this morning.
+
+**The risk, recorded rather than hidden.** £6,500 may price out the pre-seed
+founder and pull the Foundation towards funded ones. That is a change of
+segment, not only of price. It is written into `Offer.md` next to the number so
+it cannot be forgotten, and reversing it is one edit.
+
+**Verified:** all four card titles and all four `/how-it-works` eyebrows read
+correctly from the DOM, no console errors, no horizontal overflow and no
+clipped headings at 360px, which the longer price strings were the thing most
+likely to break. `npm test` green, 9/9, verify-build clean.
+
+**Revisit if:** two Foundation conversations bounce off the number, which is the
+signal that the segment moved rather than the price being wrong. Or if a
+Foundation actually runs and the scaffold makes it materially faster than two
+weeks, in which case the duration is the thing to revisit rather than the fee.
+
+---
+
 
 
 

@@ -135,7 +135,7 @@ Diagnostic: paid, bounded, and the thing that scopes the Build.
 
 **Duration:** 2 weeks.
 
-**Price:** £4,000 fixed.
+**Price:** £6,500 fixed.
 
 **What happens:** There's nothing to audit, so this one earns its scope by
 building. I take the brand foundations, or whatever exists of them, and
@@ -169,7 +169,7 @@ scoped, priced Build if they want the rest.
 - Leaves something working behind even if they stop there.
 
 **The defence on a call:** "You'll restyle at least once and add a second
-developer before you raise. Doing this now is £4,000. Doing it after sixty
+developer before you raise. Doing this now is £6,500. Doing it after sixty
 components exist costs several times that, plus a freeze while it lands."
 
 **And when they say "I can install shadcn myself in an afternoon":**
@@ -177,18 +177,41 @@ components exist costs several times that, plus a freeze while it lands."
 for the layer above it, the one that means changing your brand is one edit
 rather than a fortnight, and that still holds when I'm not here."
 
-**Pricing logic:** Still under the ~£5k discretionary threshold, so no
-procurement. **Its old justification no longer holds and the number is
-unsettled.** It read "above the Diagnostic because it leaves a working
-system behind rather than a written diagnosis", and as of 2026-08-28 the
-Diagnostic is £4,500 and leaves a gate running, so this now sits below it
-and is priced on the old arithmetic: two weeks plus the pre-sale budget
-is thirteen days, so £4,000 is £308 a day. Left deliberately rather than
-adjusted in passing, because the buyer and the argument are different and
-that deserves its own decision. Note the buyer is different here: a founder
-can't run the velocity maths, because nobody's burning money on rework
-yet. Their fear is time to launch and the cost of building it twice. Price
-against that fear, not against a spreadsheet they can't fill in.
+**Pricing logic:** Priced on the fully loaded day, same as the
+Diagnostic. Two weeks of delivery plus the three-day pre-sale budget is
+thirteen days, and £6,500 is £500 a day. That sits inside the £450–650
+range for this work and slightly under the Build's implied £560, which is
+deliberate: a first engagement earns a small discount for being the
+low-risk way in, and that is a reason I can say out loud rather than an
+accident of arithmetic.
+
+**It does not compress the way the Diagnostic did.** The Diagnostic's
+second week existed because of a document, so removing the document
+removed the week. Here the two weeks is construction: the token layer
+authored, light and dark resolved and checked, the wiring, the build step,
+the guardrails, and one real screen shipped. Cutting a week cuts the thing
+being bought. So this one costs more instead of taking less. If the
+scaffold makes it faster in practice, the fixed price rewards that, which
+is the posture this file already takes.
+
+**The ~£5k threshold does not apply to this buyer and should never have
+been quoted here.** It exists because a technical leader inside a company
+holds a discretionary limit and going over it triggers procurement. A
+founder spending their own money or a recent raise has no procurement to
+avoid. This section already says the buyer is different; it then borrowed
+the corporate buyer's constraint anyway. What governs the number here is a
+founder's sense of proportion against their runway.
+
+**The risk this carries, stated plainly.** £6,500 may price out the
+pre-seed founder and pull the Foundation towards funded ones. That is a
+change of segment rather than a change of price, and it is worth watching.
+Reversing it is one edit if the first two conversations bounce off the
+number.
+
+Note the buyer is different here: a founder can't run the velocity maths,
+because nobody's burning money on rework yet. Their fear is time to launch
+and the cost of building it twice. Price against that fear, not against a
+spreadsheet they can't fill in.
 
 **Never say "custom design system" to a founder.** What this is, is a
 token layer and about eight primitives. Say that. They'll hear

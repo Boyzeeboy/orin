@@ -95,7 +95,7 @@ is £12,000, not the £14,000 this section specified until 2026-08-16:
   is broken and what it's costing you. You keep the diagnosis and the
   check that found it." (Repriced and recompressed 2026-08-28; was
   £3,000 · 1–2 weeks with a written diagnosis as the only output.)
-  "The Foundation · £4,000 · 2 weeks. The other way in, for a product
+  "The Foundation · £6,500 · 2 weeks. The other way in, for a product
   that doesn't exist yet. The token layer authored and wired in, ending
   with one real screen."
   "The Build · from £12,000 · 4–6 weeks. The system, built and
