@@ -5262,6 +5262,54 @@ weeks, in which case the duration is the thing to revisit rather than the fee.
 
 ---
 
+## 2026-08-28 — The Diagnostic is half paid before it starts
+
+**Decision:** Closed the open payment-terms question in the Diagnostic
+engagement letter. Half the fee on acceptance, payable **before the engagement
+begins**, with the start date confirmed once it clears. The balance on delivery,
+payable within 14 days. The two options the letter had been holding were full
+invoicing on commencement, or a half-and-half split with both halves invoiced on
+normal terms.
+
+**Reasoning:** the letter is agreed by replying "agreed" to an email, with no
+signature, which is deliberate and stays. But that leaves nothing that marks the
+moment a yes becomes a commitment. **The deposit is the commitment artefact.**
+That is the post-mortem's first finding turned into an instrument rather than a
+resolution: an in-principle yes needs something to convert into, and asking
+someone to move money is the cheapest available conversion.
+
+Payable *before* rather than *invoiced on* commencement is the whole point of
+the clause. Invoicing at the start with 14-day terms on a one-week engagement
+means the money arrives after the work is finished, which is the position the
+clause exists to avoid. It also caps exposure at half the engagement instead of
+all of it, which matters more now the shape is one week and front-loaded.
+
+Two invoices for one fee is real overhead and it is worth less than it was when
+the fee was smaller and the alternative was chasing two invoices for £3,000. The
+first is a booking rather than a chase, and standard enough that no client will
+query it.
+
+**The letter needed more than its payment clause.** It still described two weeks,
+£3,000, and a written diagnosis as the only output, and its liability cap quoted
+the old fee. A letter that cannot be sent is exactly the failure the post-mortem
+names, so it was brought into line: one week, £4,500, the deliverable restated
+as three things with the installed check first, and the ownership clause amended
+so the check the client keeps is not caught by the sentence reserving the
+machinery. That last one was a real trap. Without the amendment the letter gives
+them a check and reclaims it in the same document.
+
+**Still open, and correctly so:** three `[DECIDE]` markers remain in the letter,
+for the liability cap, the insurance line, and the publicity clause. Each needs a
+solicitor, a policy or a client conversation rather than a view. The services
+agreement's own payment schedules stay open too; they cover the Build and the
+Retainer and come out when the Build does.
+
+**Revisit if:** a client refuses to pay anything before work starts. That is
+information about the client as much as about the terms, and the post-mortem
+argues it is worth knowing early rather than at the end of a free fortnight.
+
+---
+
 
 
 
