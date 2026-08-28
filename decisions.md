@@ -5176,6 +5176,43 @@ a client's code.
 
 ---
 
+## 2026-08-28 — The site is updated to the new Diagnostic, deliberately
+
+**Decision:** Changed the price and the copy on the shipped site, which the
+previous entry had flagged and deferred. The home card reads `The Diagnostic ·
+£4,500 · 1 week` with "You keep the diagnosis and the check that found it", and
+the `/how-it-works` eyebrow matches. The Diagnostic's second paragraph there is
+now two paragraphs: the check installed in their repository first, the diagnosis
+second. `PHASE5-BUILD.md` updated as the approved-copy source, with the old
+wording kept in a parenthetical so the record shows what changed.
+
+**Reasoning:** the stopping rule says a change to `site/` needs a reason beyond
+"it could be better". A published price that contradicts `Offer.md` is that
+reason. The 2026-08-16 separator entry already records what happens when two
+surfaces disagree about the same engagement, and this was the same defect with
+money in it.
+
+Copy written against `voice.md` rather than after it. No em dashes, no negative
+parallelism, contractions, second person, and the interpunct rule from
+2026-08-16 held for both metadata lines.
+
+**Verified rather than asserted:** both pages render, no console errors, the
+four card titles read correctly from the DOM, and no horizontal overflow at
+360px, which is the v1 guarantee this change had the most potential to break.
+`npm test` green, 9/9, verify-build clean, deliverable verified.
+
+**A consequence that is now public.** Card 01 is £4,500 and card 02 is £4,000,
+so the Foundation sits below the Diagnostic on the same screen while its own
+section still argues it costs more because it leaves something working behind.
+That was tolerable while it was only in `Offer.md`. On a live pricing page a
+visitor reads both cards in one glance, so the deferred Foundation decision is
+now more urgent than it was this morning.
+
+**Revisit if:** the Foundation is repriced, which changes both cards and the
+`/how-it-works` eyebrow with it.
+
+---
+
 
 
 
