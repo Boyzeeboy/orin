@@ -5053,6 +5053,60 @@ guarded, which would cost more than the engagement did.
 
 ---
 
+## 2026-08-28 — Referral is the proven channel, and outbound has never been tested
+
+**Decision:** Recorded how the first commercial arc actually arrived: a referral
+from someone who had seen the work first hand, rather than through the site, the
+positioning or the outreach copy. That makes referral the only channel that has
+produced a qualified prospect, and outbound an untested one. Adopted a referrer
+maintenance rule in the private operating model, and reordered the work
+accordingly.
+
+The rule, in four parts: every referrer gets the outcome within a week of an arc
+closing, win or lose; ask a referrer what they think the practice does; a
+referral gets a *shorter* pre-sale rather than a longer one; and referrers are
+tracked in the ledger with whether they have been fed back to.
+
+**Reasoning:** one hundred per cent of qualified pipeline has come from one
+relationship and none from any marketing asset. That was invisible until the
+source was recorded, which is the post-mortem's F6 finding demonstrating itself:
+nothing was tracking the only channel that works.
+
+**Two things follow, and the first is a correction.** The same-day reading that
+this prospect matched the positioning poorly, and that the positioning might
+therefore be too narrow, does not hold. A prospect arriving by referral is
+routed by one person's model of what I do, not by a one-liner. So the arc says
+something about the referrer's read and nothing about the market's response to
+`positioning.md`, **which remains untested.** The three-buyer spread across the
+positioning, the Foundation and the outreach copy is real and is currently
+costing nothing, because no running channel depends on the distinction.
+
+**Second, a warm introduction should shorten the pre-sale, not lengthen it.**
+The private strategic read's instruction to deliver something before the first
+invoice, because it buys credibility ahead of the money, is a strategy for a
+cold prospect. It was deployed on a prospect who arrived pre-credentialed by
+someone they trusted, and eight unpaid days went into proving what the referral
+had already proved. The three-day pre-sale budget is more obviously right for
+referrals than for anything else.
+
+**One standard from the post-mortem is kept under protest.** Its scorecard asks
+for three concurrent live prospects. That is not controllable through a referral
+channel, since referrals arrive when they arrive. It is either the wrong
+standard or an argument for building a second channel, and until that is settled
+it should not be read as a verdict. A standard I cannot influence only produces
+guilt.
+
+**Deferred:** outbound stays worth running and is now ranked below referrer
+maintenance rather than above it, so it is deferred rather than dropped. It has
+never had a fair test and one channel is not a pipeline. The `Offer.md` edits
+scoped in the post-mortem stay deferred to their own entry.
+
+**Revisit if:** outbound produces a qualified prospect, or a second referral
+arrives. Either gives a real comparison, and the ledger is built to make that
+readable rather than remembered.
+
+---
+
 
 
 
