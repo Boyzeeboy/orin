@@ -4975,6 +4975,84 @@ default.
 
 ---
 
+## 2026-08-28 — The first commercial arc is post-mortemed with its own instrument
+
+**Decision:** The Pragma engagement closed on 27 August, at the entry gate, the
+day after an in-principle yes at full price. Wrote it up as a post-mortem in
+the private repo, and took the shape from the Diagnostic itself: a scorecard of
+re-runnable measures, findings ranked by what they cost, a recommendation on
+where truth should live, an operating model, the work scoped, quick wins, and
+an account of what the audit cannot see. Added a prospect ledger as the source
+of truth for deal state.
+
+Three rules come out of it and are adopted now:
+
+- **Evidence is free, method is paid.** The boundary moves from "findings are
+  the product" to the line between the two. Findings discipline held through
+  the whole arc; four mechanisms went out in writing anyway, and a competent
+  internal person could act on them. Anything a reader could execute without me
+  gets demonstrated live rather than written down, because a demonstration
+  cannot be forwarded and a document can.
+- **An in-principle yes gets the engagement letter the same day.** The letter
+  was written to be agreed by email reply with no signature, and it was not
+  sent in the twenty-four hours that were available. Everything else waits
+  behind it, including anything the client asked for in the same breath.
+- **Every proposal carries a validity date.** Thirty days. The arc ran
+  open-ended for a week while unpaid output continued.
+
+Plus a pre-sale budget of three days per prospect, after which either an
+agreement is in play or the next piece of work is priced. Exceeding it is
+allowed and gets logged with a reason.
+
+**Reasoning:** using the Diagnostic's own shape was the point rather than a
+flourish. The practice sells the claim that a system without a version, an
+owner and a measurement will drift, and that the fix is to hold it against a
+named standard. Writing this up as reflective prose would have done to Orin
+what the client's master file did to them, which is keep the truth in a
+document that moves, in one person's head.
+
+The scorecard scored one out of ten, and the one that passed was the findings
+count. That distribution is the finding: judgement about *what* to release
+held, and there was no mechanism anywhere governing *how much*, *in what form*,
+or *by when*.
+
+**Two of the ten outrank the rest.** The pre-sale had no budget and no stop
+condition, and cost more in unbilled days than the entry engagement would have
+paid. And there was one prospect, which makes every loss existential and every
+lesson over-fitted. Three weeks were spent refining the offer against a sample
+of one. The offer is not the binding constraint; volume is.
+
+**The instrument's own weakness is written into it.** This is n=1, with no
+control, and the counterfactual stays open: the same material that leaked the
+method is what converted the client's technical veto, and that conversion is
+what produced the yes. Withholding it plausibly produces a technical no in week
+one instead. So nothing in the post-mortem becomes doctrine until a second arc
+confirms it, and the three rules above are adopted because they are cheap and
+reversible rather than because the sample proved them.
+
+**What must not change was listed explicitly**, because post-mortems delete
+good parts by accident. The live pipeline run stays free. The honesty about the
+limits of what the work fixes stays, even though it plausibly contributed to
+the outcome, because the alternative fails later and more expensively. And the
+strongest evidence the diagnosis has value is that the prospect of it changed a
+client's behaviour inside a day.
+
+**Deferred:** the three `Offer.md` edits the post-mortem scopes, which are the
+substantive change and want their own entry when made. In short: the Diagnostic
+installs the drift gate rather than only describing the drift, its price moves
+to £4,500 while staying under the discretionary threshold, and the Retainer
+becomes the default continuation with the Build pulled rather than pushed. Also
+deferred: closing the open payment-terms decision in the engagement letter, and
+recording how this prospect arrived, which is unrecorded and may be
+unrecoverable.
+
+**Revisit if:** a second arc completes. The scorecard is built to be re-run, and
+a measure only earns its way into `Offer.md` when it moves the same way twice.
+Or if the practice starts over-correcting: withholding by reflex, or turning
+guarded, which would cost more than the engagement did.
+
+---
+
 
 
 
