@@ -5107,6 +5107,75 @@ readable rather than remembered.
 
 ---
 
+## 2026-08-28 — The Diagnostic becomes a week, installs the gate, and goes to £4,500
+
+**Decision:** Two changes to the Diagnostic in `Offer.md`, from the post-mortem
+of the first commercial arc.
+
+**It installs the drift gate rather than only describing the drift.** The
+engagement now ends with the gate running in the client's own repository,
+failing against their real drift, and generating the scorecard rather than
+having me type it. The written diagnosis stays and gets much shorter. The gate
+therefore arrives one engagement earlier than it used to; the Build section is
+amended to say the gate arrives in the Diagnostic and goes green in the Build.
+
+**One week, £4,500, from two weeks at £3,000.** `HANDOVER.md` updated to match.
+
+**Reasoning:** the Diagnostic was the only shape in the offer whose sole output
+was a document, which put it in direct conflict with `MANIFESTO.md` on decks
+and with `Offer.md`'s own refusal of strategy-deck engagements. A document is
+complete and portable, so a capable team can absorb it and proceed without me.
+A gate keeps naming what is unfixed, in their build, every time it runs. And
+the Build stops being "trust the diagnosis and commit fourteen thousand pounds"
+and becomes make the gate pass.
+
+**The price and the week are one edit, not two.** Priced on the fully loaded
+day, being the delivery week plus the three-day pre-sale budget: eight days at
+£4,500 is £562, which is the rate the Build's own pricing logic implies. Two
+weeks at £3,000 was £231 on the same basis, and £167 on the one arc where the
+pre-sale ran to eight days. A price rise alone lands at £346 and compression
+alone at £375, so neither works by itself. Still under the ~£5k discretionary
+threshold, so the procurement reasoning survives intact.
+
+**The second week existed because of the document.** Remove the seven-part
+written diagnosis, have the gate generate the scorecard, and walk the findings
+live because the evidence-and-method boundary requires that anyway, and what is
+left is genuinely a week. `Offer.md` already stated the duration as 1–2 weeks,
+so this narrows a stated range rather than rewriting it.
+
+**A number that is too small carries its own risk**, which is the other half of
+the pricing logic and was not in the file before. £3,000 for two weeks of
+writing things down sits exactly where a competent team's pride can reach it.
+
+**What was deliberately not changed.** The Retainer stays where it is rather
+than becoming the default continuation after the Diagnostic. That was the third
+edit scoped in the post-mortem and it is the one resting entirely on a sample of
+one, so it waits for arc two under the rule the post-mortem set. The free live
+pipeline run stays free.
+
+**Deferred:** the Foundation's price. Its stated logic was "above the Diagnostic
+because it leaves a working system behind rather than a written diagnosis",
+which is now false in both directions, and on the same fully loaded arithmetic
+£4,000 over two weeks is £308 a day. The file says so plainly rather than
+carrying a justification that no longer holds. Not adjusted in passing, because
+the buyer is a founder and the argument is different enough to deserve its own
+decision.
+
+**Also deferred, and this one is a live inconsistency:** the shipped site quotes
+£3,000 · 1–2 weeks on the home page and on `/how-it-works`, and
+`PHASE5-BUILD.md` carries the same figure as approved page copy. The site is v1
+with a stopping rule on it, so this is flagged rather than edited. A public
+price that contradicts `Offer.md` is a real problem and wants a decision, not a
+drive-by fix.
+
+**Revisit if:** an arc runs at the new shape and the week does not hold, which
+would mean the document was doing more work than this entry credits. Or if the
+gate cannot be installed inside a week against an unfamiliar repository, which
+is the assumption this whole change rests on and has never been tested against
+a client's code.
+
+---
+
 
 
 
