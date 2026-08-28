@@ -57,8 +57,8 @@ honest pushback over validation.
    document described is pending, not broken: it is the end state, not the
    current one. Checked 2026-08-16. When the old site comes down, a 301 to
    orinsystems.co makes the claim true and keeps any inbound links.
-4. **Offer:** four shapes, two doors. Diagnostic (£3,000 fixed, 1–2 weeks)
-   for a product that exists, or Foundation (£4,000 fixed, 2 weeks) for one
+4. **Offer:** four shapes, two doors. Diagnostic (£4,500 fixed, 1 week)
+   for a product that exists, or Foundation (£6,500 fixed, 2 weeks) for one
    that doesn't. Either scopes the Build (published as **from £12,000**,
    scoped £12k–18k, 4–6 weeks), which feeds the Retainer (£2,000/month,
    30-day cancel). Prices are published on the site. No day rates anywhere.

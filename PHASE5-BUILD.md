@@ -91,10 +91,11 @@ Inline link at end: "View the tokens →" → /tokens
 Four cards, prices visible. Was three; The Foundation was added
 2026-08-12. Titles use the interpunct, and the Build's published floor
 is £12,000, not the £14,000 this section specified until 2026-08-16:
-  "The Diagnostic · £3,000 · 1–2 weeks. I find where your design system
-  is broken and what it's costing you. Written diagnosis, useful whether
-  or not we go further."
-  "The Foundation · £4,000 · 2 weeks. The other way in, for a product
+  "The Diagnostic · £4,500 · 1 week. I find where your design system
+  is broken and what it's costing you. You keep the diagnosis and the
+  check that found it." (Repriced and recompressed 2026-08-28; was
+  £3,000 · 1–2 weeks with a written diagnosis as the only output.)
+  "The Foundation · £6,500 · 2 weeks. The other way in, for a product
   that doesn't exist yet. The token layer authored and wired in, ending
   with one real screen."
   "The Build · from £12,000 · 4–6 weeks. The system, built and

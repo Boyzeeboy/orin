@@ -4975,6 +4975,341 @@ default.
 
 ---
 
+## 2026-08-28 — The first commercial arc is post-mortemed with its own instrument
+
+**Decision:** The Pragma engagement closed on 27 August, at the entry gate, the
+day after an in-principle yes at full price. Wrote it up as a post-mortem in
+the private repo, and took the shape from the Diagnostic itself: a scorecard of
+re-runnable measures, findings ranked by what they cost, a recommendation on
+where truth should live, an operating model, the work scoped, quick wins, and
+an account of what the audit cannot see. Added a prospect ledger as the source
+of truth for deal state.
+
+Three rules come out of it and are adopted now:
+
+- **Evidence is free, method is paid.** The boundary moves from "findings are
+  the product" to the line between the two. Findings discipline held through
+  the whole arc; four mechanisms went out in writing anyway, and a competent
+  internal person could act on them. Anything a reader could execute without me
+  gets demonstrated live rather than written down, because a demonstration
+  cannot be forwarded and a document can.
+- **An in-principle yes gets the engagement letter the same day.** The letter
+  was written to be agreed by email reply with no signature, and it was not
+  sent in the twenty-four hours that were available. Everything else waits
+  behind it, including anything the client asked for in the same breath.
+- **Every proposal carries a validity date.** Thirty days. The arc ran
+  open-ended for a week while unpaid output continued.
+
+Plus a pre-sale budget of three days per prospect, after which either an
+agreement is in play or the next piece of work is priced. Exceeding it is
+allowed and gets logged with a reason.
+
+**Reasoning:** using the Diagnostic's own shape was the point rather than a
+flourish. The practice sells the claim that a system without a version, an
+owner and a measurement will drift, and that the fix is to hold it against a
+named standard. Writing this up as reflective prose would have done to Orin
+what the client's master file did to them, which is keep the truth in a
+document that moves, in one person's head.
+
+The scorecard scored one out of ten, and the one that passed was the findings
+count. That distribution is the finding: judgement about *what* to release
+held, and there was no mechanism anywhere governing *how much*, *in what form*,
+or *by when*.
+
+**Two of the ten outrank the rest.** The pre-sale had no budget and no stop
+condition, and cost more in unbilled days than the entry engagement would have
+paid. And there was one prospect, which makes every loss existential and every
+lesson over-fitted. Three weeks were spent refining the offer against a sample
+of one. The offer is not the binding constraint; volume is.
+
+**The instrument's own weakness is written into it.** This is n=1, with no
+control, and the counterfactual stays open: the same material that leaked the
+method is what converted the client's technical veto, and that conversion is
+what produced the yes. Withholding it plausibly produces a technical no in week
+one instead. So nothing in the post-mortem becomes doctrine until a second arc
+confirms it, and the three rules above are adopted because they are cheap and
+reversible rather than because the sample proved them.
+
+**What must not change was listed explicitly**, because post-mortems delete
+good parts by accident. The live pipeline run stays free. The honesty about the
+limits of what the work fixes stays, even though it plausibly contributed to
+the outcome, because the alternative fails later and more expensively. And the
+strongest evidence the diagnosis has value is that the prospect of it changed a
+client's behaviour inside a day.
+
+**Deferred:** the three `Offer.md` edits the post-mortem scopes, which are the
+substantive change and want their own entry when made. In short: the Diagnostic
+installs the drift gate rather than only describing the drift, its price moves
+to £4,500 while staying under the discretionary threshold, and the Retainer
+becomes the default continuation with the Build pulled rather than pushed. Also
+deferred: closing the open payment-terms decision in the engagement letter, and
+recording how this prospect arrived, which is unrecorded and may be
+unrecoverable.
+
+**Revisit if:** a second arc completes. The scorecard is built to be re-run, and
+a measure only earns its way into `Offer.md` when it moves the same way twice.
+Or if the practice starts over-correcting: withholding by reflex, or turning
+guarded, which would cost more than the engagement did.
+
+---
+
+## 2026-08-28 — Referral is the proven channel, and outbound has never been tested
+
+**Decision:** Recorded how the first commercial arc actually arrived: a referral
+from someone who had seen the work first hand, rather than through the site, the
+positioning or the outreach copy. That makes referral the only channel that has
+produced a qualified prospect, and outbound an untested one. Adopted a referrer
+maintenance rule in the private operating model, and reordered the work
+accordingly.
+
+The rule, in four parts: every referrer gets the outcome within a week of an arc
+closing, win or lose; ask a referrer what they think the practice does; a
+referral gets a *shorter* pre-sale rather than a longer one; and referrers are
+tracked in the ledger with whether they have been fed back to.
+
+**Reasoning:** one hundred per cent of qualified pipeline has come from one
+relationship and none from any marketing asset. That was invisible until the
+source was recorded, which is the post-mortem's F6 finding demonstrating itself:
+nothing was tracking the only channel that works.
+
+**Two things follow, and the first is a correction.** The same-day reading that
+this prospect matched the positioning poorly, and that the positioning might
+therefore be too narrow, does not hold. A prospect arriving by referral is
+routed by one person's model of what I do, not by a one-liner. So the arc says
+something about the referrer's read and nothing about the market's response to
+`positioning.md`, **which remains untested.** The three-buyer spread across the
+positioning, the Foundation and the outreach copy is real and is currently
+costing nothing, because no running channel depends on the distinction.
+
+**Second, a warm introduction should shorten the pre-sale, not lengthen it.**
+The private strategic read's instruction to deliver something before the first
+invoice, because it buys credibility ahead of the money, is a strategy for a
+cold prospect. It was deployed on a prospect who arrived pre-credentialed by
+someone they trusted, and eight unpaid days went into proving what the referral
+had already proved. The three-day pre-sale budget is more obviously right for
+referrals than for anything else.
+
+**One standard from the post-mortem is kept under protest.** Its scorecard asks
+for three concurrent live prospects. That is not controllable through a referral
+channel, since referrals arrive when they arrive. It is either the wrong
+standard or an argument for building a second channel, and until that is settled
+it should not be read as a verdict. A standard I cannot influence only produces
+guilt.
+
+**Deferred:** outbound stays worth running and is now ranked below referrer
+maintenance rather than above it, so it is deferred rather than dropped. It has
+never had a fair test and one channel is not a pipeline. The `Offer.md` edits
+scoped in the post-mortem stay deferred to their own entry.
+
+**Revisit if:** outbound produces a qualified prospect, or a second referral
+arrives. Either gives a real comparison, and the ledger is built to make that
+readable rather than remembered.
+
+---
+
+## 2026-08-28 — The Diagnostic becomes a week, installs the gate, and goes to £4,500
+
+**Decision:** Two changes to the Diagnostic in `Offer.md`, from the post-mortem
+of the first commercial arc.
+
+**It installs the drift gate rather than only describing the drift.** The
+engagement now ends with the gate running in the client's own repository,
+failing against their real drift, and generating the scorecard rather than
+having me type it. The written diagnosis stays and gets much shorter. The gate
+therefore arrives one engagement earlier than it used to; the Build section is
+amended to say the gate arrives in the Diagnostic and goes green in the Build.
+
+**One week, £4,500, from two weeks at £3,000.** `HANDOVER.md` updated to match.
+
+**Reasoning:** the Diagnostic was the only shape in the offer whose sole output
+was a document, which put it in direct conflict with `MANIFESTO.md` on decks
+and with `Offer.md`'s own refusal of strategy-deck engagements. A document is
+complete and portable, so a capable team can absorb it and proceed without me.
+A gate keeps naming what is unfixed, in their build, every time it runs. And
+the Build stops being "trust the diagnosis and commit fourteen thousand pounds"
+and becomes make the gate pass.
+
+**The price and the week are one edit, not two.** Priced on the fully loaded
+day, being the delivery week plus the three-day pre-sale budget: eight days at
+£4,500 is £562, which is the rate the Build's own pricing logic implies. Two
+weeks at £3,000 was £231 on the same basis, and £167 on the one arc where the
+pre-sale ran to eight days. A price rise alone lands at £346 and compression
+alone at £375, so neither works by itself. Still under the ~£5k discretionary
+threshold, so the procurement reasoning survives intact.
+
+**The second week existed because of the document.** Remove the seven-part
+written diagnosis, have the gate generate the scorecard, and walk the findings
+live because the evidence-and-method boundary requires that anyway, and what is
+left is genuinely a week. `Offer.md` already stated the duration as 1–2 weeks,
+so this narrows a stated range rather than rewriting it.
+
+**A number that is too small carries its own risk**, which is the other half of
+the pricing logic and was not in the file before. £3,000 for two weeks of
+writing things down sits exactly where a competent team's pride can reach it.
+
+**What was deliberately not changed.** The Retainer stays where it is rather
+than becoming the default continuation after the Diagnostic. That was the third
+edit scoped in the post-mortem and it is the one resting entirely on a sample of
+one, so it waits for arc two under the rule the post-mortem set. The free live
+pipeline run stays free.
+
+**Deferred:** the Foundation's price. Its stated logic was "above the Diagnostic
+because it leaves a working system behind rather than a written diagnosis",
+which is now false in both directions, and on the same fully loaded arithmetic
+£4,000 over two weeks is £308 a day. The file says so plainly rather than
+carrying a justification that no longer holds. Not adjusted in passing, because
+the buyer is a founder and the argument is different enough to deserve its own
+decision.
+
+**Also deferred, and this one is a live inconsistency:** the shipped site quotes
+£3,000 · 1–2 weeks on the home page and on `/how-it-works`, and
+`PHASE5-BUILD.md` carries the same figure as approved page copy. The site is v1
+with a stopping rule on it, so this is flagged rather than edited. A public
+price that contradicts `Offer.md` is a real problem and wants a decision, not a
+drive-by fix.
+
+**Revisit if:** an arc runs at the new shape and the week does not hold, which
+would mean the document was doing more work than this entry credits. Or if the
+gate cannot be installed inside a week against an unfamiliar repository, which
+is the assumption this whole change rests on and has never been tested against
+a client's code.
+
+---
+
+## 2026-08-28 — The site is updated to the new Diagnostic, deliberately
+
+**Decision:** Changed the price and the copy on the shipped site, which the
+previous entry had flagged and deferred. The home card reads `The Diagnostic ·
+£4,500 · 1 week` with "You keep the diagnosis and the check that found it", and
+the `/how-it-works` eyebrow matches. The Diagnostic's second paragraph there is
+now two paragraphs: the check installed in their repository first, the diagnosis
+second. `PHASE5-BUILD.md` updated as the approved-copy source, with the old
+wording kept in a parenthetical so the record shows what changed.
+
+**Reasoning:** the stopping rule says a change to `site/` needs a reason beyond
+"it could be better". A published price that contradicts `Offer.md` is that
+reason. The 2026-08-16 separator entry already records what happens when two
+surfaces disagree about the same engagement, and this was the same defect with
+money in it.
+
+Copy written against `voice.md` rather than after it. No em dashes, no negative
+parallelism, contractions, second person, and the interpunct rule from
+2026-08-16 held for both metadata lines.
+
+**Verified rather than asserted:** both pages render, no console errors, the
+four card titles read correctly from the DOM, and no horizontal overflow at
+360px, which is the v1 guarantee this change had the most potential to break.
+`npm test` green, 9/9, verify-build clean, deliverable verified.
+
+**A consequence that is now public.** Card 01 is £4,500 and card 02 is £4,000,
+so the Foundation sits below the Diagnostic on the same screen while its own
+section still argues it costs more because it leaves something working behind.
+That was tolerable while it was only in `Offer.md`. On a live pricing page a
+visitor reads both cards in one glance, so the deferred Foundation decision is
+now more urgent than it was this morning.
+
+**Revisit if:** the Foundation is repriced, which changes both cards and the
+`/how-it-works` eyebrow with it.
+
+---
+
+## 2026-08-28 — The Foundation goes to £6,500, and keeps its two weeks
+
+**Decision:** £6,500 fixed, duration unchanged. `Offer.md`, `HANDOVER.md`,
+`PHASE5-BUILD.md`, both site surfaces and the public Foundation sheet updated
+together. The deferred item from this morning is closed.
+
+**Reasoning:** on the fully loaded day, two weeks of delivery plus the
+three-day pre-sale budget is thirteen days, so £4,000 was £308. £6,500 is £500,
+inside the £450–650 range and slightly under the Build's implied £560. That gap
+is deliberate and sayable: a first engagement earns a small discount for being
+the low-risk way in.
+
+**It does not compress the way the Diagnostic did, and that is the whole
+difference between the two decisions.** The Diagnostic's second week existed
+because of a document, so deleting the document deleted the week and the price
+rise only had to cover the rest. The Foundation's two weeks is construction:
+the token layer authored, light and dark resolved and checked, the wiring, the
+build step, the guardrails, one real screen shipped. Cutting a week cuts the
+thing being bought. So it costs more rather than taking less.
+
+**The ~£5k threshold never applied to this buyer.** It exists because a
+technical leader inside a company holds a discretionary limit and crossing it
+triggers procurement. A founder spending their own money or a recent raise has
+no procurement to avoid. The section already said the buyer is different and
+then quoted the corporate buyer's constraint anyway, which is the sort of
+inherited reasoning that survives because nobody re-reads the paragraph they
+did not change. Removed and replaced with what actually governs the number,
+which is a founder's sense of proportion against their runway.
+
+**The ladder now ascends on the site**: £4,500, £6,500, from £12,000, then
+£2,000 a month. It read £4,500 then £4,000 for about four hours this morning.
+
+**The risk, recorded rather than hidden.** £6,500 may price out the pre-seed
+founder and pull the Foundation towards funded ones. That is a change of
+segment, not only of price. It is written into `Offer.md` next to the number so
+it cannot be forgotten, and reversing it is one edit.
+
+**Verified:** all four card titles and all four `/how-it-works` eyebrows read
+correctly from the DOM, no console errors, no horizontal overflow and no
+clipped headings at 360px, which the longer price strings were the thing most
+likely to break. `npm test` green, 9/9, verify-build clean.
+
+**Revisit if:** two Foundation conversations bounce off the number, which is the
+signal that the segment moved rather than the price being wrong. Or if a
+Foundation actually runs and the scaffold makes it materially faster than two
+weeks, in which case the duration is the thing to revisit rather than the fee.
+
+---
+
+## 2026-08-28 — The Diagnostic is half paid before it starts
+
+**Decision:** Closed the open payment-terms question in the Diagnostic
+engagement letter. Half the fee on acceptance, payable **before the engagement
+begins**, with the start date confirmed once it clears. The balance on delivery,
+payable within 14 days. The two options the letter had been holding were full
+invoicing on commencement, or a half-and-half split with both halves invoiced on
+normal terms.
+
+**Reasoning:** the letter is agreed by replying "agreed" to an email, with no
+signature, which is deliberate and stays. But that leaves nothing that marks the
+moment a yes becomes a commitment. **The deposit is the commitment artefact.**
+That is the post-mortem's first finding turned into an instrument rather than a
+resolution: an in-principle yes needs something to convert into, and asking
+someone to move money is the cheapest available conversion.
+
+Payable *before* rather than *invoiced on* commencement is the whole point of
+the clause. Invoicing at the start with 14-day terms on a one-week engagement
+means the money arrives after the work is finished, which is the position the
+clause exists to avoid. It also caps exposure at half the engagement instead of
+all of it, which matters more now the shape is one week and front-loaded.
+
+Two invoices for one fee is real overhead and it is worth less than it was when
+the fee was smaller and the alternative was chasing two invoices for £3,000. The
+first is a booking rather than a chase, and standard enough that no client will
+query it.
+
+**The letter needed more than its payment clause.** It still described two weeks,
+£3,000, and a written diagnosis as the only output, and its liability cap quoted
+the old fee. A letter that cannot be sent is exactly the failure the post-mortem
+names, so it was brought into line: one week, £4,500, the deliverable restated
+as three things with the installed check first, and the ownership clause amended
+so the check the client keeps is not caught by the sentence reserving the
+machinery. That last one was a real trap. Without the amendment the letter gives
+them a check and reclaims it in the same document.
+
+**Still open, and correctly so:** three `[DECIDE]` markers remain in the letter,
+for the liability cap, the insurance line, and the publicity clause. Each needs a
+solicitor, a policy or a client conversation rather than a view. The services
+agreement's own payment schedules stay open too; they cover the Build and the
+Retainer and come out when the Build does.
+
+**Revisit if:** a client refuses to pay anything before work starts. That is
+information about the client as much as about the terms, and the post-mortem
+argues it is worth knowing early rather than at the end of a free fortnight.
+
+---
+
 
 
 

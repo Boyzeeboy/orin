@@ -44,3 +44,9 @@ notes/contracts/
 # 2026-08-25; they were tracked here before that, so they remain in the history.
 notes/pragma-*
 scripts/derive-team-proposal.mjs
+
+# The prospect ledger. Same public-remote reasoning as the Pragma block above:
+# it names live prospects, records what each arc was worth, and tracks how I
+# sell. The instrument is a practice decision and is logged in decisions.md
+# (2026-08-28); the rows are client material and are not.
+notes/prospect-ledger.md
