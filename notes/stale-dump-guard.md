@@ -118,6 +118,13 @@ port ever moves.
 
 ## Recommended order
 
+*Updated 28 August 2026. Step 2 stopped being housekeeping and became a
+prerequisite. The Diagnostic briefly promised a client they could run
+`check:figma` themselves in three months. That promise was withdrawn the same
+day and cannot be made again until this guard exists. Until then the drift
+comparison is something I run, never something handed over. Logged in
+`decisions.md`, 28 August.*
+
 1. Do the demo.
 2. Add the guard to the baseline, verdict shaped like `provenance.mjs`, with unit
    tests alongside `provenance.test.mjs`.

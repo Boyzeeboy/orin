@@ -5310,6 +5310,75 @@ argues it is worth knowing early rather than at the end of a free fortnight.
 
 ---
 
+## 2026-08-28 — Reversal: the Diagnostic installs the report, not the drift gate
+
+**Decision:** Reverses the part of this morning's entry that put the drift gate
+into the Diagnostic. What the Diagnostic installs is the **repo-side report**:
+the generated checks that read the client's code and token source. The drift
+gate goes back to shipping with the Build, where it already was, and the Figma
+comparison during the Diagnostic is something I run with them rather than
+something left behind.
+
+Corrected in `Offer.md` (Diagnostic and Build), both site surfaces, the
+engagement letter's sections 2 and 6, and the post-mortem's scoped work.
+`notes/stale-dump-guard.md` gains a line promoting its step 2 from housekeeping
+to prerequisite.
+
+**Reasoning:** the promise did not survive contact with the code, and I did not
+check the code before making it.
+
+`check:figma` is not one of the nine checks in this repo's report. Those are
+Orin's own site checks, running JSON to dist to vendor, and no drift gate is
+among them because Orin's Figma is a mirror. The drift gate lives in the client
+baseline as `sync-from-figma.mjs --check`, outside the generated report, and it
+is outside for a reason: it needs a live read from Figma.
+
+Three things follow, and any one of them would be enough.
+
+**It cannot be handed over.** It needs the Token Sync plugin installed and the
+sink process running. Without the variables API, which a Professional plan does
+not have, it stays a human-triggered local step. "Installed in your repository"
+is not what a reader takes that to mean.
+
+**It can lie quietly.** `stale-dump-guard.md`, written 19 August, documents that
+`--check` reads a dump from a fixed path with no freshness check. Against a
+stale dump it reports agreement while Figma has moved, which that note calls the
+one answer a drift gate must never give wrongly. The only guard today is the
+operator noticing the sink's `✓ wrote N bytes`. The site told clients to run it
+alone in three months, and the person who does that is exactly the person who
+does not know to watch for that line. **The copy sold the failure mode.**
+
+**One check cannot print a ten-measure scorecard.** The drift gate answers one
+question. The scorecard comes from the report, which is a different command
+reading different things.
+
+**The corrected version is also the better pitch**, which is how I know the fix
+is right rather than merely safer. The repo-side checks need nothing from Figma,
+no plugin, no sink and no seat, so they genuinely keep working after I leave.
+"These checks tell you how much of your code is bypassing your own design
+system" is a stronger sentence to a buyer whose pain is developers than any
+Figma diff, and it is true.
+
+**What this cost and what it teaches.** The wrong promise was live on the site
+for about four hours. Nobody saw it, and that is luck rather than process. I
+wrote a commercial promise out of the offer document rather than out of the
+code, on the same day I wrote a post-mortem about being careless with promises.
+The rule that comes out of it: **a claim about what the machinery does gets
+checked against the machinery before it ships, not against the document that
+describes the machinery.** That is the deliverable-verification idea already
+running in `verify:deliverable`, applied to the offer instead of the manifest.
+
+**Deferred:** the freshness guard itself. Until it exists the drift gate is
+never described as client-operable, in any document or on any call. Also still
+unrehearsed, and named in the 19 August note: pressing Sync in Figma with the
+plugin imported on the demo machine.
+
+**Revisit if:** the guard lands and the drift comparison becomes safe to hand
+over, at which point the Diagnostic could install both and this reversal is
+worth re-reading rather than reversing again from memory.
+
+---
+
 ## 2026-08-28 — Two guardrails were guarding less than they claimed
 
 **Decision:** Closed two holes a code review found in the local checks, plus a
