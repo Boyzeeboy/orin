@@ -5,6 +5,12 @@ not acted on before it: this touches `scripts/sync-from-figma.mjs`, which is the
 script that gets run in front of the prospect. Everything below was verified
 against the baseline repo, not remembered.*
 
+*Status, 30 August 2026: the pipeline has the guard now. Everything below is left
+as it was written, because the reasoning is what made the fix the right shape —
+see "Recommended order" at the foot for what was built, and for the two things
+this note did not anticipate. The title is wrong and stays wrong; it was true on
+the day.*
+
 ## The trap
 
 `sync-from-figma.mjs` reads a dump from a fixed path, `tokens/.figma-dump.json`,
@@ -125,8 +131,31 @@ day and cannot be made again until this guard exists. Until then the drift
 comparison is something I run, never something handed over. Logged in
 `decisions.md`, 28 August.*
 
-1. Do the demo.
-2. Add the guard to the baseline, verdict shaped like `provenance.mjs`, with unit
-   tests alongside `provenance.test.mjs`.
+1. ~~Do the demo.~~
+2. ~~Add the guard to the baseline, verdict shaped like `provenance.mjs`, with unit
+   tests alongside `provenance.test.mjs`.~~ **Done 30 August 2026**, on branch
+   `feat/dump-freshness-guard` in the baseline repo. It went the sidecar route:
+   the sink writes `tokens/.figma-dump.meta.json` beside the values dump, holding
+   the time it landed and a sha256 of the bytes written, and
+   `sync-from-figma.mjs` reads it before the transform. Verdict shape is the one
+   `provenance.mjs` set, `scripts/lib/freshness.mjs`, with
+   `scripts/lib/freshness.test.mjs` alongside. Warn under `--dry-run`, error
+   under `--check`, exactly as the level note above argued. Window is
+   `dumpMaxAgeMinutes`, default 15.
+
+   Two things the note did not anticipate. The record needs a **hash as well as a
+   time**, because a timestamp alone still lies once the dump is hand-edited: it
+   would be describing a file no longer at that path. And the first version
+   exempted an explicitly named `--dump`, which made
+   `--check --dump <old-snapshot>` a green gate on a file of any age, reachable
+   by one flag. The exemption came out. `npm run seed` warns instead, which is
+   honest — a fixture is not a reading of anyone's Figma file.
+
+   Rehearsed end to end through the real sink, not only in unit tests: fresh
+   passes, back-dated nineteen hours exits 1, record deleted exits 1, dump edited
+   afterwards exits 1, and every one of those warns and carries on under
+   `--dry-run`.
 3. Decide separately, and as its own piece of work, whether KR and Synthesis get
-   it, knowing that a straight file copy will not work.
+   it, knowing that a straight file copy will not work. **Still open**, and the
+   table above is still the reason: the divergence is what makes this deliberate
+   work rather than a copy.

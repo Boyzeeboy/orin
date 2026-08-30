@@ -5434,6 +5434,76 @@ per-page sweep becomes dead weight.
 
 ---
 
+## 2026-08-30 — The drift gate learned to refuse a dump nobody refreshed
+
+**Decision:** Built the freshness guard into the baseline pipeline
+(`Orin Token Pipeline`, branch `feat/dump-freshness-guard`). The sink now writes
+a record beside the values dump — when it landed, and a hash of it — and
+`sync-from-figma.mjs` reads that record before it transforms anything. Stale,
+unrecorded, mismatched, undated and future-dated all resolve the same way: a
+warning in a dry-run, a refusal under `--check`. Default window is fifteen
+minutes, configurable per client as `dumpMaxAgeMinutes`.
+
+**Reasoning:** This closes step 2 of `notes/stale-dump-guard.md`, which stopped
+being housekeeping on 2026-08-28 and became a prerequisite. The Diagnostic
+briefly promised a client they could run `check:figma` themselves in three
+months; that promise was withdrawn the same day because the gate reads a dump
+from a fixed path with no freshness check, and against a stale dump it can report
+agreement while Figma has moved. A gate that can quietly say "fine" is worse than
+no gate, because it gets trusted. Until today the only thing standing between
+that and a client was me watching for the sink's `✓ wrote N bytes` line, which is
+a guard living in the operator's head.
+
+A sidecar written by the sink rather than a timestamp added to the plugin
+payload. Both answer the precise question, but the plugin is installed per
+client, so the payload route would have waited on every existing client
+reinstalling before the check could rely on the field. The sidecar keeps the
+change inside the repo.
+
+It carries a hash as well as a time, because a time alone still lies once someone
+edits the dump by hand: the record would be describing a file that is no longer
+at that path.
+
+**The bit I got wrong first, and it is the interesting one.** The first version
+exempted an explicitly named `--dump`, reasoning that an operator who names a
+file has made a considered choice. Two things were wrong with that. The sidecar
+path is derived from the dump path, so a dump the sink wrote to a custom
+`--values` path already has a record and can be dated like any other; the
+exemption was refusing evidence sitting right there. And it made
+`--check --dump <old-snapshot>` a way to get a green gate out of a file of any
+age, reachable by one flag. The exemption was removed. `npm run seed` now warns
+that freshness is unchecked, which is true and worth hearing: a fixture is not a
+reading of anyone's Figma file.
+
+Verified end to end through the real sink rather than only in unit tests, because
+the failure this guards against is a wiring failure and unit tests would not have
+seen it. Posted a plugin-shaped payload, confirmed the record landed, then ran
+`check:figma` against a fresh dump (passes), one back-dated nineteen hours
+(exit 1), one with the record deleted (exit 1), and one edited after the sink
+wrote it (exit 1). Dry-run warns and carries on in every case. 106/106 unit
+tests, report 5/5.
+
+**Deferred:** propagation to the live client pipelines, which is step 3 of the
+note and its own piece of work. Propagation happens by cloning and nothing else,
+so this reaches every future client pipeline and none of the existing ones. KR
+and Synthesis predate `--check` and are 86 lines divergent; IDEM has no such
+script at all. A straight file copy would import three modules that are not
+there. Those are the repos being synced repeatedly against real files, so it is
+where the trap does the most damage and where the fix is most deliberate.
+
+Also deferred, and deliberately: the productised "Control Gate" this guard was
+raised in service of. The provenance work is worth having whether or not that
+product ever exists, which is why it went first. The product itself is a
+different argument and F7 of `notes/pragma-postmortem.md` outranks it.
+
+**Revisit if:** fifteen minutes turns out to be the wrong window in practice. If
+a real session routinely runs longer and clients start raising
+`dumpMaxAgeMinutes`, the number is wrong rather than their workflow. And if
+`check:figma` ever moves into CI, this becomes the reason it cannot, so revisit
+both together.
+
+---
+
 
 
 
