@@ -45,6 +45,17 @@ notes/contracts/
 notes/pragma-*
 scripts/derive-team-proposal.mjs
 
+# The commercial operating model. Same public-remote reasoning as the outreach
+# copy above: it is the rules for how I sell, not a decision about how the
+# practice works — the pre-sale budget, the script for answering a technical
+# question, how to gate a demo audience. It also opens by naming Pragma, and
+# its re-entry conditions describe one real prospect's internal state closely
+# enough that the name is not doing much work. It reached the public index on
+# 29 August in the same pass as the reversal it came out of, and was caught
+# before that commit was pushed, so it is not in the history. Tracked in
+# orin-private from 2026-08-30.
+notes/commercial-operating-model.md
+
 # The prospect ledger. Same public-remote reasoning as the Pragma block above:
 # it names live prospects, records what each arc was worth, and tracks how I
 # sell. The instrument is a practice decision and is logged in decisions.md
