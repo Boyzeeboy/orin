@@ -61,3 +61,10 @@ notes/commercial-operating-model.md
 # sell. The instrument is a practice decision and is logged in decisions.md
 # (2026-08-28); the rows are client material and are not.
 notes/prospect-ledger.md
+
+# The GitHub support ticket about this repository's own history. The subject
+# makes it look like practice material, but it is a working note written to be
+# sent to a third party, and it carries the operational specifics of the
+# 2026-08-25 split. It is for me, not for the public index. Tracked in
+# orin-private from 2026-08-31.
+notes/github-gc-ticket.md
