@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+# scripts/open — the open loops, generated from the markers the docs already use.
+#
+# Why it exists: deferred work lives where it was deferred — a "**Deferred:**"
+# clause inside a decisions.md entry, an "**Outstanding**" paragraph in a log, a
+# "**Done when:**" line in a note. That is the right place to write it and the
+# wrong place to find it: establishing where one piece of open work stood
+# (ORIN-20, 2026-09-01) took grep and knowledge of which file to grep. This
+# prints every open-loop marker with its file:line, so the list is generated
+# from the record rather than maintained beside it. A hand-kept OPEN.md would
+# rot; this cannot.
+#
+# It is a view, not a tracker. A Deferred clause may have been closed by a later
+# entry — the reader judges; the script only refuses to let a loop hide.
+#
+#   scripts/open              Deferred / Outstanding / Done-when markers
+#   scripts/open --revisit    add the "Revisit if" conditions (many; they are
+#                             standing conditions, not tasks, so off by default)
+#   scripts/open <pattern>    filter lines by an extra grep pattern
+
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+MARKERS='\*\*Deferred|\*\*Outstanding|^## Outstanding|\*\*Done when'
+FILTER=''
+
+for arg in "$@"; do
+  case "$arg" in
+    --revisit) MARKERS="$MARKERS"'|\*\*Revisit if' ;;
+    *) FILTER="$arg" ;;
+  esac
+done
+
+# Root docs and notes, public and private alike — the loop does not care which
+# repo tracks the file it lives in.
+FILES=$(ls ./*.md notes/*.md notes/*/*.md 2>/dev/null || true)
+
+# shellcheck disable=SC2086
+OUT=$(grep -nE "$MARKERS" $FILES 2>/dev/null || true)
+[ -n "$FILTER" ] && OUT=$(printf '%s\n' "$OUT" | grep -i -- "$FILTER" || true)
+
+if [ -z "$OUT" ]; then
+  echo "No open-loop markers found."
+  exit 0
+fi
+
+printf '%s\n' "$OUT" | awk -F: '
+  $1 != prev { if (prev) print ""; print "\033[1m" $1 "\033[0m"; prev = $1 }
+  {
+    line = $0; sub(/^[^:]*:[0-9]*:/, "", line)
+    gsub(/^[[:space:]]+|\*\*/, "", line)
+    printf "  \033[2m%4d\033[0m  %s\n", $2, line
+  }
+'
+echo ""
+printf '%s\n' "$OUT" | wc -l | awk '{print $1 " marker(s). A marker may be closed by a later entry — read before acting."}'

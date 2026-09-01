@@ -88,6 +88,13 @@ no Figma round-trip for this build. MVP over polish: the moment a
 stranger gets what / who / cost / credibility / contact in 90 seconds,
 ship and stop.
 
+**A note about anything outbound records what was sent, not what was
+drafted.** It stays marked *draft* until the sent text is pasted back into
+it — verbatim, after sending. Adopted 2026-09-01, after the note to Brandon
+said "Sent" while the email that actually went was a shorter rewrite, leaving
+the log claiming two questions were pending that had never been asked. Ten
+seconds at send time; the alternative is a record that lies politely.
+
 ---
 
 ## The site is v1. Stop building it. (declared 2026-08-16)
