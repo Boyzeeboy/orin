@@ -207,6 +207,8 @@ The reference's "07 SYSTEM" colophon strip is already satisfied by the
 **Done when:** `cd tokens && npm test` → 9/9, verify clean; Home reflows
 to the grid at ≥`lg` and stacks cleanly at 360px; the layout decision and
 the `@media`/breakpoint exception are logged in `decisions.md`.
+*(2026-09-01: satisfied — v1 shipped and declared closed 2026-08-16; see
+CLAUDE.md "The site is v1. Stop building it.")*
 
 ---
 

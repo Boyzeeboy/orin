@@ -4653,6 +4653,9 @@ Diagnostic's scope.
 Step 0 has run against their master file. Seven open questions in the note gate
 the scope, and the cheapest of them (do they have Figma Enterprise, which would
 drop the plugin and the sink entirely) is a two-minute ask.
+*(2026-09-01: closed as moot — Pragma closed 2026-08-27 before Step 0 ran. The
+method survives in `pragma-mui-theme-contract.md`; this revives only with the
+arc.)*
 
 **Revisit if:** they turn out to have Figma Enterprise, or their MUI version
 predates CSS-variables mode. Either one changes the shape of the proposal.
@@ -4707,6 +4710,9 @@ collections to the convention, or absorb the difference into `figma: {}`
 overrides) is deliberately left for the Diagnostic conversation itself,
 because overrides run in an afternoon and leave the shape of their system
 unexamined, and choosing that quietly would be choosing it wrongly.
+*(2026-09-01: closed as moot — the Diagnostic conversation never happened;
+Pragma closed 2026-08-27. The question returns if the end-of-November re-entry
+does.)*
 
 **Revisit if:** MUI's theme factory stops accepting a plain object, or Onkey
 moves off MUI. Neither is remotely likely; they hold premium licences and the
@@ -4863,6 +4869,8 @@ no procurement is triggered, and that logic is a UK assumption that may not
 survive translation into roughly R70,000. And their standard payment terms,
 since the engagement letter recommends 14 days and South African corporates
 commonly run 30.
+*(2026-09-01: closed unasked — Pragma closed at the entry gate on 27 August,
+see the 2026-08-28 post-mortem entry. Both questions died with the arc.)*
 
 **Revisit if:** a client turns up whose finance team refuses anything but their
 own currency. The answer then is a fixed rate at signature rather than a
@@ -5372,6 +5380,8 @@ running in `verify:deliverable`, applied to the offer instead of the manifest.
 never described as client-operable, in any document or on any call. Also still
 unrehearsed, and named in the 19 August note: pressing Sync in Figma with the
 plugin imported on the demo machine.
+*(2026-09-01: the guard half is closed by the 2026-08-30 entry — built into the
+baseline. The rehearsal half is still open.)*
 
 **Revisit if:** the guard lands and the drift comparison becomes safe to hand
 over, at which point the Diagnostic could install both and this reversal is
