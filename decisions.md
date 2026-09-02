@@ -5514,6 +5514,52 @@ both together.
 
 ---
 
+## 2026-09-02 — The public remote is garbage-collected, and the 25 August exposure is closed
+
+**Decision:** GitHub Support deleted pull requests #21 to #42 in full, ran
+garbage collection and cleared the cache. The objects orphaned by the 25 August
+history rewrite are no longer served by SHA. ORIN-20 is closed.
+
+Two choices sit inside that. Support offered either deleting whole pull
+requests or removing only their file diffs and leaving the conversations
+standing, and I took full deletion. The affected range was also corrected, from
+the #26 to #42 their tooling first reported to #21 to #42.
+
+**Reasoning:** the conversations were the worse half. The pull request
+descriptions summarised the strategic read, quoted the proposal verbatim around
+an edit, and named staff, while the titles and branch names carried the client
+name in both of the forms it had been written in. Removing the file diffs and
+leaving that standing would have closed the smaller hole. Going further cost
+nothing: every comment across the twenty-two was a deploy bot notice, this file
+is the record of record, and a verbatim copy of all twenty-two went into the
+private repo before I answered.
+
+**The range correction is the part worth remembering.** Their first scan found
+references in #26 to #42 because the original ticket offered one example SHA,
+and that SHA was the merge commit of #25. Every pull request merged afterwards
+inherited it and the five before it did not. Sending all 49 orphaned commits,
+recovered through the pull request API, returned exactly #21 to #42 on the
+second scan. Had the one example stood, five pull requests would have kept
+serving the notes under their original filenames.
+
+Verified rather than taken on trust. 49 of 49 SHAs now return 404, the removed
+files no longer list at the example ref, and all 22 pull requests are gone. Two
+controls, a live commit and a pull request outside the set, still return 200,
+which rules out an authentication artefact behind the 404s.
+
+The purge ends the retrievability. It does not undo the eight days the material
+was reachable, and Support said as much in closing. That content is compromised
+in principle for good, which is the cost the 2026-08-25 entry was already
+paying for.
+
+**Revisit if:** the two-repo arrangement turns into ongoing friction rather
+than a setup cost paid once. Making this repository private was the fallback
+while the pull request metadata was exposed, and that reason has now gone, so
+the split stands on its own merits.
+
+---
+
+
 
 
 
