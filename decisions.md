@@ -5558,6 +5558,106 @@ while the pull request metadata was exposed, and that reason has now gone, so
 the split stands on its own merits.
 
 ---
+## 2026-09-02 — The clones are further behind than the deferral said, and nothing was watching
+
+**Decision:** Reviewed the baseline pipeline against its three clones and filed
+the result as work rather than as prose. Three new issues: **ORIN-35** (stamp the
+baseline commit into every scaffolded clone), **ORIN-36** (version the extractor
+so a dump names the build that produced it), **ORIN-37** (`--strict` should fail
+when a check stops running, not only when it fails). **ORIN-18** was rescoped
+from "port the dump-freshness guard to KR and Synthesis" to "bring KR and
+Synthesis up to the baseline", and raised from Medium to High.
+
+Also corrected the Releasing section of the baseline's `PROCESS.md`. It still
+told the reader to compare `package.json` against the tag by hand, and still
+asserted that the pair had no check, more than two weeks after
+`scripts/tag-release.mjs` made the tag name derived rather than typed.
+
+No pipeline code changed today. This is a review and a set of tickets.
+
+**Reasoning:** the 30 August entry deferred propagation to the live client
+pipelines and described what was pending as the guard, singular. That was true on
+the day and stopped being true two days earlier than the entry itself, because
+`4c07920` and `3d27384` had landed on 28 August. Nothing re-scored the deferral
+when they did.
+
+Measured rather than remembered: Synthesis forked the baseline at `2b4e67c` and
+is eight commits behind, not one. Two of those are silent-wrong-data fixes rather
+than enhancements. `4c07920` matched mode names case-sensitively in the
+extraction — my own commit message for it calls it the July 2026 dark-theme
+defect arriving by a different door, at the one layer no later gate re-does.
+`3d27384` let an override naming one collection delete the other five while the
+audit reported a clean 1/1. The first is live in Synthesis and bounded by
+`mode-parity`, which Synthesis does run, so it would go red rather than ship
+quietly. The second is latent there, because `figma: {}` is still empty, and arms
+the first time a collection gets renamed.
+
+So the deferral was not wrong, it was under-weighted, and it stayed
+under-weighted because the only thing that could have noticed was me
+remembering to look.
+
+**Which is the actual finding, and it is structural.** Every drift-prone pair in
+this pipeline is compared by something that fails: file provenance, dump
+freshness, dump hash, the sink port across config and manifest and UI, the tag
+against `package.json`, committed `dist/` against a fresh build, doc references
+against reality. The one pair with no check is the baseline against its own
+clones, which is the pair with the most clients downstream of it.
+`scaffold-client.mjs` resets the version to `0.1.0` and records nothing about
+where the clone came from, so "how far behind is this one?" can only be answered
+by diffing two working trees by hand. ORIN-35 is that check, and it is the
+cheapest thing on the list.
+
+It also stops being a one-off cost. The Diagnostic and the Foundation each
+produce a fork, so the propagation tax currently scales with revenue, and no
+decision has capped it.
+
+**The extractor gap is not the 30 August decision revisited.** That decision
+rejected a timestamp in the plugin payload, for freshness, because the sidecar
+answers the same question without waiting on every client reinstalling. It was
+right and it stands. What it left standing is a different question: provenance
+answers "right file", the sidecar answers "recent, and unmodified since the sink
+wrote it", and nothing answers "which build of the extractor produced this". A
+dump from a pre-`4c07920` plugin passes all three and is wrong at source. Two
+Token Sync plugins are registered on this machine, both allowing 9231 and
+interchangeable in practice, so running the stale one is invisible — the
+2026-08-19 entry records that happening once already, harmlessly. For an
+extractor version the reinstall objection inverts: detecting the client who has
+not reinstalled is the whole point. ORIN-36.
+
+**And a gate going quiet is still green.** `--strict` fails on failures only, and
+nothing asserts how many checks actually ran, so a `siteDir` that is set and
+later moves takes five checks to `skip` with the summary reading like a clean
+pass. That is the same shape as `mode-parity` going red into a gitignored file CI
+threw away, and as the drift gate answering from a dump nobody refreshed:
+something stopped being checked and nothing announced it. ORIN-37, related to
+ORIN-23.
+
+**On `PROCESS.md`.** The stale line is a small thing that is worth naming for
+what it demonstrates. `verify:docs` passed it every single run, correctly, because
+every path and command the sentence names is real. The file's own header says it
+cannot verify that prose is wise, only that the things it names are real, and
+`notes/pattern-layer-governance.md` theorises about exactly this residual. Here
+is a live specimen of it, sitting in the document that argues for the gate, and
+it took a human read to find. Worth keeping in mind before anyone claims the
+prose layer is covered.
+
+**Deferred:** (ORIN-35, ORIN-36, ORIN-37, ORIN-18) all four, none started. And
+separately, a convention question I am not deciding today: `scripts/open`
+generates the open-loop view from markers in this repo, so it cannot see Linear,
+and Linear cannot see a `**Deferred:**` clause. Two half-views of the same work,
+which is how ORIN-18's scope went stale against the record for three days without
+either list noticing. The cheap fix is to put the issue id inside the marker, as
+this clause does — proposed here, not yet adopted, and it wants a decision rather
+than a drift into habit.
+
+**Revisit if:** ORIN-35 lands and the amber signal turns out to be noise rather
+than news — if a clone is routinely behind for good reasons, an amber that is
+always on is a check nobody reads, and the answer is a different signal rather
+than a louder one. Also revisit the whole shape of this if a fourth client
+pipeline is stood up before ORIN-18 is done: at four forks the manual port stops
+being deliberate work and becomes a thing that will simply not happen.
+
+---
 
 
 
