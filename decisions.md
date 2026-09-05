@@ -5675,3 +5675,48 @@ and the specific factor that tipped the choice.]
 
 **Revisit if:** [The condition under which this decision should be
 re-examined. If none, say so explicitly.]
+
+## 2026-09-05 — The outreach material was quoting retired prices, and the tracker exists
+
+**Decision:** Four things settled before any outreach starts.
+
+**Both buyers stay.** Templates A to D keep working the existing-product buyer;
+template E keeps working the founder. The pack was already built for two buyers
+and nothing about the Pragma loss argues for dropping one.
+
+**The founder-facing evidence is orinsystems.co.** Vivo is the only case study
+in the pack and it argues for buyer 1: twelve developers, 60% of development
+time recovered, a calculation a CTO can run. A pre-launch founder cannot run it,
+by the pack's own admission. The site runs on the pipeline it sells and `/tokens`
+shows the layer working, so it is the one proof that speaks to somebody with no
+product yet. Template E now says so.
+
+**The outreach log is a spreadsheet**, `notes/outreach-tracker.xlsx`, private
+from creation. One row per named person, pre-pipeline. A prospect graduates to
+`notes/prospect-ledger.md` on first real contact, and the ledger stays the source
+of truth for deal state. The sheet carries a `Ledger row?` column so the handoff
+is visible rather than remembered.
+
+**Prices corrected.** The Foundation moved to £6,500 and the Diagnostic to
+£4,500 on 28 August. Neither `notes/client-situations.md` nor
+`notes/launch-and-outreach-pack.md` had been updated, so both were still
+quoting £4,000 and £3k in seven places, including template E, which offered
+£4,000 *in writing* as the price of the Foundation.
+
+**Reasoning:** sending that email would have anchored a founder £2,500 below the
+current price, in writing, in the first contact. Discovering it after the send
+means either honouring a retired number or repricing mid-conversation, and the
+second is how a fixed price stops sounding fixed. This is F1 in a different
+costume: the instrument was nearly ready and the unready part was live at the
+moment it mattered.
+
+The dated changelog lines in both notes were left as written. They record what
+was true on 16 August, and editing them would make the log wrong about what
+happened, which is the same reasoning that kept the 2026-08-21 rename table
+intact.
+
+**Deferred:** the target list is not built, nothing has been sent, and
+**ORIN-22** is still open. The conversion rule wants an engagement letter the
+same day as an in-principle yes, and the templates still carry open [DECIDE]
+markers, so PI cover is the gate that decides when the first email can safely go
+out rather than the first conversation.

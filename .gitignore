@@ -74,3 +74,11 @@ notes/github-gc-ticket.md
 # client and four of their people, and quote the proposal. Keeping the copy
 # public would undo the deletion. Tracked in orin-private from 2026-09-02.
 notes/github-gc-pr-archive.md
+
+# The outreach tracker. Empty today, but its first filled row names a live
+# prospect, their employer, and how to sell to them, which is exactly the
+# material the 2026-08-25 split exists to keep off a public remote. Ignored
+# from creation rather than from first use, because a public remote serves
+# deleted files by SHA long after they leave main. Tracked in orin-private
+# from 2026-09-05.
+notes/outreach-tracker.xlsx
