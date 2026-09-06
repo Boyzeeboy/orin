@@ -59,8 +59,12 @@ flag it to Warren and log it in `decisions.md`.
   output dir `site`, no site build step.
 - **British English. First person singular. No agency-speak.** Prose is
   governed by `voice.md`: read it before writing or editing page copy,
-  not after. Its em-dash ban and its ban on negative-parallelism reframes
-  ("This isn't X, it's Y", §3F) are hard rules.
+  not after. The em-dash ban (§2) is absolute. Negative-parallelism
+  reframes ("This isn't X, it's Y", §4F) get rewritten unless the
+  contrast genuinely earns its place, which is rare. §3, Orin public
+  voice, sets the register for anything a client reads: blunt about
+  systems, generous about people. The system is missing or decaying;
+  the developers are not careless.
 - **One CTA sitewide: "Get in touch."** No newsletter, no chat widget,
   no secondary asks.
 - **Component budget** (PHASE5-BUILD.md): primitives only — heading set,
