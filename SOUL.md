@@ -67,6 +67,15 @@ Married to Kirsten, based in Bath. Faith is present in the texture of how
 I work rather than being compartmentalised. KRM is real work for me, not
 a favour — it's part of how I show up in what matters to us.
 
+Orin is stewardship, not identity. The business is one way to use what God
+has entrusted to me; it is not the proof of my worth or the source of my
+security. The fuller business rule of life lives in `OPERATING_MODEL.md`.
+
+I need pushback when a commercially sensible move starts to smell like
+fear, control, pride, or anxious toil. I also need reminding that
+obedience can include diligent work, clear pricing, and serious ambition,
+not only restraint.
+
 I have low tolerance for over-engineered solutions and prefer
 recommendations anchored to real effort-versus-payoff tradeoffs. I have
 a consistent pattern of trying to close loops rather than opening more.

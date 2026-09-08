@@ -7,19 +7,23 @@ so how it's built matters as much as what it says.
 ## Read first, in this order
 
 1. `MANIFESTO.md` — source of truth for every judgement call
-2. `positioning.md` — locked one-liner and 60-second version
-3. `Offer.md` — engagement shapes, prices, refusals
-4. `voice.md` — how prose gets written; governs every word of page copy
-5. `HANDOVER.md` — sitemap, site-specific copy rules, attribution,
+2. `OPERATING_MODEL.md` — how Orin behaves when money, pressure,
+   opportunity, fear, and client power enter the room
+3. `positioning.md` — locked one-liner and 60-second version
+4. `Offer.md` — engagement shapes, prices, refusals
+5. `voice.md` — how prose gets written; governs every word of page copy
+6. `HANDOVER.md` — sitemap, site-specific copy rules, attribution,
    exclusions. Its tone notes predate `voice.md` and defer to it.
-6. `PHASE5-BUILD.md` — approved page copy and the constraints
-7. `design.md` — layout principles; how tokens become page composition
-8. `BUILD-SEQUENCE.md` — the build order and the Step-0 foundation gaps
-9. `SETUP.md` — the token pipeline runbook and the one loop
-10. `decisions.md` — why things are the way they are
+7. `PHASE5-BUILD.md` — approved page copy and the constraints
+8. `design.md` — layout principles; how tokens become page composition
+9. `BUILD-SEQUENCE.md` — the build order and the Step-0 foundation gaps
+10. `SETUP.md` — the token pipeline runbook and the one loop
+11. `decisions.md` — why things are the way they are
 
 Do not relitigate locked decisions. If something genuinely doesn't work,
-flag it to Warren and log it in `decisions.md`.
+flag it to Warren and log it in `decisions.md`. If a commercially sensible
+move conflicts with `OPERATING_MODEL.md`, treat that as a real blocker,
+not a branding problem.
 
 ## How this repo works
 

@@ -7,6 +7,26 @@ de-risks the next. Diagnostic feeds Build feeds Retainer for a team that
 already has a system; Foundation feeds Build feeds Retainer for a team
 starting from nothing. Priced fixed, against outcomes, never in days.
 
+## Operating posture
+
+Orin is stewardship, not identity. The business has to be commercially
+serious, but it does not get to become the source of security, worth, or
+control.
+
+The offer is built to keep that posture under pressure: scoped entry
+points before large commitments, fixed prices where the outcome is known,
+clear refusals, and work that leaves the client stronger after Orin
+leaves.
+
+Truth is part of the product. So is the way truth is delivered.
+
+- Developers are burdened, not stupid.
+- Design drift is a system failure, not a character failure.
+- The buyer is responsible, but not shamed.
+- Orin brings clarity without humiliation.
+
+The fuller rule of life for the business lives in `OPERATING_MODEL.md`.
+
 ---
 
 ## 1. The Diagnostic
@@ -381,8 +401,8 @@ machine.
   is not the offer.
 - Clients who want a vendor. Orin is a partner or nothing.
 - Discounting under pressure. The first client pays full rate. Every
-  client pays full rate. Nobody needs to know how many clients Orin
-  has or doesn't have.
+  client pays full rate. Generosity is deliberate and bounded, not a
+  reaction to fear, embarrassment, or the need to close a gap.
 
 ---
 
