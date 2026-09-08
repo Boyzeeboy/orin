@@ -5850,3 +5850,37 @@ against `main`, but it softens the negative-parallelism ban in `voice.md` from
 a hard rule to a judgement, and that is a call for Warren rather than a merge
 to run. **ORIN-43**, reviewing site text against the operating model, is open
 and is site work, so the stopping rule applies.
+
+---
+
+## 2026-09-08 — The negative-parallelism ban becomes a judgement, and the voice deferral closes
+
+**Decision:** `docs/voice-and-pattern-layer` merged as #55. The deferral logged
+earlier today is closed: Warren approved the softening as part of the Kingdom
+alignment in voice.
+
+`voice.md` gains §3, Orin public voice, which sets the register for anything a
+client reads: blunt about systems, generous about people. The old §3 banned list
+becomes §4, the avoid list, and everything below renumbers. `CLAUDE.md` follows
+it. The em-dash ban (§2) stays absolute. Negative-parallelism reframes ("This
+isn't X, it's Y", §4F) are now rewritten unless the contrast genuinely earns its
+place, which is rare.
+
+`notes/pattern-layer-governance.md` gained a build order at the same time,
+Phases A to F, with extraction named as the risky half and the gate named as the
+only part that is enforcement. `notes/pattern-layer-dataflow.html` is its diagram.
+
+**Reasoning:** the rule was stated harder in `CLAUDE.md` than it was ever applied,
+and the commit that changed it says so plainly. A blanket ban on contrast treats a
+sentence shape as the problem, when the real problem is a reframe that manufactures
+significance it has not earned. Making it a judgement puts the weight on whether
+the contrast is doing work, which is the test that was being applied anyway.
+
+The register in §3 is the same instinct that produced `OPERATING_MODEL.md` earlier
+today: the system is missing or decaying, and the developers are not careless.
+Both documents arrived at that separately, two days apart, which is a reasonable
+sign it is load-bearing rather than a phrasing preference.
+
+**Revisit if:** the softened rule starts admitting reframes that inflate
+significance, which is the failure it exists to prevent. The em-dash ban does not
+move.
