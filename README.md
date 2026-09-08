@@ -17,6 +17,8 @@ Orin is the vehicle for that work.
 **The thinking**
 
 - `MANIFESTO.md` — the founding document. Everything Orin does points back to this.
+- `OPERATING_MODEL.md` — how Orin behaves when money, pressure,
+  opportunity, fear, and client power enter the room.
 - `positioning.md` — the locked one-liner and the longer versions.
 - `Offer.md` — the four engagement shapes, prices, and refusals.
 - `voice.md` — how prose gets written. Governs every word on the site.
@@ -45,9 +47,10 @@ Orin is the vehicle for that work.
 
 ## Working principles
 
-The manifesto is the source of truth. When a decision feels uncertain,
-the question is "does this fit the manifesto?" If yes, proceed.
-If no, drop it — even if it pays.
+The manifesto is the source of truth. The operating model is the conduct
+check. When a decision feels uncertain, the question is "does this fit
+the manifesto, and can Orin do it cleanly?" If yes, proceed. If no, drop
+it, even if it pays.
 
 GitHub is the canonical source. Notion is the workshop.
 When they diverge, GitHub wins.

@@ -5712,6 +5712,39 @@ it on its own terms again.
 
 ---
 
+## 2026-09-08 — Added the operating model as Orin's conduct check
+
+**Decision:** Created `OPERATING_MODEL.md` and linked it from the repo's
+working context: `README.md` names it in the thinking layer, `CLAUDE.md`
+puts it immediately after the manifesto in the read order, `Offer.md`
+adds a short operating posture before the engagement shapes, and `SOUL.md`
+points to it from the personal context. The operating model also now holds
+the commercial and Kingdom scorecards for reviewing the business.
+
+**Reasoning:** The manifesto already answers what Orin is and why it
+exists, but it was not carrying the whole question of how the business
+should behave when pressure enters the room: money, client power, fear,
+opportunity, discounting, rest, and the temptation to make Orin the proof
+of Warren's worth. `SOUL.md` is personal context, so making it the rule of
+life for the business would blur two jobs. The operating model gives Orin
+a business-native conduct layer: stewardship rather than identity, truth
+without humiliation, clear pricing, deliberate generosity, Sabbath as a
+constraint, and discernment before commercially sensible yeses.
+
+The client-facing consequence matters too. Orin's work exposes drift and
+broken systems, which can make good teams feel foolish if handled badly.
+The operating model locks the posture that was already emerging in the
+voice: developers are burdened, not stupid; design drift is a system
+failure, not a character failure; the buyer is responsible, but not
+shamed; Orin brings clarity without humiliation.
+
+**Revisit if:** the language starts behaving like private doctrine that
+never affects commercial decisions, or if it makes Orin less candid with
+clients instead of more trustworthy. Also revisit after the first complete
+client arc to see whether the scorecards ask the right questions.
+
+---
+
 
 
 
