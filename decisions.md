@@ -5806,3 +5806,47 @@ intact.
 same day as an in-principle yes, and the templates still carry open [DECIDE]
 markers, so PI cover is the gate that decides when the first email can safely go
 out rather than the first conversation.
+
+---
+
+## 2026-09-08 — Three changes went in as three pull requests, and a rename cost one of them
+
+**Decision:** ORIN-34, the operating model, and the outreach tracker each
+merged through their own pull request: #50, #52 and #53. The operating model
+was sitting uncommitted in the working tree on the ORIN-34 branch, so it was
+split onto a branch of its own before anything merged. No pull request
+carried another one's changes.
+
+**Renaming a branch closes its open pull request.** `wgrossiter/operating-model`
+was renamed to `wgrossiter/orin-42-bake-kingdom-operating-model-into-orin-docs`
+so the branch would match the Linear identifier, using the GitHub rename API
+on the assumption that an open pull request follows its head branch across.
+It does not. PR #51 closed on the spot, and reopening it is impossible because
+the head branch it names has gone. The same commit went up again as #52 under
+the new name. So: pick the branch name before opening the pull request, or
+accept a closed one in the history.
+
+**No new Linear issue was created.** ORIN-42, "Bake Kingdom operating model
+into Orin docs", already existed and described the same six files, so PR #52
+was attached to it. Creating a second issue would have duplicated a record
+that was already written. ORIN-42 was marked Done at creation, several hours
+before the branch existed, so the status ran ahead of the merge.
+
+**The outreach tracker was checked before its ignore rule merged.**
+`notes/outreach-tracker.xlsx` is tracked in `orin-private`, is absent from
+this remote's history, and stayed on disk after the pull. Worth confirming
+rather than assuming, given the file that PR #53 exists to keep off a public
+remote.
+
+**Reasoning:** the branch rename was avoidable. Linear generates the branch
+name when an issue exists, and ORIN-42 existed before the work was committed,
+so the name was available from the start and was not looked up. The cost was
+small this time, one closed pull request and a replacement, because the branch
+had no review history to lose. On a branch carrying review comments it would
+have cost the conversation as well.
+
+**Deferred:** `docs/voice-and-pattern-layer` stays unmerged. It merges clean
+against `main`, but it softens the negative-parallelism ban in `voice.md` from
+a hard rule to a judgement, and that is a call for Warren rather than a merge
+to run. **ORIN-43**, reviewing site text against the operating model, is open
+and is site work, so the stopping rule applies.
