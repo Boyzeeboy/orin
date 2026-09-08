@@ -5659,6 +5659,59 @@ being deliberate work and becomes a thing that will simply not happen.
 
 ---
 
+## 2026-09-08 — The last first name comes off the file going forward; the 21 August row stands as written
+
+**Decision:** Renamed `notes/pragma-amanda-session-questions.md` to
+`notes/pragma-designer-session-questions.md` in the private repo (`git mv`,
+history follows). That file's name, twice — once per column — was the one
+line left in the public remote carrying a real first name, in the rename
+table under the 2026-08-21 entry above. Everywhere else a first name might
+have survived is either absent (Gerhard, Brandon, Stefan and Harald all
+return zero matches against the public remote) or was never public to begin
+with.
+
+Not editing the 2026-08-21 entry's own table. The row it wrote is a true
+record of what that day's rename actually did, and changing it now would be
+the same move 2026-08-25 already declined on principle: making the log say
+something other than what happened. So that row still reads
+`onkey-amanda-session-questions.md` → `pragma-amanda-session-questions.md`
+on both sides. This decision reduces the exposure from here forward. It does
+not clear the historical line, and that is deliberate rather than a third
+silent deferral of the same question.
+
+**Reasoning:** ORIN-34 itself sized the actual risk honestly: one first
+name, no surname, no role stated on that line, sitting in a table about
+filenames. Low, on its own. What gives it any weight at all is that the
+client name stays in `decisions.md` deliberately, as the navigational
+anchor — a first name next to a real company name in a public repo is
+enough to identify someone, even without a surname.
+
+Three options were on the table. Closing as won't-do decides not to add
+work and leaves the line exactly as exposed as it is today. Redacting the
+21 August table's cells would clear the line outright, at the cost of the
+log lying about what that day's rename actually renamed — precisely the
+trade 2026-08-25 weighed and declined, and re-litigating a settled
+principle without a new fact is not what this ticket is for. Renaming the
+file costs one `git mv` and does not clear the historical line either, but
+it does stop the name from being repeated anywhere the file gets
+referenced again — in a future decisions.md entry, in a `git blame` of the
+working tree, in any listing of `notes/`. Between a won't-do that leaves
+the surface exactly where it is and a rename that shrinks it going forward
+for the price of one command, the rename is the more complete answer
+available without reopening the redaction question.
+
+Pragma is closed for good (2026-09-01 entry), so this is not urgent client
+protection — it is finishing a decision that had already been deferred
+twice, per ORIN-34's own "not acceptable" clause.
+
+**Revisit if:** a future audit finds the historical row's exposure matters
+more than assessed here — Pragma re-enters as a live prospect and this
+becomes discoverable in a context it wasn't before, say. That would be new
+information bearing on the 2026-08-25 principle, not a reason to relitigate
+it on its own terms again.
+
+---
+
 
 
 
