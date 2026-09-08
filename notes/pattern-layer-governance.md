@@ -1,8 +1,9 @@
 # Pattern-layer governance — for when the component layer is earned
 
 *Filed 2026-08-10. Not a decision, not yet a proposal. A parked mechanism for
-the moment `PIPELINE-LEDGER.md` already says to revisit: when a build grows a
-real component library and the component-token layer stops being "Dropped."*
+the moment a client's design system outgrows what one person's taste can
+adjudicate. The trigger was stated loosely here until 2026-09-01 — read "The
+trigger, stated properly" at the bottom before acting on anything above it.*
 
 *Source: Carmen Rincon's "How to let Claude push your design system without
 breaking it" setup sheet, reviewed against the KR pipeline's invariants and
@@ -95,11 +96,15 @@ the gate as a review aid, never in place of it.
 
 ## Shape it would take, if earned
 
-Sketch only. Do not build from this without a `decisions.md` entry first.
+Sketch only. Do not build from this without a `decisions.md` entry first. This
+stays the sketch: the *order* the pieces would have to arrive in, and where the
+risk actually sits, was worked out later against the code and is at the bottom
+of this note under "The build order, if the trigger fires."
 
-- Trigger: the ledger's revisit condition — a client build grows a real
-  component library, so the component-token layer (`button/*`, `input/*`,
-  `nav/*` in KR) comes into scope.
+- Trigger: **superseded 2026-09-01**, see "The trigger, stated properly" below.
+  This bullet read "the ledger's revisit condition — a client build grows a real
+  component library," which is too loose in two ways and cites a ledger bullet
+  that is about Orin.
 - Lock zones declared in the **generated** router, not a hand-written file, so
   they can't drift from the system they describe.
 - Proposals authored in Figma; the markdown record carries Gap / Built from /
@@ -218,11 +223,189 @@ correction is the right one.
 
 ## Not a next update
 
-The trigger is unchanged: the ledger's revisit condition, a client build growing
-a real component library. Building a contract layer before there are components
-to contract means maintaining a diff with nothing on one side of it. Recorded
-here so the shape and the risk are not re-derived from scratch when the trigger
-does fire.
+The conclusion is unchanged, and the reason is the one restated properly below:
+building a contract layer before there are components to contract means
+maintaining a diff with nothing on one side of it. Recorded here so the shape
+and the risk are not re-derived from scratch when the trigger does fire. (The
+*wording* of the trigger did change on 2026-09-01 — see the bottom of this
+note.)
+
+---
+
+# The build order, if the trigger fires
+
+*Added 2026-09-01. Still not adopted, still not a decision. The two sections
+above say what the layer is and what the baseline would have to grow; neither
+says in what order, or which task could stop the project. This does. Worked out
+against the baseline code as it stands today (`Orin Token Pipeline` at the
+Synthesis scaffold commit), so the file names below are real ones.*
+
+## The trigger, stated properly
+
+The wording used since this note was filed — "a client build grows a real
+component library" — is too loose in two ways. Both were found by checking it
+against a real client rather than by reasoning about it, which is the only
+reason they were found at all.
+
+**It is two-sided, and only one side was ever stated.** The mechanism is a
+diff: the contract emitted from Figma on one side, the code's component API on
+the other. A component library in Figma is necessary and nowhere near
+sufficient. With no code side there is nothing to diff, the check can never go
+red, and what remains is guidance wearing a gate's clothes — the "follow or
+break" problem in better packaging.
+
+**A `Components` collection is not a component library.** KR has one, and it is
+values throughout: `components/alert/error/bg` is a colour with a description.
+Component *structure* — variant property names, their allowed values, defaults —
+is a different kind of thing that nothing in the pipeline extracts today. The
+loose wording lets the first count as evidence of the second.
+
+Checked against KR, the build the baseline was extracted from: its consuming
+repo is static HTML and CSS — `index.html`, `styles.css`, `partials/`, a
+`build-blog.js`. No components, no props, nothing for Code Connect to map to.
+**KR satisfies the old wording and fails the mechanism outright**, which is the
+sharpest available evidence that the old wording was wrong.
+
+So the trigger is all four of these, not the first alone:
+
+1. Real component **sets** in the client's Figma, carrying variant properties —
+   not merely a `Components` variables collection.
+2. A component library in the client's **code**, with a props API worth
+   contracting.
+3. **Code Connect published**, or an equivalent code-side manifest, so the two
+   sides are comparable by name. Establish what seat and plan this needs on
+   their Figma account before promising it to anyone.
+4. Enough churn that adjudication is genuinely the bottleneck. Two components
+   and an attentive owner do not need a mechanism, and giving them one is the
+   same error as building it early.
+
+**And the trigger is not the ledger's revisit condition.** That has been the
+wording since 2026-08-10 and it does not survive reading the bullet:
+`PIPELINE-LEDGER.md` says "*Orin* grows a real component library," about Orin's
+own Token-layers row, while the last section of this note says the mechanism is
+explicitly not for Orin's site. Two different conditions were wearing one
+sentence. The ledger bullet stays useful as the pointer that leads a reader
+here; it is not what fires this.
+
+---
+
+**The shape of the estimate matters more than the estimate.** Thirteen tasks,
+of which the first three are the whole decision and days rather than weeks. The
+remaining ten are ordinary work of a kind this pipeline has done before, perhaps
+a week, with one task deserving disproportionate care. Front-load the three and
+you find out cheaply whether the thing is buildable at all.
+
+## Phase A — the three tasks that decide whether this is buildable
+
+**1. The `decisions.md` entry, before any code.** Records which client met the
+four conditions, and which of them was the marginal one. Note that this does
+**not** move the ledger's Token-layers row: that row tracks Orin's deltas from
+the baseline, and a client growing components changes nothing about Orin. An
+earlier draft of this task said otherwise, which was the same conflation the
+trigger section corrects. The "Shape it would take" section already demands the
+entry; it is restated as task one because it is the cheapest thing here and the
+easiest to skip.
+
+**2. The portability spike.** Research, not code, and the real gate. Point a
+throwaway extraction at two or three real client files and measure the variance
+in component-set names, variant property names and value casing. The deliverable
+is a yes/no on: *can a contract reader match by convention, the way the
+six-collection convention lets the token half be pointed at an unfamiliar file?*
+If the answer is no, the reader needs per-client overrides, `figma: {}` in
+`pipeline.config.mjs` stops being the confession it is designed to be, and this
+is a more expensive project than it looks. That risk is already named above
+under "the non-obvious cost is the convention, not the code" — this is where it
+gets settled, and it gets settled first.
+
+**3. Confirm conditions 2 and 3 for this specific client**, against their repo
+and their Figma account rather than against a general impression that they "have
+components." The baseline itself carries no Code Connect anywhere — no
+`codeConnect`, no `componentPropertyDefinitions`, nothing — so two of the
+three-way diff's sides start absent in every case and someone has to build them.
+Doing this before Phase B rather than after is the difference between a week and
+a wasted week.
+
+## Phase B — extraction, the risky half
+
+**4. A component reader in `plugin/code.js`** — a second function beside
+`extractVariables`, reading component sets and their property definitions,
+returning a third key alongside `values` and `descriptions`.
+
+**5. Its twin in `scripts/figma-fetch.snippet.js`, and the parity test in the
+same commit.** This is the task to slow down on. The snippet is the one piece of
+the pipeline that cannot be unit-tested, which is how the dark-mode bug survived
+for months. `extraction parity` in `scripts/lib/figma-plugin.test.mjs` holds the
+two routes in step, but it currently asserts `fromPlugin.values` against the
+snippet's whole return — **so a contract half added to one side only would pass
+it vacuously.** Extend the mock fixture with a real component set and variant
+properties, and extend the assertion to cover the new half, in the same commit
+as the reader. Doing otherwise reintroduces exactly the untested-divergence
+condition that test exists to prevent.
+
+**6. `sync-from-figma.mjs` and the sink.** Freshness and the wrong-file
+provenance refusal apply unchanged. The one addition: `--check` must show
+contract changes in the diff, or a changed variant set syncs in silently.
+
+## Phase C — emit
+
+**7. `dist/contract.json`, not a Style Dictionary output.** Style Dictionary
+builds token trees; component structure is not a token and does not belong in
+`sd.config.mjs`. Emit it as a sibling. `verify-build.mjs` asserts six expected
+dist outputs exist and are non-empty, so it grows a seventh.
+
+Name it apart from the `Components` *collection* from the very start. That
+collection is values (`components/button/primary/border`); the contract is
+structure. Two different things that will otherwise want the same word.
+
+## Phase D — the gate, the only part that is enforcement
+
+**8. A new check in `scripts/generate-report.mjs`** — id `contract-parity` or
+similar — diffing the emitted contract against Code Connect. Follow the
+discipline the existing checks already set: `status: 'skip'` where there is no
+code side, since a skip states plainly that nothing was proven; an explicit
+allowlist in `pipeline.config.mjs` with a reason per entry; and **never a
+regex**, for the same reason `modeParity.expectedIdentical` forbids one — a
+wildcard is how a genuinely broken case gets through behind a legitimate one.
+
+**9. `verify-docs` follows for free.** It already fails when a doc names a
+report check id the report does not emit, so the new id is policed the moment a
+doc mentions it. The only manual step: if the contract emit is gitignored, it
+needs an `ABSENT_BY_DESIGN` entry with its reason.
+
+## Phase E — the prose, and the third option
+
+**10. Lock zones into `templates/agent-rules.md`**, rendering into the generated
+`CLAUDE.md` / `AGENTS.md`. Never a hand-written file.
+
+**11. The proposal record lands in Figma**, per the correction both sources
+needed. The markdown carries Gap / Built from / Why not X / Used in as reasoning
+and is never what the build consumes.
+
+The open design question this leaves is **where the counter physically lives**.
+`used in: 1/2` has to sit somewhere machine-readable in Figma. The component
+description field is the only durable free-text surface the plugin already
+reads; plugin data is the other candidate. Choose deliberately, because task 12
+depends on the choice.
+
+**12. The graduation check.** The report reads the counter and surfaces both
+outcomes: proposals at 2/2 that should now be real, and proposals stalled at 1/2
+for three months, which are patterns nobody needed. Carmen is right that this is
+the part that gets dropped, and it is the part that separates a system from
+forty one-off inventions.
+
+## Phase F — packaging, last
+
+**13. The skill.** It bundles the guidance, the contract as data, and the
+propose-and-graduate rules, so the third option exists at the moment of
+generation. It ships from the repo with a release tag (`scripts/tag-release.mjs`
+is already there). It carries no enforcement and no verdict.
+
+## The one ordering constraint that is load-bearing
+
+**8 before 13.** Ship the skill before the gate and the pattern layer is made
+entirely of prose an agent can skip, misread, or run without — which is the
+"follow or break" problem in better packaging. Everything else in this order is
+dependency; that one is the point.
 
 ---
 
@@ -241,6 +424,15 @@ for the client baseline, not the practice site.
 - `deliverable.md` — the component library line, and why Storybook and
   `design.md` are scoped to it.
 - `notes/pipeline-comparison.md` — Carmen / KR / Orin, direction of truth.
+- `notes/pattern-layer-infographic.html` — this note's mechanism drawn as a
+  sheet. It points here for status; this points back so the pair stays findable
+  from either end. Same parked status, same attribution.
+- `notes/pattern-layer-dataflow.html` — the plumbing, added 2026-09-01: what
+  object exists at each stage, what transforms it, what reads it. Bands 1–3 are
+  the built value path; bands 4–6 are this note's proposed half, marked parked
+  in every band title. It is where the "components are not exported to code"
+  question gets answered in a picture, including the fact that Code Connect runs
+  upward.
 - `Orin Token Pipeline` (sibling repo) — the baseline the second review was run
   against: `scripts/verify-docs.mjs` (what the prose gate does and does not
   cover), `scripts/lib/figma-to-dtcg.mjs` (the six-collection convention), and

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What Actually Moves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Third of three. baseline-pipeline-infographic.html diagrams the
+     value layer as a product. pattern-layer-infographic.html diagrams
+     the mechanism above it. This one diagrams the PLUMBING of both:
+     what object exists at each stage, what transforms it, what reads
+     it. Same visual language.
+
+     Bands 1-3 are BUILT and running today, transcribed from the
+     baseline repo. Bands 4-6 are the PARKED mechanism and nothing in
+     them is adopted. Every band carries its status in the title, so
+     the two never get read as one thing.
+
+     See notes/pattern-layer-governance.md, and read "The trigger,
+     stated properly" before acting on the proposed half.
+
+     Orin's real tokens, transcribed from tokens/src/*.json.
+     Standalone artefact, NOT part of site/, so it does not read
+     vendor/tokens.css and is not covered by npm test.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0);  --bg-raised:var(--neutral-0);
+    --bg-sunken:var(--neutral-50);  --bg-inverse:var(--neutral-900);
+    --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default); color:var(--text-default);
+    font-family:var(--family-base); font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* ---------- header ---------- */
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:46px;
+    letter-spacing:-.025em;line-height:1.1;margin:0 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16.5px;color:var(--text-muted);line-height:1.5;max-width:50ch}
+  .standfirst b{color:var(--text-default);font-weight:600}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+  .promise{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:250px;
+  }
+  .promise-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .promise p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+  .promise p + p{margin-top:var(--space-3)}
+  .promise b{color:var(--text-default)}
+
+  /* ---------- section headings ---------- */
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span.t{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+  .band-title::before{max-width:0}
+  .status{
+    font-size:9.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    border-radius:var(--radius-sm);padding:2px var(--space-2);white-space:nowrap;
+  }
+  .status.built{background:var(--teal-500);color:var(--text-on-accent)}
+  .status.parked{background:var(--neutral-200);color:var(--neutral-800)}
+  .lede{font-size:15px;color:var(--text-muted);line-height:1.6;max-width:66ch;margin-bottom:var(--space-6)}
+  .lede b{color:var(--text-default);font-weight:600}
+  .lede code{font-family:var(--family-mono);font-size:12.5px;color:var(--neutral-800)}
+
+  /* ---------- stage tiles ---------- */
+  .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);align-items:stretch}
+  .row3 + .row3{margin-top:var(--space-3)}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--bg-raised);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);
+    display:flex;flex-direction:column;width:100%;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step h3{font-family:var(--family-display);font-size:16px;font-weight:600;margin-bottom:var(--space-2)}
+  .step p{font-size:12.5px;color:var(--text-muted);line-height:1.55;margin-bottom:var(--space-3)}
+  .step p:last-of-type{margin-bottom:var(--space-3)}
+  .step code{font-family:var(--family-mono);font-size:11px;color:var(--neutral-800);overflow-wrap:break-word}
+  .cmd{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-2) var(--space-3);
+    margin-bottom:var(--space-3);
+  }
+  .cmd code{display:block;line-height:1.7}
+  .pill{
+    margin-top:auto;align-self:flex-start;background:var(--bg-accent);color:var(--text-on-accent);
+    font-size:11px;font-weight:500;border-radius:999px;padding:var(--space-1) var(--space-3);
+  }
+  .pill.quiet{background:var(--neutral-100);color:var(--neutral-700)}
+  .step.proposed{border-style:dashed;border-color:var(--neutral-300);background:var(--bg-sunken)}
+  .step.proposed .dot{background:var(--neutral-400)}
+  .arrow{
+    position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);
+    color:var(--neutral-300);z-index:2;
+  }
+
+  /* ---------- shape-change table ---------- */
+  .shapes{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-2) var(--space-6);
+  }
+  .shape{
+    display:grid;grid-template-columns:150px 1fr;gap:var(--space-4);align-items:baseline;
+    padding:var(--space-4) 0;border-bottom:1px solid var(--border-divider);
+  }
+  .shape:last-child{border-bottom:0}
+  .shape .where{font-size:13px;font-weight:600;line-height:1.4}
+  .shape .where small{display:block;font-weight:400;font-size:11px;color:var(--neutral-500);font-family:var(--family-mono);margin-top:2px}
+  .shape .what{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800);line-height:1.7;overflow-wrap:break-word}
+  .shape .what em{font-style:normal;color:var(--neutral-500);font-family:var(--family-base);font-size:12px;display:block;margin-top:var(--space-2)}
+
+  /* ---------- checks ---------- */
+  .checklist{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-2) var(--space-6);
+  }
+  .chk{
+    display:grid;grid-template-columns:190px 1fr auto;gap:var(--space-4);align-items:baseline;
+    padding:var(--space-3) 0;border-bottom:1px solid var(--border-divider);
+  }
+  .chk:last-child{border-bottom:0}
+  .chk .id{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800);overflow-wrap:break-word}
+  .chk .what{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+  .tag{
+    font-size:9.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    border-radius:var(--radius-sm);padding:2px var(--space-2);white-space:nowrap;
+  }
+  .tag.gate{background:var(--teal-500);color:var(--text-on-accent)}
+  .tag.info{background:var(--neutral-100);color:var(--neutral-700)}
+
+  /* ---------- direction diagram ---------- */
+  .direction{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .dir-row{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:var(--space-3);align-items:stretch}
+  .dir-cell{
+    background:var(--bg-raised);border:1px solid var(--border-divider);
+    border-radius:var(--radius-sm);padding:var(--space-4);text-align:center;
+  }
+  .dir-cell.authored{border-style:dashed;border-color:var(--teal-300);background:var(--teal-25)}
+  .dir-cell b{display:block;font-size:13px;font-weight:600;margin-bottom:var(--space-2)}
+  .dir-cell p{font-size:11.5px;color:var(--text-muted);line-height:1.5}
+  .dir-cell code{font-family:var(--family-mono);font-size:10.5px;display:block;margin-top:var(--space-2);color:var(--neutral-700)}
+  .dir-arrow{color:var(--teal-500);display:grid;place-items:center;align-self:center;text-align:center}
+  .dir-arrow small{display:block;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--neutral-500);margin-top:2px;white-space:nowrap}
+  .dir-foot{
+    margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--border-strong);
+    display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6);
+  }
+  .reading{border-left:2px solid var(--teal-300);padding-left:var(--space-4)}
+  .reading b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .reading p{font-size:12px;color:var(--text-muted);line-height:1.5}
+
+  /* ---------- loop ---------- */
+  .loop{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3)}
+  .loop-cell{
+    background:var(--bg-raised);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);position:relative;
+  }
+  .loop-cell .n{font-family:var(--family-mono);font-size:11px;color:var(--teal-600);display:block;margin-bottom:var(--space-2)}
+  .loop-cell b{display:block;font-family:var(--family-display);font-size:14.5px;font-weight:600;margin-bottom:var(--space-2)}
+  .loop-cell p{font-size:12px;color:var(--text-muted);line-height:1.5}
+  .loop-cell code{font-family:var(--family-mono);font-size:11px;color:var(--neutral-800)}
+  .loop-back{
+    margin-top:var(--space-3);background:var(--bg-sunken);border:1px dashed var(--teal-300);
+    border-radius:var(--radius-sm);padding:var(--space-3) var(--space-4);
+    display:flex;align-items:center;gap:var(--space-3);
+  }
+  .loop-back span{color:var(--teal-500);flex:none}
+  .loop-back p{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+  .loop-back b{color:var(--text-default);font-weight:600}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--bg-raised);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note .mark{flex:none;color:var(--teal-500)}
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12px;color:var(--text-muted);line-height:1.5}
+  .note code{font-family:var(--family-mono);font-size:11.5px}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);margin-top:var(--space-12);
+    padding:var(--space-8);display:flex;gap:var(--space-6);align-items:flex-start;
+  }
+  .closing h3{font-family:var(--family-display);font-size:20px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6}
+  .closing p + p{margin-top:var(--space-3)}
+  .closing b{color:var(--neutral-0)}
+  .closing .mark{flex:none;color:var(--teal-300)}
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer p + p{margin-top:var(--space-3)}
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .row3,.loop{grid-template-columns:1fr}
+    .masthead{grid-template-columns:1fr}
+    .promise{width:100%}
+    .dir-row{grid-template-columns:1fr}
+    .dir-arrow{transform:rotate(90deg);padding:var(--space-2) 0}
+    .dir-arrow small{display:none}
+    .dir-foot{grid-template-columns:1fr;gap:var(--space-4)}
+    .shape,.chk{grid-template-columns:1fr;row-gap:var(--space-2)}
+    .arrow{display:none}
+    h1{font-size:34px}
+  }
+  @media print{
+    .sheet{max-width:none;padding:0}
+    .band{break-inside:avoid}
+    .closing{background:var(--bg-sunken)}
+    .closing h3,.closing b{color:var(--text-default)}
+    .closing p{color:var(--text-muted)}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div>
+      <h1>What actually <em>moves</em></h1>
+      <p class="standfirst">
+        Values travel a one-way pipe, from a variable in Figma to a
+        <code style="font-family:var(--family-mono);font-size:15px">var()</code> in a stylesheet.
+        <b>Component structure never travels at all.</b> It gets emitted on one side,
+        written by hand on the other, and compared. Two different shapes, one Figma file.
+      </p>
+      <div class="rule"></div>
+    </div>
+    <aside class="promise">
+      <div class="promise-head">The short answer</div>
+      <p>Nothing in here generates component code, and nothing builds page layouts.</p>
+      <p><b>The value layer is a pipeline. The pattern layer is a comparison.</b> They
+      look alike on a diagram and behave nothing alike.</p>
+    </aside>
+  </header>
+
+  <!-- 1 -->
+  <section class="band">
+    <div class="band-title">
+      <span class="t">1 · The value path, stage by stage</span>
+      <span class="status built">Built and running</span>
+    </div>
+    <p class="lede">
+      Six stages, each one derived from the stage before it. That is what makes the whole
+      thing checkable: at every point there is a right answer, and a script can ask for it.
+    </p>
+    <div class="row3">
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Author</span></div>
+          <h3>Figma variables</h3>
+          <p>Six collections matched by <b>name</b>, never by id: Primitives, Semantic,
+          Components, Fonts, Spacing, Radius. Modes called Light and Dark.</p>
+          <p>Naming is the whole portability trick. A new client is a convention, not a
+          code edit.</p>
+          <span class="pill quiet">Source of truth</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Extract</span></div>
+          <h3>The plugin reads</h3>
+          <div class="cmd"><code>plugin/code.js</code></div>
+          <p>Variables only. Aliases resolve by mode <b>name</b>, because mode ids are
+          per-collection: id matching once sent 148 of 150 dark colours out carrying
+          their light values, for months.</p>
+          <span class="pill quiet">Colours to hex</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Land</span></div>
+          <h3>The sink writes</h3>
+          <div class="cmd"><code>tokens/.figma-dump.json</code></div>
+          <p>The plugin's iframe POSTs to a loopback port (9231 by default) and
+          <code>figma-sink.mjs</code> catches it, writing a freshness record beside the
+          dump carrying a time and a hash.</p>
+          <span class="pill quiet">Gitignored, transient</span>
+        </div>
+      </div>
+    </div>
+    <div class="row3">
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Transform</span></div>
+          <h3>Into DTCG</h3>
+          <div class="cmd"><code>lib/figma-to-dtcg.mjs</code></div>
+          <p>Pure function, no network, no filesystem. Branch mapping, unit policy, the
+          fluid-type companions. Writes <code>tokens.light.json</code> and
+          <code>tokens.dark.json</code>.</p>
+          <span class="pill quiet">Unit tested</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">5</span><span class="step-label">Build</span></div>
+          <h3>Style Dictionary</h3>
+          <div class="cmd"><code>npm run build</code></div>
+          <p>Six outputs, two modes by three formats: <code>variables.css</code>,
+          <code>tokens.js</code>, <code>tokens.flat.json</code>. Plus the snapshot and the
+          generated report.</p>
+          <span class="pill quiet">v4, DTCG</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">6</span><span class="step-label">Consume</span></div>
+          <h3>The site reads</h3>
+          <div class="cmd"><code>vendor/tokens.css</code></div>
+          <p>Installed as a pinned git-tag dependency, copied into the site's committed
+          vendor file. The stylesheet references tokens and never values.</p>
+          <span class="pill">One-way, ends here</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="band">
+    <div class="band-title">
+      <span class="t">2 · The same token, at every stage</span>
+      <span class="status built">Built and running</span>
+    </div>
+    <p class="lede">
+      One colour, five shapes. Worth reading top to bottom once, because most confusion
+      about this pipeline is really confusion about <b>which of these five things someone
+      means</b> when they say "the token".
+    </p>
+    <div class="shapes">
+      <div class="shape">
+        <div class="where">In Figma<small>a Variable</small></div>
+        <div class="what">colour/text/primary &nbsp;<span style="color:var(--neutral-500)">(Semantic collection)</span><br>
+        Light → alias to neutral/900 &nbsp;·&nbsp; Dark → alias to neutral/50
+        <em>A decision about where a value belongs, pointing at a primitive that holds the value.</em></div>
+      </div>
+      <div class="shape">
+        <div class="where">In the dump<small>a positional tuple</small></div>
+        <div class="what">["colour/text/primary", 1, 0, "#1f343a", "#f4f5f5"]
+        <em>Name, collection index, type index, then one resolved value per mode in that collection's mode order. Compact because a full dump exceeds the tool's response cap.</em></div>
+      </div>
+      <div class="shape">
+        <div class="where">In tokens.light.json<small>DTCG</small></div>
+        <div class="what">"primary": { "$type": "color", "$value": "#1f343a",<br>&nbsp;&nbsp;"$description": "Purpose: … Usage: … Guidelines: …" }
+        <em>The description rides along from Figma. It is the only usage guidance the tokens carry, and the report is where anyone actually reads it.</em></div>
+      </div>
+      <div class="shape">
+        <div class="where">In dist<small>a CSS custom property</small></div>
+        <div class="what">--kr-colour-text-primary: #1f343a;
+        <em>Prefixed per client so two token packages can load on one page without colliding.</em></div>
+      </div>
+      <div class="shape">
+        <div class="where">In the site<small>a reference</small></div>
+        <div class="what">color: var(--kr-colour-text-primary);
+        <em>Write the hex here instead and the build goes red. That is the whole value layer, in one sentence.</em></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="band">
+    <div class="band-title">
+      <span class="t">3 · What reads the flow, and where it stops it</span>
+      <span class="status built">Built and running</span>
+    </div>
+    <p class="lede">
+      A gate is a thing that reads the pipe and refuses. These run locally on
+      <code>npm test</code>, which is deliberate: protection is local, and every one of
+      them was added after something got through.
+    </p>
+    <div class="checklist">
+      <div class="chk">
+        <span class="id">provenance</span>
+        <span class="what">The sync refuses a dump whose Figma file name is not the configured one. Two pipelines checked out at once cannot cross-contaminate, whatever port they share.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="chk">
+        <span class="id">freshness</span>
+        <span class="what">A dump older than 15 minutes is a snapshot, not a reading. <code>check:figma</code> refuses to compare against it, and the hash catches a dump edited by hand after the sink wrote it.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="chk">
+        <span class="id">extraction parity</span>
+        <span class="what">The plugin and the paste-in snippet do the same job by two routes. Both run against one mock and their output must match exactly. The snippet is the one piece that cannot otherwise be tested.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="chk">
+        <span class="id">verify-build</span>
+        <span class="what">All six dist outputs exist and are non-empty. Cheap, and it catches a build that half-failed.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="chk">
+        <span class="id">mode-parity</span>
+        <span class="what">Fails when a semantic colour resolves identically in both modes, which is the signature of broken alias resolution. Exceptions are declared one by one with a reason, never by regex.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="chk">
+        <span class="id">semantic-only</span>
+        <span class="what">The site must not reach past the semantic layer into primitives. Easy to violate invisibly, by aliasing a primitive to a friendly local name, which is exactly why it needs a check and not a convention.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="chk">
+        <span class="id">hardcoded, sync, contract</span>
+        <span class="what">No raw hex or font-family in the surface; dist and the site's vendor file identical; every token the site references actually defined.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="chk">
+        <span class="id">verify-docs</span>
+        <span class="what">Every npm script, file path and report check id the prose names is real. It cannot verify that prose is wise, only that the things it names exist. That gap is the whole argument for the layer below.</span>
+        <span class="tag info">Referential</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="band">
+    <div class="band-title">
+      <span class="t">4 · The second path, and where it stops</span>
+      <span class="status parked">Parked, nothing adopted</span>
+    </div>
+    <p class="lede">
+      Same Figma file, different objects. Component <b>sets</b> rather than variables, and
+      structure rather than values. Notice that it does not reach the site: this path has
+      no destination, it has a counterparty.
+    </p>
+    <div class="row3">
+      <div class="stepwrap">
+        <div class="step proposed">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Extract</span></div>
+          <h3>A second reader</h3>
+          <div class="cmd"><code>componentPropertyDefinitions</code></div>
+          <p>Variant property names, their allowed values, defaults. The API surface, and
+          only that.</p>
+          <p><b>Not the node tree</b>, so not composition. "An icon above a heading above
+          one button" is not in here.</p>
+          <span class="pill quiet">Structure, not values</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step proposed">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Emit</span></div>
+          <h3>The contract</h3>
+          <div class="cmd"><code>dist/contract.json</code></div>
+          <p>Not through Style Dictionary. That builds token trees, and component
+          structure is not a token.</p>
+          <p>Generated from the source it describes, so it cannot drift from the system it
+          claims to document.</p>
+          <span class="pill quiet">Never hand-written</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step proposed">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Compare</span></div>
+          <h3>The diff</h3>
+          <div class="cmd"><code>contract-parity</code></div>
+          <p>A new report check, diffing what design says the API is against what the code
+          says it is.</p>
+          <p>Skips honestly when there is no code side, because a skip states plainly that
+          nothing was proven.</p>
+          <span class="pill">The gate</span>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <span class="mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </span>
+      <div>
+        <b>The contract covers the API surface. It does not cover composition.</b>
+        <p>Which means the proposal's "Built from" field, the one that claims a new pattern
+        composes only locked primitives, has no automatic check behind it. Someone asserts
+        it. The gate is narrower than the mechanism sheet implies, and that is worth
+        knowing before anyone pays for it.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="band">
+    <div class="band-title">
+      <span class="t">5 · Code Connect runs the other way</span>
+      <span class="status parked">Parked, nothing adopted</span>
+    </div>
+    <p class="lede">
+      This is the part that reads backwards. Code Connect does not generate code from
+      Figma, and it does not push components into a repo. It is a mapping file, written by
+      hand <b>in the code repo</b>, published upward so a developer inspecting the Figma
+      component sees the real code instead of Figma's generated approximation.
+    </p>
+    <div class="direction">
+      <div class="dir-row">
+        <div class="dir-cell">
+          <b>Figma component set</b>
+          <p>Variant properties and their allowed values.</p>
+          <code>Button · variant, size, state</code>
+        </div>
+        <div class="dir-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M17 10H4M8 5L3 10l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <small>published up</small>
+        </div>
+        <div class="dir-cell authored">
+          <b>Code Connect</b>
+          <p>Hand-authored. An assertion that these two things correspond.</p>
+          <code>Button.figma.ts</code>
+        </div>
+        <div class="dir-arrow" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M3 10h13M12 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <small>describes</small>
+        </div>
+        <div class="dir-cell">
+          <b>The code component</b>
+          <p>Props, variants, defaults. The truth on the code side.</p>
+          <code>Button.tsx</code>
+        </div>
+      </div>
+      <div class="dir-foot">
+        <div class="reading">
+          <b>So the diff has three parties, not two.</b>
+          <p>The contract says what design thinks the API is. Code Connect says what the
+          code claims it is. The component itself is what the code actually does.</p>
+        </div>
+        <div class="reading">
+          <b>And the middle one is written by hand, so it can be wrong.</b>
+          <p>A red <code>contract-parity</code> proves design and the mapping disagree. It
+          does not prove which is right, and it cannot see a mapping that lies about the
+          component behind it.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="band">
+    <div class="band-title">
+      <span class="t">6 · The only loop in the whole system</span>
+      <span class="status parked">Parked, nothing adopted</span>
+    </div>
+    <p class="lede">
+      Everything above is a line. This is the one cycle, and it is the third option the
+      mechanism sheet is about: what happens when the contract has no answer.
+    </p>
+    <div class="loop">
+      <div class="loop-cell">
+        <span class="n">01</span>
+        <b>Read</b>
+        <p>The agent checks the contract for a pattern that fits. Nothing matches.</p>
+      </div>
+      <div class="loop-cell">
+        <span class="n">02</span>
+        <b>Propose</b>
+        <p>A record carrying Gap, Built from, Why not X, and the counter at
+        <code>used in: 0/2</code>. Captured now, not remembered later.</p>
+      </div>
+      <div class="loop-cell">
+        <span class="n">03</span>
+        <b>Build anyway</b>
+        <p>From locked primitives, so the code is token-correct even while the pattern is
+        not yet canonical. Nothing is blocked.</p>
+      </div>
+      <div class="loop-cell">
+        <span class="n">04</span>
+        <b>Graduate</b>
+        <p>Second genuine use takes the counter to <code>2/2</code>. A person builds the
+        real component, in Figma.</p>
+      </div>
+    </div>
+    <div class="loop-back">
+      <span aria-hidden="true">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M15 9a6 6 0 1 1-1.8-4.3M15 2v3h-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <p><b>And the loop closes at the top of band 1.</b> The graduated component appears
+      in the next extraction like anything else, which is the reason a
+      <code>proposals/</code> folder in the repo was rejected: staging a pattern as a
+      committed code artefact reintroduces the code-side authoring this pipeline exists to
+      prevent.</p>
+    </div>
+    <div class="note">
+      <span class="mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </span>
+      <div>
+        <b>The counter needs a physical home in Figma, and that is still undecided.</b>
+        <p>The component description field is the only durable free-text surface the plugin
+        already reads. Plugin data is the other candidate. The graduation check cannot be
+        built until someone picks one.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <span class="mark" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3l9 4.5v6.8c0 5.3-3.8 9.5-9 10.7-5.2-1.2-9-5.4-9-10.7V7.5L14 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 14l2.8 2.8L18.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <div>
+      <h3>A pipeline and a diff are not the same instrument</h3>
+      <p>Bands 1 to 3 can be checked end to end, because every stage is derived from the
+      one before it. Ask whether dist matches source and there is a right answer sitting
+      there waiting.</p>
+      <p><b>A diff cannot work that way.</b> Both sides are authored by different people in
+      different tools. When the check goes red it tells you they disagree; it cannot tell
+      you which one is wrong, and someone has to go and look.</p>
+      <p>That is a weaker gate for more machinery, and it is the honest reason this waits
+      for a trigger rather than getting built because the diagram looks tidy.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      <b>Status.</b> Bands 1 to 3 are built and running, transcribed from the baseline
+      repo as it stands today. Bands 4 to 6 are a <b>parked mechanism and nothing in them
+      is adopted</b>. Before acting on the proposed half, read "The trigger, stated
+      properly" in <code>notes/pattern-layer-governance.md</code>: the trigger is
+      four conditions, and the loose earlier wording admitted a client where the gate
+      cannot function at all.
+    </p>
+    <p>
+      <b>Attribution.</b> The three-options framing and the graduation counter come from
+      Carmen Rincon's setup sheet on letting Claude push a design system without breaking
+      it. The prose-versus-data split comes from Christine Vallaure de la Paz, who credits
+      Nathan Curtis for "component contract". Both were reviewed against the token
+      pipeline's own invariants and recorded rather than taken.
+    </p>
+    <p>
+      Sibling of <code>notes/baseline-pipeline-infographic.html</code> (the value layer as
+      a product) and <code>notes/pattern-layer-infographic.html</code> (the mechanism).
+      That pair covers what the layers are; this one covers the plumbing.
+    </p>
+    <p>
+      Colour, type, spacing and radius above are Orin's own tokens, transcribed from
+      <code>tokens/src/</code>. This is a standalone artefact: it does not read
+      <code>vendor/tokens.css</code> and is not covered by <code>npm test</code>.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
