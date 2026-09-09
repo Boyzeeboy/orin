@@ -5929,3 +5929,42 @@ the business shape.
 **Revisit if:** buyers start asking for more personal context before trusting the
 offer, or if the `/manifesto/` URL itself starts creating confusion now that the
 visible label is Principles.
+
+---
+
+## 2026-09-09 — The design-load diagnosis stays, and the public line names the system
+
+**Decision:** Kept "developers are carrying the design load" as an internal
+diagnosis. The default public and sales phrasing becomes:
+
+> Your developers are carrying design decisions your system should be carrying.
+
+For an AI-generated codebase, the extension is: "Your developers, and the agents
+they use, are carrying design decisions your system should already have made."
+The shorter line, "AI does not remove the design load. Without a working system,
+it multiplies it," is useful conversational framing, but it does not carry an
+Orin-specific quantified claim.
+
+**Reasoning:** The first Orin systems research brief found that the original idea
+still tracks with current practice, but the meaning has widened. Coinbase's Code
+Connect evaluation showed agents recreating existing components when mappings
+were absent. Atlassian found that fragmented design-system context led agents to
+invent components, miss accessibility guidance and retrieve outdated patterns.
+Storybook's MCP work showed the other side of the same problem: agents improve
+when component knowledge and tests become executable context.
+
+The load is therefore not visual design in the narrow sense. It is the repeated
+choice of components, tokens, states, accessibility behaviour and patterns at the
+point of implementation because the system does not answer those questions. The
+new phrasing names that mechanism, avoids implying that developers should not
+contribute to design, and keeps the fault with the missing or decaying system
+rather than the people making reasonable calls inside it. That fits the public
+voice decision made earlier today: blunt about systems, generous about people.
+
+ORIN-41 carries the immediate language change into the Commercial Layer. Any
+quantified public claim stays behind ORIN-39, the controlled Orin agent-readiness
+experiment.
+
+**Revisit if:** client conversations consistently respond more clearly to the
+shorter "design load" wording, or ORIN-39 shows that agent use changes the
+diagnosis enough to require different commercial language.
