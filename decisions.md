@@ -5884,3 +5884,36 @@ sign it is load-bearing rather than a phrasing preference.
 **Revisit if:** the softened rule starts admitting reframes that inflate
 significance, which is the failure it exists to prevent. The em-dash ban does not
 move.
+
+---
+
+## 2026-09-09 — Public manifesto became commercial principles
+
+**Decision:** Kept the internal `MANIFESTO.md` unchanged, but changed the public
+site's manifesto surface into a commercial principles page. The nav label now
+reads "Principles" while the URL stays `/manifesto/`, so existing links remain
+stable. The page metadata now says `Principles — Orin`, and the body leads with
+how Orin works for buyers: tell the truth, build the system, and leave the team
+stronger than it was found. The same ORIN-43 pass then tightened the Home, How
+it works, and Work page copy so the no-shame client posture is carried through
+the commercial surfaces, not only the Principles page.
+
+**Reasoning:** The founding manifesto is still the right internal source of
+truth, but the public page was carrying too much of Warren's personal origin
+story for a commercial buyer's first pass. That made the page feel like a private
+calibration document in the middle of a business site. The principles version
+keeps the judgement that matters commercially: the system is the main thing,
+design and development are one craft, truth should not humiliate people, evidence
+beats performance, the work should keep working after handoff, and commercial
+clarity protects the work.
+
+The follow-up site copy edits replaced sharper blame-adjacent phrasing with the
+same diagnosis in more generous language: design systems "carry debt" rather
+than simply being "broken", developers make reasonable calls without a shared
+reference rather than acting carelessly, values can slip outside the system
+without someone being named as the bypasser, and the Work page close now names
+the cost the team no longer has to keep paying.
+
+**Revisit if:** buyers start asking for more personal context before trusting the
+offer, or if the `/manifesto/` URL itself starts creating confusion now that the
+visible label is Principles.
