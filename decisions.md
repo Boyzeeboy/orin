@@ -5914,6 +5914,18 @@ reference rather than acting carelessly, values can slip outside the system
 without someone being named as the bypasser, and the Work page close now names
 the cost the team no longer has to keep paying.
 
+The Home proof paragraph deliberately keeps one §4F contrast: developers were
+making design calls alone, "not because they were careless, but because there
+was no source of truth to be right against." That is the softened voice rule's
+first live test. The contrast earns its place because it carries the no-shame
+posture rather than manufacturing significance.
+
+The Principles page was also corrected after the first pass made it too
+third-person. Removing the personal origin story was intentional; removing the
+first-person voice was not. The public page now uses "I" where the buyer is
+evaluating the person doing the work, while keeping "Orin" where the copy names
+the business shape.
+
 **Revisit if:** buyers start asking for more personal context before trusting the
 offer, or if the `/manifesto/` URL itself starts creating confusion now that the
 visible label is Principles.
