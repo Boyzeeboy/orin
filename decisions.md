@@ -6113,3 +6113,58 @@ before the trigger, which the note itself warns against.
 
 `notes/pipeline-infographic.html` and `notes/baseline-pipeline-infographic.html`
 were checked and need nothing: neither describes the pattern layer.
+
+---
+
+## 2026-09-11 — The 11 September research brief, read against the day's work
+
+**Decision:** The weekly brief was checked against everything that went in
+today (#60 to #63, the ORIN-39 and ORIN-40 comments). Most of it was already
+covered. Five gaps were closed, in Linear first and then here.
+
+**Linear.**
+
+- ORIN-39's description now describes the experiment the evaluation asks for:
+  two fixtures (the dirty one and a clean `shadcn add --all`), a classify-
+  before-you-score rule, false-positive and third-option measures, an explicit
+  gate (integrate on improved adherence with zero catalogue false positives;
+  iterate once if classification is noisy; otherwise drop the component-scoring
+  claim), and a timebox of two to three days. Extended, not split into a
+  second issue, which the brief itself recommended and then contradicted with
+  a proposed title.
+- ORIN-40's trigger gained a fifth condition: active agent-assisted component
+  work. The Retainer line gained the regression set and the "does this
+  instruction still change behaviour" check.
+
+**This repo.**
+
+- `notes/pattern-layer-governance.md`: the fifth condition as a dated addendum
+  under "The trigger, stated properly", with a note that the brief's own
+  wording of the trigger dropped Code Connect to make room for it, which is the
+  wrong trade. Phase B gains the units and `AUTO` line-height fixture rule for
+  any future text-style extraction. Phase D gains the classification rule:
+  vendored catalogue, canonical custom, duplicate, or abandoned, and only the
+  last two are debt.
+- `notes/pattern-layer-research-evaluation.md`: the Retainer list gains
+  instructions that no longer change behaviour as something to remove.
+
+**`orin-private`.** `notes/client-situations.md` §5 (AI-generated codebase)
+now carries the 9 September agreed line, its conversational framing, the
+brief's governed-agent sentence marked untested with an instruction to record
+the first response, and three discovery questions that make up the
+agent-context audit. That closes ORIN-41 action 1. Branch
+`docs/ai-codebase-agent-language`, stacked on `docs/outreach-prices-and-
+tracker` because that branch already touches the file.
+
+**Reasoning:** The fifth condition is real and not a restatement of churn: the
+third option has an agent as its proposer, and a mechanism built for a team not
+using agents has a diff to run and nothing that proposes. The classification
+rule needed a home because the evaluation said "test the gate against
+legitimate stock" without recording the taxonomy the test is checking for.
+The rest is the brief's action register landing in the places it named.
+
+**Not done:** `Offer.md` untouched. The brief's agent-context audit is three
+discovery questions inside the existing Diagnostic, not a new dimension, and
+the brief itself says no new engagement shape is justified. The Coinbase-style
+playground stays out of scope. The brief's first action, "tested in one
+qualified prospect conversation and the response recorded", is Warren's.

@@ -236,7 +236,10 @@ The same layer creates legitimate recurring governance work:
 - documentation and skill drift;
 - proposals awaiting review or stalled below the threshold;
 - parity and accessibility failures;
-- agent evaluation regressions; and
+- agent evaluation regressions;
+- instructions that no longer change behaviour, which are instructions to
+  remove (Coinbase uses its evals to test whether each skill is still
+  necessary, and that is the counter to skill bloat); and
 - component reuse, correction effort and release-health trends.
 
 These measures give the Retainer an operational outcome beyond "keeping the

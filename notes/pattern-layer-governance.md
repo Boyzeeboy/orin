@@ -5,7 +5,8 @@ the moment a client's design system outgrows what one person's taste can
 adjudicate. The trigger was stated loosely here until 2026-09-01 — read "The
 trigger, stated properly" at the bottom before acting on anything above it.
 Graduation was stated as automatic until 2026-09-11; read "Graduation,
-restated" before acting on the counter.*
+restated" before acting on the counter. The trigger gained a fifth condition
+the same day.*
 
 *Source: Carmen Rincon's "How to let Claude push your design system without
 breaking it" setup sheet, reviewed against the KR pipeline's invariants and
@@ -281,6 +282,18 @@ So the trigger is all four of these, not the first alone:
    and an attentive owner do not need a mechanism, and giving them one is the
    same error as building it early.
 
+*Added 2026-09-11, from the 11 September research brief:*
+
+5. Active agent-assisted component work. The third option has an agent as its
+   proposer. Without agents building or maintaining components there is a diff
+   to run but nothing that proposes, and the review loop has no input. The
+   fourth condition protects against machinery for a small library; this one
+   protects against an agent mechanism for a team not using agents. The brief's
+   own wording of the trigger carried this condition and dropped Code Connect,
+   which is the wrong trade: without the code-side manifest the check can never
+   go red, and that is the failure this whole section exists to prevent. All
+   five, then. ORIN-40 carries the same list.
+
 **And the trigger is not the ledger's revisit condition.** That has been the
 wording since 2026-08-10 and it does not survive reading the bullet:
 `PIPELINE-LEDGER.md` says "*Orin* grows a real component library," about Orin's
@@ -344,6 +357,13 @@ properties, and extend the assertion to cover the new half, in the same commit
 as the reader. Doing otherwise reintroduces exactly the untested-divergence
 condition that test exists to prevent.
 
+*Added 2026-09-11.* If the reader ever grows past component sets into text
+styles or layout, it must carry explicit fixtures for units and for automatic
+line height, and report an unresolved value rather than guess. A practitioner
+inspection of Figma's MCP output (Vallaure de la Paz, 10 September) found
+`AUTO` line height surfacing as `100`, which is valid CSS and catastrophic. The
+extractor's job is to say what it could not resolve, not to pick a number.
+
 **6. `sync-from-figma.mjs` and the sink.** Freshness and the wrong-file
 provenance refusal apply unchanged. The one addition: `--check` must show
 contract changes in the diff, or a changed variant set syncs in silently.
@@ -368,6 +388,16 @@ code side, since a skip states plainly that nothing was proven; an explicit
 allowlist in `pipeline.config.mjs` with a reason per entry; and **never a
 regex**, for the same reason `modeParity.expectedIdentical` forbids one — a
 wildcard is how a genuinely broken case gets through behind a legitimate one.
+
+*Added 2026-09-11.* One calibration rule for any check that turns component
+counts into a finding: classify before you score. A component is one of
+vendored catalogue, canonical custom component, duplicate, or genuinely
+abandoned, and only the last two are debt. `roast-my-design-system` 5.12 had
+to correct exactly this, having scored an unused `shadcn add --all` as
+abandoned custom work. A rule that is repeatable can still encode the wrong
+classification, and a report that does so turns disciplined scale into an
+apparent failure. ORIN-39 tests the gate against a clean catalogue fixture for
+this reason.
 
 **9. `verify-docs` follows for free.** It already fails when a doc names a
 report check id the report does not emit, so the new id is policed the moment a
