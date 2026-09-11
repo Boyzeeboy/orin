@@ -6039,3 +6039,40 @@ the trim promised then.
 attribution extended to the evaluation's sources. The evaluation row carrying
 its own "hypothesis under test" sentence is the first step towards the marker
 and may be all it needs.
+
+---
+
+## 2026-09-11 — The infographic says which of its parts are evidenced, and reads on a phone
+
+**Decision:** The last two items from this morning's review closed, on top of
+#60 and #61, plus one pre-existing layout fault.
+
+1. **A hypothesis marker on the unvalidated tiles.** Three tiles now carry a
+   dashed `Hypothesis` tag in the step head: Propose (band 1), The proposal
+   and The graduation (band 2). Dashed because the file already uses a dashed
+   border to mean "not solid" on the Break tile. The contract, guidance, check
+   and skill tiles carry nothing, deliberately: marking the supported parts too
+   would make the sheet argue with itself. A footer paragraph, **Evidence**,
+   says the same in prose: architecture consistent with published
+   implementations, proposal workflow and two-use threshold Orin's own and
+   unvalidated.
+2. **Attribution extended, not replaced.** Rincon and Vallaure de la Paz stay
+   as the origin of the mechanism. One added sentence points the provenance and
+   evaluation rows at `notes/pattern-layer-research-evaluation.md`, names
+   Coinbase, Atlassian, Adobe and Storybook, and leaves the full source list
+   there rather than in a footer.
+3. **Band titles wrap under 900px.** They were `white-space: nowrap` at every
+   width, so "The problem: an agent has two options" ran off the right edge of
+   a phone. Same fault before this week's edits. The existing 900px media
+   query now sets them to wrap and centre. Checked at 375px: `scrollWidth`
+   equals the viewport, nothing overflows.
+
+**Reasoning:** The evaluation's completion criterion was that the sheet
+"distinguishes externally supported architecture from the unvalidated
+graduation hypothesis." Yesterday's evaluation row said it for itself; the
+tiles that most needed it said nothing. The marker goes on the tiles rather
+than the homes because the homes are where things live, and the tiles are
+where the claims are made.
+
+The review's deferred list is now empty. Status unchanged: parked mechanism,
+nothing adopted.

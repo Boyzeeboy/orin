@@ -157,6 +157,8 @@
   .tag.gate{background:var(--teal-500);color:var(--text-on-accent)}
   .tag.info{background:var(--neutral-100);color:var(--neutral-700)}
   .tag.measure{background:var(--teal-50);color:var(--teal-700)}
+  .tag.hyp{background:transparent;border:1px dashed var(--neutral-300);color:var(--neutral-700)}
+  .step-head .tag{margin-left:auto}
 
   /* ---------- two-up ---------- */
   .twoup{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
@@ -204,6 +206,7 @@
   footer code{font-family:var(--family-mono);font-size:11px}
 
   @media (max-width:900px){
+    .band-title span{white-space:normal;text-align:center}
     .row3{grid-template-columns:1fr}
     .twoup,.masthead{grid-template-columns:1fr}
     .promise{width:100%}
@@ -272,7 +275,7 @@
       </div>
       <div class="stepwrap">
         <div class="step">
-          <div class="step-head"><span class="dot">3</span><span class="step-label">The missing one</span></div>
+          <div class="step-head"><span class="dot">3</span><span class="step-label">The missing one</span><span class="tag hyp">Hypothesis</span></div>
           <h3>Propose</h3>
           <p>The system has nothing, so the agent says so, in a structured record, and
           builds from locked primitives in the meantime.</p>
@@ -301,7 +304,7 @@
       </div>
       <div class="stepwrap">
         <div class="step">
-          <div class="step-head"><span class="dot">2</span><span class="step-label">When it has no answer</span></div>
+          <div class="step-head"><span class="dot">2</span><span class="step-label">When it has no answer</span><span class="tag hyp">Hypothesis</span></div>
           <h3>The proposal</h3>
           <p>A record carrying the gap, what it would be built from, and which existing
           patterns were ruled out and why. Captured at the moment of proposing rather
@@ -314,7 +317,7 @@
       </div>
       <div class="stepwrap">
         <div class="step">
-          <div class="step-head"><span class="dot">3</span><span class="step-label">Before it is real</span></div>
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Before it is real</span><span class="tag hyp">Hypothesis</span></div>
           <h3>The graduation</h3>
           <p>After two genuine uses a proposal becomes eligible for review by the system
           owner. A counter is not taste: it is auditable, it surfaces candidates and stalls,
@@ -459,7 +462,18 @@
       Carmen Rincon's setup sheet on letting Claude push a design system without breaking
       it. The prose-versus-data split comes from Christine Vallaure de la Paz, who credits
       Nathan Curtis for "component contract". Both were reviewed against the token
-      pipeline's own invariants and recorded rather than taken.
+      pipeline's own invariants and recorded rather than taken. The provenance and
+      evaluation rows follow the architecture comparison in
+      <code>notes/pattern-layer-research-evaluation.md</code>, 11 September 2026, which
+      reads this sheet against published implementations at Coinbase, Atlassian, Adobe and
+      Storybook and carries the full source list.
+    </p>
+    <p>
+      <b>Evidence.</b> The contract, the guidance, the independent check and the skill as
+      packaging are consistent with those implementations. The proposal workflow and the
+      two-use threshold are Orin's own and unvalidated: no reviewed source supplies a
+      comparable mechanism. The tiles marked <i>hypothesis</i> are the ones that would need
+      a client to prove them.
     </p>
     <p>
       Colour, type, spacing and radius above are Orin's own tokens, transcribed from
