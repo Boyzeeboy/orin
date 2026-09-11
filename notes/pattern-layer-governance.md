@@ -3,7 +3,9 @@
 *Filed 2026-08-10. Not a decision, not yet a proposal. A parked mechanism for
 the moment a client's design system outgrows what one person's taste can
 adjudicate. The trigger was stated loosely here until 2026-09-01 — read "The
-trigger, stated properly" at the bottom before acting on anything above it.*
+trigger, stated properly" at the bottom before acting on anything above it.
+Graduation was stated as automatic until 2026-09-11; read "Graduation,
+restated" before acting on the counter.*
 
 *Source: Carmen Rincon's "How to let Claude push your design system without
 breaking it" setup sheet, reviewed against the KR pipeline's invariants and
@@ -417,6 +419,46 @@ told not to relitigate. It has no pattern layer to govern and adding one would
 violate the component budget to solve a problem it doesn't have. This note is
 for the client baseline, not the practice site.
 
+---
+
+## Graduation, restated
+
+*Added 2026-09-11, from `notes/pattern-layer-research-evaluation.md`. Not a
+decision; the mechanism is still parked. This corrects one rule inside it.*
+
+Everything above says a proposal becomes a pattern at two genuine uses: the
+graduation rule in "What is worth keeping", the bullet under "Shape it would
+take", task 12, and task 13's "propose-and-graduate rules". That was Carmen's
+rule, recorded as found. The research evaluation checked it against every
+reviewed implementation (Coinbase, Atlassian, Adobe, Storybook, Figma's own
+guide) and found nothing comparable. No source establishes that recurrence is
+sufficient for canonisation.
+
+So the counter stays and its meaning changes. **Two uses make a proposal
+eligible for review by the system owner.** They demonstrate that a need is
+shared. They do not demonstrate that the proposal is accessible, portable,
+general enough, or better than extending a pattern that already exists.
+Graduation requires a person to decide, and the record carries that decision
+as a field:
+
+- **Decision**: the named owner, the alternatives they reviewed (the Why not X
+  field is the input), the component-state and accessibility checks that
+  passed, and the outcome. Add, merge, extend or reject. Only *add* becomes a
+  component at the source.
+
+Task 12 is therefore a **review check**, not a graduation check. The report
+still reads the counter and still surfaces both outcomes: proposals at 2/2 are
+now *awaiting a decision*, and proposals stalled at 1/2 for three months are
+still patterns nobody needed. What the report no longer does is imply that 2/2
+is the end of the process. The threshold should be configurable; two is a
+starting value, not a finding.
+
+The three artefacts that draw this mechanism were corrected the same day:
+`notes/pattern-layer-infographic.html` (review not graduation, a Decision row,
+hypothesis markers on the unvalidated tiles), `notes/pattern-layer-dataflow.html`
+(band 6, step 04 is now Review), and this note. `PIPELINE-LEDGER.md` names the
+rule in one bullet and was changed to match.
+
 ## Related
 
 - `PIPELINE-LEDGER.md` — Token-layers row (**Dropped**, component layer);
@@ -437,3 +479,8 @@ for the client baseline, not the practice site.
   against: `scripts/verify-docs.mjs` (what the prose gate does and does not
   cover), `scripts/lib/figma-to-dtcg.mjs` (the six-collection convention), and
   `plugin/code.js` (variables only — no component structure is extracted).
+- `notes/pattern-layer-research-evaluation.md`: added 2026-09-11. Reads the
+  mechanism against published implementations. The architecture (contract,
+  guidance, independent check, skill as packaging) is consistent with them; the
+  proposal workflow and the two-use threshold are not evidenced anywhere. It is
+  why "Graduation, restated" exists, and it carries the source list.
