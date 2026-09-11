@@ -156,6 +156,7 @@
   }
   .tag.gate{background:var(--teal-500);color:var(--text-on-accent)}
   .tag.info{background:var(--neutral-100);color:var(--neutral-700)}
+  .tag.measure{background:var(--teal-50);color:var(--teal-700)}
 
   /* ---------- two-up ---------- */
   .twoup{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
@@ -367,13 +368,14 @@
       Prose gets <b>understood</b>, not <b>checked</b>. Write a rule into a markdown file
       and a model will mostly follow it, with nothing at the end telling you where it
       drifted. So the split is by what the rule has to survive: judgement in prose,
-      exactness in data, enforcement outside both.
+      exactness in data, enforcement outside both, and behaviour measured rather than
+      assumed.
     </p>
     <div class="homes">
       <div class="home">
         <span class="n">01</span>
         <span class="k">The contract</span>
-        <span class="v">Structured data, generated from the source it describes, so it cannot drift from the system it claims to document.</span>
+        <span class="v">Structured data, generated from the source it describes, so it cannot drift from the system it claims to document. It carries its own provenance: which source revisions, mapping version and transform version produced it, when it last compared clean, and which mappings are missing, stale or deliberately excluded. A release artefact, not a snapshot.</span>
         <span class="tag info">Data</span>
       </div>
       <div class="home">
@@ -385,7 +387,7 @@
       <div class="home">
         <span class="n">03</span>
         <span class="k">The check</span>
-        <span class="v">Continuous integration, in the repository, failing a build. Never in the prose, because a rule an agent can ignore is the "follow or break" problem again.</span>
+        <span class="v">Continuous integration, in the repository, failing a build. Never in the prose, because a rule an agent can ignore is the "follow or break" problem again. It proves the design source, the contract and the code agree. It says nothing about whether an agent can use them.</span>
         <span class="tag gate">Gate</span>
       </div>
       <div class="home">
@@ -393,6 +395,12 @@
         <span class="k">The proposal</span>
         <span class="v">At the source of truth, wherever that is. In a design-first pipeline a graduated pattern becomes a real component there and flows down like everything else. The written record is reasoning, never the thing the build consumes.</span>
         <span class="tag info">Source</span>
+      </div>
+      <div class="home">
+        <span class="n">05</span>
+        <span class="k">The evaluation</span>
+        <span class="v">A fixed set of tasks run against the aligned system, on a deliberately inconsistent fixture and on a large, legitimate catalogue. It measures what the gate cannot: canonical reuse, silent invention, semantic-token adherence, accessibility and interaction failures, false positives, human corrections, tool calls, tokens and time. Alignment is the gate's claim; changed behaviour is this one's. A hypothesis under test, not yet part of the mechanism.</span>
+        <span class="tag measure">Measure</span>
       </div>
     </div>
   </section>
