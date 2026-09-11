@@ -181,7 +181,7 @@ The infographic currently says the layer enters scope when a build grows a real
 component library. The governance note superseded that wording on 1 September.
 The mechanism requires all four conditions:
 
-1. Real component sets in Figma, including variant properties—not merely a
+1. Real component sets in Figma, including variant properties, not merely a
    variables collection named `Components`.
 2. A component library in code with a props API worth contracting.
 3. Code Connect or an equivalent code-side manifest, so the sides can be
@@ -208,7 +208,7 @@ The Diagnostic can determine whether agents can:
 
 Useful sales language:
 
-> The Diagnostic shows whether your agents can reuse the system—or whether they
+> The Diagnostic shows whether your agents can reuse the system, or whether they
 > are silently inventing around it.
 
 ### Build
@@ -244,7 +244,7 @@ documentation current".
 
 ## Recommended action register
 
-### Use now — refine the explanatory model
+### Use now: refine the explanatory model
 
 **Evidence:** The research supports the contract, guidance, packaging and
 independent-check architecture.
@@ -259,7 +259,7 @@ in `notes/pattern-layer-governance.md`.
 **Decision unlocked:** The infographic can be used as an internal commercial and
 delivery explainer without overstating what Orin has proved.
 
-### Validate — use the pattern layer as a hypothesis for ORIN-39
+### Validate: use the pattern layer as a hypothesis for ORIN-39
 
 **Evidence:** Coinbase, Atlassian and Storybook report improvements in component
 reuse, speed, token consumption or agent accuracy, but the strongest published
@@ -277,7 +277,7 @@ correction loops without creating unacceptable false positives.
 **Decision unlocked:** Integrate, iterate or drop the agent-readiness claim and
 decide whether the pattern-layer mechanism merits client implementation.
 
-### Watch — keep ORIN-40 parked
+### Watch: keep ORIN-40 parked
 
 **Evidence:** The external architecture is credible, but Orin does not yet have a
 qualifying client or its own component-bearing baseline.
@@ -362,12 +362,13 @@ client's Build or Retainer.
 
 ### Orin sources
 
-- `notes/pattern-layer-infographic.html` — the mechanism evaluated here.
-- `notes/pattern-layer-governance.md` — status, trigger, implementation order and
+- `notes/pattern-layer-infographic.html`: the mechanism evaluated here.
+- `notes/pattern-layer-governance.md`: status, trigger, implementation order and
   source attribution for the original propose-and-graduate concept.
-- `/Users/warrenrossiter/.codex/automations/orin-systems-research-brief/memory.md`
-  — research brief baseline, follow-up outcomes and action register.
-- ORIN-39 — **Validate Orin's agent-readiness evidence**.
-- ORIN-40 — **Prototype an agent-ready component context module**; parked behind
+- The Orin systems research brief, a scheduled automation kept outside this
+  repository: the 8 September baseline, the 11 September follow-up and the
+  action register.
+- ORIN-39: **Validate Orin's agent-readiness evidence**.
+- ORIN-40: **Prototype an agent-ready component context module**; parked behind
   ORIN-39 and the qualifying-client trigger.
 

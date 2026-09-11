@@ -6003,3 +6003,39 @@ parked mechanism, nothing adopted.
 distinguished from an agent evaluation (ORIN-39); a supported-versus-hypothesis
 marker per part; attribution extended to the evaluation's sources. The last two
 touch layout and were held back until Warren decides scope.
+
+---
+
+## 2026-09-11 — The infographic gains provenance and a fifth home, and the evaluation note is fit to be public
+
+**Decision:** Two of the four items deferred this morning went in, on top of
+#60.
+
+1. **The contract carries provenance.** The contract row in "Where each part
+   lives" now says what it records about itself: source revisions, mapping
+   version, transform version, last clean comparison, and which mappings are
+   missing, stale or deliberately excluded. Adobe's manifest-and-diff model,
+   via the research evaluation. A release artefact, not a snapshot.
+2. **A fifth home, `05 The evaluation`, with a new `Measure` tag.** The check
+   row now says plainly that parity proves the sides agree and nothing about
+   whether an agent can use them. The evaluation row is what proves that:
+   fixed tasks on a dirty fixture and a legitimate catalogue, measuring reuse,
+   invention, token adherence, accessibility failures, false positives,
+   corrections, tool calls, tokens and time. Marked as a hypothesis under
+   test, not part of the mechanism, because it is ORIN-39's job to show
+   whether it earns a place. The heavier option was chosen over a sentence in
+   the check row: the gate-versus-evaluation distinction is the evaluation
+   note's strongest correction and deserved its own line.
+
+The `Measure` tag is `teal-50` on `teal-700`, both already transcribed in the
+file. No new values.
+
+`notes/pattern-layer-research-evaluation.md` also lost its em-dashes
+(`voice.md` §2) and its absolute path to a file on Warren's machine, which is
+now described rather than located. Merged public in #60 as written; this is
+the trim promised then.
+
+**Still deferred:** a supported-versus-hypothesis marker per part, and
+attribution extended to the evaluation's sources. The evaluation row carrying
+its own "hypothesis under test" sentence is the first step towards the marker
+and may be all it needs.
