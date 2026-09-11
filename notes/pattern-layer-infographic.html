@@ -243,7 +243,7 @@
 
   <!-- 1 -->
   <section class="band">
-    <div class="band-title"><span>The problem — an agent has two options</span></div>
+    <div class="band-title"><span>The problem: an agent has two options</span></div>
     <p class="lede">
       Faced with something the system cannot express, most agents can only follow the
       rules or break them. Breaking them is silent, it looks like progress, and it is how
@@ -289,9 +289,9 @@
         <div class="step">
           <div class="step-head"><span class="dot">1</span><span class="step-label">What exists</span></div>
           <h3>The contract</h3>
-          <p>Every pattern, what it is built from, which tokens it may use, and which
-          zones are closed. Structured data a script can diff against the design source
-          and the code.</p>
+          <p>Every pattern: its identity, properties, states, defaults, token bindings,
+          code mappings, version and provenance. Structured data a script can diff against
+          the design source and the code.</p>
           <span class="pill">Generated, never written</span>
         </div>
         <div class="arrow" aria-hidden="true">
@@ -315,9 +315,10 @@
         <div class="step">
           <div class="step-head"><span class="dot">3</span><span class="step-label">Before it is real</span></div>
           <h3>The graduation</h3>
-          <p>A proposal becomes a pattern after two genuine uses. A counter is not taste,
-          it is auditable, and a report can read it.</p>
-          <span class="pill">Two uses, then it exists</span>
+          <p>After two genuine uses a proposal becomes eligible for review by the system
+          owner. A counter is not taste: it is auditable, it surfaces candidates and stalls,
+          and it does not make the decision.</p>
+          <span class="pill">Two uses, then a review</span>
         </div>
       </div>
     </div>
@@ -329,7 +330,9 @@
         <b>Part 3 is the one that gets dropped, and it is the one that matters.</b>
         <p>Without a graduation rule you collect forty one-off inventions and no system.
         The counter also surfaces the opposite failure: a proposal sitting at one use for
-        three months is a pattern nobody actually needed.</p>
+        three months is a pattern nobody actually needed. Recurrence earns a review, not a
+        place in the system; two uses prove a need is shared, not that the proposal is
+        accessible, portable, or better than extending what exists.</p>
       </div>
     </div>
   </section>
@@ -342,7 +345,8 @@
         <div class="lock"><span class="k">Gap</span><span class="v">What the system cannot express. Stated as a need, <b>never as a solution</b>.</span></div>
         <div class="lock"><span class="k">Built from</span><span class="v">Which locked primitives it composes. If it cannot be built from them, that is a finding about the primitives.</span></div>
         <div class="lock"><span class="k">Why not X</span><span class="v">Which existing patterns were considered and rejected. <b>The field most often missing</b>, and the one that stops the same argument being had twice.</span></div>
-        <div class="lock"><span class="k">Used in</span><span class="v">The counter. Machine-readable, so a report can surface both graduations and stalls.</span></div>
+        <div class="lock"><span class="k">Used in</span><span class="v">The counter. Machine-readable, so a report can surface both review candidates and stalls.</span></div>
+        <div class="lock"><span class="k">Decision</span><span class="v">The named owner, the alternatives they reviewed, the state and accessibility checks that passed, and the outcome: <b>add, merge, extend or reject</b>. The counter opens this field; it never fills it.</span></div>
       </div>
       <div class="counter">
         <div class="ticks">
@@ -350,8 +354,8 @@
           <span class="tick" aria-hidden="true"></span>
         </div>
         <p><code style="font-family:var(--family-mono);font-size:11.5px">used in: 1/2</code>
-        &nbsp;· one real use. Still a proposal, not yet a pattern, and visible to anyone
-        reading the report.</p>
+        &nbsp;· one real use. Still a proposal, not yet up for review, and visible to
+        anyone reading the report.</p>
       </div>
     </div>
   </section>
@@ -375,7 +379,7 @@
       <div class="home">
         <span class="n">02</span>
         <span class="k">The guidance</span>
-        <span class="v">Prose in the router an agent reads first. Judgement calls where roughly right is fine and a person reviews the output anyway. Generated, not hand-maintained.</span>
+        <span class="v">Prose in the router an agent reads first. Selection, composition, deprecations, open and closed zones, exceptions and escalation: judgement calls where roughly right is fine and a person reviews the output anyway. Generated, not hand-maintained.</span>
         <span class="tag info">Prose</span>
       </div>
       <div class="home">
@@ -402,7 +406,7 @@
         <ul>
           <li><b>The guidance</b>, in prose, at the moment of generation.</li>
           <li><b>The contract</b>, bundled as data the agent reads rather than infers.</li>
-          <li><b>The propose-and-graduate rules</b>, so the third option is available at all.</li>
+          <li><b>The propose-and-review rules</b>, so the third option is available at all.</li>
         </ul>
       </div>
       <div class="panel stop">
@@ -434,9 +438,13 @@
   <footer>
     <p>
       <b>Status: parked mechanism. Nothing here is adopted.</b> The value layer forbids
-      invention everywhere and needs no zoning, so this only comes into scope when a build
-      grows a real component library. See <code>notes/pattern-layer-governance.md</code>,
-      filed 10 August 2026.
+      invention everywhere and needs no zoning, so this only comes into scope when a client
+      meets all four conditions: real component sets in Figma carrying variant properties;
+      a component library in code with a props API worth contracting; Code Connect or an
+      equivalent code-side manifest, so the two sides can be compared; and enough churn
+      that adjudication is genuinely the bottleneck. Any one alone is not enough. See
+      <code>notes/pattern-layer-governance.md</code>, filed 10 August 2026, trigger restated
+      1 September 2026.
     </p>
     <p>
       <b>Attribution.</b> The three-options framing and the graduation counter come from
