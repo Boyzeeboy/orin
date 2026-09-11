@@ -6076,3 +6076,40 @@ where the claims are made.
 
 The review's deferred list is now empty. Status unchanged: parked mechanism,
 nothing adopted.
+
+---
+
+## 2026-09-11 — The pattern-layer set agrees with itself again
+
+**Decision:** After #60, #61 and #62 corrected the mechanism sheet, the other
+three places that describe the same rule still said a proposal graduates at two
+uses. They now say what the sheet says.
+
+- `notes/pattern-layer-dataflow.html`, band 6: step 04 is **Review**, not
+  Graduate. Two uses put the proposal in front of the system owner; add, merge,
+  extend or reject; only *add* builds the component in Figma. Step 02's record
+  carries an empty Decision field from the start. The undecided-home note now
+  says the counter opens the review rather than ending it, and points at the
+  evaluation.
+- `notes/pattern-layer-governance.md`: a dated section, **Graduation,
+  restated**, appended before Related, following the note's own convention from
+  1 September rather than rewriting the four places above it that carry the old
+  rule. The header gains a second pointer. Related gains the research
+  evaluation, which it had no route to.
+- `PIPELINE-LEDGER.md`, "When to revisit this ledger": "a two-use graduation
+  rule" is now "a two-use review trigger". One phrase; the ledger asks for an
+  entry here when it changes, and this is it.
+
+**Reasoning:** Four documents draw one mechanism: the sheet, the plumbing, the
+governance note and the ledger's pointer. Fixing the sheet alone left a reader
+who started anywhere else with the unsupported rule and no route to the
+evidence against it. The governance note is the file both diagrams cite for
+status, so it was the one that most needed the correction and the link.
+
+**Not done, deliberately:** the governance note's build order gains no task 14
+for the evaluation surface. It becomes a task only if ORIN-39 shows the
+evaluation earns a place; adding it before then is building the machinery
+before the trigger, which the note itself warns against.
+
+`notes/pipeline-infographic.html` and `notes/baseline-pipeline-infographic.html`
+were checked and need nothing: neither describes the pattern layer.

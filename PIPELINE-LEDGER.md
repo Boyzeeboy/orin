@@ -204,7 +204,7 @@ reached.
 - Orin grows a real component library → the component-token layer, and possibly
   Storybook, stop being "Dropped" and this ledger changes (and `decisions.md`
   gets an entry). A parked mechanism for governing that layer once it exists —
-  lock zones, a two-use graduation rule, and a "why not X" field per proposal —
+  lock zones, a two-use review trigger, and a "why not X" field per proposal —
   is filed in `notes/pattern-layer-governance.md`. Nothing there is adopted;
   read it at the moment this row moves.
 - Dark mode comes into Orin's scope → the Theming row moves from Deferred to
