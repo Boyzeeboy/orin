@@ -5968,3 +5968,38 @@ experiment.
 **Revisit if:** client conversations consistently respond more clearly to the
 shorter "design load" wording, or ORIN-39 shows that agent use changes the
 diagnosis enough to require different commercial language.
+
+---
+
+## 2026-09-11 — The pattern-layer infographic stops promising graduation
+
+**Decision:** Four changes to `notes/pattern-layer-infographic.html`, all copy,
+none structural, from the research evaluation prepared the same day
+(`notes/pattern-layer-research-evaluation.md`):
+
+1. **Graduation is a review trigger, not a rule.** "A proposal becomes a
+   pattern after two genuine uses" became "eligible for review by the system
+   owner." The pill reads "Two uses, then a review." The proposal record gained
+   a `Decision` field: named owner, alternatives reviewed, state and
+   accessibility checks passed, outcome (add, merge, extend or reject). The
+   counter opens that field and never fills it.
+2. **The footer trigger matches the governance note.** "When a build grows a
+   real component library" was superseded on 2026-09-01 and the infographic
+   still carried it. It now states all four conditions.
+3. **Contract and guidance have concrete boundaries.** Contract: identity,
+   properties, states, defaults, token bindings, code mappings, version,
+   provenance. Guidance: selection, composition, deprecations, open and closed
+   zones, exceptions, escalation. Closed zones moved from the contract tile to
+   guidance, where the evaluation puts them.
+4. One em-dash in a band title became a colon (`voice.md` §2).
+
+**Reasoning:** The research briefs of 8 and 11 September support the
+architecture (contract, guidance, independent check, skill as packaging) and
+supply nothing for the two-use threshold. The infographic was stating the
+unsupported part with the most confidence, in a pill. Status is unchanged:
+parked mechanism, nothing adopted.
+
+**Deferred:** provenance made explicit in the contract row; the parity gate
+distinguished from an agent evaluation (ORIN-39); a supported-versus-hypothesis
+marker per part; attribution extended to the evaluation's sources. The last two
+touch layout and were held back until Warren decides scope.
