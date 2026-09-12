@@ -6277,3 +6277,45 @@ thing that would stop an engagement letter going out same-day if Praelexis
 converts; ORIN-39 is the largest piece of ready work and three issues wait
 on it. ORIN-39 has the baseline in a comment. Still to fix before it runs:
 prompt, model, starting state per arm, tools, completion criteria.
+
+---
+
+## 2026-09-12 — The agent-readiness protocol is written and frozen
+
+**Decision:** `notes/agent-readiness-experiment.md` is ORIN-39's fixed part:
+agent (Claude Code 2.1.218, `claude -p`, one pinned model, empty `HOME`,
+`--max-turns 60`, stream-json captured whole), one byte-identical prompt (an
+`/account` page whose every part has a canonical answer in the catalogue),
+two fixtures (catalogue; catalogue plus the dirty `StatCard`), two arms
+(baseline; adapter plus a one-page router), four git tags as starting states,
+a three-part completion test, a reset that is in the run script, ten
+measures with who takes each, a blind review with sealed run order, the gate
+restated so it applies to the table, and a change log that discards every
+prior run if it gains an entry. Twelve runs.
+
+**Two things in it are decisions rather than method.**
+
+The router tells the agent that guardrail findings inside `components/ui/`
+are stock and to leave them. Without that sentence, arm B on the catalogue
+spends its turns "fixing" 202 vendored files and never reaches the task, and
+the known guardrail defect confounds every other measure. With it, the router
+does by prose what the guardrail should do by classification, which is the
+failure the pattern-layer notes warn about. The protocol says so, keeps the
+sentence for this run set, measures whether the agent obeys it ("vendored
+files touched"), and makes replacing it with guardrail classification the
+iterate step.
+
+"Beats" is defined as every arm B run scoring better than the best arm A
+run. With three runs a cell, that is the only comparison that means
+anything; a mean of three is theatre.
+
+**Found on the way:** the shadcn adapter has no router. The baseline
+pipeline's `CLAUDE.md`/`AGENTS.md` are generated for the Figma-to-DTCG repo,
+not for a shadcn app, so arm B's router had to be written for the experiment.
+Its content is the protocol's appendix, under a page, and is the first
+router the adapter has had. Whether it becomes part of the adapter proper is
+a question for after the runs, not before.
+
+**Not in the measures, and said so:** anything with a client, generalisation
+across models, the Diagnostic's scoring, and the hours spent on arm B's
+setup. The last is noted separately because a buyer will ask.
