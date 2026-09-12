@@ -6236,3 +6236,44 @@ template's "Before first use" list.
 (enforceability, UCTA reasonableness, liability, IP and licence, the AI
 disclosure, email acceptance). The brief is written into the template notes
 so the instruction stays short.
+---
+
+## 2026-09-12 — The catalogue fixture exists, and the guardrail fails a pristine shadcn install 202 times
+
+**Decision:** ORIN-39's second fixture is built and pushed in the shadcn
+adapter repo (`fixtures/catalogue/`, branch `fixtures/catalogue`): a fresh
+`shadcn@4.21.0 add --all`, 61 components, nothing consuming them, nothing
+edited. Its README carries the provenance and exact commands so it can be
+regenerated rather than patched when shadcn moves. `BASELINE.txt` holds the
+guardrail's output against it.
+
+The number is the finding. **202 failures on a codebase nobody has done
+anything wrong in.** Fifty arbitrary values that are vendored internals;
+seventy-one colour literals, sixty-two of them in the `index.css` the CLI
+wrote, which on this stack is the token source the adapter replaces;
+eighty-one undefined `var()` references that are runtime-set component
+properties in `drawer.tsx` and `toast.tsx`, invisible to a static consumer
+check by construction. Contract coverage, mode parity and semantic-only are
+clean. By the classification rule filed yesterday in the governance note's
+Phase D, every one of the 202 is stock, not debt.
+
+**What it contradicts.** The adapter README has said since 2026-08-16 that
+hardcoded values inside `components/ui/` "are yours to fix once you've
+adopted them; the guardrail will find them." That was doctrine without a
+denominator. It now has one, and by the classification rule the doctrine is
+wrong: a fresh catalogue is not 202 things to fix. The guardrail's only
+notion of "not hand-written" is a generated-file header that shadcn's files
+do not carry, so it cannot tell stock from hand-written code at all.
+
+**Deliberately not done:** the guardrail is unchanged. Making the fixture
+pass now would be the "iterate" step of ORIN-39 taken before the
+measurement, and it would remove the baseline the false-positive measure
+needs. The fixture README says so in its own words. Whether the README
+paragraph survives, and what the guardrail does with `components.json`'s
+`aliases.ui` path, is the experiment's call after the runs.
+
+**Also today:** ORIN-22 and ORIN-39 bumped to High. ORIN-22 is the only
+thing that would stop an engagement letter going out same-day if Praelexis
+converts; ORIN-39 is the largest piece of ready work and three issues wait
+on it. ORIN-39 has the baseline in a comment. Still to fix before it runs:
+prompt, model, starting state per arm, tools, completion criteria.
