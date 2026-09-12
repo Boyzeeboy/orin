@@ -6225,6 +6225,13 @@ resolved and the body carries none.
   pre-written for section 7 and MSA 8.6 and stays out until the policy is
   live. The Diagnostic cap stays at fees paid or payable regardless.
 
+**The send-day checklist.** Warren is on a Claude Pro subscription as of
+today, so the Tools paragraph is not yet true. Two purchases happen on the
+day of the in-principle yes, before the letter goes: the Simply Business PI
+policy, and the Claude Code plan upgrade to commercial terms. Both take under
+an hour, and the letter does not go until both are done. Written into the
+template's "Before first use" list.
+
 **Still Warren's, before first use:** the solicitor pass, briefed narrow
 (enforceability, UCTA reasonableness, liability, IP and licence, the AI
 disclosure, email acceptance). The brief is written into the template notes
