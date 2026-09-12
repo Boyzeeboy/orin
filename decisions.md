@@ -6168,3 +6168,71 @@ discovery questions inside the existing Diagnostic, not a new dimension, and
 the brief itself says no new engagement shape is justified. The Coinbase-style
 playground stays out of scope. The brief's first action, "tested in one
 qualified prospect conversation and the response recorded", is Warren's.
+
+## 2026-09-12 — The Diagnostic engagement letter takes its commercial review
+
+**Decision:** The letter in `orin-private` (`notes/contracts/`) was reviewed
+commercially, not legally, and the review was applied in full on branch
+`docs/diagnostic-letter-review`. The shape held: short, fixed fee, agreed by
+email, no mini-MSA. What moved: liability capped at fees paid or payable
+under the engagement; no insurance line until PI cover exists; case-study
+clause kept, its internal reasoning moved out of the body; termination on
+written notice, because seven days' notice on a one-week job was decorative;
+the client's own NDA gets reviewed, not signed unseen; a one-line client
+responsibility for lawful, minimal access; travel agreed in advance with the
+£100 threshold gone. Payment unchanged. Acceptance is by email reply and the
+signature block is gone. The same cap now sits in the MSA at 8.5.
+
+**The finding that mattered was truthfulness, not law.** The letter said the
+client's variables were "not uploaded to any third-party service." True of the
+pipeline, which reads them locally through the plugin and sink. But the
+practice runs on Claude Code, so reading a client's codebase during the week
+sends code to Anthropic, and a client would have read that sentence as a
+promise about the engagement. The sentence is now narrowed to what the
+pipeline does, and a **Tools** paragraph discloses the AI-assisted tooling
+plainly. Its data sentence is one of two `[DECIDE]` markers left in the body,
+because it can only be written once the terms the Claude Code access runs
+under are confirmed; consumer and commercial terms differ on training and
+retention, and the letter may only promise what is true.
+
+**Also caught, outside the review:** em-dashes in a client-facing document
+(`voice.md` §2 is absolute and §3 governs anything a client reads); the
+letterhead offering a UTR, which no client needs and is a personal tax
+identifier; and the no-signature-needed line sitting above a signature block.
+
+**Closed the same day, on a second pass.** Both `[DECIDE]` markers are
+resolved and the body carries none.
+
+- *AI tooling.* The letter states the position under commercial terms:
+  Anthropic does not train on prompts, outputs or coding sessions without an
+  opt-in, and Orin does not opt in. That makes **commercial Claude Code terms
+  before first client use** a precondition, because the consumer plans can
+  train on coding sessions when the data-improvement setting is on. The
+  30-day retention figure the review suggested for the letter went into the
+  template notes instead: it is a third party's policy and a client letter
+  should not warrant it. Internal rule alongside: no Development Partner
+  Program, no thumbs feedback containing client code, local transcripts
+  cleared at closeout where confidentiality requires it.
+- *Deposit floor.* The initial payment is not refundable once work has begun.
+  The price rests on the pre-sale budget already spent by day one, and the
+  2026-08-28 entry made the deposit the commitment artefact; a day-one refund
+  would undo both. Orin ending the engagement still refunds work not done.
+- *PI cover.* £1m professional indemnity through Simply Business, taken out
+  on the day of the first in-principle yes, which is the day the letter goes
+  out (2026-08-28: "an in-principle yes gets the engagement letter the same
+  day"). £1m is more than the Diagnostic needs; it is bought for the Build
+  conversations that follow and for procurement calm. The insurance line is
+  pre-written for section 7 and MSA 8.6 and stays out until the policy is
+  live. The Diagnostic cap stays at fees paid or payable regardless.
+
+**The send-day checklist.** Warren is on a Claude Pro subscription as of
+today, so the Tools paragraph is not yet true. Two purchases happen on the
+day of the in-principle yes, before the letter goes: the Simply Business PI
+policy, and the Claude Code plan upgrade to commercial terms. Both take under
+an hour, and the letter does not go until both are done. Written into the
+template's "Before first use" list.
+
+**Still Warren's, before first use:** the solicitor pass, briefed narrow
+(enforceability, UCTA reasonableness, liability, IP and licence, the AI
+disclosure, email acceptance). The brief is written into the template notes
+so the instruction stays short.
