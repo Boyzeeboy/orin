@@ -6200,10 +6200,32 @@ retention, and the letter may only promise what is true.
 letterhead offering a UTR, which no client needs and is a personal tax
 identifier; and the no-signature-needed line sitting above a signature block.
 
-**Open, deliberately:** whether the deposit is the floor on early
-termination. As written, a client ending on day one is owed most of it back,
-while the price rests on a three-day pre-sale budget already spent. Left as
-the second `[DECIDE]` with both wordings. And the letter still needs the
-solicitor pass its own first line asks for; the commercial review makes that
-pass short, which is the cheap time to buy it. PI cover before first use is
-the other precondition, and is Warren's.
+**Closed the same day, on a second pass.** Both `[DECIDE]` markers are
+resolved and the body carries none.
+
+- *AI tooling.* The letter states the position under commercial terms:
+  Anthropic does not train on prompts, outputs or coding sessions without an
+  opt-in, and Orin does not opt in. That makes **commercial Claude Code terms
+  before first client use** a precondition, because the consumer plans can
+  train on coding sessions when the data-improvement setting is on. The
+  30-day retention figure the review suggested for the letter went into the
+  template notes instead: it is a third party's policy and a client letter
+  should not warrant it. Internal rule alongside: no Development Partner
+  Program, no thumbs feedback containing client code, local transcripts
+  cleared at closeout where confidentiality requires it.
+- *Deposit floor.* The initial payment is not refundable once work has begun.
+  The price rests on the pre-sale budget already spent by day one, and the
+  2026-08-28 entry made the deposit the commitment artefact; a day-one refund
+  would undo both. Orin ending the engagement still refunds work not done.
+- *PI cover.* £1m professional indemnity through Simply Business, taken out
+  on the day of the first in-principle yes, which is the day the letter goes
+  out (2026-08-28: "an in-principle yes gets the engagement letter the same
+  day"). £1m is more than the Diagnostic needs; it is bought for the Build
+  conversations that follow and for procurement calm. The insurance line is
+  pre-written for section 7 and MSA 8.6 and stays out until the policy is
+  live. The Diagnostic cap stays at fees paid or payable regardless.
+
+**Still Warren's, before first use:** the solicitor pass, briefed narrow
+(enforceability, UCTA reasonableness, liability, IP and licence, the AI
+disclosure, email acceptance). The brief is written into the template notes
+so the instruction stays short.
