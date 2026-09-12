@@ -6236,3 +6236,91 @@ template's "Before first use" list.
 (enforceability, UCTA reasonableness, liability, IP and licence, the AI
 disclosure, email acceptance). The brief is written into the template notes
 so the instruction stays short.
+
+---
+
+## 2026-09-12 — The catalogue fixture exists, and the guardrail fails a pristine shadcn install 202 times
+
+**Decision:** ORIN-39's second fixture is built and pushed in the shadcn
+adapter repo (`fixtures/catalogue/`, branch `fixtures/catalogue`): a fresh
+`shadcn@4.21.0 add --all`, 61 components, nothing consuming them, nothing
+edited. Its README carries the provenance and exact commands so it can be
+regenerated rather than patched when shadcn moves. `BASELINE.txt` holds the
+guardrail's output against it.
+
+The number is the finding. **202 failures on a codebase nobody has done
+anything wrong in.** Fifty arbitrary values that are vendored internals;
+seventy-one colour literals, sixty-two of them in the `index.css` the CLI
+wrote, which on this stack is the token source the adapter replaces;
+eighty-one undefined `var()` references that are runtime-set component
+properties in `drawer.tsx` and `toast.tsx`, invisible to a static consumer
+check by construction. Contract coverage, mode parity and semantic-only are
+clean. By the classification rule filed yesterday in the governance note's
+Phase D, every one of the 202 is stock, not debt.
+
+**What it contradicts.** The adapter README has said since 2026-08-16 that
+hardcoded values inside `components/ui/` "are yours to fix once you've
+adopted them; the guardrail will find them." That was doctrine without a
+denominator. It now has one, and by the classification rule the doctrine is
+wrong: a fresh catalogue is not 202 things to fix. The guardrail's only
+notion of "not hand-written" is a generated-file header that shadcn's files
+do not carry, so it cannot tell stock from hand-written code at all.
+
+**Deliberately not done:** the guardrail is unchanged. Making the fixture
+pass now would be the "iterate" step of ORIN-39 taken before the
+measurement, and it would remove the baseline the false-positive measure
+needs. The fixture README says so in its own words. Whether the README
+paragraph survives, and what the guardrail does with `components.json`'s
+`aliases.ui` path, is the experiment's call after the runs.
+
+**Also today:** ORIN-22 and ORIN-39 bumped to High. ORIN-22 was bumped as
+the thing that would stop an engagement letter going out same-day if
+Praelexis converts; the entry above this one, from a parallel session the
+same day, closed the letter's markers and wrote the send-day checklist, so
+what ORIN-22 still holds is the MSA's three (3.2 payment schedules, 8.6
+insurance once the policy is live, 10.3 non-solicitation). High still
+stands: the MSA is what a Build needs. ORIN-39 is the largest piece of ready
+work and three issues wait on it. ORIN-39 has the baseline in a comment. Still to fix before it runs:
+prompt, model, starting state per arm, tools, completion criteria.
+
+---
+
+## 2026-09-12 — The agent-readiness protocol is written and frozen
+
+**Decision:** `notes/agent-readiness-experiment.md` is ORIN-39's fixed part:
+agent (Claude Code 2.1.218, `claude -p`, one pinned model, empty `HOME`,
+`--max-turns 60`, stream-json captured whole), one byte-identical prompt (an
+`/account` page whose every part has a canonical answer in the catalogue),
+two fixtures (catalogue; catalogue plus the dirty `StatCard`), two arms
+(baseline; adapter plus a one-page router), four git tags as starting states,
+a three-part completion test, a reset that is in the run script, ten
+measures with who takes each, a blind review with sealed run order, the gate
+restated so it applies to the table, and a change log that discards every
+prior run if it gains an entry. Twelve runs.
+
+**Two things in it are decisions rather than method.**
+
+The router tells the agent that guardrail findings inside `components/ui/`
+are stock and to leave them. Without that sentence, arm B on the catalogue
+spends its turns "fixing" 202 vendored files and never reaches the task, and
+the known guardrail defect confounds every other measure. With it, the router
+does by prose what the guardrail should do by classification, which is the
+failure the pattern-layer notes warn about. The protocol says so, keeps the
+sentence for this run set, measures whether the agent obeys it ("vendored
+files touched"), and makes replacing it with guardrail classification the
+iterate step.
+
+"Beats" is defined as every arm B run scoring better than the best arm A
+run. With three runs a cell, that is the only comparison that means
+anything; a mean of three is theatre.
+
+**Found on the way:** the shadcn adapter has no router. The baseline
+pipeline's `CLAUDE.md`/`AGENTS.md` are generated for the Figma-to-DTCG repo,
+not for a shadcn app, so arm B's router had to be written for the experiment.
+Its content is the protocol's appendix, under a page, and is the first
+router the adapter has had. Whether it becomes part of the adapter proper is
+a question for after the runs, not before.
+
+**Not in the measures, and said so:** anything with a client, generalisation
+across models, the Diagnostic's scoring, and the hours spent on arm B's
+setup. The last is noted separately because a buyer will ask.
