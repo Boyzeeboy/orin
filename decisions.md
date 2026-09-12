@@ -6324,3 +6324,74 @@ a question for after the runs, not before.
 **Not in the measures, and said so:** anything with a client, generalisation
 across models, the Diagnostic's scoring, and the hours spent on arm B's
 setup. The last is noted separately because a buyer will ask.
+
+---
+
+## 2026-09-12 — The MSA takes its commercial review, and the contract templates carry no open decisions
+
+**Decision:** The services agreement in `orin-private` (`notes/contracts/`)
+was reviewed commercially the way the Diagnostic letter was earlier today,
+and the review was applied in full on branch `docs/msa-commercial-review`.
+The body carries no `[DECIDE]` markers. Working notes sit above the rule and
+come out before sending, as the letter's do. ORIN-22 closes with this.
+
+**What the review got right and was taken as written:** internal notes out
+of the body; payment schedules decided at the recommended defaults (40/30/30,
+Retainer monthly in advance, 14 days); the fees-under-the-SOW cap kept as
+the opening position with one pre-written fallback (the greater of SOW fees
+and £250,000, never above the £1m policy); the agreement signed once with
+SOWs by email, now said in the signature block; Build termination defined
+against the milestone schedule instead of "a fair proportional basis"; a DPA
+template written rather than negotiated from scratch; publicity clause kept
+with 7.3 as the fallback.
+
+**Two of its decisions went the other way.** Non-solicitation is deleted, not
+"probably omitted": it protected a sole trader very little and was the clause
+most likely to cost a round for nothing. And the intermediary licence at 6.7
+is no longer a per-client choice: both referrals so far came through a
+software house delivering to its own clients, which is the exact shape the
+clause describes, so it is a standing clause that bites only when the SOW
+names an end client.
+
+**Four things the review missed, all fixed:**
+
+1. **No Tools paragraph.** The letter review's headline finding was that the
+   practice runs on Claude Code and a client should be told. The MSA governs
+   the Build and the Retainer, where Orin reads far more client code than a
+   Diagnostic does, and said nothing. Clause 2.5 now mirrors the letter. Same
+   precondition: untrue until Claude Code is on commercial terms.
+2. **The Foundation did not exist in the document.** The SOW template offered
+   Diagnostic / Build / Retainer. `Offer.md` has had the Foundation since
+   2026-08-12, and the Diagnostic should not be there at all, because it runs
+   on the letter by design. SOW types are now Foundation / Build / Retainer,
+   and 3.2 has a Foundation schedule.
+3. **Twenty em-dashes** in a client-facing document. `voice.md` §2.
+4. **Clause 2.4 charged for standing idle in an agreement whose 3.1 says Orin
+   has no day rate.** A client's lawyer would have asked what the charge was.
+   Replaced with what was actually wanted: timescales extend and Orin may
+   re-plan the milestones.
+
+Smaller, same pass: the per-SOW cap was unbounded on a long Retainer and is
+now the twelve months before the claim; 6.5 licensed "internal business
+purposes" and then said "including in their products", which contradicted
+itself, and now licenses the Client's business including products it ships,
+with 6.6 carrying the restriction; 12.1's entire-agreement clause would have
+excluded the written diagnosis a Build SOW is built on, so the SOW template
+incorporates it by reference; the commencement payment is non-refundable once
+work has begun, the same deposit floor the letter took this morning.
+
+**The insurance clause is in the body**, unlike the letter, because this
+agreement is never sent before a Diagnostic letter has gone, and the policy is
+bought the day that letter goes. The working notes say to delete 8.6 if that
+ever fails to hold.
+
+**`data-processing-addendum.md`** is new: a short UK GDPR Article 28 template
+with a schedule that says "none" for the ordinary case. Its working notes say
+what to hold the line on (processing is incidental; no hosting, no retention)
+and name Anthropic as a sub-processor with personal data kept out of the tool
+wherever the work allows.
+
+**Still Warren's, before first use:** the solicitor pass, briefed narrow in
+the template's own notes and adding 6.5's purpose wording, the Foundation
+schedule, and the DPA. The fallback cap figure if £250,000 is not the number
+to have on the table.
