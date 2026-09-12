@@ -6236,6 +6236,7 @@ template's "Before first use" list.
 (enforceability, UCTA reasonableness, liability, IP and licence, the AI
 disclosure, email acceptance). The brief is written into the template notes
 so the instruction stays short.
+
 ---
 
 ## 2026-09-12 — The catalogue fixture exists, and the guardrail fails a pristine shadcn install 202 times
@@ -6272,10 +6273,14 @@ needs. The fixture README says so in its own words. Whether the README
 paragraph survives, and what the guardrail does with `components.json`'s
 `aliases.ui` path, is the experiment's call after the runs.
 
-**Also today:** ORIN-22 and ORIN-39 bumped to High. ORIN-22 is the only
-thing that would stop an engagement letter going out same-day if Praelexis
-converts; ORIN-39 is the largest piece of ready work and three issues wait
-on it. ORIN-39 has the baseline in a comment. Still to fix before it runs:
+**Also today:** ORIN-22 and ORIN-39 bumped to High. ORIN-22 was bumped as
+the thing that would stop an engagement letter going out same-day if
+Praelexis converts; the entry above this one, from a parallel session the
+same day, closed the letter's markers and wrote the send-day checklist, so
+what ORIN-22 still holds is the MSA's three (3.2 payment schedules, 8.6
+insurance once the policy is live, 10.3 non-solicitation). High still
+stands: the MSA is what a Build needs. ORIN-39 is the largest piece of ready
+work and three issues wait on it. ORIN-39 has the baseline in a comment. Still to fix before it runs:
 prompt, model, starting state per arm, tools, completion criteria.
 
 ---
