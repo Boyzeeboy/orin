@@ -294,6 +294,26 @@ So the trigger is all four of these, not the first alone:
    go red, and that is the failure this whole section exists to prevent. All
    five, then. ORIN-40 carries the same list.
 
+*Added 2026-09-14, on condition 3:*
+
+**The smallest thing that satisfies "an equivalent code-side manifest" is a
+Figma node ID in a comment above each built component.** Carmen Rincon's
+14 September post on an afternoon design-to-dev handoff has the developer
+leave the node ID (the number at the end of a copied frame link) in a comment
+over every component they build; one grep across the code returns the set,
+and every Figma component can be labelled new, changed or already built.
+Recorded here rather than taken, as before. It is weaker than Code Connect
+in every way that matters to the mechanism: no props API, so no variant
+diff; no verification that the comment still points at the right thing; a
+convention rather than a tool. But it is a code-side manifest, it needs no
+Figma plan and no publishing step, and a grep can build the comparison
+table from it. It changes who condition 3 admits: a client with disciplined
+comments and no Code Connect is no longer excluded, and the portability
+spike (task 2) gains a cheaper first probe. What it does not change: the
+check still needs a props API on the code side to have anything to diff
+against, so a comment-only manifest satisfies the *identity* half of the
+contract and not the *shape* half. Condition 2 stands untouched.
+
 **And the trigger is not the ledger's revisit condition.** That has been the
 wording since 2026-08-10 and it does not survive reading the bullet:
 `PIPELINE-LEDGER.md` says "*Orin* grows a real component library," about Orin's
@@ -509,6 +529,13 @@ rule in one bullet and was changed to match.
   against: `scripts/verify-docs.mjs` (what the prose gate does and does not
   cover), `scripts/lib/figma-to-dtcg.mjs` (the six-collection convention), and
   `plugin/code.js` (variables only — no component structure is extracted).
+- Carmen Rincon, "A proper Storybook for your design system takes months.
+  This is the afternoon version", LinkedIn, 14 September 2026. Four scripts
+  and a skill for a weekly designer-to-developer handoff. The node-ID comment
+  is recorded above under condition 3; the contrast-on-change script became
+  ORIN-46 in the pipeline. Her closing line, that none of it makes the call
+  and all of it flags, is this note's "the report is the gate, the critic
+  advises" in her words.
 - `notes/pattern-layer-research-evaluation.md`: added 2026-09-11. Reads the
   mechanism against published implementations. The architecture (contract,
   guidance, independent check, skill as packaging) is consistent with them; the
