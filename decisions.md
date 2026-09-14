@@ -6395,3 +6395,42 @@ wherever the work allows.
 the template's own notes and adding 6.5's purpose wording, the Foundation
 schedule, and the DPA. The fallback cap figure if £250,000 is not the number
 to have on the table.
+
+---
+
+## 2026-09-14 — Carmen's afternoon handoff, read against the pipeline
+
+**Decision:** Carmen Rincon's 14 September post (four scripts and a skill for
+a weekly designer-to-developer handoff) was reviewed part by part against the
+Orin Token Pipeline as it stands. Two things taken as notes; nothing taken as
+mechanism.
+
+**Where Orin is ahead, and why it matters commercially.** Her weekly "was the
+file edited" check is a doorbell; `sync-from-figma.mjs --check` is the diff,
+and refuses a stale or wrong-file dump. Her second export file with a manual
+swap is `--dry-run` plus `snapshot-tokens.mjs`'s changelog plus a gate. Her
+skill that stops at the two human stages is the router plus the report, with
+the stop points in a build that goes red rather than in a designer's Friday.
+The post is the "we'll do it ourselves" afternoon that Pragma chose, written
+up well. `Offer.md`'s defence already answers it: the scripts take ten
+minutes; the week is knowing which findings matter and leaving checks wired
+into the build so they outlive the person who set them up. The difference
+shows in month four, not week one.
+
+**Two things she has that Orin does not, both logged:**
+
+1. **A contrast check on every colour that changed.** Nothing in the report
+   looks at what a value *is*, so a primitive moving one ramp step under a
+   stable name passes every gate. KR commit `c98ccc6` did exactly that and the
+   answer at the time was visual regression, deferred. Hers is cheaper and
+   catches the class. ORIN-46, Orin Token Pipeline project: `contrast-on-change`
+   as a report check, diffing against the snapshot, testing affected text and
+   background pairings, red when a passing pair fails.
+2. **A Figma node ID in a comment as the minimal code-side manifest.** Added to
+   `notes/pattern-layer-governance.md` under condition 3 of the trigger. It
+   satisfies the identity half of the contract, not the shape half, so
+   condition 2 is untouched; but it widens who condition 3 admits and gives
+   the portability spike a cheaper first probe.
+
+**Attribution** in both places, same discipline as 2026-08-10: recorded, not
+taken, and she is named.
