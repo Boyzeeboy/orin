@@ -394,6 +394,20 @@ CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
       </div>
 
       <div class="trap">
+        <b>The scaffold did not run, and the tests stayed green</b>
+        <p>For two days at the end of August <code>scaffold-client.mjs</code>
+        could not run at all: unescaped backticks inside the config template it
+        writes terminated the template literal, twice over, from two separate
+        commits. <code>npm test</code> passed throughout, because the only test
+        naming the script read it with <code>readFileSync</code> and grepped the
+        text. Fixed 30 August: every backtick escaped, and a test that
+        <b>executes</b> it (<code>--help</code>, the documented no-side-effect
+        path, exit 0). <code>node --check</code> false-passes this file, so
+        parse-checking is not the same as loading. Step 2's dry-run is where you
+        would have found out; it is not optional.</p>
+      </div>
+
+      <div class="trap">
         <b>A port outside 9224–9232</b>
         <p>The script refuses it, correctly: the plugin manifest's
         <code>devAllowedDomains</code> covers only that range, so a port outside it
@@ -472,6 +486,15 @@ CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
     where this stops: <code>client-site-setup-sheet.html</code>, the consumer side.
     Worked examples: the Synthesis scaffold, <code>686524f</code>, and the Onkey
     scaffold of 19 August 2026, which is the run this sheet was corrected against.
+    <br><br>
+    <b>Revised 15 September 2026.</b> One failure mode added from the baseline's
+    <code>main</code> (the scaffold that could not run, 30 Aug). Two scaffold-time
+    changes sit on open baseline pull requests and are not in the steps until they
+    merge: the baseline commit stamped into <code>pipeline.config.mjs</code> at
+    scaffold, read by a <code>clone-drift</code> check (#4); and the five site-facing
+    checks declared as expected skips on every fresh clone, removed once
+    <code>siteDir</code> points at a real site (#6). When they land, step 2 gains a
+    line for each and "what scaffold-client rewrites" gains the stamp.</p>
   </footer>
 
 </div>
