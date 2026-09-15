@@ -84,6 +84,7 @@
 
   /* steps */
   .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:var(--space-3);align-items:stretch}
+  .steps.three{grid-template-columns:repeat(3,1fr)}
   .stepwrap{position:relative;display:flex}
   .step{
     background:var(--neutral-0);border:1px solid var(--border-divider);
@@ -177,7 +178,7 @@
   footer code{font-family:var(--family-mono);font-size:11px}
 
   @media (max-width:900px){
-    .steps{grid-template-columns:1fr 1fr}
+    .steps,.steps.three{grid-template-columns:1fr 1fr}
     .twoup,.traps,.semver,.masthead{grid-template-columns:1fr}
     .arrow{display:none}
     h1{font-size:33px}
@@ -405,6 +406,60 @@
     </div>
   </section>
 
+  <!-- ============ DAY TWO: THE DOMAIN ============ -->
+  <section class="band">
+    <div class="band-title"><span>Day two · the domain, on Cloudflare Pages</span></div>
+    <p class="lede" style="font-size:13.5px;color:var(--text-muted);line-height:1.6;max-width:80ch;margin-bottom:var(--space-6)">
+      Three seams the KR site closed in September, none of them token work, all of them
+      things a Pages site does silently until Search Console or a certificate warning says
+      otherwise. Each is one file or one dashboard setting, and each has an incident entry
+      in the KR repo's <code>INCIDENTS.md</code> that says what it cost to find out.
+    </p>
+
+    <div class="steps three">
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">6</span><span class="step-label">A real 404</span></div>
+          <p>Pages serves the homepage with a <b>200</b> for every unknown URL until a 404 page exists at the root. Every old URL from the previous site becomes a duplicate of the homepage in Search Console.</p>
+          <div class="cmd"><code>404.html<br>_redirects  <span style="opacity:.6">← old URLs with real inbound links only</span></code></div>
+          <div class="dimcode"><code>absolute asset paths in 404.html: it renders at any depth</code></div>
+          <div class="pill" style="margin-top:var(--space-3)">Misses are misses</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">7</span><span class="step-label">The apex</span></div>
+          <p>Pages will not take an apex domain unless the zone is on <b>Cloudflare DNS</b>, and the apex never needs to reach Pages. Put the zone on Cloudflare, give the apex a proxied placeholder, and let a Redirect Rule send it to www.</p>
+          <div class="cmd"><code>A  @  192.0.2.1  (proxied)<br>Redirect Rule: https://{apex}/* → https://www.{apex}/${1}, 301</code></div>
+          <div class="dimcode"><code>Always Use HTTPS on. Mail records byte-identical, grey cloud.</code></div>
+          <div class="pill" style="margin-top:var(--space-3)">Nothing on the old host to renew</div>
+        </div>
+        <div class="arrow"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12h14m-5-5 5 5-5 5"/></svg></div>
+      </div>
+
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">8</span><span class="step-label">A check that can see</span></div>
+          <p>A weekly workflow in the site repo: curl and openssl against the live hostnames, TLS validation on, cache-busters on every URL, certificates required to have more than 14 days left. A failed run emails the owner.</p>
+          <div class="cmd"><code>scripts/health-check.sh<br>.github/workflows/health-check.yml</code></div>
+          <div class="dimcode"><code>never a prompt, never a tool with a cache: assert on status, Location, body</code></div>
+          <div class="pill" style="margin-top:var(--space-3)">Silence means it passed</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="note" style="margin-top:var(--space-6)">
+      <div>
+        <b>Why the apex is the one that bites.</b>
+        <p>The KR apex sat on the old host for one job, a 301 to www. The host's certificate covered <code>www</code> too; when <code>www</code> moved to Pages the renewal failed on that name and the apex served an expired certificate for twenty days while a check written for a different failure said healthy. Moving the zone removes the arrangement: Cloudflare issues and renews the apex certificate, and the redirect is a rule, not a file on someone else's server.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ UPGRADES ============ -->
   <section class="band">
     <div class="band-title"><span>Taking an upgrade</span></div>
@@ -457,6 +512,11 @@
       <b>Internal.</b> Not a client handout and not a sales artefact — <code>EXTRACTION-BRIEF.md</code> is explicit that the baseline is not a product
       and carries no error handling for unattended use. Colour, type and spacing are Orin's own tokens, transcribed from <code>tokens/src/</code>;
       this file is standalone and not covered by <code>npm test</code>. <code>--family-mono</code> still has no token.
+    </p>
+    <p style="margin-top:var(--space-3)">
+      <b>Revised 15 September 2026.</b> Day two added from the KR site: the real 404 (PR #26),
+      the apex on Cloudflare DNS (<code>INCIDENTS.md</code> 2026-09-14, <code>DNS-BASELINE-2026-09-14.md</code>),
+      and the live health check (PR #28). Day one is unchanged.
     </p>
   </footer>
 
