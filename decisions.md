@@ -6482,3 +6482,44 @@ point, which is the exact condition `clone-drift` exists to report.
 reporting 202 findings on a fresh catalogue. Whether that is fixed in the
 guardrail or explained in the runbook is ORIN-39's iterate decision, and
 editing the runbook now would prejudge it.
+
+---
+
+## 2026-09-15 — The three baseline PRs merge in dependency order, and the sheets draw them
+
+**Decision:** Baseline PRs #6, #5 and #4 merged today in that order, and the
+order was the point. #6 (ORIN-37) changes what a skip means to the strict
+gate, so it went first. #5 (ORIN-36) rebased clean, its only overlap the
+generated router, which regenerates. #4 (ORIN-35) went last because it has a
+real integration with #6, not just a textual one: `clone-drift` skips
+whenever there is no baseline checkout to compare against, and under #6 an
+undeclared skip fails strict, so a fresh clone would have gone red the moment
+both were in. The fix is one declared skip, `clone-drift` in
+`report.expectedSkips`, in both the scaffold template and the baseline's own
+config, each with its reason. Proven load-bearing before the push: with the
+declaration removed, strict exits 1 on `clone-drift`; restored, 0.
+
+Seven conflict hunks in #4's rebase, all resolved by keeping both behaviours:
+`warn` and undeclared-skip detection coexist in the summary line, the HTML
+heading, the terminal detail, and the gate. `PROCESS.md` carries both
+sections and cross-references them.
+
+**The sheets.** `baseline-pipeline-infographic.html` now draws all five
+post-August changes as shipped: freshness, the report's descriptions and
+changelog, strict on undeclared skip, the extractor version, and the baseline
+stamp with `clone-drift` as an amber row between the gates and the planned
+one. The locked contract gains Silence and Lineage. "Nine of the eleven" can
+fail the build. `pipeline-scaffold-sheet.html` puts the stamp and the expected
+skips in step 2 and the rewrite list. The sheets no longer describe anything
+that is not on `main`.
+
+**The clones, on record on ORIN-38:** Synthesis is stamped `14daf65` and is
+now six commits behind, three substantive; it holds #4's stamp by hand but
+none of #4's code, and none of #5 or #6. KR has none of it. The port must
+carry the `clone-drift` declaration or it goes red.
+
+**Linear said Done before the code was on `main`.** All three issues were
+closed on 7 and 8 September with their PRs open. The sheet review on the 15th
+found it because a log was read on a checked-out branch instead of `main`
+and the discrepancy fell out. Worth a rule: an issue whose work is a PR is
+Done when the PR merges, not when it is opened.

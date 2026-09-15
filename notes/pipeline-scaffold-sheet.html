@@ -239,7 +239,7 @@
       <div class="stepwrap">
         <div class="step">
           <div class="step-head"><span class="dot">2</span><span class="step-label">Scaffold</span></div>
-          <p>Run it with <code>--dry-run</code> first: it prints every change and writes nothing. Then drop the flag.</p>
+          <p>Run it with <code>--dry-run</code> first: it prints every change and writes nothing. Then drop the flag. It reads the baseline's own <code>HEAD</code> and stamps it into the config, so run it from a clone that still has the baseline's history.</p>
           <div class="cmd"><code>npm run scaffold-client -- \<br>&nbsp;&nbsp;--name "Acme" --prefix acme \<br>&nbsp;&nbsp;--figma-name "Acme DS" \<br>&nbsp;&nbsp;--figma-key AbC123 --dry-run</code></div>
           <div class="dimcode"><code>quote any value with a space</code></div>
           <div class="pill">Rehearse, then apply</div>
@@ -297,7 +297,7 @@
 
       <div class="panel">
         <div class="panel-title">What scaffold-client rewrites <small>five steps in its header, eight files on disk</small></div>
-        <div class="tree">pipeline.config.mjs   <span class="gen">← the client's values</span>
+        <div class="tree">pipeline.config.mjs   <span class="gen">← the client's values, the baseline stamp, the expected skips</span>
 package.json          <span class="gen">← name, version 0.1.0</span>
 dist/{light,dark}/    <span class="dim">cleared</span>
 tokens/snapshot.json  <span class="dim">reset to {}</span>
@@ -489,12 +489,13 @@ CLAUDE.md / AGENTS.md <span class="gen">← regenerated</span></div>
     <br><br>
     <b>Revised 15 September 2026.</b> One failure mode added from the baseline's
     <code>main</code> (the scaffold that could not run, 30 Aug). Two scaffold-time
-    changes sit on open baseline pull requests and are not in the steps until they
-    merge: the baseline commit stamped into <code>pipeline.config.mjs</code> at
-    scaffold, read by a <code>clone-drift</code> check (#4); and the five site-facing
-    checks declared as expected skips on every fresh clone, removed once
-    <code>siteDir</code> points at a real site (#6). When they land, step 2 gains a
-    line for each and "what scaffold-client rewrites" gains the stamp.</p>
+    changes merged the same day and are in the steps: the baseline commit stamped
+    into <code>pipeline.config.mjs</code> at scaffold, read by a <code>clone-drift</code>
+    check that reports amber when the clone falls behind (#4); and the five
+    site-facing checks plus <code>clone-drift</code> declared as expected skips on
+    every fresh clone, each to be removed once <code>siteDir</code> or
+    <code>baselineDir</code> points somewhere real (#6). A fresh clone is honest about
+    what it is not yet checking, and strict holds it to that.</p>
   </footer>
 
 </div>
