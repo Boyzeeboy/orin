@@ -6434,3 +6434,51 @@ shows in month four, not week one.
 
 **Attribution** in both places, same discipline as 2026-08-10: recorded, not
 taken, and she is named.
+
+---
+
+## 2026-09-15 — Three sheets caught up, and three baseline PRs found open
+
+**Decision:** All fifteen sheets in `notes/` were checked against the
+pipeline repos' history since each was last edited. Three needed work and
+got it; the rest hold.
+
+1. **`baseline-pipeline-infographic.html`** (last edited 20 Aug). Two changes
+   on the baseline's `main` since, now drawn: the freshness guard on the
+   return path (30 Aug) and the report carrying token descriptions and the
+   last five builds' changes (31 Aug). One planned row in the report table,
+   `contrast-on-change` (ORIN-46), with its own dashed tag so a check that
+   does not exist yet cannot sit among ones that do without saying so. Carmen
+   Rincon attributed on the sheet for the observation.
+2. **`pipeline-scaffold-sheet.html`** (19 Aug). One failure mode added: the
+   scaffold could not run for two days in August while `npm test` stayed
+   green, because the only test naming it grepped the file instead of loading
+   it. Fixed 30 Aug with a test that executes it.
+3. **`client-site-setup-sheet.html`** (16 Aug). It claimed to carry the seams
+   the KR site closed; it lacked the three closed on 14 Sep. A "Day two: the
+   domain" band: a real `404.html` (Pages serves the homepage for every miss
+   without one), the apex on Cloudflare DNS as a proxied placeholder plus a
+   Redirect Rule (Pages will not take an apex from external DNS, and the apex
+   never needs to reach Pages), and a weekly health check that fetches over
+   https with validation on. Each points at the KR incident that produced it.
+4. **`pattern-layer-dataflow.html`**: one clause on the Code Connect cell,
+   recording the node-ID comment as the minimal code-side manifest.
+
+**Found on the way, and it matters more than the sheets:** the baseline has
+**three open pull requests** whose Linear issues are marked Done: #4 (ORIN-35,
+the baseline commit stamped into every clone, a `clone-drift` check, and a
+`warn` status the strict gate ignores), #5 (ORIN-36, the extractor version in
+every dump), #6 (ORIN-37, strict failing when a check silently stops running,
+with `expectedSkips` declared at scaffold). The first draft of the baseline
+sheet drew #4 and #6 as shipped; the log had been read on the checked-out
+ORIN-37 branch rather than `main`. Corrected before commit. The sheets name
+the three PRs in their footers and draw nothing from them until they merge.
+The Synthesis clone was backfilled by hand with the ORIN-35 stamp on 7 Sep
+(`14daf65`), so it is ahead of the baseline it was cloned from on that one
+point, which is the exact condition `clone-drift` exists to report.
+
+**Held:** `foundation-shadcn-runbook.html` tells the client that everything in
+`components/ui/` is theirs to change, and says nothing about the guardrail
+reporting 202 findings on a fresh catalogue. Whether that is fixed in the
+guardrail or explained in the runbook is ORIN-39's iterate decision, and
+editing the runbook now would prejudge it.
