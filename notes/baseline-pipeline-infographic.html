@@ -350,7 +350,7 @@
               <path d="M23 32l7 7 13-14" stroke="var(--teal-500)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
-          <p>Build, verify the outputs, verify the docs, unit tests, then the report in strict mode.</p>
+          <p>Build, verify the outputs, verify the docs, unit tests, then the report in strict mode. Strict also fails when a check silently stops running: a skip has to be declared, with a reason.</p>
           <div class="cmd"><code>npm test</code></div>
           <code style="color:var(--neutral-500)">CI runs it on every<br>PR to main</code>
           <div class="pill" style="margin-top:var(--space-4)">Red check, no ship</div>
@@ -558,6 +558,14 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
             <span class="k">Freshness</span><span class="v">a stale dump is refused, not compared</span>
           </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">Silence</span><span class="v">a check that stops running fails strict unless its skip is declared</span>
+          </div>
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">Lineage</span><span class="v">every dump names the extractor that made it; every clone names the baseline it was cut from</span>
+          </div>
 
           <div class="lock">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
@@ -602,6 +610,7 @@
           <div class="chk"><span class="id">lint-doubled</span><span class="what">No repeated path segment (<code>colour-colour-…</code>)</span><span class="tag gate">Gate</span></div>
           <div class="chk"><span class="id">lint-unitless</span><span class="what">No bare number where CSS needs a unit</span><span class="tag gate">Gate</span></div>
           <div class="chk"><span class="id">hardcoded</span><span class="what">Colours in the app with no token behind them</span><span class="tag info">Look</span></div>
+          <div class="chk"><span class="id">clone-drift</span><span class="what">How far behind the baseline this clone is. Amber, never red: an upstream commit is not a client's defect</span><span class="tag info">Warn</span></div>
           <div class="chk"><span class="id">contrast-on-change</span><span class="what">A colour that moved: its consumers, and whether text on it still reads</span><span class="tag planned">Planned</span></div>
         </div>
 
@@ -610,8 +619,8 @@
             <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z" stroke-linejoin="round"/><path d="M8.5 12l2.5 2.5L16 9.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
           <div>
-            <b>Nine of the ten can fail the build</b>
-            <p>The colour audit is informational by design: a hex matching a token's value does not make that token the right one. <code>npm run build</code> keeps the report advisory so you can build in order to look at a problem; <code>npm test</code> runs it strict, and that is what decides whether anything ships.</p>
+            <b>Nine of the eleven can fail the build</b>
+            <p>The colour audit is informational by design: a hex matching a token's value does not make that token the right one. <code>npm run build</code> keeps the report advisory so you can build in order to look at a problem; <code>npm test</code> runs it strict, and that is what decides whether anything ships. Strict has three verdicts a check cannot hide behind: red fails; a skip nobody declared in <code>report.expectedSkips</code> fails, because a check that quietly stopped running is how the last two incidents got past a green summary; and amber (<code>clone-drift</code> only) is printed, counted, and never gates.</p>
             <p>The report also carries what the build already knew: each token's Figma description under its row, and the last five builds' changes from <code>tokens/changelog.json</code>, so a reader can see what moved without opening git.</p>
             <p><b>The planned row is the first check that looks at what a value is</b> rather than whether it resolves. Every gate above proves structure; a primitive can move one ramp step under a stable name and pass all of them. Diffing against the last snapshot and testing the affected text-on-background pairings closes that. ORIN-46. The observation is Carmen Rincon's, from her 14 September handoff post; the check is Orin's.</p>
           </div>
@@ -649,7 +658,7 @@
           </svg>
           <div>
             <b>One command per client</b>
-            <p><code>npm run scaffold-client</code> writes the client's name, token prefix, Figma file and sink port, then regenerates the router from the template. Standing this up is setup, not a build.</p>
+            <p><code>npm run scaffold-client</code> writes the client's name, token prefix, Figma file and sink port, then regenerates the router from the template. It stamps the baseline commit it was cut from, so <code>clone-drift</code> can say how far behind the clone has fallen, and it declares the five site-facing checks and <code>clone-drift</code> as expected skips until <code>siteDir</code> and <code>baselineDir</code> point somewhere real. Standing this up is setup, not a build.</p>
           </div>
         </div>
       </div>
@@ -677,13 +686,12 @@
 
   <footer>
     <p>
-      <b>Revised 15 September 2026.</b> Two changes on the baseline's <code>main</code> since
-      20 August, both now on this sheet: the freshness guard on the return path (30 Aug) and the
-      report carrying descriptions and recent changes (31 Aug). Three more sit on open pull
-      requests and are not drawn here until they merge: the baseline commit stamped into every
-      clone with a <code>clone-drift</code> check and a <code>warn</code> status (#4), the extractor
-      version written into every dump (#5), and strict failing when a check silently stops running
-      (#6). One planned row, marked as such.
+      <b>Revised 15 September 2026.</b> Five changes on the baseline's <code>main</code> since
+      20 August, all drawn: the freshness guard on the return path (30 Aug), the report carrying
+      descriptions and recent changes (31 Aug), and three merged today in the order they depend
+      on each other: strict failing when a check silently stops running (#6), the extractor
+      version written into every dump (#5), and the baseline commit stamped into every clone with
+      a <code>clone-drift</code> check and an amber status (#4). One planned row, marked as such.
     </p>
     <p>
       <b>Read alongside "How this site is built".</b>
