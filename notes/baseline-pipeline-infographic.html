@@ -198,6 +198,7 @@
   }
   .tag.gate{background:var(--teal-500);color:var(--text-on-accent)}
   .tag.info{background:var(--neutral-100);color:var(--neutral-700)}
+  .tag.planned{background:transparent;border:1px dashed var(--neutral-300);color:var(--neutral-700)}
 
   /* ---------- stack ---------- */
   .stackrow{display:grid;grid-template-columns:1.15fr 1fr;gap:var(--space-6);align-items:stretch}
@@ -422,7 +423,7 @@
 
         <div class="drift-cell">
           <b>Non-zero on any disagreement</b>
-          <p>It names exactly what moved, and it runs on demand: a live read needs a person at Figma.</p>
+          <p>It names exactly what moved, and it runs on demand: a live read needs a person at Figma. A dump older than the file it describes is refused outright, so the gate can never report agreement against a snapshot nobody refreshed.</p>
         </div>
 
       </div>
@@ -555,6 +556,11 @@
           </div>
           <div class="lock">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
+            <span class="k">Freshness</span><span class="v">a stale dump is refused, not compared</span>
+          </div>
+
+          <div class="lock">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--teal-500)" stroke-width="1.7"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg>
             <span class="k">Build output</span><span class="v">dist/{light,dark}/ · 3 formats each</span>
           </div>
           <div class="lock">
@@ -596,6 +602,7 @@
           <div class="chk"><span class="id">lint-doubled</span><span class="what">No repeated path segment (<code>colour-colour-…</code>)</span><span class="tag gate">Gate</span></div>
           <div class="chk"><span class="id">lint-unitless</span><span class="what">No bare number where CSS needs a unit</span><span class="tag gate">Gate</span></div>
           <div class="chk"><span class="id">hardcoded</span><span class="what">Colours in the app with no token behind them</span><span class="tag info">Look</span></div>
+          <div class="chk"><span class="id">contrast-on-change</span><span class="what">A colour that moved: its consumers, and whether text on it still reads</span><span class="tag planned">Planned</span></div>
         </div>
 
         <div class="note">
@@ -605,6 +612,8 @@
           <div>
             <b>Nine of the ten can fail the build</b>
             <p>The colour audit is informational by design: a hex matching a token's value does not make that token the right one. <code>npm run build</code> keeps the report advisory so you can build in order to look at a problem; <code>npm test</code> runs it strict, and that is what decides whether anything ships.</p>
+            <p>The report also carries what the build already knew: each token's Figma description under its row, and the last five builds' changes from <code>tokens/changelog.json</code>, so a reader can see what moved without opening git.</p>
+            <p><b>The planned row is the first check that looks at what a value is</b> rather than whether it resolves. Every gate above proves structure; a primitive can move one ramp step under a stable name and pass all of them. Diffing against the last snapshot and testing the affected text-on-background pairings closes that. ORIN-46. The observation is Carmen Rincon's, from her 14 September handoff post; the check is Orin's.</p>
           </div>
         </div>
       </div>
@@ -667,6 +676,15 @@
   </div>
 
   <footer>
+    <p>
+      <b>Revised 15 September 2026.</b> Two changes on the baseline's <code>main</code> since
+      20 August, both now on this sheet: the freshness guard on the return path (30 Aug) and the
+      report carrying descriptions and recent changes (31 Aug). Three more sit on open pull
+      requests and are not drawn here until they merge: the baseline commit stamped into every
+      clone with a <code>clone-drift</code> check and a <code>warn</code> status (#4), the extractor
+      version written into every dump (#5), and strict failing when a check silently stops running
+      (#6). One planned row, marked as such.
+    </p>
     <p>
       <b>Read alongside "How this site is built".</b>
       That sheet diagrams the Orin site, where JSON authors and Figma mirrors. This one diagrams
