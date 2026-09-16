@@ -402,8 +402,8 @@
       <div class="home">
         <span class="n">05</span>
         <span class="k">The evaluation</span>
-        <span class="v">A fixed set of tasks run against the aligned system, on a deliberately inconsistent fixture and on a large, legitimate catalogue. It measures what the gate cannot: canonical reuse, silent invention, semantic-token adherence, accessibility and interaction failures, false positives, human corrections, tool calls, tokens and time. Alignment is the gate's claim; changed behaviour is this one's. A hypothesis under test, not yet part of the mechanism.</span>
-        <span class="tag measure">Measure</span>
+        <span class="v">A fixed set of tasks run against the aligned system, on a deliberately inconsistent fixture and on a large, legitimate catalogue. It measures what the gate cannot: canonical reuse, silent invention, semantic-token adherence, accessibility and interaction failures, false positives, human corrections, tool calls, tokens and time. Alignment is the gate's claim; changed behaviour is this one's. <b>Tested at ceiling, not supported.</b> Twelve runs on 16 September 2026: the baseline agent already reused the catalogue, used role tokens and copied no dirty pattern in every run, so the context had nothing to change. Not part of the mechanism.</span>
+        <span class="tag hyp">Tested</span>
       </div>
     </div>
   </section>
@@ -473,7 +473,12 @@
       packaging are consistent with those implementations. The proposal workflow and the
       two-use threshold are Orin's own and unvalidated: no reviewed source supplies a
       comparable mechanism. The tiles marked <i>hypothesis</i> are the ones that would need
-      a client to prove them.
+      a client to prove them. The evaluation was run, 16 September 2026, as ORIN-39:
+      twelve runs, sealed order, blind review, and the gate said drop, because the
+      baseline was already at the top of every scale. One observation of the third option
+      came with it: in six runs with the router present, zero proposals and one silent
+      invention. The result and its limitations are in
+      <code>notes/agent-readiness-result.md</code>.
     </p>
     <p>
       Colour, type, spacing and radius above are Orin's own tokens, transcribed from
