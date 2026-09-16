@@ -6523,3 +6523,84 @@ closed on 7 and 8 September with their PRs open. The sheet review on the 15th
 found it because a log was read on a checked-out branch instead of `main`
 and the discrepancy fell out. Worth a rule: an issue whose work is a PR is
 Done when the PR merges, not when it is opened.
+
+---
+
+## 2026-09-16 — ORIN-39 ran, and the gate said drop
+
+**Decision:** The agent-readiness experiment ran to its end today: twelve
+runs, sealed order, blind review, the gate applied as written. The
+component-scoring claim is **dropped**. Orin makes no agent-readiness claim,
+adds no Diagnostic dimension for it, and offers no before-and-after agent
+test as a selling point. The result is `notes/agent-readiness-result.md`;
+the record is `runs/` on the adapter repo's `runs/orin-39` branch.
+
+**Reasoning:** Arm B (adapter vendored, one-page router) did not beat arm A
+(the codebase as handed over) on anything. It could not, because arm A was
+already at the top of every scale: with no `CLAUDE.md`, no adapter and a
+dirty `StatCard` in front of it, `claude-opus-5` reached for the catalogue
+in every run, used role tokens in every run, wrote no arbitrary value, no
+inline style, no colour literal, and copied none of the eleven dirty
+patterns. Six of six arm A runs; six of six arm B runs. A blind reviewer
+(a separate Claude session given only the stripped diffs) found nothing to
+correct in nine of twelve, and the three corrections were one per arm on
+the same Base UI button-as-anchor defect plus one arm A theme toggle
+nobody asked for. Reuse was 7/7 or 6/7 everywhere, the 6/7s all being
+`native-select` for "notification preference" where the list said
+`switch`, which is a catalogue component and a fair reading. Arm B ran one
+to four turns longer, mostly on `npm run tokens`.
+
+A null at ceiling is not evidence the context does nothing on a harder
+task or a weaker model. It is evidence that on this task the baseline
+needs no help, and the protocol's gate is the protocol's gate.
+
+**What did come out, none of it an agent claim:**
+
+- The adapter's token values pass axe's AA contrast check where shadcn's
+  stock theme fails it, on stock `AvatarFallback` (`muted-foreground` on
+  `muted`, `0.556` on `0.97`). All six arm A runs fail; all six arm B runs
+  pass; the agent did nothing different. That is the token layer doing
+  what it is for, and it is the one sentence from this experiment that can
+  be said to a client.
+- The router's "findings inside `components/ui/` are stock, leave them"
+  sentence held six of six under 140 to 151 guardrail findings. Behavioural
+  false positives: zero. The static 140 stands.
+- The third option was never taken: zero `PROPOSALS.md` in six arm B runs,
+  one silent invention (a nav `link.tsx`, which the catalogue lacks). One
+  observation, the wrong way.
+
+**How it was run, for the next time:** setup from the frozen protocol took
+about ten minutes with Claude Code doing it, three to four minutes per run,
+and every call the protocol left open is in `runs/NOTES.md`: `tsc -b`
+instead of `tsc --noEmit` (which checks nothing on a Vite scaffold),
+`noUnusedLocals` off because stock `scroll-area.tsx` fails it, a props type
+on the dirty `StatCard` because `strict` fails it before any agent runs,
+`CLAUDE_CONFIG_DIR` instead of an empty `HOME` because the login follows
+the config dir, the permission flag read from a file Warren wrote. Two
+false starts before any agent ran (a reset that did not hard-reset; a
+three-run chain that would have outlived the ten-minute command cap), one
+measurement correction after aggregation (the "dirty patterns copied"
+regex counted arm B's use of the adapter's own `--app-*` extension tokens
+as the fixture's undefined-token pattern). All logged, all re-measured
+from the record.
+
+**What this settles elsewhere:** the pattern-layer infographic's evaluation
+row goes from "a hypothesis under test" to "tested at ceiling, not
+supported". The ORIN-40 signal ("ORIN-39 showing component identity is the
+largest remaining failure source") was not shown; component identity was
+not a failure source in twelve runs. The 2026-09-15 entry held the
+shadcn runbook's "everything in `components/ui/` is yours to change" for
+ORIN-39's iterate decision; the gate did not call iterate, so the guardrail
+learning what `aliases.ui` means is now plain adapter work, not this
+experiment's, and the runbook waits on that.
+
+**Deferred, on purpose:** the `aliases.ui` classification fix in the
+guardrail (adapter); the adapter README's install section, which omits the
+`APP_DIR` the host script needs (adapter); the infographic row edit (a
+separate change, not this PR); re-running with a task the baseline fails
+and a weaker model, which is the only version of this experiment worth
+running again, and not soon.
+
+**Revisit if:** a real client codebase produces an agent failure the
+Diagnostic could have named. That is a signal for a new experiment with a
+task built from the failure, not a reason to reopen this one.
