@@ -6604,3 +6604,31 @@ running again, and not soon.
 **Revisit if:** a real client codebase produces an agent failure the
 Diagnostic could have named. That is a signal for a new experiment with a
 task built from the failure, not a reason to reopen this one.
+
+---
+
+## 2026-09-16 — The infographic's evaluation row says tested, not supported
+
+**Decision:** `notes/pattern-layer-infographic.html` row 05, "The
+evaluation", no longer says "a hypothesis under test, not yet part of the
+mechanism". It says "tested at ceiling, not supported", names the twelve
+runs and the date, and carries the dashed hypothesis-style tag, now reading
+*Tested* rather than the teal *Measure*. The footer's Evidence paragraph
+gains the ORIN-39 result in three sentences, including the one third-option
+observation (six router runs, zero proposals, one silent invention), and
+points at `notes/agent-readiness-result.md`.
+
+**Reasoning:** The row was written on 11 September to mark the evaluation
+as unproven until ORIN-39 decided it. ORIN-39 decided it today, the other
+way. A sheet that still said "under test" would be describing a state that
+no longer exists, which is the thing the 2026-08-16 audit was about.
+The tag moves from the measure style to the dashed style because the
+dashed style is what this sheet uses for "not yet earned", and this row
+has now been shown not to have earned its place; teal would claim
+something the runs did not deliver. The tiles for the third option
+("When it has no answer", "Before it is real") stay marked hypothesis:
+one observation that went the wrong way is not a test of the mechanism,
+only a note against it, and the footer says so.
+
+**Revisit if:** the evaluation is ever re-run on a task the baseline
+fails. Then this row is rewritten from that result, not amended.
