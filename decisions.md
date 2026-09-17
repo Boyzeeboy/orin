@@ -6701,3 +6701,35 @@ the knowledge-base path four times. It turned out to be a plain
 same substitution fixed it. The description the harness shows at
 session start is read from that file, so a new session sees the new
 path; this one still shows the old.
+
+## 2026-09-17 — Both remotes clean up after a merge; only the public one lands itself
+
+**Decision:** On `Boyzeeboy/orin`, GitHub's "Allow auto-merge" and
+"Automatically delete head branches" are both on. On
+`Boyzeeboy/orin-private`, delete-on-merge is on and auto-merge is not,
+because it cannot be. Three merged branches the old setting had left
+behind on the public remote were deleted by hand; the private remote had
+none to delete.
+
+**Reasoning:** #76 was the prompt. "Merge it when green" had to mean a
+session polling the check and running `gh pr merge`, because the repo
+refused the auto-merge queue. With the setting on, a PR can be queued
+the moment it opens and lands when Cloudflare Pages passes, whether or
+not anything is awake to see it; delete-on-merge keeps the queue from
+leaving a branch behind each time. Both were flipped in the repo's
+Settings by Warren; the private repo's were set through the API.
+
+**Why the private repo differs:** the API took `delete_branch_on_merge`
+and silently left `allow_auto_merge` false. That is GitHub's answer when
+the feature is not in the plan: auto-merge on a private repository needs
+Pro for a personal account, and this one is Free. Not a permission
+problem and not worth working round. Private PRs keep the manual
+merge-once-green; their branches now go away on their own.
+
+**What this changes in practice:** "merge when green" on the public
+repo means queue it and stop watching. On the private repo it still
+means watch and merge. [[never-commit-directly-to-main]] holds on both;
+auto-merge is about who lands the PR, not whether there is one.
+
+**Revisit if:** the account moves to Pro, when one PATCH
+(`allow_auto_merge=true`) brings the private repo level.
