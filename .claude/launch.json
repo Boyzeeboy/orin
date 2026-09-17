@@ -12,20 +12,6 @@
         "4173"
       ],
       "port": 4173
-    },
-    {
-      "name": "lab-app",
-      "runtimeExecutable": "npx",
-      "runtimeArgs": [
-        "--prefix",
-        "/Users/warrenrossiter/Documents/Claude/Projects/orin-agent-lab/app",
-        "vite",
-        "/Users/warrenrossiter/Documents/Claude/Projects/orin-agent-lab/app",
-        "--port",
-        "5199",
-        "--strictPort"
-      ],
-      "port": 5199
     }
   ]
 }
