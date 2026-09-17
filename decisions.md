@@ -6660,3 +6660,44 @@ this is a one-line change, not a rewrite.
 **Revisit if:** the adapter gains a way to tell an edited stock file from
 a pristine one. Then "stays unscored" becomes "is scored once you touch
 it", which is the better rule, and this line changes with it.
+
+## 2026-09-17 — The Claude folder moved out of iCloud
+
+**Decision:** `~/Documents/Claude` is now `~/Developer/Claude`. Every
+project, `Scheduled` included, moved together, so the fix is one
+substitution: `Documents/Claude` → `Developer/Claude`. Nothing in this
+repo changed; the entry exists because paths outside it did.
+
+**Reasoning:** `Documents` syncs to iCloud, and a working tree with three
+gitdirs in it (`.git`, `.private.git`, `notes/shadcn-adapter/.git`) does
+not belong under a sync engine that evicts files to placeholders and
+resolves conflicts by minting `" 2"` copies. `Developer` is the folder
+macOS treats as local. A grep beforehand found nothing absolute in the
+git wiring: the private companion's gitdir is relative, the adapter's is
+plain, and `scripts/private` resolves from the tree.
+
+**What was updated:** nine `~/.claude/projects/` directories renamed to
+the new path encoding, so per-project memory survived (Orin was a merge,
+because the first session on the new path had already created its own
+directory); the trusted-repo note in `~/.claude/settings.json`; the three
+scheduled-task prompts, of which only `orin-research-brief` is still
+registered; and three memory files in sibling projects that pointed at
+the old path as a live location.
+
+**Left alone:** the 24 in-repo files that name the old path. They are
+records, run logs and READMEs describing what was, and the harness
+scripts' `LAB` default is documented as historical. Two empty
+`" 2"` directories in Synthesis Token Pipeline, iCloud litter from
+3 August, were removed.
+
+**Verified:** `npm test` from the new path, 9/9 and verify-build clean;
+`git status` and `scripts/private status` clean on all three repos; no
+`.icloud` placeholders under the new tree.
+
+**Also repointed:** the `add-to-knowledge-base` skill, which hard-codes
+the knowledge-base path four times. It turned out to be a plain
+`SKILL.md` in the desktop app's skills store under
+`~/Library/Application Support/Claude/`, not an opaque plugin, so the
+same substitution fixed it. The description the harness shows at
+session start is read from that file, so a new session sees the new
+path; this one still shows the old.
