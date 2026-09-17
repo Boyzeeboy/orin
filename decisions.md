@@ -6632,3 +6632,31 @@ only a note against it, and the footer says so.
 
 **Revisit if:** the evaluation is ever re-run on a task the baseline
 fails. Then this row is rewritten from that result, not amended.
+
+---
+
+## 2026-09-17 — The runbook says stock is not scored
+
+**Decision:** `notes/foundation-shadcn-runbook.html`, the "Yours" panel:
+the line on `components/ui/` no longer stops at "they're yours, change
+them". It says the guardrail treats them as stock, counts them and leaves
+what is inside them alone, that shadcn's own choices are not the client's
+debt, and that an edited stock file stays unscored until what changed is
+moved out of `ui/`.
+
+**Reasoning:** The 2026-09-15 entry held this line for ORIN-39's iterate
+decision. The gate said drop on the 16th and the guardrail was fixed the
+same day (adapter `34322e8`): it reads `components.json`, classifies the
+`aliases.ui` directory as stock, and reports one true finding on a fresh
+catalogue instead of 202 false ones. The runbook describes what the client
+installed, and what they installed now behaves this way. The line stays
+under "Yours" because it is still true that they may change those files;
+what is new is what the check does about it, and a client should know
+that before they wonder why an edit inside `ui/` went unremarked.
+
+**Held:** the runbook's em-dashes predate `voice.md` and are untouched;
+this is a one-line change, not a rewrite.
+
+**Revisit if:** the adapter gains a way to tell an edited stock file from
+a pristine one. Then "stays unscored" becomes "is scored once you touch
+it", which is the better rule, and this line changes with it.
