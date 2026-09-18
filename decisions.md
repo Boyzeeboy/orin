@@ -6733,3 +6733,50 @@ auto-merge is about who lands the PR, not whether there is one.
 
 **Revisit if:** the account moves to Pro, when one PATCH
 (`allow_auto_merge=true`) brings the private repo level.
+
+## 2026-09-18 — The 18 September research brief closed one watch item and narrowed another
+
+**Decision:** The weekly Orin systems research brief ran
+(`briefs/2026-09-18.md` in the scheduled task's own folder, outside this
+repo). Quiet window externally; the one substantial find was
+`roast-my-design-system` shipping v8.0.0 to v8.3.3 (17 to 18 September),
+generalising its stock-classification logic from fresh-shadcn detection to
+four component kits (MUI, Mantine, Chakra, Ant Design) via theme
+detection. Two items in `watch.md` moved as a result, both in the task
+folder rather than this repo:
+
+- **Quantified agent-readiness claim in public language**, open since
+  2026-09-09, moved to Rejected. Its trigger was "ORIN-39 reports improved
+  adherence with zero catalogue false positives." ORIN-39 ran on the 16th
+  and the gate said drop, not iterate: the baseline was already at ceiling
+  and the adapter beat it on nothing measured. The trigger fired in the
+  opposite direction from the one that would have promoted a claim, so the
+  entry closes by Orin's own decision rather than staying open indefinitely.
+- **roast-my-design-system's classification approach vs. Orin's four-way
+  rule**, open since 2026-09-15, moved to Promoted. Its trigger was
+  disjunctive: either the tool ships the canonical-custom/duplicate/
+  abandoned split, or ORIN-39 runs and the two approaches can be compared
+  directly. The second disjunct fired on the 16th; the brief drew the
+  comparison. A narrower successor entry was added, since the kit work
+  still only splits kit-mapped from not, not the three-way split inside
+  "not".
+
+**Reasoning:** Both moves were the watch register doing what it exists to
+do: a trigger fires, the item leaves Open, and the reasoning travels with
+it rather than getting silently dropped. Nothing here changes this repo,
+because nothing the brief found calls for a pipeline or site change: the
+adapter's classification fix (2026-09-16) already sits ahead of
+`roast-my-design-system` on the split that matters, and ORIN-39's one
+durable finding, that the adapter's token values pass axe's AA contrast
+check where shadcn's stock theme fails it, was already logged the day it
+was measured.
+
+**Not done:** the brief's Use-now item, carrying that contrast sentence
+into a real client conversation, is Warren's to do and record, not this
+entry's. No `Offer.md` or sales-copy change follows from this brief; the
+brief itself declined to draft client-facing language before a real
+conversation tests it.
+
+**Revisit if:** `roast-my-design-system` ships the three-way split, or a
+client engagement puts the two classification approaches to a direct
+test, per the narrowed watch entry.
