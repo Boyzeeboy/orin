@@ -6881,10 +6881,11 @@ the route. The ask was dropped today, unsent, overtaken by events. The
 action is a conversation, not a task, and it now has no scheduled
 occasion. §5 already says to use the sentence in the next qualified
 AI-codebase conversation and record the response there, which is the
-same instruction without an open ticket holding it. Recommendation, not
-yet taken: close ORIN-41 as done against its own "done when", and let the
-first conversation reopen it if the response says something the note
-does not.
+same instruction without an open ticket holding it. Taken later the same
+day: ORIN-41 closed as done against its own "done when", the private §5
+branch merged to `main` (`7c191de`), and the first conversation reopens
+it if the response says something the note does not. Nothing on the
+Orin board is In Progress.
 
 **Held:** nothing on the public site or in `Offer.md` mentions AI or
 agents, and that stays right until a real conversation has happened. The
