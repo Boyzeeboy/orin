@@ -6847,3 +6847,50 @@ design) rather than settling it; the issue does not choose an answer.
 **Revisit if:** either issue is picked up, at which point the fuller
 `Orin Token Pipeline` repo's own decision log (if it has or grows one) is
 the more precise place to record what was actually built.
+
+## 2026-09-18 — ORIN-41: the prompt objection grants the point
+
+**Decision:** `client-situations.md` §5 (private) is read against
+ORIN-39's result, two days late. The objection *"we'll just prompt it to
+use the tokens"* no longer answers that the model copies whatever mess
+the codebase shows it. It grants that a current model probably will
+follow the prompt, cites the twelve runs, and asks what tells them it
+held: on the next model, the developer pasting from an old screen, the
+rebrand that renames half the tokens. A prompt is an instruction with no
+receipt; the repo check is the receipt, and it reads agent-written and
+human-written UI the same way. The governed-agent sentence stops waiting
+on a number, records that the gate said drop, and names the one
+token-layer result a client can hear (stock shadcn fails AA contrast on
+`AvatarFallback`; the adapter's values pass; the agent did nothing
+different).
+
+**Reasoning:** ORIN-41's three task actions closed on 11 and 14 September,
+before ORIN-39 ran. The 16 September entry updated the runbook and the
+infographic but not the sales note, which is where the claim actually
+gets spoken. The old answer was a claim Orin's own experiment did not
+support, said to the one buyer most likely to know it: a founder who has
+watched these tools work. `voice.md` §3 says blunt about systems,
+generous about people; the manifesto says do not claim what you cannot
+show. Conceding the point costs nothing and moves the conversation to
+the thing the pipeline does that a prompt cannot, which is the pitch
+anyway.
+
+**What this does to ORIN-41:** its fourth action, "use it in
+conversation", named Praelexis as the candidate and the Brandon ask as
+the route. The ask was dropped today, unsent, overtaken by events. The
+action is a conversation, not a task, and it now has no scheduled
+occasion. §5 already says to use the sentence in the next qualified
+AI-codebase conversation and record the response there, which is the
+same instruction without an open ticket holding it. Recommendation, not
+yet taken: close ORIN-41 as done against its own "done when", and let the
+first conversation reopen it if the response says something the note
+does not.
+
+**Held:** nothing on the public site or in `Offer.md` mentions AI or
+agents, and that stays right until a real conversation has happened. The
+"and the agents they use" line remains the §5 opener; ORIN-39 did not
+touch it.
+
+**Revisit if:** a client's agent does copy the mess. That is the signal
+ORIN-39's own entry names for a new experiment, and it is also when the
+old answer would have been true.
