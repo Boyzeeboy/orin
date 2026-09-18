@@ -6780,3 +6780,70 @@ conversation tests it.
 **Revisit if:** `roast-my-design-system` ships the three-way split, or a
 client engagement puts the two classification approaches to a direct
 test, per the narrowed watch entry.
+
+## 2026-09-18 — External research feedback on the token pipeline, checked against the code and filed as two issues
+
+**Decision:** A piece of research feedback arrived reviewing the `Orin
+Token Pipeline` sibling repo (Figma-authoritative source, generated
+`AGENTS.md`/`CLAUDE.md`, deterministic checks, reasoned skips, byte-
+identical no-op builds all confirmed as claimed) and proposing two
+concrete gaps. Every citation was checked against the actual code before
+acting on any of it, rather than taken on trust. Both held up, with
+context the feedback didn't have, and both are now filed: ORIN-47 (make
+consumer scanning profile-aware, or decide it stays a per-client adapter
+concern) and ORIN-48 (surface token provenance to `dist/`, without
+colliding with the parked component contract). Neither issue is started;
+this repo's own code is untouched.
+
+**What checking against the code added.**
+
+- ORIN-47's gap is real: `generate-report.mjs`'s `siteFiles()` scans only
+  `.css`/`.html`/`.js` and unconditionally skips `vendor` and `admin`, so
+  a React/Vue/Svelte/SCSS client codebase gets a misleadingly clean
+  report. But it isn't being solved from zero: `notes/shadcn-adapter/
+  guardrail.mjs`, the actual KR/shadcn client build, already has its own
+  wider, better-scoped file walk (`.tsx|.jsx|.ts|.js|.css|.html`,
+  excluding by role — `node_modules`, `dist`, `.next`, `.git` — rather
+  than the baseline's by-name `vendor`/`admin`). The baseline's
+  narrowness is an artefact of KR's original static-HTML shape, never
+  generalised back after the adapter proved a wider pattern works. The
+  issue also names something the feedback stated separately without
+  connecting: the same narrow scan backs the "consumer contract" check
+  the feedback listed as already strong, so the gap directly undermines
+  a check praised in the same review.
+- ORIN-48's gap is real: `dist/` ships bare values, no descriptions or
+  provenance, and the consumer-appropriate replacement for the
+  maintainer-oriented `AGENTS.md`/`CLAUDE.md` doesn't exist. But most of
+  the data it would need already exists elsewhere and just isn't
+  surfaced: Figma source and mode in `tokens/*.json`'s `$metadata`
+  (dropped by Style Dictionary before `dist/`), the baseline commit
+  (ORIN-35), the extractor version (ORIN-36), and token descriptions
+  (already read into the HTML report). The proposal is closer to wiring
+  existing internals to a new output than building new instrumentation.
+  The one correction: don't call it a "token contract". `notes/
+  pattern-layer-governance.md` already owns that word for the parked
+  component-contract mechanism (variant properties diffed against Figma
+  and code, gated on a five-condition trigger that hasn't fired). A
+  value-layer provenance file is a different thing and needs a different
+  name, or it will read as reopening a decision that stays parked.
+
+**Reasoning:** The instruction this follows is the same one that governs
+any memory or external claim before it is acted on: a citation is a claim
+about what existed when it was written, not a guarantee about what exists
+now, and checking it is cheap next to filing work against a wrong premise.
+Both gaps were confirmed line-for-line against the real files before
+either became a Linear issue. The extra context, the adapter precedent for
+ORIN-47 and the already-tracked data for ORIN-48, changes what the fix
+actually costs and how it should be framed, which is exactly the kind of
+correction that is worth making before the work is scoped rather than
+after.
+
+**Not done:** neither issue is started. ORIN-48 is explicitly a Validate
+item in its own body, not an Act-now one: it wants a real downstream
+consumer confirmed before it's built. ORIN-47 poses a decision (generalise
+the baseline scanner, or declare per-stack scanning an adapter concern by
+design) rather than settling it; the issue does not choose an answer.
+
+**Revisit if:** either issue is picked up, at which point the fuller
+`Orin Token Pipeline` repo's own decision log (if it has or grows one) is
+the more precise place to record what was actually built.
