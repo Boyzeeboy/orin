@@ -7041,3 +7041,48 @@ which is true now and does not wait on the learning.
 the practice and the note becomes the checklist), or step 2 shows the
 unaided agent at ceiling on the contract (harder component before steps
 2 and 5 run).
+
+---
+
+## 2026-09-19 — Synthesis PR #1 merges twelve days late, and the gap it left is a ticket
+
+**Decision:** Merged `synthesis-token-pipeline` PR #1 (ORIN-18) as `9182abd`
+and filed the follow-on as **ORIN-51**: port the 15 September baseline PRs
+(ORIN-35, 36, 37) to Synthesis. Merged as reviewed rather than widened,
+because the branch had already had its ultra review (`4ab04d5`, three fixes)
+and absorbing the 15 September work would have meant re-reviewing a diff
+that was green and sitting.
+
+Checked before merging, not assumed: mergeable and CLEAN against a `main`
+that had not moved since the scaffold commit; CI green; local `npm test`
+green on the branch, 110 unit tests, report 5/5. The remote and local
+branches are deleted; this repo does not clean up after itself the way the
+two Orin remotes do since 17 September.
+
+**What was wrong with the status.** Linear had ORIN-18 Done since 7 September
+16:30, ten minutes after the PR was opened and twelve days before it merged.
+That is the exact case the 15 September entry turned into a rule, found a
+fourth time. The rule stands; it was not being applied to the ticket that
+prompted it.
+
+**What the merge does not close.** The PR stamps `14daf65` and brings
+Synthesis to parity with that commit. The baseline moved on 15 September,
+and Synthesis carries none of it: `clone-drift`, `extractor-version`,
+`expected-skips` and their tests are absent from `scripts/lib/`;
+`generate-report.mjs` is 145 lines adrift. The tell is in the test output
+the merge was verified against: "5/5 checks passing (5 skipped)", reported
+as green. Under ORIN-37 semantics five undeclared skips fail strict. The
+gate Synthesis runs cannot yet distinguish a check that passed from one
+that never ran. ORIN-51 carries that, the `clone-drift` declaration the
+15 September entry said the port must include, and the note that the
+backfilled `baseline` stamp plus `baselineDir` mean `clone-drift` will run
+the moment the check lands, and should report exactly this gap. That is the
+first real test of the check on a live clone.
+
+**Deferred:** ORIN-38 (KR) still follows both Synthesis ports in one pass.
+The stale-dump guard's step 3 is now closed for the live clone; the memory
+note reserving the free ultra reviews for it is spent and updated.
+
+**Revisit if:** ORIN-51 is opened and `clone-drift` reports something other
+than the six commits `14daf65..df4186d`. Then either the stamp was
+backfilled wrong or the check is, and which one matters more.
