@@ -6929,3 +6929,70 @@ there, not in Drive.
 
 **Revisit if:** the Sheet grows a second editor or a second sharer. Then
 "shared by link only" stops being true and this entry needs a successor.
+
+## 2026-09-19 — Desk research finds the triggers, and reorders the ten
+
+**Decision:** The ten priority rows in the outreach tracker now carry a
+trigger signal each, from open-web desk research, every cell prefixed
+"desk research 19 Sep 2026, unverified". Three of the original ten came
+back with qualification failures rather than triggers and were swapped
+for alternates, one alternate turned out to have been acquired in 2022
+and is marked dead, and the ten are re-ranked by trigger strength. Names
+and findings are in the private Sheet and `notes/outreach-tracker.md`
+(private); this entry records the method and what it changed.
+
+**What a trigger is, restated from the pack:** a recent, observable
+event about them that fills "I'm writing because [ ]" in template C: a
+front-end hire with no designer, a public Figma file, a design-team
+downsizing, a rebrand or replatform, a team member posting about UI
+debt. The Notes column's product-shape hypothesis ("white-label means
+theming") is the reason a row is on the list and the thing to say on the
+call. It is not a trigger, and an email built on it alone reads as a
+mail merge. The test: could this email have gone three months ago? If
+yes, there is no trigger yet.
+
+**Where triggers actually live:** funding announcements, acquisitions,
+partnership press, product-update and release-notes pages, careers
+pages and job aggregators, startup indexes. Careers pages were the
+weakest source (two of ten listed nothing); product-update pages and
+funding press were the strongest. About two hours for thirteen
+companies, which is the budget to expect per ten.
+
+**What the research changed:**
+
+- Four rows had wrong or stale facts in the sheet itself: two "Bristol"
+  rows are Exeter and Cardiff; one "e-commerce" row is HR tech; one row's
+  product is embedded in customers' apps rather than a web-plus-mobile
+  UI of its own. The VC portfolio and directory sweeps of 5 September
+  were a list of names, and the names were right; the one-line
+  descriptions attached to them were not reliable.
+- One company had been acquired by a large parent with its own design
+  function, which fails the buyer-1 profile outright. One showed no
+  activity since 2018. One was pre-launch, a buyer-2 row filed as
+  buyer 1. One alternate had been acquired in 2022. Four of thirteen
+  disqualified on a desk pass, which is the pass that should happen
+  before any LinkedIn time is spent.
+- The strongest trigger of the set is a company that posted a "first
+  dedicated UX Engineer" role to build a design system with one
+  designer. That is the moment the pipeline matters most, and it is
+  also the moment the pitch changes: enforcement and pipeline, not
+  values. Second strongest: a platform-wide UX refresh and a redesigned
+  mobile app inside the same year, which is when values drift across
+  two surfaces at once.
+- Six of the ten now have a trigger dated 2026; four rest on 2025 events
+  or structural facts. The ranking puts the 2026 six first.
+
+**What did not change:** no founders in the ten; the Diagnostic still
+needs its first paid run before the Foundation does. Named buyers are
+still Warren's LinkedIn pass, against triggers already in hand. The
+Sheet is still pre-pipeline; first real contact opens a ledger row.
+
+**Held:** the "warm" marking on the Bath and Bristol rows. Two of the
+four turned out not to be local, and a third is parked, so proximity as
+a channel has one row left in it. The legend's own note said Bath and
+Bristol were better for events than for list volume; this is the same
+finding from the other side.
+
+**Revisit if:** the first five emails go out and the triggers do not
+land. Then the fault is the trigger-to-email translation, not the
+research, and template C is what changes.
