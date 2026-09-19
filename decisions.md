@@ -6895,3 +6895,37 @@ touch it.
 **Revisit if:** a client's agent does copy the mess. That is the signal
 ORIN-39's own entry names for a new experiment, and it is also when the
 old answer would have been true.
+
+## 2026-09-19 — The outreach tracker lives in Drive; the first ten are named
+
+**Decision:** The live outreach tracker is a Google Sheet in Warren's
+Drive, shared by link. `notes/outreach-tracker.xlsx` in `orin-private`
+is the 5 September original and is stale from today; a pointer note,
+`notes/outreach-tracker.md` (private, ignored here), carries the URL and
+says so. The Sheet's own Legend says the same in its Privacy row.
+
+**Reasoning:** A spreadsheet that gets filled in between sessions, from
+a phone as often as a laptop, wants to be where Warren already is. The
+xlsx was a fine place to design the sheet and a poor place to run it:
+every edit was a session, and the formulas recalculated only on open.
+Drive gives one URL, edits from anywhere, and a history. The cost is a
+second place where prospects are named; the mitigation is that it is
+one file, owned by one account, shared by link only, and the note in
+the private repo is the only pointer.
+
+**Also today:** the 51 candidate rows were ranked and the first ten
+marked in `Next action` as "Priority N of 10: name the buyer, find the
+trigger". Warm first, existing product over founder, then the strongest
+fit for what the pipeline does: RoleMapper, Distil.ai, StatsBomb,
+Kinderly, Wrisk, Emperia, GetUBetter, Learncast, Captur, StackOne. Six
+of the ten are one-product-many-brands, which is the sharpest version of
+the pitch. No founders in the ten: the Diagnostic needs its first paid
+run before the Foundation does. The names stay in the private sheet;
+this entry records the method.
+
+**Held:** the sheet is still pre-pipeline. First real contact still
+opens a row in `notes/prospect-ledger.md`, and deal state still lives
+there, not in Drive.
+
+**Revisit if:** the Sheet grows a second editor or a second sharer. Then
+"shared by link only" stops being true and this entry needs a successor.

@@ -87,3 +87,8 @@ notes/github-gc-pr-archive.md
 # deleted files by SHA long after they leave main. Tracked in orin-private
 # from 2026-09-05.
 notes/outreach-tracker.xlsx
+# Its pointer note. From 2026-09-19 the live tracker is a Google Sheet in
+# Warren's Drive and the xlsx is the stale original; the note carries the
+# Sheet's URL, which is a share-by-link and therefore an access grant.
+# Tracked in orin-private from 2026-09-19.
+notes/outreach-tracker.md
