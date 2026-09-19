@@ -7037,6 +7037,14 @@ step 1's contract file, and gets logged if it is.
 **Also in the note:** the holding answer for a client call this week,
 which is true now and does not wait on the learning.
 
+**Added later the same day:** the public form (IDEM essay on `/work`,
+a note here, or an outreach piece) is decided after step 5 from the five
+sections, not before, and covers what the work found rather than the
+process. Reasoning in the note under "Public form". Writing during the
+work would bend the runs toward the story, and the piece must stay inside
+what ORIN-39 ruled out: systems findings only, no agent-performance
+claims at n=1.
+
 **Revisit if:** a qualifying client arrives first (their Build becomes
 the practice and the note becomes the checklist), or step 2 shows the
 unaided agent at ceiling on the contract (harder component before steps

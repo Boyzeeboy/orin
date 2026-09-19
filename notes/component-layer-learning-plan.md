@@ -182,6 +182,40 @@ The learning does not have to finish before the answer is good:
 True today, and it matches `OPERATING_MODEL.md`. Each step above moves
 one clause of it into the past tense.
 
+## Public form: decided after step 5, not before
+
+*Added 2026-09-19, same day as the plan, after the question "should this
+be a case study?"*
+
+Yes, probably. But of what the work found, not of the process, and the
+form is chosen from the five sections once they exist. Three reasons.
+
+The Build's buyer wants judgement. "How I learned the component layer"
+tells them I was learning last month. "The first component I built on my
+own system showed two token files had never reached the CSS output, and
+here is the check that stops it now" is the Orin register: blunt about
+the system, a finding they can picture in their own repo. The process is
+the method section, not the headline.
+
+Writing it during the work bends the work. ORIN-39 holds up because the
+protocol was fixed before run 1 and the result written from the record
+afterwards. Build step 2 with an essay in mind and I start picking runs
+that make a good paragraph. The dated sections are the record; the
+public piece, if any, comes from them.
+
+It stays inside what ORIN-39 ruled out. No claim about agent consistency,
+review effort or speed; this is n=1 on my own system. What it can carry
+is systems findings: the pipeline gap, what Code Connect costs in seats,
+what was in place each time an agent proposed rather than invented.
+Three observations, stated as three.
+
+Candidates, ranked: the IDEM essay on `/work` (the card has said "Essay
+coming" since v1; this would be a reason, and site work, so a logged
+decision); a public note here (already happening, linkable from an
+outreach email); an outreach piece for the "first UX Engineer hired to
+build a design system" trigger row, where "the first component exposed
+the pipeline gap" is written for exactly that reader.
+
 ## Budget and stopping rule
 
 4 to 6 sessions. Stop when each of the 5 steps has run once and written
