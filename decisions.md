@@ -7086,3 +7086,54 @@ note reserving the free ultra reviews for it is spent and updated.
 **Revisit if:** ORIN-51 is opened and `clone-drift` reports something other
 than the six commits `14daf65..df4186d`. Then either the stamp was
 backfilled wrong or the check is, and which one matters more.
+
+---
+
+## 2026-09-19 — Auto-merge on the public repo never ran; the toggle needed a rule to wait for
+
+**Decision:** Added a ruleset on `Boyzeeboy/orin` `main` ("main: wait for
+Cloudflare Pages", id 23705820, enforcement active) with one rule: the
+`Cloudflare Pages` status check is required. Nothing else changed. The
+17 September entry stands as a record of what was flipped; this corrects
+what it claimed the flip achieved.
+
+**What was found.** `gh pr merge --auto` on #84 refused with "Protected
+branch rules not configured for this branch". Checked rather than
+assumed: `allow_auto_merge` is true and has been since the 17th; classic
+protection on `main` is 404; rulesets, none; active rules on `main`, an
+empty list. "Allow auto-merge" is a repo permission. A PR can only be
+queued when the target branch has a protection rule or ruleset that gives
+the queue something to wait for. With nothing on `main`, GitHub declines
+every request to queue.
+
+The PR timelines confirm it. #77 through #84, every public PR since the
+toggle, carries a `merged` event and no `auto_merge_enabled` event, and
+each merged between three and sixty seconds after opening. Eight PRs,
+eight manual merges by the session that opened them. "Queue it and stop
+watching" was the written practice for two days and did not happen once,
+because the queue refused each time and the refusal was read as a reason
+to merge by hand rather than as a finding.
+
+**Why a ruleset and not classic protection.** Same effect on the queue,
+and rulesets are what GitHub is building on. The one rule is the one
+check that runs on public PRs, so the queue waits for exactly what a
+watching session waited for. `strict_required_status_checks_policy` is
+off: a branch does not have to be current with `main` to land, which
+matches how the parallel-session case is handled today (rebase on
+conflict, not on every merge).
+
+**What it changes in practice.** Direct pushes to `main` now need a
+passing `Cloudflare Pages` check on the commit, which in effect means
+they go through a PR. That is what [[never-commit-directly-to-main]]
+already required by convention; protection has caught up with practice.
+No bypass list, so it binds the admin too, which is the point. The
+private repo is unaffected and unchanged: auto-merge still needs Pro
+there, and the manual merge-once-green stands.
+
+**Proof:** this entry's own PR is the test. It is queued with `--auto`
+and lands when the check passes, which is the first time that sentence
+has been true.
+
+**Revisit if:** the Cloudflare Pages check ever stops posting a status
+(a Pages project rename, or moving the site off Pages). The rule then
+blocks every merge until the context name is corrected.
