@@ -6996,3 +6996,48 @@ finding from the other side.
 **Revisit if:** the first five emails go out and the triggers do not
 land. Then the fault is the trigger-to-email translation, not the
 research, and template C is what changes.
+
+## 2026-09-19 — ORIN-49: practise the component layer on IDEM before a client asks twice
+
+**Decision:** Filed `notes/component-layer-learning-plan.md` and opened
+ORIN-49 (Commercial Layer). Five steps, one session each, on IDEM: write
+a component contract as data; build `Button` from three starting states
+and watch for propose-or-invent; extend the guardrail up a layer with
+Storybook's test-runner and make it fail first; round-trip `Button`
+through Figma and see whether the drift gate's idea reaches variant
+structure; build one composed pattern that needs a component the kit
+lacks. 4 to 6 sessions, then stop.
+
+**Reasoning:** The Build promises "Tokens. Component library. Page
+patterns. The pipeline connecting Figma to the codebase." The first and
+last exist on running systems. The middle is prose: the parked
+governance note, the research evaluation, the infographic, ORIN-39's
+twelve runs. All of it is about the layer and none of it is Orin
+building the layer, which the research evaluation already said in its
+own words (no component-bearing baseline of its own). A client has
+asked once, in writing, and the answer was right and theoretical.
+
+IDEM over the shadcn adapter because IDEM's semantic vocabulary is its
+own, the pipeline already has Storybook and `guidelines.json`, and no
+attribution is owed. That makes it the greenfield rehearsal; the adapter
+stays the brownfield one.
+
+**What this does not reopen:** the pattern-layer mechanism stays parked
+and its five-condition trigger stays client-side (IDEM can never supply
+condition 4). ORIN-39 is not rerun; its result note said "not soon" and
+this is n=1 practice, not an experiment. The site stopping rule holds.
+The one rule carried over from ORIN-39 is that every step picks a task
+the unaided agent fails, because a task at ceiling teaches nothing.
+
+**Settled in the note so it is not relitigated:** React and TypeScript;
+Storybook as the independent check; components inside the IDEM pipeline
+repo under `src/components/`; not shadcn. Any of it can be overturned by
+step 1's contract file, and gets logged if it is.
+
+**Also in the note:** the holding answer for a client call this week,
+which is true now and does not wait on the learning.
+
+**Revisit if:** a qualifying client arrives first (their Build becomes
+the practice and the note becomes the checklist), or step 2 shows the
+unaided agent at ceiling on the contract (harder component before steps
+2 and 5 run).
