@@ -14,7 +14,7 @@ building my own agency, Orin — the founding decision to stop fitting
 myself into other people's roles and start offering the specific
 combination I bring.
 
-Notable prior work: a 60% reduction in development defects at Vivo Energy
+Notable prior work: a 60% saving in development time at Vivo Energy
 through design system architecture (contracted via the agency Rethink).
 
 ## 2. What I'm actually good at

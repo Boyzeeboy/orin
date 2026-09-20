@@ -7162,3 +7162,26 @@ has been true.
 **Revisit if:** the Cloudflare Pages check ever stops posting a status
 (a Pages project rename, or moving the site off Pages). The rule then
 blocks every merge until the context name is corrected.
+
+---
+
+## 2026-09-20 — The 60 per cent claim, for the fourth time: SOUL.md
+
+**What changed.** `SOUL.md` §1 said "a 60% reduction in development
+defects at Vivo Energy". Now "a 60% saving in development time", matching
+the 2026-07-14 decision, the manifesto, the README and the live case study.
+
+**How it was found.** Reviewing the personal portfolio copy against
+`voice.md`. The portfolio said "60% projected reduction in development
+time", the site says the saving was delivered, and SOUL.md said defects:
+three properties, three different claims. SOUL.md was the one in this repo,
+so it is the one fixed here. The portfolio's "projected" is Warren's call
+and is being settled in the Engen rewrite.
+
+**Why it kept happening.** The 2026-08-09 entry said it: a number repeated
+from memory rather than from its source. SOUL.md is pasted into
+conversations by hand and was last touched 2026-09-08 without the claim
+being checked. Any file that carries the number should be greppable for
+`60%` or `60 per cent` and read against this entry before it ships.
+
+**Revisit if:** never, as before. New evidence gets a new claim.
