@@ -7184,4 +7184,12 @@ conversations by hand and was last touched 2026-09-08 without the claim
 being checked. Any file that carries the number should be greppable for
 `60%` or `60 per cent` and read against this entry before it ships.
 
+**The source, written down for once.** Warren's figures from the
+Technical Officer, 2026-09-20: UI defects fell from over 100 to around 13,
+and that reduction is what produced the 60% saving in development time.
+Both measured by the TO across December 2023 to April 2024. No baseline
+for the time saving exists beyond that; there is no "compared with" clause
+to add. State the defect count as raw numbers, never as a percentage, or it
+turns back into "60% fewer defects".
+
 **Revisit if:** never, as before. New evidence gets a new claim.
