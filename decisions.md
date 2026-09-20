@@ -7193,3 +7193,71 @@ to add. State the defect count as raw numbers, never as a percentage, or it
 turns back into "60% fewer defects".
 
 **Revisit if:** never, as before. New evidence gets a new claim.
+
+---
+
+## 2026-09-20 — Portfolio review: four studies rewritten against voice.md, and what the sources said
+
+**What happened.** Warren's personal portfolio (four case studies: Vivo
+Energy, IDEM, two 22seven pieces) had an outside review asking for less
+repetition, labelled outcomes, more visual evidence, and a clearer split
+between his contribution and the team's. The rewritten copy was reviewed
+here against `voice.md` and `SOUL.md`, then each study was rebuilt in Q&A.
+The result lives outside this repo, in `Career/portfolio-case-studies-2026-09.md`,
+because it is portfolio material and this remote is public. Not site work;
+the stopping rule was not touched.
+
+**Facts established that this repo will need.** Recorded here so the
+next IDEM essay or Vivo edit reads them from a source, not from memory,
+which is how the 60 per cent claim went wrong four times (see the entry
+above this one).
+
+- Vivo Energy: UI defects fell from over 100 to around 13, producing the
+  60% development-time saving. Both figures are the Technical Officer's,
+  measured December 2023 to April 2024. No baseline beyond that exists.
+  The saving began in sprint one because the workshops settled
+  requirements before development. Team: the development team with its
+  Head of Development and Technical Officer, a PM, a BA, a UX designer,
+  Warren on UI. Workshops were the whole team; foundations and library
+  were his. Vivo's business case projected a 20–40% five-year cost saving
+  from the time saving; that is their projection.
+- IDEM: the system on the portfolio and in the pipeline repo is the
+  rebuild, May to August 2026 (pipeline syncing from *IDEM Revised* by
+  2026-05-20, Figma ready-for-dev August). The original engagement was
+  June to July 2025 via Momentum Studio. The original file has 205
+  variables in 5 collections and its alias layer is 23 one-to-one renames
+  of the cyan ramp. The rebuild has 330 in 6 (primitives 65, semantic 71,
+  components 80, fonts 80, spacing 20, radius 14). Primitive ramps are
+  **teal** (12 steps, 25–950), neutral (12), blue, green, red, amber.
+  There is no iris or indigo anywhere; the earlier portfolio draft's
+  "#1A3BCC became iris-50 to iris-900" was untrue and is gone. Warren
+  chose teal himself because the brand cyan was too dark to build from.
+  Grammar is `colour.*` (British), states as children (`DEFAULT`, `hover`,
+  `pressed`). Type is Inter Tight with MD3 role names. Spacing is a
+  13-step scale under `xs`–`2xl` plus `page` (104). The pipeline's 215 per
+  mode counts only what compiles to CSS. Momentum Studio's use of the
+  rebuild is not to be mentioned anywhere.
+- 22seven: Warren left before either piece shipped and does not know if
+  they did. The behavioural model (activation vs recurring, Understand →
+  Act → Verify) was his own framing built to design against; the 800-point
+  cap was the product head's decision with no model attached. 10 points
+  = R1.00. The portfolio screens are his visual redesign after leaving;
+  structure and product decisions are original.
+
+**Two studies show post-hoc redesigns, and the portfolio says so.** IDEM
+and 22seven both show screens rebuilt after the engagement. Each study
+states it in the role line, and the portfolio intro carries one sentence
+saying so once. The alternative, presenting the redesign as the delivered
+work, would be the kind of claim `OPERATING_MODEL.md` exists to refuse,
+and it would not survive a former colleague reading the page.
+
+**Voice findings worth keeping.** The rewritten drafts had honoured the
+em-dash ban with spaced hyphens (same rhythm, same tell), carried at
+least 12 §4F reframes, used passive voice exactly where attribution
+mattered, and had two editor's notes leaked into the page ("should be
+presented as"). The live Vivo case study on this site was the model
+that fixed all of it, which is what it is for.
+
+**Deferred:** nothing new. The IDEM essay on `/work` stays where ORIN-49
+left it, decided after step 5. The facts above are its source when it
+comes.
