@@ -240,6 +240,9 @@ a finding, not a reason to add a session.
 ## Related
 
 - `runs/PROTOCOL.md` in `idem-design-tokens`: the fixed part.
+- The same protocol as a readable page, rendered in IDEM's own tokens:
+  <https://claude.ai/artifact/RD5rXtMzKbq7xFEuxVozBK>. The file wins where
+  the two disagree; the page is republished after each change-log entry.
 - `pattern-layer-governance.md`: the parked mechanism and its trigger.
 - `pattern-layer-research-evaluation.md`: the evidence and its limits.
 - `agent-readiness-experiment.md`, `agent-readiness-result.md`: ORIN-39.
