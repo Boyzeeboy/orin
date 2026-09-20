@@ -73,6 +73,13 @@ Each one is a session. Each ends with a dated section appended to this
 note and an entry in `decisions.md`. Transcripts, diffs and screenshots
 live in the IDEM repo, not here.
 
+*Added 2026-09-20:* the fixed part is `runs/PROTOCOL.md` in the IDEM
+pipeline repo (`Boyzeeboy/idem-design-tokens`): exact commands, the
+contract schema, the checks and their scope, the frozen prompts, the lab
+tags, the record. This note is the why; that file is the exactly-what,
+and a run is repeated from it, not from here. Where the two disagree the
+protocol wins and the disagreement is logged in its change log.
+
 ### 1. Decide what a component contract is
 
 Before any component exists. Name, variants and their allowed values,
@@ -232,6 +239,7 @@ a finding, not a reason to add a session.
 
 ## Related
 
+- `runs/PROTOCOL.md` in `idem-design-tokens`: the fixed part.
 - `pattern-layer-governance.md`: the parked mechanism and its trigger.
 - `pattern-layer-research-evaluation.md`: the evidence and its limits.
 - `agent-readiness-experiment.md`, `agent-readiness-result.md`: ORIN-39.

@@ -7045,6 +7045,23 @@ work would bend the runs toward the story, and the piece must stay inside
 what ORIN-39 ruled out: systems findings only, no agent-performance
 claims at n=1.
 
+**2026-09-20 addendum:** the fixed part now exists as `runs/PROTOCOL.md`
+in the IDEM pipeline repo (PR #1 there). A second-model review of the
+draft instructions found ten things that were not yet executable
+(`test-storybook` needs a served Storybook; dark coverage by explicit
+story exports; the contract as the token allowlist rather than a
+directory prefix, which also removed a contradiction with step 5;
+`verify:figma` as a snippet-plus-script pair like the token sync; the
+literal check scoped with stories excluded; `ajv` as a library; branch
+names for both repos; "do not invent values" cut from the prompt so the
+arms differ only by repository state; MCP wiring for the Figma run made
+explicit). All folded in before any run and listed as change-log entry 0.
+Two facts from the IDEM `CLAUDE.md` shape the protocol and are recorded
+there: `size.json` and `typography.json` are documented as never
+reaching `dist/`, which is step 2's baseline failure and is not fixed
+until after the three runs; and Style Dictionary drops children of a
+token with its own `$value`, which will bite `Input` in step 5.
+
 **Revisit if:** a qualifying client arrives first (their Build becomes
 the practice and the note becomes the checklist), or step 2 shows the
 unaided agent at ceiling on the contract (harder component before steps
