@@ -7261,3 +7261,73 @@ that fixed all of it, which is what it is for.
 **Deferred:** nothing new. The IDEM essay on `/work` stays where ORIN-49
 left it, decided after step 5. The facts above are its source when it
 comes.
+
+---
+
+## 2026-09-21 — Doctrine: an "AI design system" is a consumer of the substrate, not the substrate
+
+**Decision:** When a prospect says they are building an AI design system, as
+Pragma did, Orin's position is that they are building a generation layer and
+Orin builds the thing that layer reads from. The two are not competitors and
+are not the same work. Recorded as doctrine because the question came up
+again after the Pragma arc closed, and the answer was spread across three
+private notes with no single statement of it.
+
+**What the phrase meant at Pragma** (`notes/pragma-meeting-2026-08-20.md`,
+`notes/pragma-strategic-read.md`, both private): analysts prototyping in
+Claude, the Figma MCP wired to their development agents, an internal AI team
+writing agents and skills, and a product manager's MCP read of their tokens
+that produced output he rated as close, with the tokens themselves not quite
+right. Their senior sponsor's actual ask, logged as phase 5, was agents that
+instantiate patterns rather than invent them. The artefact, in every case, is
+an agent stack that consumes the design system and emits screens and code.
+
+**What Orin builds** is what that stack reads: DTCG tokens in the client's own
+repo as the single source of truth, the pipeline from Figma (or whatever
+replaces it) into code, the provenance guard, versioning, and later the rules
+layer. Nothing in `Offer.md` generates screens. The work makes whatever
+generates screens trustworthy.
+
+**The four differences, in the order they matter:**
+
+1. **Consumer versus source.** Generation is capped at the quality of what it
+   reads. Tokens that are not quite right are the substrate's defect showing
+   through the agent, and no amount of prompt or skill engineering routes
+   around it. The strategic read's line stands: the AI ceiling is set by the
+   substrate.
+2. **Generic versus specific.** Their design lead's own principle, and a good
+   one: anything bespoke built now will be a vanilla Claude feature within a
+   year. An AI design system as a product is squarely in that category;
+   Figma, Anthropic and MUI are all shipping it. What stays specific is the
+   client's tokens, patterns and rules. Orin's scope is exactly the part that
+   stays specific.
+3. **Tool-bound versus portable.** Their stack points at today's Figma MCP and
+   today's agents. DTCG in a repo survives leaving Figma (the 2026-08-21
+   proposal argument) and equally survives changing model or agent framework.
+   The rules layer is written once against the tokens, not once per tool.
+4. **Sequence.** Phases 1 to 3 are prerequisites for phase 5. Where the AI
+   programme and the design system are funded as separate things, Orin's
+   position is that one is the foundation of the other. Attempting the agent
+   layer on a decaying substrate produces confident, consistent, wrong output
+   at speed.
+
+**Where they meet.** The rules layer and the skill that puts rules in front of
+an agent at generation time (items 24 to 27 in
+`notes/pragma-build-and-process.md`, private). That is the seam where Orin's
+work hands off to a client's AI team, and it is the honest answer if one asks
+whether Orin competes with them: no, Orin builds the thing their agents need
+to read from.
+
+**Orin uses AI too, and the distinction is not AI or not.** This site and the
+token pipeline were built with it. Orin treats AI as the hands and the token
+layer as the constraint. A team building an AI design system on an unfixed
+substrate is treating the AI as the system.
+
+**How to apply:** when the phrase comes up in a discovery call, ask what the
+agents read from, and whether that source is versioned and true. The answer
+scopes the engagement. Do not pitch against the AI programme; pitch under it.
+
+**Revisit if:** a prospect's "AI design system" turns out to include
+authoring the tokens and patterns themselves, with provenance and versioning,
+rather than reading them. That would be substrate work under another name,
+and the doctrine would need a second case to hold.
