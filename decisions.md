@@ -7403,3 +7403,21 @@ repo and `Orin Token Pipeline`, with Dependabot on the pipeline only.
 once, which would mean a term on the list is too common a word to match
 whole; or Claude's commits start going through a path the guard does not
 parse, such as a wrapper script other than `scripts/private`.
+
+---
+
+## 2026-09-24 — CLAUDE.md names the role, not the referrer
+
+**Decision:** The outbound-record rule in `CLAUDE.md` now says it was adopted
+"after the note to the referrer" instead of using his first name. This was the
+line the leak-check backtest found in the entry above (line 101 then, 105 after
+that entry's own CLAUDE.md edits), and Warren chose to change it.
+
+**Reasoning:** `CLAUDE.md` is standing instruction, not a record of what
+happened, so the 2026-08-25 principle that keeps the log unedited does not
+cover it. The rule reads the same without the name. The `decisions.md` line of
+18 September stays as written, for the reason given above.
+
+**Not done:** history. The name remains in earlier commits of `CLAUDE.md`, as
+the 21 August row remains in the log; this reduces exposure from here forward,
+the same trade 2026-09-08 made.
