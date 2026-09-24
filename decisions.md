@@ -7356,7 +7356,10 @@ CI, and nothing under `site/` touched.
    `.claude/settings.json` as a `PreToolUse` hook on Bash, covers `git commit`
    in its `-C`, `cd`-prefixed and env-prefixed forms and `scripts/private
    commit`. Merges pass, so the private repo's by-hand fast-forward still works.
-   It fails open: a guard that breaks every Bash call gets switched off.
+   It fails open: a guard that breaks every Bash call gets switched off. Its
+   first live run blocked a legitimate `checkout -b` followed by a commit in
+   the same command, because it read the branch before the checkout ran. It
+   now follows a checkout or switch made earlier in the command.
 
 Hooks live in `scripts/hooks/` and `scripts/install-hooks` points
 `core.hooksPath` at them. Git never runs hooks it fetched, so each clone needs

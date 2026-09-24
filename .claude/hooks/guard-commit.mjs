@@ -68,21 +68,25 @@ function branch(args, cwd) {
   }
 }
 
-/** Returns { args, cwd, label } for a commit segment, or null. */
-function commitTarget(seg, cwd) {
+/**
+ * Parse a git invocation. Returns { args, cwd, label, sub, rest } or null, where
+ * args select the repo (-C, --git-dir, --work-tree) and sub is the subcommand.
+ */
+function gitCall(seg, cwd) {
   let i = 0;
   while (i < seg.length && /^[A-Za-z_][A-Za-z0-9_]*=/.test(seg[i])) i++; // FOO=bar prefixes
   const cmd = seg[i];
   if (!cmd) return null;
 
-  if (/(^|\/)scripts\/private$/.test(cmd) && seg[i + 1] === 'commit') {
+  if (/(^|\/)scripts\/private$/.test(cmd)) {
     let top;
     try {
       top = execFileSync('git', ['rev-parse', '--show-toplevel'], { cwd, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
     } catch {
       return null;
     }
-    return { args: [`--git-dir=${join(top, '.private.git')}`, `--work-tree=${top}`], cwd, label: 'orin-private' };
+    const gitDir = join(top, '.private.git');
+    return { args: [`--git-dir=${gitDir}`, `--work-tree=${top}`], cwd, label: 'orin-private', key: gitDir, sub: seg[i + 1], rest: seg.slice(i + 2) };
   }
 
   if (cmd !== 'git' && !cmd.endsWith('/git')) return null;
@@ -94,9 +98,22 @@ function commitTarget(seg, cwd) {
     else if (t === '-c') i++;
     else if (t.startsWith('--git-dir=') || t.startsWith('--work-tree=')) args.push(t.replace(/=(.*)$/, (_, p) => `=${expand(p, dir)}`));
     else if (t.startsWith('-')) continue;
-    else return t === 'commit' ? { args, cwd: dir, label: dir } : null;
+    else return { args, cwd: dir, label: dir, key: `${dir}|${args.join('|')}`, sub: t, rest: seg.slice(i + 1) };
   }
   return null;
+}
+
+/**
+ * The branch a checkout/switch moves to, or undefined if it moves nowhere
+ * (a file checkout). `checkout -b feat && commit` must be judged on feat,
+ * not on the branch the command started from.
+ */
+function switchesTo({ sub, rest }) {
+  if (sub !== 'checkout' && sub !== 'switch') return undefined;
+  if (rest.includes('--')) return undefined;
+  const create = rest.findIndex((t) => ['-b', '-B', '-c', '-C'].includes(t));
+  if (create !== -1) return rest[create + 1];
+  return rest.find((t) => !t.startsWith('-'));
 }
 
 try {
@@ -104,18 +121,25 @@ try {
   const command = input?.tool_input?.command;
   if (typeof command !== 'string') process.exit(0);
   let cwd = input.cwd || process.cwd();
+  const switched = new Map(); // repo key -> branch a checkout earlier in this command moved to
 
   for (const seg of segments(command)) {
     if (seg[0] === 'cd' && seg.length <= 2) {
       cwd = expand(seg[1] ?? '~', cwd);
       continue;
     }
-    const target = commitTarget(seg, cwd);
-    if (!target) continue;
-    const b = branch(target.args, target.cwd);
+    const call = gitCall(seg, cwd);
+    if (!call) continue;
+    const moved = switchesTo(call);
+    if (moved) {
+      switched.set(call.key, moved);
+      continue;
+    }
+    if (call.sub !== 'commit') continue;
+    const b = switched.get(call.key) ?? branch(call.args, call.cwd);
     if (b && PROTECTED.has(b)) {
       console.error(
-        `Blocked: this would commit directly to ${b} in ${target.label}. ` +
+        `Blocked: this would commit directly to ${b} in ${call.label}. ` +
           'Branch first (never commit directly to main; in orin-private, branch from the ' +
           'unmerged branch that already touches the file). Guard: .claude/hooks/guard-commit.mjs',
       );
