@@ -7500,3 +7500,25 @@ nothing, so none of the three points applies to it.
 
 **Revisit if:** the pipeline gains a runtime dependency that ships in `dist/`,
 at which point the security argument applies to clones and the default flips.
+
+---
+
+## 2026-09-24 — deliverable.md says where a client's dependency updates come from
+
+**Decision:** Added one bullet to `deliverable.md` under "Whose is what": the
+instance ships without Dependabot, bumps are tested once in the baseline and
+reach each instance under the Retainer, and a client who keeps the repo
+without a Retainer can switch it on themselves. This is the handover line the
+entry above said belonged in the handover notes rather than on by default.
+
+**Reasoning:** There is no separate handover-notes document. `deliverable.md`
+is where the client's side of the line is drawn, and "Whose is what" is where
+the Retainer already appears. It uses `Offer.md`'s existing Retainer scope
+("Keeping the pipeline healthy") rather than adding to it, so the line promises
+nothing the offer does not. It names Dependabot, not the config file's path,
+because `verify-deliverable` requires every path the document names to be
+classified, and this file exists in the baseline but not in the instance,
+which the check's ships/absent model does not express.
+
+**Revisit if:** a real handover document is written for a client. The line
+moves there, and this bullet becomes a pointer.
