@@ -7624,3 +7624,60 @@ where today it runs from a file.
 definitions had been read. The error was caught when the question came back and
 the definitions were loaded to answer it. The session entry stays as written,
 on the log's usual principle; this one is the correction.
+
+---
+
+## 2026-09-24 — The live-read trial: figma_get_variables repeats the dark-mode bug
+
+**Decision:** `figma_get_variables` does not replace the fetch snippet for
+`check:figma`, and `sync-from-figma.mjs` is unchanged. The trial the entry
+above described ran on a scratch Figma file, `Orin scratch — variables trial`,
+through the figma-console Desktop Bridge (plugin 1.39.0).
+
+**The file.** Fifteen variables in three collections: Primitives (one mode),
+Theme (Light, Dark) and Semantic (Light, Dark), with Semantic aliasing into
+both. Semantic's Dark mode id was `1:4` and Theme's `1:2`, so any resolver
+matching on mode id rather than name would go wrong. Included: an alpha
+colour, a number, a string, a two-hop alias chain and two descriptions.
+
+**Read A, the existing snippet**, run unchanged through the bridge's
+`figma_execute`, and the descriptions snippet with its sink POST left out:
+every resolved value correct, no warnings, both descriptions.
+
+**Read B, `figma_get_variables`** with `resolveAliases`: names, types, modes,
+single-mode aliases, alpha, numbers, strings and descriptions all matched.
+**Its resolved values reproduce the dark-mode defect** the snippet's
+mode-name matching fixed. A Semantic value aliasing a Theme value, both
+Light/Dark, falls back to the target's default mode:
+`colour/background/page` Dark came back `#FFFFFF` for `#111111`, and
+`colour/text/body` Dark `#111111` for `#FFFFFF`. Repeated after a change.
+
+**Its cache serves stale data without saying so.** After `neutral/900` was
+changed to `#1A1A1A`, a read without `refreshCache` returned the old
+`#111111`, marked only `"source":"cache"`. With `refreshCache: true` it saw the
+change. So "live" holds only with a flag that is easy to leave off, which
+reintroduces the problem the freshness guard (2026-08-30) exists for.
+
+**What was sound.** Read B's raw `valuesByMode`, alias ids and per-collection
+mode names are correct and are everything the snippet's resolver uses, so a
+Node port of that resolver could resolve them properly. By inspection, not
+tested. It also names each first-hop alias target, which the snippet does not.
+
+**Reasoning:** the idea was to remove dump staleness by reading Figma live.
+The tool's convenient path, resolved values from the default read, is wrong in
+two ways the pipeline has already paid for once. The sound path, raw values
+with a forced refresh and our own resolver, rebuilds what the snippet already
+does, on top of a third-party response shape, and still needs Figma Desktop and
+a plugin running. `check:figma` runs in Node from a file and cannot call an MCP
+tool at all; only an agent session could use a live read, and the snippet
+already gives an agent session one through the same bridge. Nothing is gained
+that the snippet does not already provide.
+
+**Not done:** the snippet was not re-run after the change; its staleness risk
+is the saved dump, not the read. The Dark resolution defect has not been
+reported to the figma-console MCP maintainers; that goes outward and is
+Warren's call. The scratch file is left in place for him to delete.
+
+**Revisit if:** a figma-console release resolves cross-collection aliases by
+mode name and reads fresh by default. Rerun this trial on the same file before
+relying on it.
