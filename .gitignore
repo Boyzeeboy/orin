@@ -92,3 +92,9 @@ notes/outreach-tracker.xlsx
 # Sheet's URL, which is a share-by-link and therefore an access grant.
 # Tracked in orin-private from 2026-09-19.
 notes/outreach-tracker.md
+
+# The leak check's denylist: the names scripts/leak-check.mjs refuses in anything
+# headed for this remote. A public copy of the list of names to keep off the
+# public remote would be the leak. Tracked in orin-private from 2026-09-24,
+# never here.
+notes/leak-denylist.txt

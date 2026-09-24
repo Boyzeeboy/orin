@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Public-repo pre-commit: refuse a commit whose added lines name a client's
+# people. See scripts/leak-check.mjs. Installed by scripts/install-hooks.
+set -euo pipefail
+exec node "$(git rev-parse --show-toplevel)/scripts/leak-check.mjs" --staged
