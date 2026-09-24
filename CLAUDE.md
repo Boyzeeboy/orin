@@ -102,7 +102,7 @@ ship and stop.
 
 **A note about anything outbound records what was sent, not what was
 drafted.** It stays marked *draft* until the sent text is pasted back into
-it — verbatim, after sending. Adopted 2026-09-01, after the note to Brandon
+it — verbatim, after sending. Adopted 2026-09-01, after the note to the referrer
 said "Sent" while the email that actually went was a shorter rewrite, leaving
 the log claiming two questions were pending that had never been asked. Ten
 seconds at send time; the alternative is a record that lies politely.
