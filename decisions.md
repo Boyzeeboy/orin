@@ -7590,3 +7590,37 @@ record that lies politely.
 **Revisit if:** the site stops being v1, which reopens the measurement tools;
 or the figma-console parity check is tried, which gets its own entry either
 way.
+
+---
+
+## 2026-09-24 — Correction: the live Figma read is figma_get_variables, not the parity check
+
+**Decision:** Corrects one line in the session entry above. Under "Noted, not
+acted on" it says the figma-console MCP "exposes a design-parity check and a
+token export" as the route to a live read for `check:figma`. Neither is.
+Read from the tool definitions after the entry merged:
+
+- **`figma_check_design_parity`** compares one Figma component against code
+  (spacing, typography, props, accessibility), keyed on a node ID and a
+  hand-filled code spec. It does not compare variables, so it has nothing to
+  say about `check:figma`. If the parked component contract ever un-parks
+  (`notes/pattern-layer-governance.md`), it is worth a look there instead.
+- **`figma_export_tokens`** writes token files straight from Figma and
+  describes itself as replacing Style Dictionary's export. That is the
+  opposite direction to this pipeline, whose DTCG source goes through Style
+  Dictionary on purpose. Not a candidate.
+- **`figma_get_variables`** is the fit. It reads a file's variables live,
+  through a companion plugin in Figma Desktop, with values per mode.
+
+**The trial is unchanged apart from the tool.** On a scratch Figma file, not a
+client's and not Orin's mirror: read it with `figma_get_variables` and with the
+existing snippet, and compare names, modes, aliases and descriptions (the last
+feed `$description`). Then change a variable and confirm the live read sees it
+without a fresh dump. Only on a match does `sync-from-figma.mjs` change, and the
+trade still stands: the check would need Figma Desktop and the plugin running,
+where today it runs from a file.
+
+**Reasoning:** the session entry named tools from their titles, before their
+definitions had been read. The error was caught when the question came back and
+the definitions were loaded to answer it. The session entry stays as written,
+on the log's usual principle; this one is the correction.
