@@ -81,6 +81,13 @@ projected"). The distinction matters for what the client owns:
   pipeline, their component library — running in their own repositories, which
   they own and ship from. The Retainer (see `Offer.md`) is what keeps that
   instance alive rather than decaying back into an artefact.
+- **Dependency updates come through the shared core, not a bot in their
+  repo.** The instance ships without Dependabot. A version bump is tested once,
+  in the baseline, and reaches each instance as part of keeping the pipeline
+  healthy under the Retainer. A client who keeps the repo without a Retainer can
+  switch Dependabot on themselves in a few minutes, and the CI that ships with
+  the instance will gate its pull requests. The pipeline's only dependency is
+  Style Dictionary, used at build time, so nothing they ship depends on it.
 
 ## What the deliverable is not
 
