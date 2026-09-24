@@ -57,7 +57,7 @@ not a branding problem.
 - **`npm test` green before every push.** From the repo root it runs
   `verify:deliverable` (does `deliverable.md` still describe the real
   client pipeline?) then the token chain in `tokens/` — report 9/9,
-  verify-build clean. CI does not run these; protection is local, and the
+  verify-build clean, and the report's own tests (each check shown to fail). CI does not run these; protection is local, and the
   pre-push hook enforces it once `scripts/install-hooks` has run on the clone.
 - **WCAG AA minimum.** Real focus states, real contrast.
 - **Static-first.** No frameworks that aren't earned. Cloudflare Pages,

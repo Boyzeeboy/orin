@@ -7421,3 +7421,82 @@ cover it. The rule reads the same without the name. The `decisions.md` line of
 **Not done:** history. The name remains in earlier commits of `CLAUDE.md`, as
 the 21 August row remains in the log; this reduces exposure from here forward,
 the same trade 2026-09-08 made.
+
+---
+
+## 2026-09-24 — The report proves it can fail, and the two repos declare the same floor
+
+**Decision:** The two items the first 2026-09-24 entry deferred.
+
+1. **`tokens/scripts/report.test.mjs`, fourteen cases, now the last step of
+   `npm test`.** Each copies the real build and site into a temp dir, breaks
+   one thing, runs `report.mjs` against the copy and asserts that exactly the
+   named check went red. The pristine copy has to pass 9/9 first. Every check
+   gets at least one case; check 8 gets the four failure modes 2026-08-28
+   confirmed by hand and never kept, each on a page that is not the homepage.
+   `report.mjs` gains one line, an `ORIN_TOKENS_DIR` override next to the
+   existing `ORIN_SITE_DIR`, so it can be pointed at the copy. Runtime: under
+   a second.
+2. **Versions.** Orin's `tokens/` declared `style-dictionary ^4.3.0` against
+   the pipeline's `^4.4.0`; both lockfiles already installed 4.4.0, so the
+   drift was in the declared floor, not in what runs. Orin's floor now matches.
+   Both repos declare `engines.node >=24`, the version the pipeline's CI tests
+   on. No `.nvmrc`: Node here is Homebrew's 25, and a file pinning 24 that
+   nothing reads would be a claim, not a control.
+3. **Dependabot on the pipeline only** (orin-token-pipeline PR #7): npm and
+   Actions, weekly, grouped, majors ignored. Style Dictionary 5 is out, and a
+   major changes what the build emits, so taking it is a decision to log here,
+   not a bot PR. Not on this repo, which has no CI to prove a bump.
+
+**Reasoning:** 2026-08-28 found two checks passing while proving less than
+their names said, and fixed them by breaking things by hand. That proof lived
+in one session. The tests were checked the same way the fix was: with each of
+the two original bugs put back (check 8 reading `index.html` alone, weights
+pooled across families), the cases written for them go red, three and one
+respectively, and nothing else does.
+
+**Worth deciding, not decided:** client clones are fresh clones of the
+pipeline repo, so `dependabot.yml` travels into each one with `ci.yml`. That
+means weekly bot PRs in a client's repo. If that is not wanted,
+`scaffold-client.mjs` should remove it; it does not today.
+
+**Revisit if:** a check is added to `report.mjs` without a case in
+`report.test.mjs`, which nothing enforces; or Style Dictionary 5 is taken,
+at which point the Orin floor moves with the pipeline's in the same pass.
+
+---
+
+## 2026-09-24 — Dependabot stays in the baseline; clones do not inherit it
+
+**Decision:** Settles the "worth deciding" line in the entry above.
+`scaffold-client.mjs` now removes `.github/dependabot.yml` from every client
+clone and keeps `ci.yml`. `scripts/lib/scaffold-client.test.mjs` asserts both
+halves and the `--dry-run` case; with the removal line taken out, two of its
+three cases go red. In orin-token-pipeline PR #7, alongside the config.
+
+**Reasoning:** Three points, weighed against one cost.
+
+- **Nothing to protect in a clone.** The only dependency is Style Dictionary,
+  a build-time devDependency. A client ships generated CSS and JS, none of it
+  Style Dictionary code, so security fixes reaching production (the usual case
+  for Dependabot) barely applies.
+- **It would be a second kind of drift.** `clone-drift` and the 2026-09-02
+  entry exist because clones fall behind the baseline with nothing watching.
+  Weekly bumps per clone would move each client's versions on its own
+  schedule, and every port review would compare against versions the baseline
+  never ran. Bumps are tested once, in the baseline, and reach clones through
+  the port review.
+- **It would put red bot PRs in front of a client team.** A minor release
+  that changes emitted output fails the committed-`dist/` check. In a client
+  repo that is a weekly red PR from a bot, for a team that does not operate
+  the pipeline: it either becomes a question for me or teaches them to ignore
+  red CI.
+- **The cost:** a client who keeps the repo after handover gets no automatic
+  bumps. That is theirs to switch on, and a few minutes' work; it belongs in
+  the handover notes as an option, not on by default.
+
+`ci.yml` is the other case. It gates the client's own changes and opens
+nothing, so none of the three points applies to it.
+
+**Revisit if:** the pipeline gains a runtime dependency that ships in `dist/`,
+at which point the security argument applies to clones and the default flips.

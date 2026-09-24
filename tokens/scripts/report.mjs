@@ -21,7 +21,8 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
-const ROOT = join(HERE, '..');
+// Both overridable so report.test.mjs can run the suite against a broken copy.
+const ROOT = process.env.ORIN_TOKENS_DIR || join(HERE, '..');
 const SITE = process.env.ORIN_SITE_DIR || join(ROOT, '..', 'site');
 const DIST = join(ROOT, 'dist', 'light', 'variables.css');
 const VENDOR = join(SITE, 'vendor', 'tokens.css');

@@ -107,7 +107,7 @@ guardrails (decisions.md, 2026-08-28 and 2026-09-24):
 ## Pre-push checklist
 
 - [ ] `npm test` **from the repo root** → deliverable ok, report 9/9, verify
-      clean. Not `cd tokens && npm test`: that skips `verify:deliverable`. The
+      clean, report tests pass (`tokens/scripts/report.test.mjs`). Not `cd tokens && npm test`: that skips `verify:deliverable`. The
       pre-push hook runs this for you once `scripts/install-hooks` has run.
 - [ ] No new literal value anywhere in `site/` (a new value = a token proposal)
 - [ ] Fonts link still matches the tokens (the report proves it)
