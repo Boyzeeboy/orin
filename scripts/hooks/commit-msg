@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Public-repo commit-msg: commit messages are as public as the files. See
+# scripts/leak-check.mjs. Installed by scripts/install-hooks.
+set -euo pipefail
+exec node "$(git rev-parse --show-toplevel)/scripts/leak-check.mjs" --message "$1"

@@ -57,7 +57,8 @@ not a branding problem.
 - **`npm test` green before every push.** From the repo root it runs
   `verify:deliverable` (does `deliverable.md` still describe the real
   client pipeline?) then the token chain in `tokens/` — report 9/9,
-  verify-build clean. CI does not run these; protection is local.
+  verify-build clean. CI does not run these; protection is local, and the
+  pre-push hook enforces it once `scripts/install-hooks` has run on the clone.
 - **WCAG AA minimum.** Real focus states, real contrast.
 - **Static-first.** No frameworks that aren't earned. Cloudflare Pages,
   output dir `site`, no site build step.
@@ -78,7 +79,10 @@ not a branding problem.
   naming a live client, their people, their systems, or how to sell to them:
   meeting notes, proposals, strategic reads, session questions, contracts,
   outreach copy. Write it, then `scripts/private add -f` and add the path to
-  `.gitignore` in the same pass. Generic practice material stays here —
+  `.gitignore` in the same pass. The pre-commit leak check refuses names on
+  `notes/leak-denylist.txt` (private); a new person in a note goes on it too.
+  Claude's commits on `main`, either repo, are refused by
+  `.claude/hooks/guard-commit.mjs`. Generic practice material stays here —
   infographics, setup sheets, doctrine notes. Getting this backwards is what
   2026-08-25 cost: a history rewrite across 188 commits and a support ticket
   to GitHub, because a public remote serves deleted files by SHA long after

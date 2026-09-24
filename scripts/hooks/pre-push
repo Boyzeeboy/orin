@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Public-repo pre-push. Installed by scripts/install-hooks.
+#
+# 1. Leak check over every commit being pushed that no remote has yet. The
+#    pre-commit hook already saw most of them; this catches the ones made with
+#    --no-verify, on another machine, or before the hooks were installed.
+# 2. `npm test` from the repo root: deliverable ok, report 9/9, verify clean.
+#    CLAUDE.md has always required this before every push; until 2026-09-24 the
+#    SETUP.md checklist was the only thing asking.
+# 3. The tree is still clean afterwards. The test rebuilds and syncs the tokens,
+#    so a dirty tree here means the committed output is stale.
+#
+# The test runs against the working tree, not the pushed commit. With a clean
+# tree on the branch being pushed, those are the same thing.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+zero=0000000000000000000000000000000000000000
+commits=()
+while read -r local_ref local_sha remote_ref remote_sha; do
+  [ "$local_sha" = "$zero" ] && continue # deleting a remote branch
+  while read -r sha; do
+    [ -n "$sha" ] && commits+=("$sha")
+  done < <(git rev-list "$local_sha" --not --remotes)
+done
+
+if [ ${#commits[@]} -gt 0 ]; then
+  node scripts/leak-check.mjs --commits "${commits[@]}"
+fi
+
+if ! npm test --silent >/tmp/orin-pre-push.log 2>&1; then
+  cat /tmp/orin-pre-push.log
+  echo "pre-push: npm test failed; nothing was pushed." >&2
+  exit 1
+fi
+
+if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
+  git status --short --untracked-files=no
+  echo "pre-push: npm test changed tracked files. The committed build output is stale;" >&2
+  echo "commit the result and push again." >&2
+  exit 1
+fi
+
+echo "pre-push: leak check clean, npm test green."

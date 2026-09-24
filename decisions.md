@@ -7331,3 +7331,75 @@ scopes the engagement. Do not pitch against the AI programme; pitch under it.
 authoring the tokens and patterns themselves, with provenance and versioning,
 rather than reading them. That would be substrate work under another name,
 and the doctrine would need a second case to hold.
+
+---
+
+## 2026-09-24 — Three rules that held by memory now hold by hook
+
+**Decision:** Three local guardrails, all on the public repo's side, none in
+CI, and nothing under `site/` touched.
+
+1. **A pre-push hook runs `npm test` from the root.** CLAUDE.md has required
+   it before every push since the pipeline existed; the SETUP.md checklist was
+   the only thing asking. The hook also refuses when the test leaves tracked
+   files changed, since the test rebuilds and syncs the tokens and a dirty tree
+   afterwards means the committed output is stale. That is the pipeline repo's
+   CI check, brought local. Measured cost: 1.2 seconds.
+2. **A leak check refuses a client's people on the public remote.**
+   `scripts/leak-check.mjs` scans added lines, added paths and commit messages
+   against `notes/leak-denylist.txt`, at pre-commit and commit-msg, and again at
+   pre-push over every commit no remote has yet. The list is tracked in
+   orin-private and ignored here, because a public list of names to keep off
+   the public remote would be the leak.
+3. **A Claude Code hook refuses Claude's commits on `main`.**
+   `.claude/hooks/guard-commit.mjs`, wired in the tracked
+   `.claude/settings.json` as a `PreToolUse` hook on Bash, covers `git commit`
+   in its `-C`, `cd`-prefixed and env-prefixed forms and `scripts/private
+   commit`. Merges pass, so the private repo's by-hand fast-forward still works.
+   It fails open: a guard that breaks every Bash call gets switched off. Its
+   first live run blocked a legitimate `checkout -b` followed by a commit in
+   the same command, because it read the branch before the checkout ran. It
+   now follows a checkout or switch made earlier in the command.
+
+Hooks live in `scripts/hooks/` and `scripts/install-hooks` points
+`core.hooksPath` at them. Git never runs hooks it fetched, so each clone needs
+that once; SETUP.md says so.
+
+**Reasoning:** Each rule was already decided, and each was held by someone
+remembering it. The 2026-08-28 entry settled that protection here is local by
+design, so the answer is local enforcement, not CI.
+
+The leak check is the one with evidence behind it. The 2026-09-08 entry took
+the last first name off the file going forward and reported that the others
+returned zero matches. Backtesting the check over every commit since then
+finds one: the referrer's first name, `decisions.md` line 6879, in the ORIN-41
+entry of 18 September. A second, `CLAUDE.md` line 101 from 1 September,
+predates that entry, so its zero-matches claim was already wrong when written.
+Neither is edited here. Whether the CLAUDE.md line changes is Warren's call;
+the log line stands as a true record, on the 2026-08-25 principle. The check
+also refused its own first commit: I had used the referrer's name as the
+example in a code comment.
+
+**What the denylist holds and why:** people, a prospect's product names, and
+the outreach tracker's share-by-link Sheet ID, which is an access grant.
+Company names are left off on purpose: `decisions.md` keeps them as the
+navigational anchor (2026-09-08), and the outreach entries of 2026-09-19 name
+the ten companies deliberately. Carmen is left off too: a public post,
+attributed on purpose.
+
+**Scope, stated so nobody assumes more:** `.private.git` gets no hooks. The
+leak check guards the public remote, and `npm test` covers public files, so it
+would prove nothing about a private push. The commit guard binds Claude only;
+Warren's own terminal is untouched. Binary files are not scanned. `git
+--no-verify` bypasses the git hooks, which is the point of having it; use it on
+purpose and log why.
+
+**Deferred:** the other two items from the same tooling review. Negative tests
+for `tokens/scripts/report.mjs` (the four failure modes 2026-08-28 confirmed by
+hand are not encoded), and aligning `style-dictionary` and Node across this
+repo and `Orin Token Pipeline`, with Dependabot on the pipeline only.
+
+**Revisit if:** a real false positive blocks a legitimate commit more than
+once, which would mean a term on the list is too common a word to match
+whole; or Claude's commits start going through a path the guard does not
+parse, such as a wrapper script other than `scripts/private`.

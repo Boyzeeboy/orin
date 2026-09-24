@@ -84,10 +84,31 @@ pre-step; `vendor/tokens.css` is committed).
    first site, which is due to be retired. Set the redirect when it comes
    down, rather than letting the domain lapse, so inbound links survive.
 
+## Git hooks (run once per clone)
+
+```bash
+scripts/install-hooks
+```
+
+Git never runs hooks it fetched, so a fresh clone has none until this runs. It
+points the public repo at `scripts/hooks/` (`core.hooksPath`) and leaves
+`.private.git` alone. Three hooks, all local, because CI does not run the
+guardrails (decisions.md, 2026-08-28 and 2026-09-24):
+
+- **pre-commit / commit-msg** — `scripts/leak-check.mjs` refuses added lines,
+  added paths or a message containing a name from `notes/leak-denylist.txt`
+  (private; a public copy of the list would be the leak). Add a person there
+  the week they enter a note.
+- **pre-push** — the leak check again over every commit no remote has yet, then
+  `npm test` from the root, then refuses if the test left tracked files changed.
+
+`git --no-verify` bypasses all three. Use it on purpose and log why.
+
 ## Pre-push checklist
 
 - [ ] `npm test` **from the repo root** → deliverable ok, report 9/9, verify
-      clean. Not `cd tokens && npm test`: that skips `verify:deliverable`.
+      clean. Not `cd tokens && npm test`: that skips `verify:deliverable`. The
+      pre-push hook runs this for you once `scripts/install-hooks` has run.
 - [ ] No new literal value anywhere in `site/` (a new value = a token proposal)
 - [ ] Fonts link still matches the tokens (the report proves it)
 
