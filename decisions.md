@@ -7522,3 +7522,71 @@ which the check's ships/absent model does not express.
 
 **Revisit if:** a real handover document is written for a client. The line
 moves there, and this bullet becomes a pointer.
+
+---
+
+## 2026-09-24 — The tooling review, as a session: what it asked, left alone and got wrong
+
+**Decision:** None new. This records the session the five entries above came
+out of, so the entries read as one piece of work and the parts that changed no
+file are not lost.
+
+**What was asked:** which tools Orin and `Orin Token Pipeline` should be using
+and are not. The answer found little missing. It found rules held by
+someone remembering them, and proposed five items: a pre-push hook, a
+client-name leak check, a Claude Code guard on commits to `main`, tests for the
+report's own checks, and aligned versions with Dependabot on the pipeline. All
+five shipped the same day: public PRs #92 to #95, pipeline PR #7, and the
+denylist on orin-private `main`.
+
+**Left alone on purpose:**
+
+- **Lighthouse CI, Playwright and visual regression on the site.** The v1
+  stopping rule (2026-08-16) covers them: measuring a site nobody is changing
+  proves nothing new.
+- **CI for this repo.** 2026-08-28 settled that protection here is local. The
+  hooks enforce locally; they do not reopen it.
+- **Hooks on `.private.git`.** The leak check guards the public remote and
+  `npm test` covers public files, so neither proves anything about a private
+  push. The first answer in the session said the private gitdir "needs its own
+  copy"; working it through said otherwise.
+- **An `.nvmrc`.** Node here is Homebrew's 25, so a file pinning 24 that
+  nothing reads would be a claim, not a control.
+
+**Noted, not acted on:**
+
+- **Connectors.** `plugin:figma:figma` and `plugin:design:linear` needed
+  authorising; the second duplicates the Linear connector already in use and
+  could be switched off. `paper` failed to connect.
+- **A live Figma read for `check:figma`.** The figma-console MCP exposes a
+  design-parity check and a token export. A live read could remove the stale-
+  dump problem the freshness guard exists for (2026-08-30). Untried; it wants a
+  scratch file before anything relies on it.
+- **Local config outside the repo.** Eight dead allowlist entries came out of
+  `.claude/settings.local.json` (old `Documents/` paths, Desktop game scripts),
+  and the branch-rule memory now says the guard enforces it in Orin sessions
+  and nowhere else.
+
+**What the session got wrong, and how each surfaced:**
+
+- **Version drift was overstated.** The review called Orin's
+  `style-dictionary ^4.3.0` against the pipeline's `^4.4.0` a drift. Both
+  lockfiles already installed 4.4.0; only the declared floor differed. Reading
+  the lockfiles before changing anything found it.
+- **A line number was wrong.** The name in `CLAUDE.md` was reported at line 101
+  and was at 105, because the session's own edits in #92 had moved it.
+- **Both new guards hit their author first.** The leak check refused its own
+  first commit over an example name in a code comment. The commit guard
+  refused a legitimate `checkout -b` followed by a commit in the same command.
+  Both are in the first entry above; both were fixed before merge.
+
+**Reasoning:** The five entries above each record one change. None of them
+records what the review chose not to recommend, and a later session asking the
+same question would otherwise propose Lighthouse CI or private-side hooks
+again and have to rediscover why not. The errors are here for the same reason
+the outbound-record rule exists: a log that only carries what went right is a
+record that lies politely.
+
+**Revisit if:** the site stops being v1, which reopens the measurement tools;
+or the figma-console parity check is tried, which gets its own entry either
+way.
