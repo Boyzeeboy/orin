@@ -7681,3 +7681,73 @@ Warren's call. The scratch file is left in place for him to delete.
 **Revisit if:** a figma-console release resolves cross-collection aliases by
 mode name and reads fresh by default. Rerun this trial on the same file before
 relying on it.
+
+## 2026-09-26 — ORIN-49 steps 0 and 1: the harness, the contract, and two defects found
+
+**What ran:** Step 0 (the harness) and step 1 (the contract), both in the
+IDEM pipeline repo, both merged or in review there. Sections appended to
+`notes/component-layer-learning-plan.md`; the fixed part is
+`runs/PROTOCOL.md` in that repo and it wins on any disagreement.
+
+**Step 0.** TypeScript, the Storybook test-runner with axe in both modes,
+the ORIN-39 run harness adapted for IDEM, and `snapshot-tokens.mjs` no
+longer rewriting two files on a build that changed nothing. `npm test`
+green on the five existing stories. Three findings in `runs/NOTES.md`:
+the current test-runner does not support Storybook 8 (pinned 0.22.0, and
+the protocol's prescribed peer-range check is what caught it); the five
+token docs stories fail AA on 188 nodes because they are styled with
+hardcoded hex rather than the tokens they document; and `preview.jsx`
+needed an explicit React import on the classic runtime.
+
+**Step 1.** A contract schema, `button.contract.json`, and
+`scripts/verify-contracts.mjs`. The decision that carries the most
+weight: **the tokens map is the allowlist**, so a component may
+reference an `--idem-*` name only if its own contract names it. That is
+what makes the check read data rather than infer from folder names, and
+it removes the contradiction the first review found between check 4 and
+step 5.
+
+**Two defects, neither of which anything in four pipelines would have
+caught:**
+
+1. The IDEM token docs stories fail contrast on 188 nodes. Filed as
+   ORIN-52, in a new **IDEM Token Pipeline** project (P-ORIN-9), because
+   it is token-layer documentation debt and does not belong in ORIN-49's
+   tail.
+2. Seven of the twenty Button variant/state/mode bindings fail AA, found
+   by a contrast check (1c) added during step 1. Three causes:
+   `colour/ink/onBrand` is white in dark mode where the brand ramp is
+   light teal; both `focus/text` entries are raw hex rather than aliases,
+   so secondary inherited primary's white; and dark secondary lightens on
+   interaction under near-white text. The correct dark ink was already in
+   the file, hardcoded into `button/primary/focus/text`, and had never
+   propagated to the semantic token.
+
+**Decided, not assumed:** the contrast fix goes through Figma and the
+normal sync, not by editing `tokens/*.json`. The token source is synced
+from IDEM Revised, so a JSON-only fix would put code ahead of Figma,
+which is the drift the practice exists to catch. `npm test` is red until
+that syncs. Change list in `runs/step-1-contrast.md`.
+
+**Protocol changes, both logged as entry 2 and both before any run:**
+check 1c (contrast on the contract's own bindings, `disabled` exempt
+under WCAG 1.4.3 and declared in the contract) and a `proposed` field
+that lets check 1 print the unemitted spacing and typography names
+without failing on them. The second replaces "check 1 is red until step
+2.5", which would have left the build red through step 2 and made the
+run harness's contract exit code meaningless.
+
+**Held:** the emission gap. `size.json` and `typography.json` still
+compile to nothing, deliberately, because that gap is what step 2
+observes. Fixing it is step 2.5's, after the three runs.
+
+**What this is starting to say:** two of five steps in, the component
+layer has surfaced two real defects in a system I would have described
+as working, and neither needed an agent to find. The claim that survives
+is about the layer, not about agents, which is the same shape as
+ORIN-39's one usable result.
+
+**Revisit if:** the Figma session finds that the dark secondary
+interaction direction cannot change without breaking something else.
+Then the ink is what moves, and `runs/step-1-contrast.md` section (d) is
+where the reasoning goes.

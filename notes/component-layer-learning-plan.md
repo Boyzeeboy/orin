@@ -237,6 +237,117 @@ a finding, not a reason to add a session.
   both modes. Then the task is at ceiling again, and steps 2 and 5 need a
   harder component before they teach anything.
 
+---
+
+# Step 0, 26 September 2026: the harness
+
+Ran in one sitting. TypeScript, the Storybook test-runner with axe in
+both modes, the run harness adapted from ORIN-39, and a build that no
+longer dirties the tree. `npm test` green on the five stories that
+already existed. Three findings, all in `runs/NOTES.md`.
+
+The one worth repeating here: **all five token docs stories fail AA**,
+9, 9, 23, 53 and 94 nodes, because they are styled with hardcoded hex
+rather than the tokens they document. Real, older than the harness, and
+invisible until something looked. Exempted by title, debt recorded,
+filed as ORIN-52. That is the same shape as the gap step 2 is built
+around, found before step 1 started.
+
+The protocol contradicted itself here and only running it showed that:
+step 0 is "done when `npm test` is green" and also "a docs story failing
+axe is not step 0's to fix". Resolved toward proving the harness.
+
+# Step 1, 26 September 2026: the contract
+
+## What the schema holds
+
+`name`, `figmaNodeId`, `props`, `states`, `tokens`, `a11y`, `stories`,
+and one field the protocol did not specify, `proposed`. The `tokens` map
+is `variant → state → { cssProperty: token name }`, names never values.
+
+**The tokens map is the allowlist.** A component file may reference an
+`--idem-*` name only if its own contract names it. That one decision is
+what makes the check read data instead of inferring intent from a folder
+name, and it is why `Label`, `Input` and `FormField` will later pass or
+fail on the same rule rather than three special cases.
+
+## What the checks prove, and what they cannot
+
+Checks 0, 1, 1b, 2, 3 and 4 went in as specified. 1c is new.
+
+| | Proves |
+|---|---|
+| 0 | the contract is well formed |
+| 1 | every name it uses is emitted in both modes, or declared proposed |
+| 1b | no contract reaches past the semantic layer to a primitive |
+| 1c | each state's ink on its own background meets the contract's bar |
+| 2 | every state the contract names has a story, in both modes |
+| 3 | no literal survives in a component file |
+| 4 | no component reaches for a token its contract does not name |
+
+What none of them prove is whether a binding is **right**: nothing can
+tell `--idem-button-primary-bg` from `--idem-button-secondary-bg` on the
+wrong element. That is review's job, and it is the boundary the whole
+layer sits on.
+
+## The asymmetry, decided
+
+Primary has no `hover-border` or `pressed-border`; secondary has both.
+Primary's border is `rgba(0,0,0,0)`, so there is no state for a border to
+be in. Secondary's two are aliases pointing at `{button.secondary.border}`,
+the same value in both modes. So: justified for primary, redundant but
+harmless for secondary, and the contract binds what exists rather than
+tidying it.
+
+## The finding: 7 of 20 bindings fail AA
+
+Writing the contract made the bindings legible for the first time, and
+check 1c found that seven of the twenty variant/state/mode combinations
+fail. Dark primary is unreadable at rest, 2.73:1, worsening to 1.65:1
+pressed. Light secondary focus is 1.40:1, white ink on a light grey
+button.
+
+Seven failures, three causes. `colour/ink/onBrand` is white in dark mode
+where the brand ramp is light teal, and `button/primary/text` aliases it,
+so one wrong value produces three failures. Both `focus/text` entries are
+raw hex rather than aliases, which is how secondary ended up with
+primary's white. And in dark, secondary lightens on interaction under
+near-white text, which no ramp step above neutral-200 survives.
+
+**The value that works was already in the file.**
+`button/primary/focus/text` in dark is hardcoded `#1f343a` and passes at
+4.78. Somebody worked out the right ink for dark brand, wrote it into
+focus, and never carried it back to the semantic token the other states
+read. That is the whole argument for a contract in one token: the
+knowledge existed and nothing propagated it.
+
+Disabled states are exempt, under WCAG 1.4.3 on inactive controls,
+declared in the contract as `a11y.contrastExempt` rather than skipped
+quietly in the checker.
+
+**The fix goes through Figma, not the JSON.** `tokens/*.json` is synced
+from IDEM Revised, so editing values here would put code ahead of Figma:
+the exact drift the practice sells against. The change list is
+`runs/step-1-contrast.md`, and `npm test` stays red until it syncs,
+which is the guardrail working rather than failing.
+
+## Where check 1 ended up, against the protocol
+
+The protocol expected check 1 red on the unemitted spacing and typography
+names, all through step 2. That would have left `npm test` red for the
+whole step and made `run.sh`'s `verify_contracts_exit` meaningless. The
+`proposed` list replaces it: check 1 prints the seven names every run and
+fails only on an undeclared one, or on a proposed name the build has
+started emitting, so the list cannot rot. Logged as change-log entry 2.
+
+## What step 1 cost
+
+One sitting, and it produced a token-layer finding before a single line
+of component code existed. Two of the five steps have now each surfaced
+a real defect in a system I would have described as working.
+
+---
+
 ## Related
 
 - `runs/PROTOCOL.md` in `idem-design-tokens`: the fixed part.
