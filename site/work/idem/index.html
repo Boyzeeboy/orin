@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IDEM · Orin</title>
+  <meta name="description" content="I built the layer above the tokens on my own design system. It found ten faults in two days, in a pipeline I would have called working.">
+
+  <!-- Open Graph / X. Absolute URLs: unfurlers do not resolve relative paths,
+       and they do not run JavaScript, so these cannot come from a partial. -->
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Orin">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:title" content="IDEM · Orin">
+  <meta property="og:description" content="I built the layer above the tokens on my own design system. It found ten faults in two days, in a pipeline I would have called working.">
+  <meta property="og:url" content="https://orinsystems.co/work/idem/">
+  <meta property="og:image" content="https://orinsystems.co/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Orin — the design system your developers ship from.">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://orinsystems.co/work/idem/">
+  <!-- Icons. PNG only, declared here: sips cannot write .ico, and nothing
+       falls back to a bare /favicon.ico when the tags are present. -->
+  <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="icon" href="/icon-512.png" sizes="512x512" type="image/png">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- ONE canonical fonts link. Families and weights match the tokens exactly;
+       the report's fonts-link check fails the build if they ever diverge. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@400;500;600&display=swap">
+
+  <!-- Vendor tokens FIRST (the only source of values), then site styles (aliases only).
+       Absolute paths so they resolve from a pretty URL served with a trailing slash. -->
+  <link rel="stylesheet" href="/vendor/tokens.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div data-include="/partials/nav.html"></div>
+
+  <main id="main">
+
+    <section class="section">
+      <article class="wrap">
+        <p class="eyebrow">Case study · personal rebuild</p>
+        <h1>IDEM: ten faults in a system I would have called working</h1>
+
+        <p>IDEM is my own design system. A token pipeline that syncs from
+        Figma, builds through Style Dictionary, and emits CSS, JavaScript and
+        JSON for light and dark. Storybook documents it. A site consumes it
+        with no hardcoded values anywhere. It has run for months, and if you
+        had asked me about it I would have said it was in good shape.</p>
+
+        <p>What it did not have was the layer above the tokens. Tokens are
+        values. A button is not a value: it has variants, states, a shape, and
+        rules about which value goes where. That knowledge lived in my head and
+        in Figma, and nowhere a script could read it. So I built it. A contract
+        for each component, as data rather than prose. A guardrail that reads
+        the contract. A check that diffs the contract against the Figma file.</p>
+
+        <p>The first thing it found was that two token files had never been
+        compiled. Spacing and typography were authored, versioned, and shown in
+        Storybook, and the build emitted no CSS variable for any of them. Every
+        component needing padding, radius or a type size had nothing to reach
+        for. The files were not wrong. Nothing had ever asked them a question,
+        and a file that is never built is never wrong.</p>
+
+        <p>The second was mine. I wrote the button's contract carefully, from
+        the token files, and never opened the design. It was wrong in four
+        places. The design draws a pill and I had specified a rounded
+        rectangle, so anything built to my contract was the wrong shape. Every
+        check passed the whole time, because every check compared the contract
+        with the code, and the design was not in the conversation.</p>
+
+        <p>The third is the one I think about. A font weight bound to a
+        variable that is in no collection in the file. It resolves to the right
+        number, so the design renders correctly and looks fine. But editing the
+        real token would have done nothing to the button, and no export would
+        ever have listed the variable it actually used. Right value, correct
+        rendering, wrong wiring. Nothing that compares values could find it,
+        because the value was right.</p>
+
+        <p>Ten faults in two days. Also: 188 contrast failures in the pages that
+        document the system, because they are styled with hardcoded hex rather
+        than the tokens they teach. And a primary button with no focus state at
+        all, identical to its resting state in both modes, which is a
+        conformance failure sitting in the source everything else is built
+        from.</p>
+
+        <p>None of this needed anything clever. It needed something to ask
+        questions the system had never been asked. That is the part worth
+        taking away. A token layer can only be checked against itself: names
+        resolve, modes agree, nothing is hardcoded. All of that was true of
+        IDEM throughout. The component layer is the first thing that has to
+        actually consume the tokens, and consumption is what tests them.</p>
+
+        <p>I should be straight about the shape of this. IDEM is greenfield, it
+        is mine, and most of what I found was my own work. That is the argument
+        rather than a caveat. If a system one person designed and maintains,
+        with a real pipeline and real guardrails, hides ten faults until
+        something looks, then a system a team built over three years hides more.
+        The difference is not care. It is that nobody has built the thing that
+        would ask.</p>
+
+        <p>If you have tokens and no layer above them, the Diagnostic is where
+        we start.</p>
+
+        <p><a class="button" href="/contact">Get in touch</a></p>
+      </article>
+    </section>
+
+  </main>
+
+  <div data-include="/partials/footer.html"></div>
+  <script src="/includes.js"></script>
+</body>
+</html>
