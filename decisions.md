@@ -7845,3 +7845,56 @@ scanning now, with newlines preserved so line numbers stay correct.
 **Revisit if:** the rewritten paragraph is ever run. It is untested, and
 check 3 must first be taught to permit a `var()` fallback whose token
 name is in the contract's `proposed` list.
+
+## 2026-09-27 — ORIN-49 step 3: every check proved, and the design has no focus state
+
+**What ran:** Step 3 in the IDEM pipeline, merged as PR #8. The `1px`
+allowlist is gone, all six contract checks have been broken and shown to
+go red individually, and the section is in
+`notes/component-layer-learning-plan.md`.
+
+**The widths are tokens now.** Getting there found the system had **no
+width token of any kind**: all 26 border, stroke and outline variables
+are colours, and `strokeWeight: 1` sat unbound on ten Figma frames.
+`border/width/default` is now declared in Figma and bound, which is the
+third implicit frame property in two days turned into a diffable token
+after `button/radius` and `button/height`. That is a pattern, and it is
+the argument for the component layer owning a token tier rather than
+reaching into the primitive scales.
+
+**Every check goes red on its own break,** via `runs/bin/breaks.mjs`,
+which applies each break, records which ids fire, and restores. One
+thing that reasoning would have got wrong: a contract edit produces two
+reds and a code edit produces one, because changing what the contract
+permits orphans the CSS that named the old token. That is now a readable
+signal rather than a surprise.
+
+**The seam is proved.** A low-contrast value placed in a story passes
+check 3, which correctly does not scan stories, and fails axe, which
+names the story and therefore the mode, because step 0 chose explicit
+dark exports over a toolbar loop. Stated plainly: **static checks prove a
+component references the right names; only executing it proves the
+result is usable.** Every check in steps 1 to 3 sits on one side of that
+line, and knowing which side stops a green build being read as a working
+component.
+
+**Finding, filed as ORIN-55 (High):** `Button=Primary,State=Focus` is
+pixel-identical to `Button=Primary,State=Default` in both modes. No
+effects, transparent border, focus background and text resolving to the
+same values as rest. A WCAG 2.4.7 failure in the design, which the
+shipped code covers with an outline the design never specified, and
+which was my judgement call rather than a system decision. It also means
+`focus/ring/width` and `focus/ring/offset` are the only tokens in the
+system with no Figma counterpart, and that step 4's drift check will
+flag them correctly.
+
+**Worth recording as a pair.** A contract written from the token files
+was wrong about the design four times in step 2. A contract written with
+accessibility in mind caught something the design had never considered
+in step 3. The contract is not a transcription of Figma and not a wish
+list; it is where the two meet, and it has now earned its keep in both
+directions.
+
+**Revisit if:** ORIN-55 is resolved. `focus/ring/width` and
+`focus/ring/offset` then move from code-authored to synced, and their
+descriptions need updating to say so.

@@ -491,6 +491,87 @@ That is the claim that is surviving: not that agents do better work with
 context, but that **building the layer above the tokens is what makes
 the token layer testable.**
 
+# Step 3, 27 September 2026: the guardrail, one layer up
+
+## The allowlist is empty
+
+`1px` was the one permitted literal through steps 1 and 2, in three
+places: the border, the focus ring width, and its offset. All three are
+tokens now. The component has no literals at all beyond unitless zero.
+
+Getting there found that **the system had no width token of any kind.**
+All 26 variables matching border, stroke or outline are colours, and
+`strokeWeight: 1` sat unbound on ten Figma frames. The border width is
+now declared in Figma and bound, the third time in two days that an
+implicit frame property has been turned into a diffable token
+(`button/radius`, `button/height`, now `border/width/default`).
+
+The focus ring width and offset could not be synced, for the reason
+below. They are authored in code and say so in their descriptions, and
+they are the only tokens in the system with no Figma counterpart.
+
+## Every check goes red on its own break
+
+`runs/bin/breaks.mjs` applies each break, runs the check, records which
+ids fire, and restores. Six breaks, all red, nothing red when nothing is
+wrong.
+
+The thing I would have got wrong by reasoning: **a contract edit
+produces two reds, a code edit produces one.** Changing what the
+contract permits immediately orphans the CSS that named the old token,
+so check 4 fires alongside check 1, 1b or 1c. That is the allowlist
+working as designed, and it is now a readable signal: two reds means
+someone changed the specification, one means they changed the code.
+
+## The seam, which is the point of the whole step
+
+The fifth break puts a low-contrast value **in a story**, which check 3
+does not scan:
+
+```
+check 3:  ✓ no literals in 2 component file(s)
+axe:      ● Components/Button › SecondaryRestDark › smoke-test
+          color-contrast, serious, 1 node
+```
+
+Check 3 is silent and correct to be. Only running the thing catches it.
+And because step 0 chose explicit dark story exports over a toolbar
+loop, the failure **names the mode**. That decision cost a doubled story
+count and has now paid for itself once, in the only place it could.
+
+This is the boundary the layer sits on, stated as cleanly as it is going
+to get: **static checks prove a component references the right names;
+only executing it proves the result is usable.** Every check written in
+steps 1 to 3 is on one side of that line, and knowing which side is what
+stops a green build being mistaken for a working component.
+
+## Finding: the design has no focus indicator on the primary button
+
+Found while looking for a focus-ring width to sync, which is the kind of
+thing you only look for when you are building the layer above.
+
+`Button=Primary,State=Focus` is **pixel-identical** to
+`Button=Primary,State=Default` in both modes: no effects, transparent
+border, `focus/bg` aliasing `bg`, and `focus/text` resolving to the same
+value as `text`. Secondary escapes only incidentally, because its stroke
+binds a teal.
+
+A WCAG 2.4.7 failure in the design, which the shipped code has been
+covering with an outline the design never specified. That was my
+judgement call writing the CSS, not a system decision, and nothing would
+have caught it. Filed as ORIN-55.
+
+**This is the first disagreement that went the other way.** The contract
+already said `a11y.focusIndicator: true`, so the contract was right and
+the design was wrong. Every previous one, the design was right and I had
+guessed.
+
+Worth holding onto both directions. A contract written from the token
+files was wrong about the design four times. A contract written with
+accessibility in mind caught something the design had never considered.
+The contract is not a transcription of Figma and it is not a wish list;
+it is the place the two meet, and it earns its keep in both directions.
+
 ---
 
 ## Related
