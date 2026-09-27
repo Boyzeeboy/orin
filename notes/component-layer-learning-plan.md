@@ -657,6 +657,134 @@ Not one needed an agent to behave differently. Every one needed
 something to ask the system a question it had never been asked, and the
 component layer is what asks.
 
+# Step 5, 27 September 2026: FormField, and what the question turned out to be
+
+## The run
+
+`r04` built the pattern, passed every check, and needed **zero
+corrections**. 61 stories, axe clean in both modes. The first run to do
+any of those.
+
+It **followed**: used `colour/on-background-muted` for the hint and
+`input/text/error` for the error, both existing semantic tokens, and
+wrote a contract naming them. No new component, no new token, no
+proposal.
+
+**My premise was wrong.** I chose the task believing hint text had no
+token. It has one, it passes AA in both modes, and not inventing one was
+the right answer. The gap I built the run around did not exist.
+
+## The three observations, and the wrong question
+
+| | Missing | Did | In place |
+|---|---|---|---|
+| ORIN-39 | a `Link` | **invented**, silently | a one-paragraph router |
+| `r01` | 10 tokens | **proposed**, and built anyway | the schema alone |
+| `r02`, `r03` | 7 tokens | **proposed**, and stopped | my paragraph, which said "stop" |
+| `r04` | nothing | **followed** | the rewritten paragraph, three contracts |
+
+Zero inventions across four runs. Three correct proposals and one case
+needing none.
+
+**What determined the behaviour was not the instruction.** Three times
+out of four the instruction was absent or actively harmful and the
+outcome was still reasonable. `r01` proposed with no prose at all,
+because `contract.schema.json` has a field called `proposed` and
+describes what it is for. The paragraph that asked for the same thing
+stopped two runs from building anything.
+
+So the ordering, on this evidence: **the data model, then the examples,
+then the prose.** Prose is the weakest of the three and the only one
+that can backfire.
+
+**And the question was wrong.** "Propose or invent" assumes a gap.
+Across four runs, three gaps were real and one was my mistake. Nothing
+here supports a claim that Orin's context makes agents propose rather
+than invent: one observation of invention and three of proposal, under
+four conditions that differed in every dimension at once, is an anecdote
+in each direction.
+
+What it does support is narrower and more useful: **if you want an agent
+to record a gap rather than paper over it, give the repository a place
+to record it.** That is a claim about the artefact, not about the agent,
+and it is demonstrable on any repo in an afternoon.
+
+## What it found in my code, an hour after I wrote it
+
+`.idem-visually-hidden` was used in `Label.tsx` and defined nowhere, so
+the "(required)" text meant for screen readers was rendering visibly to
+everyone.
+
+It also reasoned that a disabled `FormField` must not grey its hint and
+error, because standalone paragraphs cannot claim WCAG's
+inactive-control exemption. That is the distinction axe had forced on me
+with the Label earlier the same day, generalised to a case I had not
+hit. It could read that reasoning in a story comment, which makes it
+propagation rather than insight, and is the argument for writing
+reasoning down where the next reader will find it.
+
+Its accessibility wiring is better than mine: `useId` for the
+association, `aria-describedby` listing the error before the hint so the
+blocker is announced first, and `aria-invalid` derived from the same
+prop that renders the message so the two cannot disagree.
+
+---
+
+# ORIN-49, closed
+
+## Ten defects, five steps
+
+| | Found by |
+|---|---|
+| 188 contrast failures in the token docs | axe, once anything ran it |
+| 7 Button bindings failing AA | the contract making bindings legible |
+| 2 token files authored and never compiled | building a component that needed them |
+| 15 letter-spacing tokens emitting invalid CSS | compiling those files for the first time |
+| `button/radius` in Figma, in no token file | a contract that had to name a radius |
+| 4 wrong values in my own contract | an agent with design access |
+| dead padding, read as real twice | measuring rather than reading |
+| no focus indicator on the primary button | looking for a token to sync |
+| a font weight bound to an orphaned variable | the drift check |
+| a visually-hidden class that hid nothing | an agent reading my code |
+
+**Not one needed an agent to behave differently from baseline.** Every
+one needed something to ask the system a question it had never been
+asked.
+
+## What I can now say on a call
+
+Before this, the component layer was 543 lines of parked governance and
+a research evaluation. Now:
+
+- I have built it. Contract, guardrail, executable checks, Figma diff.
+- It found ten defects in a system I would have described as working,
+  including one that nothing else could see: a font weight bound to a
+  variable in no collection, right value, correct rendering, wrong
+  wiring.
+- I can say what each layer of checking can and cannot prove. Static
+  checks prove a component references the right names. Only executing
+  it proves the result is usable. Only diffing against the design proves
+  it is the right component. A contract checked against code alone is
+  checked against half the system.
+- I know what the Figma round-trip costs, except the Code Connect seat,
+  which is still owed and is the question a client will ask.
+
+## What I cannot say, and will not
+
+Nothing about agents working better with context. ORIN-39 ruled that out
+and this did not rescue it. The one behavioural finding, that a schema
+field produced proposing where a paragraph did not, is n=1 per arm on
+one system and is a design observation, not a performance claim.
+
+## The sellable claim
+
+**Building the layer above the tokens is what makes the token layer
+testable.** Ten pieces of evidence, all from one system in two days,
+none of them requiring anyone to believe anything about AI.
+
+That is a systems claim. It is demonstrable, it survives a sceptical
+client, and it is what the Build has actually been selling all along.
+
 ---
 
 ## Related

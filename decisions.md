@@ -7944,3 +7944,57 @@ would have described as working, and not one of them needed an agent to
 behave differently. Every one needed something to ask the system a
 question it had never been asked. That is the sellable finding, and it
 is a systems claim rather than an agent claim.
+
+## 2026-09-27 — ORIN-49 closed: ten defects, and the claim that survives
+
+**What ran:** Step 5 and the closing write-up, PR #10 in the IDEM
+pipeline. All five steps are complete; `runs/PROTOCOL.md` is closed with
+change-log entry 5.
+
+**Step 5's run (`r04`) was the best of the four:** built the pattern,
+passed every check, zero corrections, 61 stories axe-clean in both
+modes. It **followed** rather than proposing, using
+`colour/on-background-muted` and `input/text/error`, both of which
+already existed. **My premise was wrong**: I chose the task believing
+hint text had no token, and it has one. Check 5 stays unbuilt, since no
+agent created a component without a contract across four runs.
+
+**The propose-or-invent question turned out to be the wrong question.**
+Four runs, zero inventions, three correct proposals, one case needing
+none. What determined the behaviour was not the instruction: `r01`
+proposed with no prose at all, because `contract.schema.json` has a
+`proposed` field and describes what it is for, while the paragraph that
+asked for the same thing stopped two runs from building anything. The
+ordering on this evidence is **the data model, then the examples, then
+the prose**, and prose is the only one of the three that can backfire.
+
+**Nothing here supports a claim that Orin's context makes agents propose
+rather than invent.** One observation of invention (ORIN-39) and three
+of proposal, under four conditions differing in every dimension, is an
+anecdote in each direction. The narrower claim that does survive is
+about the artefact: if you want an agent to record a gap rather than
+paper over it, give the repository a place to record it.
+
+**Ten defects across five steps,** listed in the plan note, none of
+which needed an agent to behave differently from baseline. Two of them
+were mine and were surfaced by an agent reading my code, including a
+`.idem-visually-hidden` class used in `Label.tsx` and defined nowhere,
+so screen-reader-only text was rendering visibly.
+
+**The claim to sell:** building the layer above the tokens is what makes
+the token layer testable. Ten pieces of evidence from one system in two
+days, none requiring anyone to believe anything about AI. That is a
+systems claim, it survives a sceptical client, and it is what the Build
+has been selling all along.
+
+**Still owed, and commercially relevant:** the Code Connect seat cost,
+from step 4.2. It is the question a client will ask and it is the one
+part of the round-trip not established.
+
+**Open tickets from this work:** ORIN-52 (docs contrast), ORIN-53 (no
+sync script), ORIN-54 (resolver, done in step 4), ORIN-55 (no focus
+indicator).
+
+**Revisit if:** the public write-up is started. The plan note's "Public
+form" section decided that comes after step 5, from the sections, and
+step 5 is now done. The three candidate forms are unchanged.
