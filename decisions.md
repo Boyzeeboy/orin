@@ -8185,3 +8185,46 @@ if they already have Organization or Enterprise.
 untouched. Three parts built once, on a four-component greenfield system
 owned by one person, is not a client library at scale and does not meet
 condition 4. The parts marked *hypothesis* are the same ones as before.
+
+## 2026-09-27 — Six substrate checks, from ORIN-49 into the Diagnostic
+
+**Filed:** `notes/diagnostic-substrate-checks.md`. The six defects from
+ORIN-49 that generalise into checks runnable on someone else's system,
+mapped onto the Diagnostic's existing shape rather than proposed as a
+parallel thing.
+
+**The shape is the useful part.** `Offer.md` §1 already distinguishes
+what **installs** in their repo and runs unsupervised from what is run
+**with** them because it can quietly say "fine" when it is not. Each
+check is classified against that line: four install, one is run with
+them, and one is a question that needs no access at all.
+
+**Three of the six are refinements, not new checks.** The baseline
+already has `dimensions carry units`; IDEM's letter-spacing escaped it
+only by being typed `number` rather than `dimension`, so the fix is a
+few lines on an existing check. Check 4 is ORIN-46, already ticketed.
+Check 5 needs ORIN-47's profile-aware scanning. That is what makes this
+a day of work rather than a project.
+
+**Genuinely new:** every authored token file reaches the build (nothing
+checks this, and it found a whole uncompiled layer), and literals in the
+token source (the baseline has three checks for literals in consuming
+code and none for the token files themselves).
+
+**One does not fit and belongs to the Build:** a component bound to a
+variable that does not exist. It needs a name-level diff against a
+contract, so there is nothing to diff until the component layer exists.
+Worth mentioning in a Diagnostic as the thing the Build catches that
+nothing else can.
+
+**The line to hold.** Every finding came off my own greenfield system,
+maintained by one person. That is the argument, framed as: if a system
+one person designed with real guardrails hides ten faults until
+something looks, a system a team built over three years hides more.
+**Do not say a number.** Do not promise a Diagnostic finds ten things.
+Say what the checks look for and let their system answer.
+
+**Build order:** checks 1 and 3 first, pure static, half a day, and they
+found three of the ten. Then the `dimensions carry units` extension.
+Then ORIN-46, then ORIN-47, then the design-source a11y page in the
+runbook.
