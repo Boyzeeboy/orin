@@ -572,6 +572,91 @@ accessibility in mind caught something the design had never considered.
 The contract is not a transcription of Figma and it is not a wish list;
 it is the place the two meet, and it earns its keep in both directions.
 
+# Step 4, 27 September 2026: the drift check
+
+## Shape
+
+`npm run verify:figma`, a snippet-plus-script pair like the token sync,
+run on demand because it needs a live read. Three exit codes, and the
+third is the one I would not have thought to add before ORIN-54:
+**0 agree, 1 disagree, 2 cannot tell.** A check that cannot distinguish
+"fine" from "I could not look" is the one that eventually lies.
+
+The mapping between the two naming schemes is data on the contract, not
+a lookup buried in the checker: `propMap`, `stateMap`, `valueMap`, and
+`codeOnly` for properties with no Figma counterpart by design. Every
+`codeOnly` entry prints on every run. A declared gap, never a silenced
+one.
+
+## The finding: an orphaned variable
+
+The Button's font weight was bound to `VariableID:1:6841`, named
+`Weight/Medium`. That id **is in no collection's variable list**. The
+real `Fonts/weight/medium` is a different variable entirely.
+
+Both resolve to 500. The design rendered correctly. Editing the real
+token would have done nothing to the button, and no enumeration of local
+variables would ever have seen the one it used, so the token sync could
+not have caught it either.
+
+**Right value, plausible name, correct rendering, wrong wiring.** That
+is the class of defect this check exists for, and it is the first
+finding in the whole exercise that only a Figma-to-code comparison could
+produce. Everything before it, a sufficiently careful person could have
+found by reading one side.
+
+The text style bound the correct variable all along. The orphan was a
+node-level override shadowing it, which is why it survived.
+
+## Three more, and one that went the other way
+
+Primary Disabled bound its stroke to `disabled/bg`, leaving
+`disabled/border` emitted and used by nothing. Secondary Focus bound its
+label to `secondary/text`, leaving `secondary/focus/text` dead, **which
+is why step 1's 1.40:1 contrast failure was invisible**: the only place
+it could have shown was the one place that did not use it. Inline
+padding was an unbound raw 20.
+
+13 disagreements went to 1. The last one was **a code defect**: the
+design changes the secondary border colour on focus and my CSS did not.
+First time the drift check corrected the code rather than the design,
+and the second time overall that the code was the wrong side.
+
+## What 4.4 proved
+
+Renaming `Secondary` to `Outline` in Figma produced six failures naming
+the property, both value sets and every orphaned variant. Renamed back,
+green. The check goes red for the right reason and says enough to act
+on without opening Figma.
+
+## Owed
+
+Code Connect was not published. The node id in the contract is the
+weaker manifest the governance note recorded on 2026-09-14, and it is
+sufficient for a check that matches by variant name. Establishing the
+seat cost is the one part of step 4.2 not done, and it is the question a
+client will ask, so it should not stay owed for long.
+
+## What four steps have produced
+
+Nine defects, in a system I would have described as working:
+
+| | Found by |
+|---|---|
+| 188 contrast failures in the token docs | axe, once anything ran it |
+| 7 Button bindings failing AA | the contract making bindings legible |
+| 2 files authored and never compiled | building a component that needed them |
+| 15 letter-spacing tokens emitting invalid CSS | compiling those files for the first time |
+| `button/radius` in Figma and in no token file | a contract that had to name a radius |
+| 4 wrong values in my own contract | an agent with design access |
+| dead padding in the design, read as real twice | measuring rather than reading |
+| no focus indicator on the primary button | looking for a token to sync |
+| a font weight bound to an orphaned variable | the drift check |
+
+Not one needed an agent to behave differently. Every one needed
+something to ask the system a question it had never been asked, and the
+component layer is what asks.
+
 ---
 
 ## Related
