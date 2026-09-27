@@ -223,6 +223,83 @@ outreach email); an outreach piece for the "first UX Engineer hired to
 build a design system" trigger row, where "the first component exposed
 the pipeline gap" is written for exactly that reader.
 
+---
+
+## Decided, 27 September 2026: the IDEM essay, and it is not optional any more
+
+All five steps are run. The decision the section above deferred:
+
+**Write the IDEM essay on `/work`. Do not write the other two.**
+
+### Why the essay
+
+The slot already exists and says **"Essay coming"**. It has said so
+since v1 on 2026-08-16. Writing it closes a declared promise rather than
+adding scope, which is the only kind of site work the stopping rule
+permits without argument.
+
+It is also the only one of the three that is permanent and
+discoverable. The public note is already effectively written, in this
+file, and nobody finds a note. An outreach piece is one-to-one and
+evaporates.
+
+And the material finally earns the slot. The original IDEM story was a
+token pipeline rebuild, which is a thing I did. **The story now is what
+happened when I built the layer above it: ten defects in two days, in a
+system I would have described as working.** That is evidence rather than
+a claim, and it is the difference between a portfolio entry and a
+demonstration.
+
+### What the essay is about, and what it is not
+
+**Subject: what the work found.** Not how I learned it, not a method
+tour, not the protocol. The protocol is the method section at most, and
+probably a link.
+
+The spine is the ten defects, and the strongest three are the ones a
+reader can picture happening to them:
+
+1. Two token files authored and never compiled, so a whole layer of the
+   system had no CSS output and nobody knew.
+2. A contract written carefully from the token files was wrong about the
+   design in four places, because I never opened the design.
+3. A font weight bound to a variable in no collection's list. Right
+   value, correct rendering, wrong wiring, invisible to everything.
+
+Those three make the argument on their own: **building the layer above
+the tokens is what makes the token layer testable.**
+
+**Not in the essay, and this is a hard line.** Nothing about agents
+working better with context. ORIN-39 ruled that out and this exercise
+did not rescue it. The schema-versus-prose observation is interesting
+and is n=1 per arm on one system; it belongs in a note, not in a page a
+prospect reads as a claim.
+
+Also not in it: any suggestion that a Build produces ten defects. IDEM
+is greenfield, personal, and mine. The honest frame is the one the site
+already takes, practice as proof: *this is what I did to my own system,
+and here is what it found.* A reader draws their own conclusion about
+their system, which is stronger than me drawing it for them.
+
+### What this costs and what it needs
+
+It is **site work**, so it needs Warren's explicit go-ahead before a
+line is written, per `CLAUDE.md`. The stopping rule is not waived by a
+good reason; it is satisfied by "the card promises an essay and now
+there is one to write".
+
+The v1 deferred list has two unwritten case-study essays. This decision
+covers **one** of them, IDEM. KRM stays deferred and this is not a
+reason to start it.
+
+### The outreach piece, reconsidered and rejected as a separate thing
+
+Not written separately. Once the essay exists, the outreach email for
+the "first UX Engineer hired to build a design system" row is two
+sentences and a link, which is a better email than a long one. Writing
+the piece first and the essay later would produce the same words twice
+and date the second one.
+
 ## Budget and stopping rule
 
 4 to 6 sessions. Stop when each of the 5 steps has run once and written
