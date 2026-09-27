@@ -8228,3 +8228,34 @@ Say what the checks look for and let their system answer.
 found three of the ten. Then the `dimensions carry units` extension.
 Then ORIN-46, then ORIN-47, then the design-source a11y page in the
 runbook.
+
+## 2026-09-27 — Offer.md caught up with the freshness guard
+
+**Decision:** The two passages in `Offer.md` that said `check:figma` had
+no freshness check now describe the guard that shipped on 30 August:
+the sink's sidecar (time landed, sha256 of the dump), and a refusal
+under `--check` when the dump is too old, edited since, or missing the
+record. The Build-only, operator-run conclusion stands, on the reasons
+that still hold: a live Figma read a person triggers and watches, no
+variables API on Professional, and two checks that still pass `--check`
+with a warning (no `figmaFileName` configured; a dump from before
+ORIN-36 versioned the extractor).
+
+**Reasoning:** Surfaced by the 25 September research brief (Figma
+Console MCP's "plausible success" releases). The brief proposed a new
+"audit provenance envelope" issue. Checked against the pipeline, four
+of its five fields already exist as `check:figma` checks or stamps
+(file name, time and hash, extractor version, baseline commit), so no
+new issue. What it adds went as comments instead (posted 27 Sep): on ORIN-47, that the
+Diagnostic's "prove what it read" is scan scope, not Figma provenance,
+since the installed report reads no Figma; on ORIN-48, that the HTML
+report is a cheaper first consumer than `dist/`, that client-repo dirty
+state is the one field recorded nowhere, and that `$metadata.source`'s
+file key comes from config and is never checked against Figma.
+
+**Deferred:** Making an unconfigured `figmaFileName` (and a dump with no
+file name) an error under `--check`, warning under `--dry-run`, the split
+freshness already uses. Filed as ORIN-61. Small, and it is half of what
+would let the Offer call the gate fail-closed; the other half is the
+pre-ORIN-36 extractor warning, left out of ORIN-61 on purpose. The Offer
+does not say fail-closed until both are resolved.

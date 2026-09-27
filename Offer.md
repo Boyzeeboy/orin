@@ -101,11 +101,17 @@ checkable.
 **The drift gate is not what gets installed, and the distinction is
 load-bearing.** `check:figma` needs a live Figma read, which means the
 plugin installed and the sink running, and on a Professional plan there
-is no variables API to fall back on. It also reads a dump from a fixed
-path with no freshness check, so against a stale dump it can report
-agreement while Figma has moved (`notes/stale-dump-guard.md`, 19 August).
-A gate that can quietly say "fine" when it is not fine must never be
-handed to somebody who will run it unsupervised. So the drift comparison
+is no variables API to fall back on. The worst trap it had is closed:
+since 30 August the sink records when each dump landed and a hash of its
+bytes, and the gate refuses a dump that is too old, edited since, or
+missing that record (`notes/stale-dump-guard.md`). What remains is the
+part a script cannot supervise. The answer is only worth anything if
+somebody opened the right file and pressed Sync a minute earlier, and two
+of its checks still pass with a warning rather than a refusal: a pipeline
+with no Figma file name configured, and a dump from before the extractor
+was versioned. That is a gate for someone who reads warnings, and it must
+never be handed to somebody who will run it unsupervised. So the drift
+comparison
 is something I run *with* them during the week, and something that ships
 with the Build, where the person triggering it is me.
 
@@ -279,8 +285,9 @@ Figma file they have to translate.
 
 **The drift gate ships with the Build, and only here.** It was briefly written
 into the Diagnostic on 2026-08-28 and moved back the same day: it needs a live
-Figma read, and it can report agreement against a stale dump, so it is not a
-thing to hand a client to run unsupervised. What the Diagnostic installs is the
+Figma read that a person has to trigger and watch, so it is not a thing to hand
+a client to run unsupervised. It no longer accepts a stale or edited dump; the
+freshness guard refuses both (30 August). What the Diagnostic installs is the
 repo-side report. The check compares their Figma file against the tokens in
 their repo and fails when the two disagree, naming exactly what moved. It also names both readings, because what
 a failure means depends on which way truth flows in their setup: where Figma
