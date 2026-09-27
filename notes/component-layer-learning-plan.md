@@ -346,6 +346,110 @@ One sitting, and it produced a token-layer finding before a single line
 of component code existed. Two of the five steps have now each surfaced
 a real defect in a system I would have described as working.
 
+# Step 2, 26 to 27 September 2026: Button, three ways
+
+## The result, in one line
+
+All three runs proposed. Only the one with **no** prose context also
+built the component.
+
+| | `r01` bare | `r02` paragraph | `r03` paragraph + Figma |
+|---|---|---|---|
+| Component | yes, 20 stories, axe clean | none | none |
+| Proposed | via the schema's `proposed` field | to `PROPOSALS.md` | to `PROPOSALS.md` |
+| Cost | $2.80 | $1.15 | $1.40 |
+
+## Question 4, which is what the step existed for
+
+**The schema was the context, not the paragraph.** `r01` had no
+`CLAUDE.md`, no `AGENTS.md` and no contract. It read
+`contract.schema.json`, which the fixture keeps as repository tooling,
+wrote its own contract, and listed ten missing token names in the
+`proposed` field the schema describes. Nothing instructed it. ORIN-39
+got zero proposals out of a one-paragraph router in six runs; a field
+with a description got one in a single run.
+
+Prose asks for the answer. A field asks for it and holds the reply.
+
+That also makes `a-bare` a misleading name: it measures "no prose,
+structured data present". Keeping the schema was deliberate and
+documented, and it turned out to be the strongest piece of context in
+the experiment.
+
+**My paragraph made things worse, not nothing.** Both arms that got it
+built nothing at all. It ended "write the need to `PROPOSALS.md` and
+stop at that point", which I meant as *stop before writing a literal*
+and which reads as *stop working*. The agents took the natural reading.
+For a client, `r01` is the outcome you want; `r02` is the one that
+generates a meeting. Rewritten afterwards, and untested.
+
+**Design access changed what was found, not what was done.** `r03` had
+the same paragraph and made the same stop decision. What it changed is
+that it read the design, and the design said my contract was wrong.
+
+## The part that stings
+
+`r03` found four contradictions between the step 1 contract and the
+design. I verified all four against the file afterwards.
+
+| Contract, step 1 | Design |
+|---|---|
+| `radius-scale-8`, 8px | `button/radius`, **9999px**, a pill |
+| `spacing-scale-24`, 24px inline | **20px** |
+| no letter-spacing | **0.1px**, bound |
+| `minTargetPx: 44` | component is **40px** |
+
+All four are mine. I wrote that contract carefully, from the token
+files, and never opened the design. Built to it, the button is a rounded
+rectangle where the design is a pill, which is not drift, it is the
+wrong component. `r01` built exactly that, in good faith.
+
+And `verify:contracts` was green throughout. Names resolved, no
+primitives, contrast passed in both modes. **A contract checked only
+against code is checked against half the system.** That is step 4's
+argument, arriving two steps early and far harder than step 4 would have
+put it.
+
+## What step 2 fixed in the system
+
+The protocol framed 2.5 as "add two files to the build's source". It was
+three things:
+
+1. `size.json` and `typography.json`, authored and never compiled. 85
+   non-colour tokens now emit.
+2. All 15 letter-spacing tokens were unitless numbers whose own
+   descriptions said px. Compiled for the first time, they produced
+   invalid CSS. A file that is never built is never wrong, because
+   nothing ever asks it a question.
+3. `button/radius` had been in Figma since the component set was built
+   and in no token file, because the sync only ever took colour
+   variables. That is the real reason the code side had no radius, and
+   the reason I guessed.
+
+Then the contract was corrected from the design rather than inferred,
+and the Button rebuilt from it. Rendered values now match the design on
+radius, padding, weight, letter-spacing and family.
+
+## Still open, and it is the design's
+
+The button renders 46px tall against the design's 40px, because the
+design's own padding and line-height come to 46 and its frame is pinned
+to 40. The source disagrees with itself. It fails nothing. Four options
+are written up; it is a design decision, not a code one.
+
+## What two steps have now cost and produced
+
+Two of five steps, and the component layer has found: 188 contrast
+failures in the token docs (ORIN-52), seven Button bindings failing AA
+traced to one semantic token, three defects in the token pipeline, four
+errors in my own contract, and three Figma-side binding defects. None of
+them needed an agent behaving differently to find. Every one of them
+needed something to ask the system a question it had never been asked.
+
+That is the claim that is surviving: not that agents do better work with
+context, but that **building the layer above the tokens is what makes
+the token layer testable.**
+
 ---
 
 ## Related

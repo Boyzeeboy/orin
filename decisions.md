@@ -7751,3 +7751,72 @@ ORIN-39's one usable result.
 interaction direction cannot change without breaking something else.
 Then the ink is what moves, and `runs/step-1-contrast.md` section (d) is
 where the reasoning goes.
+
+## 2026-09-27 — ORIN-49 step 2: the schema proposed, the paragraph stopped the work
+
+**What ran:** Three agent runs on one frozen task in the IDEM pipeline,
+one per arm, plus the pipeline fix (2.5), the rebuilt Button (2.6) and
+the comparison (2.7). Sections in `notes/component-layer-learning-plan.md`;
+the record is `runs/` in `idem-design-tokens`, PR #7.
+
+**The result:** all three proposed; only the arm with no prose context
+also built the component.
+
+**The mechanism was the schema, not the router.** `r01` had no
+`CLAUDE.md`, no `AGENTS.md` and no contract. It read
+`contract.schema.json`, wrote its own contract, and listed ten missing
+token names in the `proposed` field the schema describes. ORIN-39 got
+zero proposals from a one-paragraph router across six runs. A data model
+with somewhere to put the answer beat prose asking for it, which is the
+first thing in either experiment that has actually changed agent
+behaviour. It also means `a-bare` measures "no prose, structured data
+present" rather than "nothing", and that keeping the schema in the
+fixture, a deliberate and documented call, was load-bearing.
+
+**The paragraph made it worse.** Both arms that received it built
+nothing. "Write the need to PROPOSALS.md and stop at that point" was
+meant as *stop before writing a literal* and reads as *stop working*.
+Rewritten afterwards as protocol change-log entry 4 and untested; the
+rewrite asks for a token reference with a CSS fallback, a proposal
+entry, and then the rest of the work.
+
+**`r03` found four errors in my own contract,** all verified: the design
+is a pill at 9999px where I wrote 8px, inline padding is 20px not 24px,
+letter-spacing of 0.1px was missing, and `minTargetPx` 44 conflicted
+with a 40px component. I wrote that contract from the token files
+without opening the design. `verify:contracts` was green the whole time,
+because it only ever compared the contract with `dist/`. **A contract
+checked only against code is checked against half the system**, which is
+step 4's argument arriving two steps early.
+
+**Three token-layer defects fixed in 2.5,** where the protocol expected
+one: the two authored files were never compiled; all 15 letter-spacing
+tokens were unitless numbers whose descriptions said px and emitted
+invalid CSS on first build; and `button/radius` had been in Figma since
+the set was built and in no token file, because the sync only ever took
+colour variables.
+
+**Decided:** `minTargetPx` drops from 44 to 40 with the reasoning
+recorded in the contract itself (Warren's call; WCAG 2.5.8 AA wants 24,
+the component is 40, and 44 would have kept contract and design
+permanently at odds). The Button was **rebuilt** rather than corrected,
+because `r01`'s was the wrong shape and referenced ten invented token
+names; its artefact stays in `runs/r01/` as the record.
+
+**Open, and it is the design's:** the button renders 46px against the
+design's 40px, because the design's own padding and line-height come to
+46 and its frame is pinned to 40. Fails nothing. Four options written
+up; a design decision.
+
+**What this is starting to support:** not that agents do better work
+with context. Two of five steps have produced 188 contrast failures in
+the token docs, seven Button bindings failing AA, three pipeline
+defects, four contract errors and three Figma binding defects, and none
+of them needed an agent behaving differently. The claim that survives is
+that **building the layer above the tokens is what makes the token layer
+testable.** That is a systems claim, it is demonstrable, and it is
+sellable in a way the agent claim never was.
+
+**Revisit if:** the rewritten paragraph is ever run. It is untested, and
+check 3 must first be taught to permit a `var()` fallback whose token
+name is in the contract's `proposed` list.
