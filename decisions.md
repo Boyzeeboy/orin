@@ -8138,3 +8138,50 @@ including the Vivo `h1`, against a rule `CLAUDE.md` calls absolute. The
 new page has one: the shared `og:image:alt` string, identical on all
 eight pages, kept for consistency rather than diverging a single page.
 Worth a decision of its own, and it is not this task's to make.
+
+## 2026-09-27 — The pattern-layer sheet, checked against what got built
+
+**Filed:** `notes/pattern-layer-vs-practice.md`, comparing
+`pattern-layer-infographic.html` with the layer actually built on IDEM.
+Two edits made to the infographic, both dated in place rather than
+silently rewritten.
+
+**Edit 1, row 01.** "Generated, never written" was a preference with an
+argument behind it. It is now a finding with an instance: I wrote the
+Button contract by hand from the token files, never opened the design,
+and it was wrong in four places, including specifying a rounded
+rectangle for a button the design draws as a pill. Every check passed
+throughout, because every check compared the contract with the code.
+**A hand-written contract is a second opinion about the design, not a
+record of it.**
+
+**Edit 2, row 03.** One "check" row is too few. Split into static,
+executable and drift, because they fail differently and catch different
+things, and the seam between them is the useful part: a low-contrast
+value in a story passes the static check and fails axe. Tag is now
+"Gate ×3".
+
+**What the comparison found that the sheet has no row for:** the
+orphaned variable. None of the five rows catches it, because all five
+assume the contract is generated from a source that is internally
+coherent. "The design file is wired to something that does not exist" is
+outside the model. Noted as a sixth consideration, not made a sixth row.
+
+**What travels to a client:** 927 lines of mechanism, of which the
+schema, `verify-contracts.mjs`, the test-runner hook and the both-modes
+preview pattern lift near-verbatim. About a week of a Build.
+`verify-figma.mjs`'s `PREFIX` map looks portable and is not: the
+divergence between Figma's collection naming and the token file's
+nesting is the client's, not a constant, and copying it produces
+confident wrong drift reports. Budget a re-derivation.
+
+**What still has to be built for a client:** contract generation (row
+01, and the exercise is the argument), a sync script (ORIN-53, whose
+absence on IDEM is how `button/radius` sat in Figma and in no token
+file), the graduation counter if they have churn, and Code Connect only
+if they already have Organization or Enterprise.
+
+**Unchanged:** the sheet stays parked and the five-condition trigger is
+untouched. Three parts built once, on a four-component greenfield system
+owned by one person, is not a client library at scale and does not meet
+condition 4. The parts marked *hypothesis* are the same ones as before.

@@ -296,6 +296,14 @@
           <p>Every pattern: its identity, properties, states, defaults, token bindings,
           code mappings, version and provenance. Structured data a script can diff against
           the design source and the code.</p>
+          <p><strong>Evidenced 27 September 2026.</strong> "Generated, never written" was a
+          preference until ORIN-49 wrote one by hand. The Button contract was authored
+          carefully from the token files, without opening the design, and was wrong in four
+          places: the radius (the design is a pill, the contract said 8px), the inline
+          padding, a missing letter-spacing binding, and a minimum target that conflicted
+          with the component's own height. Every check passed throughout, because every
+          check compared the contract with the code. See
+          <code>runs/step-2-comparison.md</code> in <code>idem-design-tokens</code>.</p>
           <span class="pill">Generated, never written</span>
         </div>
         <div class="arrow" aria-hidden="true">
@@ -390,8 +398,8 @@
       <div class="home">
         <span class="n">03</span>
         <span class="k">The check</span>
-        <span class="v">Continuous integration, in the repository, failing a build. Never in the prose, because a rule an agent can ignore is the "follow or break" problem again. It proves the design source, the contract and the code agree. It says nothing about whether an agent can use them.</span>
-        <span class="tag gate">Gate</span>
+        <span class="v">Continuous integration, in the repository, failing a build. Never in the prose, because a rule an agent can ignore is the "follow or break" problem again. It proves the design source, the contract and the code agree. It says nothing about whether an agent can use them.<br><br><strong>Split into three, 27 September 2026.</strong> Building it showed one row is too few, because the three kinds fail differently and catch different things. <strong>Static</strong>: the contract is well formed, every token it names is emitted in both modes, no primitives, no literals, and no component reaches for a token its contract does not name. <strong>Executable</strong>: axe on every state in both modes, which is the only thing that proves the result is usable. <strong>Drift</strong>: the contract against the design, on demand, because it needs a live read. The seam is the point. A low-contrast value placed in a story passes the static check, which correctly does not scan stories, and fails axe. Static checks prove a component references the right names; only running it proves the result is usable; only diffing the design proves it is the right component.</span>
+        <span class="tag gate">Gate ×3</span>
       </div>
       <div class="home">
         <span class="n">04</span>
@@ -448,7 +456,7 @@
 
   <footer>
     <p>
-      <b>Status: parked mechanism. Nothing here is adopted.</b> The value layer forbids
+      <b>Status: parked mechanism, with three parts now built once. Nothing here is adopted.</b> The value layer forbids
       invention everywhere and needs no zoning, so this only comes into scope when a client
       meets all four conditions: real component sets in Figma carrying variant properties;
       a component library in code with a props API worth contracting; Code Connect or an
