@@ -7998,3 +7998,50 @@ indicator).
 **Revisit if:** the public write-up is started. The plan note's "Public
 form" section decided that comes after step 5, from the sections, and
 step 5 is now done. The three candidate forms are unchanged.
+
+## 2026-09-27 — Code Connect is the client's condition, not Orin's
+
+**What was owed:** the Code Connect seat cost, from ORIN-49 step 4.2.
+Established and recorded in `runs/step-4-figma.md` (IDEM PR #11).
+
+**The facts.** Code Connect requires an **Organization or Enterprise**
+plan plus a Full or Dev seat. IDEM Revised is on Professional at least,
+evidenced by all six variable collections carrying publish keys, since
+library publishing needs Professional. Organization is $55/month for a
+Full seat and $25 for a Dev seat, billed annually; Enterprise is $90 and
+$35. The cheapest route to Code Connect for a one-person practice is
+Organization with one Full seat: **$660 a year, for one feature.**
+
+**Decided: buy nothing.** Not on cost. Code Connect maps *their*
+components to *their* code in *their* file, so an Orin-owned
+Organization plan would buy nothing at all. The conditional is the
+client's plan:
+
+- A client on Organization or Enterprise **already has it**, and the
+  cost is a seat for me on their org at $25 to $90 a month, which they
+  provision. Worth asking for in the Build.
+- A client on Professional does not have it, and **Code Connect is not a
+  good reason to move a team to Organization.** That is a five-figure
+  decision taken for one integration, and recommending it would fail
+  `OPERATING_MODEL.md` on the first reading.
+
+**The part that matters commercially:** the drift check does not need
+it. `verify:figma` matches by variant name against a `figmaNodeId` in
+the contract, the weaker manifest recorded in
+`pattern-layer-governance.md` on 2026-09-14, and it found an orphaned
+variable binding on its first real run. **Code Connect would have made
+it tidier, not possible.**
+
+So the answer on a call is: your plan decides whether we use Code
+Connect, and the check works either way. That is a stronger position
+than needing it, and it is now evidenced rather than hoped.
+
+**This also settles condition 3 of the pattern-layer trigger** in
+`pattern-layer-governance.md`, which required "Code Connect published,
+or an equivalent code-side manifest" and told me to establish the seat
+and plan before promising it to anyone. Established: on Professional
+there is no Code Connect, the node-ID manifest satisfies the condition,
+and step 4 is the evidence that it satisfies it in practice rather than
+in principle.
+
+**Nothing further owed from ORIN-49.**
