@@ -7898,3 +7898,49 @@ directions.
 **Revisit if:** ORIN-55 is resolved. `focus/ring/width` and
 `focus/ring/offset` then move from code-authored to synced, and their
 descriptions need updating to say so.
+
+## 2026-09-27 — ORIN-49 step 4: the drift check, and an orphaned variable
+
+**What ran:** Step 4 in the IDEM pipeline, PR #9. `verify:figma` is a
+snippet-plus-script pair like the token sync, run on demand, with three
+exit codes: 0 agree, 1 disagree, **2 cannot tell**. The third is the
+part worth keeping: a check that cannot distinguish "fine" from "I could
+not look" is the one that eventually lies. Closes ORIN-54's second item.
+
+**The finding.** The Button's font weight was bound to a variable named
+`Weight/Medium` whose id is **in no collection's variable list**. The
+real `Fonts/weight/medium` is a different variable. Both resolve to 500,
+the design rendered correctly, editing the real token would have done
+nothing, and no enumeration of local variables would have seen the one
+in use, so the token sync could not have caught it. Right value,
+plausible name, correct rendering, wrong wiring.
+
+**This is the first finding in the exercise that only a Figma-to-code
+comparison could produce.** Everything before it, a careful person could
+have found by reading one side. That is the argument for step 4
+existing, and it is now evidenced rather than asserted.
+
+**Three more defects, fixed in Figma:** Primary Disabled bound its
+stroke to `disabled/bg`, leaving `disabled/border` dead; Secondary Focus
+bound its label to `secondary/text`, leaving `secondary/focus/text`
+dead, **which is why step 1's 1.40:1 contrast failure was invisible**;
+and inline padding was an unbound raw 20. Thirteen disagreements went to
+one, and the last was a code defect rather than a design one.
+
+**Decided:** the Figma mapping lives on the contract as data
+(`propMap`, `stateMap`, `valueMap`, `codeOnly`) rather than in the
+checker, so the naming divergence is reviewable. `codeOnly` entries
+print on every run: a declared gap, never a silenced one. The dump is
+gitignored, because it is stale within 15 minutes by design and
+committing it would preserve something the check would then refuse.
+
+**Owed:** Code Connect was not published. The node id in the contract is
+the weaker manifest from the 2026-09-14 governance note and is
+sufficient for a check matching by variant name. **Establishing the seat
+cost is the question a client will ask**, and it should not stay owed.
+
+**Where four steps leave the claim.** Nine defects found in a system I
+would have described as working, and not one of them needed an agent to
+behave differently. Every one needed something to ask the system a
+question it had never been asked. That is the sellable finding, and it
+is a systems claim rather than an agent claim.
