@@ -8259,3 +8259,55 @@ freshness already uses. Filed as ORIN-61. Small, and it is half of what
 would let the Offer call the gate fail-closed; the other half is the
 pre-ORIN-36 extractor warning, left out of ORIN-61 on purpose. The Offer
 does not say fail-closed until both are resolved.
+
+## 2026-09-27 — The 27 September research brief: a watch item fires, and ORIN-47 gets a candidate
+
+**Decision:** The weekly brief ran (`briefs/2026-09-27.md` in the scheduled
+task's own folder, outside this repo). Window 18 to 27 September. Three
+items, all code-first: roast-my-design-system v8.4.1 to v9.1.0 with a
+259-session agent study in its README (Greg Kozakiewicz); `@shadcn/lint`
+0.1.2 to 0.2.0 with published evals (shadcn); and Evil Martians' guardrails
+framework (Lovchikov, Mandrikov, Turner, 23 September). Two of its three
+register items were approved and are done:
+
+- **ORIN-47 extended, not a new issue.** A dated section under option (b)
+  names `@shadcn/lint` as the candidate consumer check for the Tailwind
+  profile, the stack the baseline's `siteFiles()` reads as a confident pass.
+  Trial before deciding, half a day to a day on the shadcn adapter's
+  fixtures, integrate/iterate/drop gate written into the issue. It does not
+  choose (b).
+- **Situation 5 gains a fourth question** in `notes/client-situations.md`
+  (private, branch `docs/gaps-question-situation-5`, unmerged): where does
+  your system have no answer? Attributed to Kozakiewicz, with no number,
+  because the study is his own and its method write-up is not published.
+
+**What the week said, in one line:** routine agent work stays on-system
+with or without help, and drift appears where the system has no answer. Two
+outside results now agree with ORIN-39 (2026-09-16): shadcn's control arm,
+where strong models went green from the rules text alone, and
+Kozakiewicz's routine tasks. Both strengthen that entry and the 2026-09-18
+prompt-objection answer. Evil Martians' own caveat, that a contract hash
+proves change since review and not correctness, is ORIN-49's step 2 finding
+from the other side. None of the three compares a design source with code
+or checks the token layer itself, which is where ORIN-49's ten defects sat.
+
+**One watch item fired, and it costs a claim.** roast-my-design-system
+v8.5.0 and v8.6.0 (24 September) name a canonical copy of a duplicated
+component by usage share and count never-imported components. That is the
+split the 2026-09-11 classification rule makes. The rule stands. It is no
+longer where Orin leads, and the 18 September brief's "leads on the split"
+should not be repeated anywhere.
+
+**Tidied:** the 25 September brief, cited in the entry above this one,
+ran outside the scheduled task and was never saved to its folder. It is
+now `briefs/2026-09-25.md`, verbatim, and its sources and Watch item are in
+the task's ledgers.
+
+**Not done:** the third register item is a Watch (checks run at the
+agent's edit in a client repo), held in the task folder with its trigger.
+No `Offer.md` or site change; the site still says nothing about AI or
+agents. The `figma_get_variables` revisit condition (2026-09-24) was
+checked through figma-console 1.40.6 and is not met.
+
+**Revisit if:** the ORIN-47 trial runs (its gate decides), or Kozakiewicz
+publishes his method and it changes what the fourth question can cite.
