@@ -7817,6 +7817,31 @@ that **building the layer above the tokens is what makes the token layer
 testable.** That is a systems claim, it is demonstrable, and it is
 sellable in a way the agent claim never was.
 
+**Amended later the same day, on the open height item.** It was recorded
+above as the design contradicting itself. Measuring the frame showed
+otherwise: `FIXED` at 40 with `CENTER` alignment means 12 + 20 + 12
+cannot fit, so Figma was ignoring the vertical padding and centring the
+label with an effective 10px. The 12 was **dead metadata that reads as
+real**, and it was read as real twice in one day, by the step 1 contract
+and by `r03`. Resolved by expressing the height rather than deriving it:
+`button/height` = 40 added to Figma's Components collection beside
+`button/radius` and bound on all ten variants, the dead padding zeroed,
+the token synced, and the contract and CSS moved from `paddingBlock` to
+`minBlockSize`. The button renders at exactly 40px in both modes and the
+a11y target is met by a bound token rather than by coincidence.
+
+Two things follow. A second component-level token arrived within a day
+of the first, which is the argument for the component layer having its
+own tier rather than reaching into the spacing scale. And "the source
+contradicts itself" was the wrong diagnosis, reached by reading values
+where the right one needed measuring what the tool renders: the same
+distinction as a contract written from token files versus one written
+from a design.
+
+Check 3 also failed on `46px` and `40px` inside a comment explaining the
+height, on a file with no literal in it. Comments are blanked before
+scanning now, with newlines preserved so line numbers stay correct.
+
 **Revisit if:** the rewritten paragraph is ever run. It is untested, and
 check 3 must first be taught to permit a `var()` fallback whose token
 name is in the contract's `proposed` list.

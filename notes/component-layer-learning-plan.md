@@ -430,12 +430,53 @@ Then the contract was corrected from the design rather than inferred,
 and the Button rebuilt from it. Rendered values now match the design on
 radius, padding, weight, letter-spacing and family.
 
-## Still open, and it is the design's
+## The height, resolved by measuring rather than reading
 
-The button renders 46px tall against the design's 40px, because the
-design's own padding and line-height come to 46 and its frame is pinned
-to 40. The source disagrees with itself. It fails nothing. Four options
-are written up; it is a design decision, not a code one.
+*Amended 27 September, after the section above was written.*
+
+I first recorded this as the design contradicting itself: the button
+rendered 46px against a 40px design, because the design's own padding
+and line-height come to 46 while its frame is pinned to 40. Four options
+were written up and it was left as a design decision.
+
+Measuring what Figma actually renders gave a better answer. The frame is
+`FIXED` at 40 with `CENTER` alignment, so 12 + 20 + 12 cannot fit and
+**Figma was ignoring the vertical padding**, centring the label with an
+effective 10px above and below. The 12 was never applied.
+
+So it was not a contradiction, it was **dead metadata that reads as
+real**. And it did: twice in one day, by my step 1 contract and by
+`r03`, which flagged the inline padding as wrong and passed the block
+padding as correct. Both read the number instead of the rendered result.
+
+The fix expresses the height rather than deriving it. `button/height` =
+40 now exists in Figma's Components collection beside `button/radius`,
+bound on all ten variants; the dead padding is zeroed so the file stops
+misleading the next reader; the token is synced; and the contract and
+CSS moved from `paddingBlock` to `minBlockSize`. The button renders at
+exactly 40px in both variants and both modes, and the a11y target is met
+by a bound token rather than by coincidence.
+
+**Two things worth keeping from this.** A second component-level token
+arrived within a day of the first, which is the case for the component
+layer wanting its own tier rather than reaching into the spacing scale.
+And "the source contradicts itself" was the wrong diagnosis, reached by
+reading values; the right one needed measuring what the tool renders.
+That distinction is the whole difference between a contract written from
+token files and a contract written from a design.
+
+## One more defect, in the guardrail itself
+
+Check 3 failed on `46px` and `40px` **inside a CSS comment** explaining
+why the height is what it is. The file contained no literal at all. A
+comment that explains a value will name values, so the check now blanks
+comments before scanning, with newlines preserved so a reported line
+number still points at the real line.
+
+Small, and it makes seven things this layer has surfaced: 188 contrast
+failures in the token docs, seven Button bindings failing AA, three
+pipeline defects, four errors in my own contract, three Figma binding
+defects, dead padding in the design, and a guardrail that flagged prose.
 
 ## What two steps have now cost and produced
 
