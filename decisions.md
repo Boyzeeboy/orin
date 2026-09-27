@@ -8045,3 +8045,53 @@ and step 4 is the evidence that it satisfies it in practice rather than
 in principle.
 
 **Nothing further owed from ORIN-49.**
+
+## 2026-09-27 — The public form: the IDEM essay, and only that
+
+**Decision:** write the IDEM case-study essay on `/work`. Do not write a
+separate public note, and do not write a separate outreach piece. The
+deferred choice from `notes/component-layer-learning-plan.md` under
+"Public form", now due because all five ORIN-49 steps are run.
+
+**Why the essay.** The `/work` card has said **"Essay coming"** since v1
+on 2026-08-16, so writing it closes a declared promise rather than
+adding scope. That is the only kind of site work the stopping rule
+permits without an argument. It is also the only candidate that is
+permanent and discoverable: the public note already effectively exists
+in the plan note and nobody finds a note, and an outreach piece is
+one-to-one and evaporates.
+
+And the material now earns the slot. The original IDEM story was a token
+pipeline rebuild, which is a thing I did. The story now is what happened
+when I built the layer above it: **ten defects in two days, in a system I
+would have described as working.** Evidence rather than a claim.
+
+**Subject: what the work found, not how I learned it.** The spine is the
+ten defects, and the three a reader can picture happening to them are
+the two token files authored and never compiled; a contract written
+carefully from the token files that was wrong about the design in four
+places because I never opened the design; and a font weight bound to a
+variable in no collection's list, right value, correct rendering, wrong
+wiring, invisible to everything. Those three carry the argument:
+building the layer above the tokens is what makes the token layer
+testable.
+
+**Hard lines.** Nothing about agents working better with context;
+ORIN-39 ruled that out and this did not rescue it. The
+schema-versus-prose observation is n=1 per arm on one system and belongs
+in a note, not on a page a prospect reads as a claim. And no suggestion
+that a Build produces ten defects: IDEM is greenfield, personal and
+mine. The frame is the one the site already takes, practice as proof.
+The reader draws the conclusion about their own system, which is
+stronger than me drawing it for them.
+
+**What it needs.** It is site work, so it needs an explicit go-ahead
+before a line is written, per `CLAUDE.md`. This covers **one** of the
+two unwritten case-study essays on the v1 deferred list. KRM stays
+deferred and this is not a reason to start it.
+
+**The outreach piece, rejected as a separate artefact.** Once the essay
+exists, the email for the "first UX Engineer hired to build a design
+system" trigger row is two sentences and a link, which is a better email
+than a long one. Writing the piece first would produce the same words
+twice and date the second copy.
