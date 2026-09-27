@@ -8095,3 +8095,46 @@ exists, the email for the "first UX Engineer hired to build a design
 system" trigger row is two sentences and a link, which is a better email
 than a long one. Writing the piece first would produce the same words
 twice and date the second copy.
+
+## 2026-09-27 — The IDEM case study is written and /work has two essays
+
+**What shipped:** `site/work/idem/`, and the `/work` card now links to it
+instead of saying "Essay coming". Site work, done on Warren's explicit
+go-ahead, closing the promise the card has carried since v1 on
+2026-08-16. This covers one of the two deferred case-study essays; KRM
+stays deferred.
+
+**The essay.** 605 words, the same shape as Vivo Energy. Subject is what
+the work found, not how it was learned, as the public-form decision
+required. Three faults carry it: two token files authored and never
+compiled; a contract written from the token files that was wrong about
+the design in four places because I never opened the design; and a font
+weight bound to a variable in no collection, right value, correct
+rendering, wrong wiring. Then 188 contrast failures in the documentation
+pages and a primary button with no focus state.
+
+**The argument it makes:** a token layer can only be checked against
+itself, and all of those checks passed throughout. The component layer
+is the first thing that has to consume the tokens, and consumption is
+what tests them.
+
+**The honest frame, which is the essay's last move.** IDEM is greenfield,
+it is mine, and most of what it found was my own work. That is the
+argument rather than a caveat: if a system one person designed and
+maintains, with a real pipeline and real guardrails, hides ten faults
+until something looks, a system a team built over three years hides more,
+and the difference is not care. The reader draws the conclusion about
+their own system.
+
+**Held, per the public-form decision:** no agent claim anywhere in it.
+No suggestion that a Build produces ten defects.
+
+**Checks:** `npm test` 9/9, verify-build clean, no hardcoded hex, no
+local custom properties, semantic-only consumption. No overflow at
+360px. Both `/work` cards resolve.
+
+**Noticed, not acted on.** The site carries 47 em-dashes across 11 files,
+including the Vivo `h1`, against a rule `CLAUDE.md` calls absolute. The
+new page has one: the shared `og:image:alt` string, identical on all
+eight pages, kept for consistency rather than diverging a single page.
+Worth a decision of its own, and it is not this task's to make.
