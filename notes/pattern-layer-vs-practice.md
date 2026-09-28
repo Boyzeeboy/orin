@@ -57,7 +57,28 @@ Budget a re-derivation per client, not a copy.
 | **05 The graduation**, two uses then review | Not built | Correct. Condition 4 (churn) cannot exist on IDEM |
 | **06 The evaluation** | Nothing new | Still "tested at ceiling, not supported" |
 
-### 01 is the sheet's strongest moment, and it validated against me
+### 01, refined 28 September: "never written" is too absolute
+
+Working out what generation would actually mean showed the row needs a
+correction rather than a footnote. The contract has two kinds of content
+and only one is derivable:
+
+**Generated:** the token bindings. Which token lands on which property,
+for every variant and state. The part that was wrong, and the part the
+design already knows.
+
+**Authored, and it cannot be otherwise:** the accessibility policy, because
+a contrast bar and a minimum target are decisions rather than
+observations; the story list, a code-side naming convention; the
+properties that exist only in code; and the design-to-code name mapping
+itself, which is chicken-and-egg because generating needs it.
+
+So the target is: **the bindings are generated, the policy and the
+code-side conventions are authored, and the line between them is
+explicit in the file.** The sheet's pill now reads "Bindings generated,
+policy authored". ORIN-65 carries the work.
+
+### 01 is still the sheet's strongest moment, and it validated against me
 
 "Generated, never written" was a preference with an argument behind it.
 It is now a finding with an instance. I wrote the Button contract

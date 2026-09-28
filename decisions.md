@@ -8311,3 +8311,46 @@ checked through figma-console 1.40.6 and is not met.
 
 **Revisit if:** the ORIN-47 trial runs (its gate decides), or Kozakiewicz
 publishes his method and it changes what the fourth question can cite.
+
+## 2026-09-28 — Row 01 refined: "never written" is too absolute
+
+**Filed:** ORIN-65, the contract generator, and a correction to
+`pattern-layer-infographic.html` row 01 plus the matching section in
+`notes/pattern-layer-vs-practice.md`.
+
+**The correction.** Yesterday's edit gave row 01 an instance: a
+hand-written contract wrong about the design in four places. Working out
+what generation would actually mean showed the row's own claim needs
+correcting too. **"Generated, never written" is too absolute.**
+
+The contract has two kinds of content. **Derivable:** the token
+bindings, which token lands on which property for every variant and
+state. That is exactly what was wrong and exactly what the design
+already knows. **Not derivable, and it cannot be otherwise:** the
+accessibility policy, because a contrast bar and a minimum target are
+decisions rather than observations; the story list, a code-side naming
+convention; the code-only properties, which by definition the design
+lacks; and the design-to-code name mapping, which is chicken-and-egg
+because generating needs it.
+
+So the row's pill changes from "Generated, never written" to **"Bindings
+generated, policy authored"**, and the target is that the line between
+the two is explicit in the file.
+
+**ORIN-65, and why it is Medium rather than High.** The realisation that
+makes it cheap is that `verify-figma.mjs` is already a generator turned
+inside out: it reads the design, maps the names, and compares. Generating
+means writing that result instead of diffing it. Two modes, `--init` for
+a new contract and `--fix` for an existing one, **never automatic and
+never in `npm test`**, because a check that silently fixes itself can
+never go red.
+
+The acceptance test is available today: `--init` on the Button should
+differ from the hand-written contract in exactly the four known places
+and nowhere else.
+
+**Not urgent.** `verify:figma` exists, so those four errors would be
+caught today. Generation stops them being made, which is better, but it
+is a quality improvement over a working check rather than a missing one.
+And it is one component set on one file, so the same warning as ORIN-62
+applies: worth waiting for a second instance to inform the design.
