@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>From Figma to the App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  /* ---------------------------------------------------------------
+     Sibling of pattern-layer-infographic.html, same visual language.
+     That one diagrams the pattern layer as a parked mechanism. This
+     one diagrams the system as built in idem-design-tokens on
+     2 October 2026: the token pipeline, the component layer above it,
+     and the app that installs both as one package.
+
+     Facts are read from the repo (package.json, PROCESS.md,
+     src/components/, runs/component-inventory.md) on that date.
+     Orin's tokens, as in the sibling. Standalone artefact, NOT part
+     of site/, not covered by npm test.
+     --------------------------------------------------------------- */
+  :root{
+    --neutral-0:#ffffff;   --neutral-50:#f4f5f5;  --neutral-100:#e6e9ea;
+    --neutral-200:#d5dbdd; --neutral-300:#c3cccf; --neutral-400:#aeb9bd;
+    --neutral-500:#7f9096; --neutral-700:#4d6167; --neutral-800:#354a50;
+    --neutral-900:#1f343a; --neutral-950:#0f2328;
+    --teal-25:#f5fafa;  --teal-50:#e6f2f3;  --teal-100:#cfe6e8;
+    --teal-200:#a8d3d7; --teal-300:#7fbfc6; --teal-400:#4faab3;
+    --teal-500:#007582; --teal-600:#0c5f6a; --teal-700:#083f47;
+
+    --text-default:var(--neutral-900); --text-muted:var(--neutral-700);
+    --text-on-accent:var(--neutral-0);
+    --bg-default:var(--neutral-0);  --bg-raised:var(--neutral-0);
+    --bg-sunken:var(--neutral-50);  --bg-inverse:var(--neutral-900);
+    --bg-accent:var(--teal-500);
+    --border-divider:var(--neutral-100); --border-strong:var(--neutral-200);
+
+    --family-display:"Inter Tight",system-ui,sans-serif;
+    --family-base:"Inter",system-ui,sans-serif;
+    --family-mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+
+    --space-1:.25rem; --space-2:.5rem;  --space-3:.75rem; --space-4:1rem;
+    --space-6:1.5rem; --space-8:2rem;   --space-12:3rem;  --space-16:4rem;
+    --radius-sm:.25rem; --radius-md:.5rem; --radius-lg:1rem;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:var(--bg-default); color:var(--text-default);
+    font-family:var(--family-base); font-size:15px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .sheet{max-width:1024px;margin:0 auto;padding:var(--space-12) var(--space-8) var(--space-8)}
+
+  /* ---------- header ---------- */
+  .masthead{display:grid;grid-template-columns:1fr auto;gap:var(--space-8);align-items:start}
+  h1{
+    font-family:var(--family-display);font-weight:600;font-size:46px;
+    letter-spacing:-.025em;line-height:1.1;margin:0 0 var(--space-4);
+  }
+  h1 em{font-style:normal;color:var(--teal-500)}
+  .standfirst{font-size:16.5px;color:var(--text-muted);line-height:1.5;max-width:48ch}
+  .standfirst b{color:var(--text-default);font-weight:600}
+  .rule{width:56px;height:3px;background:var(--teal-500);border-radius:2px;margin-top:var(--space-6)}
+  .promise{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);width:250px;
+  }
+  .promise-head{
+    display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;color:var(--teal-600);
+  }
+  .promise p{font-size:13.5px;color:var(--text-muted);line-height:1.6}
+  .promise p + p{margin-top:var(--space-3)}
+  .promise b{color:var(--text-default)}
+
+  /* ---------- section headings ---------- */
+  .band{margin-top:var(--space-12)}
+  .band-title{display:flex;align-items:center;gap:var(--space-4);margin-bottom:var(--space-6)}
+  .band-title span{
+    font-size:12px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--teal-600);white-space:nowrap;
+  }
+  .band-title::before,.band-title::after{content:"";height:1px;background:var(--border-strong);flex:1}
+  .lede{font-size:15px;color:var(--text-muted);line-height:1.6;max-width:64ch;margin-bottom:var(--space-6)}
+  .lede b{color:var(--text-default);font-weight:600}
+  .lede code{font-family:var(--family-mono);font-size:12.5px;color:var(--neutral-800)}
+
+  /* ---------- step tiles ---------- */
+  .row3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-3);align-items:stretch}
+  .row4{display:grid;grid-template-columns:repeat(4,1fr);gap:var(--space-3);align-items:stretch}
+  .row4 + .row4{margin-top:var(--space-3)}
+  .stepwrap{position:relative;display:flex}
+  .step{
+    background:var(--bg-raised);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-4);
+    display:flex;flex-direction:column;width:100%;
+  }
+  .step-head{display:flex;align-items:center;gap:var(--space-2);margin-bottom:var(--space-3)}
+  .dot{
+    width:22px;height:22px;border-radius:50%;background:var(--teal-500);color:var(--text-on-accent);
+    font-size:11px;font-weight:600;display:grid;place-items:center;flex:none;
+  }
+  .step-label{font-size:10.5px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;color:var(--neutral-700)}
+  .step h3{font-family:var(--family-display);font-size:16px;font-weight:600;margin-bottom:var(--space-2)}
+  .step p{font-size:12.5px;color:var(--text-muted);line-height:1.55;margin-bottom:var(--space-3)}
+  .step code{font-family:var(--family-mono);font-size:11px;color:var(--neutral-800)}
+  .pill{
+    margin-top:auto;align-self:flex-start;background:var(--bg-accent);color:var(--text-on-accent);
+    font-size:11px;font-weight:500;border-radius:999px;padding:var(--space-1) var(--space-3);
+  }
+  .pill.quiet{background:var(--neutral-100);color:var(--neutral-700)}
+  .step.bad{border-style:dashed;border-color:var(--neutral-300);background:var(--bg-sunken)}
+  .step.bad .dot{background:var(--neutral-400)}
+  .step.bad h3{color:var(--neutral-700)}
+  .step.src{background:var(--bg-sunken)}
+  .step.app{background:var(--bg-inverse);border-color:var(--bg-inverse)}
+  .step.app h3{color:var(--neutral-0)}
+  .step.app p{color:var(--neutral-200)}
+  .step.app code{color:var(--teal-200)}
+  .step.app .step-label{color:var(--teal-200)}
+  .step.app .dot{background:var(--teal-300);color:var(--neutral-950)}
+  .arrow{
+    position:absolute;right:calc(var(--space-3) * -1);top:50%;transform:translate(50%,-50%);
+    color:var(--neutral-300);z-index:2;
+  }
+
+  /* ---------- record ---------- */
+  .record{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .locks{display:flex;flex-direction:column;gap:var(--space-4)}
+  .lock{display:grid;grid-template-columns:130px 1fr auto;gap:var(--space-4);align-items:baseline}
+  .lock .k{font-family:var(--family-mono);font-size:12px;font-weight:500;color:var(--teal-600)}
+  .lock .v{font-size:13px;color:var(--text-muted);line-height:1.55}
+  .lock .v b{color:var(--text-default);font-weight:600}
+  .lock .v code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+  .counter{
+    margin-top:var(--space-6);padding-top:var(--space-4);border-top:1px solid var(--border-strong);
+    display:flex;align-items:center;gap:var(--space-4);flex-wrap:wrap;
+  }
+  .ticks{display:flex;gap:var(--space-2)}
+  .tick{
+    width:26px;height:26px;border-radius:var(--radius-sm);border:1px solid var(--border-strong);
+    background:var(--bg-raised);display:grid;place-items:center;font-size:12px;color:var(--neutral-400);
+  }
+  .tick.on{background:var(--teal-500);border-color:var(--teal-500);color:var(--text-on-accent)}
+  .tick.half{background:var(--teal-50);border-color:var(--teal-200);color:var(--teal-700)}
+  .counter p{font-size:12.5px;color:var(--text-muted);line-height:1.5;flex:1;min-width:220px}
+  .counter code{font-family:var(--family-mono);font-size:11.5px}
+
+  /* ---------- homes ---------- */
+  .homes{display:flex;flex-direction:column;gap:var(--space-2)}
+  .home{
+    display:grid;grid-template-columns:auto 190px 1fr auto;gap:var(--space-4);align-items:baseline;
+    padding:var(--space-4) 0;border-bottom:1px solid var(--border-divider);
+  }
+  .home:last-child{border-bottom:0}
+  .home .n{font-family:var(--family-mono);font-size:11px;color:var(--neutral-400)}
+  .home .k{font-size:13.5px;font-weight:600}
+  .home .k code{font-family:var(--family-mono);font-size:12px;font-weight:500;color:var(--teal-600)}
+  .home .v{font-size:12.5px;color:var(--text-muted);line-height:1.5}
+  .home .v b{color:var(--text-default);font-weight:600}
+  .home .v code{font-family:var(--family-mono);font-size:11px;color:var(--neutral-800)}
+  .tag{
+    font-size:9.5px;font-weight:600;letter-spacing:.09em;text-transform:uppercase;
+    border-radius:var(--radius-sm);padding:2px var(--space-2);white-space:nowrap;
+  }
+  .tag.gate{background:var(--teal-500);color:var(--text-on-accent)}
+  .tag.info{background:var(--neutral-100);color:var(--neutral-700)}
+  .tag.measure{background:var(--teal-50);color:var(--teal-700)}
+  .tag.hyp{background:transparent;border:1px dashed var(--neutral-300);color:var(--neutral-700)}
+  .step-head .tag{margin-left:auto}
+
+  /* ---------- two-up ---------- */
+  .twoup{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-6)}
+  .panel{
+    background:var(--bg-sunken);border:1px solid var(--border-divider);
+    border-radius:var(--radius-md);padding:var(--space-6);
+  }
+  .panel-title{
+    font-size:12px;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
+    color:var(--teal-600);margin-bottom:var(--space-4);
+  }
+  .panel ul{list-style:none}
+  .panel li{
+    font-size:13px;color:var(--text-muted);line-height:1.55;
+    padding-left:var(--space-4);position:relative;
+  }
+  .panel li + li{margin-top:var(--space-3)}
+  .panel li::before{content:"";position:absolute;left:0;top:8px;width:6px;height:6px;border-radius:50%;background:var(--teal-300)}
+  .panel li b{color:var(--text-default);font-weight:600}
+  .panel li code,.panel p code{font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800)}
+  .panel p{font-size:13px;color:var(--text-muted);line-height:1.55}
+  .panel p + p,.panel p + ul,.panel ul + p{margin-top:var(--space-3)}
+  .panel pre{
+    font-family:var(--family-mono);font-size:11.5px;color:var(--neutral-800);
+    background:var(--bg-raised);border:1px solid var(--border-divider);border-radius:var(--radius-sm);
+    padding:var(--space-3);margin-top:var(--space-3);white-space:pre-wrap;line-height:1.6;
+  }
+  .panel.stop li::before{background:var(--neutral-300)}
+
+  .note{
+    display:flex;gap:var(--space-3);margin-top:var(--space-6);
+    background:var(--bg-raised);border:1px dashed var(--border-strong);
+    border-radius:var(--radius-sm);padding:var(--space-4);
+  }
+  .note .mark{color:var(--teal-500);flex:none}
+  .note b{display:block;font-size:12.5px;font-weight:600;margin-bottom:2px}
+  .note p{font-size:12px;color:var(--text-muted);line-height:1.5}
+  .note code{font-family:var(--family-mono);font-size:11px}
+
+  .closing{
+    background:var(--bg-inverse);border-radius:var(--radius-md);margin-top:var(--space-12);
+    padding:var(--space-8);display:flex;gap:var(--space-6);align-items:flex-start;
+  }
+  .closing h3{font-family:var(--family-display);font-size:20px;font-weight:600;color:var(--neutral-0);margin-bottom:var(--space-3)}
+  .closing p{font-size:13.5px;color:var(--neutral-200);line-height:1.6}
+  .closing p + p{margin-top:var(--space-3)}
+  .closing .mark{flex:none;color:var(--teal-300)}
+
+  footer{
+    margin-top:var(--space-8);padding-top:var(--space-6);border-top:1px solid var(--border-strong);
+    font-size:11.5px;color:var(--neutral-500);line-height:1.6;
+  }
+  footer p + p{margin-top:var(--space-3)}
+  footer b{color:var(--neutral-700)}
+  footer code{font-family:var(--family-mono);font-size:11px}
+
+  @media (max-width:900px){
+    .band-title span{white-space:normal;text-align:center}
+    .row3,.row4{grid-template-columns:1fr}
+    .twoup,.masthead{grid-template-columns:1fr}
+    .promise{width:100%}
+    .home{grid-template-columns:auto 1fr;row-gap:var(--space-2)}
+    .home .v{grid-column:2}
+    .lock{grid-template-columns:1fr}
+    .arrow{display:none}
+    h1{font-size:34px}
+  }
+  @media print{
+    .sheet{max-width:none;padding:0}
+    .band{break-inside:avoid}
+    .closing,.step.app{background:var(--bg-sunken)}
+    .closing h3,.step.app h3{color:var(--text-default)}
+    .closing p,.step.app p{color:var(--text-muted)}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="masthead">
+    <div>
+      <h1>From Figma <em>to the app</em></h1>
+      <p class="standfirst">
+        IDEM is designed in one Figma file and installed by an app as one package.
+        Between them sit <b>two layers</b>: a token pipeline that turns design
+        decisions into values, and a component layer that turns those values into
+        React. Everything flows one way, and a check stands at every handover.
+      </p>
+      <div class="rule"></div>
+    </div>
+    <aside class="promise">
+      <div class="promise-head">The rule</div>
+      <p>Figma → token files → <code>dist/</code> → components → the package → the app.</p>
+      <p><b>A fix is made at the layer that owns it</b>, never downstream, so the next
+      sync can't undo it.</p>
+    </aside>
+  </header>
+
+  <!-- 1 -->
+  <section class="band">
+    <div class="band-title"><span>The system at a glance</span></div>
+    <p class="lede">
+      Four stops. The first is where design decisions are made, the middle two are
+      this repository, and the last is whoever installs <code>@boyzeeboy/idem-ui</code>.
+      Today that's <code>examples/web</code>, a stand-in for the IDEM app that the
+      consumer check installs on every pull request.
+    </p>
+    <div class="row4">
+      <div class="stepwrap">
+        <div class="step src">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Source</span></div>
+          <h3>Figma</h3>
+          <p>IDEM Revised. Six variable collections (Primitives, Semantic, Components,
+          Fonts, Spacing, Radius) and 43 components, of which 3 are ready to build.</p>
+          <span class="pill quiet">Where decisions live</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Layer one</span></div>
+          <h3>The token pipeline</h3>
+          <p>Sync writes DTCG files; Style Dictionary compiles them into 305 CSS
+          variables per mode, plus JS and JSON, in <code>dist/light</code> and
+          <code>dist/dark</code>.</p>
+          <span class="pill">Values</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Layer two</span></div>
+          <h3>The component layer</h3>
+          <p>Each component has a contract saying which token lands on which property in
+          every variant and state. The React and CSS are built against it and checked
+          against it.</p>
+          <span class="pill">Components</span>
+        </div>
+        <div class="arrow" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 9h11M10 5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step app">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Consumer</span></div>
+          <h3>The app</h3>
+          <p>Installs <code>@boyzeeboy/idem-ui</code> from GitHub Packages, imports the
+          components and one stylesheet, and adds <code>.dark</code> to switch theme.</p>
+          <span class="pill">Installs, never edits</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="band">
+    <div class="band-title"><span>Layer one: the token pipeline</span></div>
+    <p class="lede">
+      A token is a <b>named design decision</b>, such as "the primary button's background", with
+      a value per mode. The pipeline's job is to carry those names and values out of
+      Figma without anyone retyping them, and to refuse anything it can't trust.
+    </p>
+    <div class="homes">
+      <div class="home">
+        <span class="n">01</span>
+        <span class="k">Export</span>
+        <span class="v">figma-console's <code>figma_export_tokens</code> writes
+        <code>tokens/.figma-dump.json</code> straight to disk. The plugin is restarted first
+        because the export reads its cache, not the live file (ORIN-75).</span>
+        <span class="tag info">Figma</span>
+      </div>
+      <div class="home">
+        <span class="n">02</span>
+        <span class="k"><code>npm run sync:figma</code></span>
+        <span class="v">Writes <code>tokens/tokens.{light,dark}.json</code> from Primitives,
+        Semantic and Components. <b>Refuses</b> a dump that's stale, from another file,
+        alias-resolved or missing a collection; <code>--expect</code> refuses one that lacks the
+        change you just made. Fonts, Spacing and Radius are still hand-edited in
+        <code>size.json</code> and <code>typography.json</code>.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="home">
+        <span class="n">03</span>
+        <span class="k">Token files</span>
+        <span class="v">W3C DTCG, aliases kept, so a semantic token still points at its
+        primitive. <b>The source of truth on the code side</b>, committed and reviewed as a
+        diff. Two tiers below components: primitives (<code>teal/500</code>) are never used
+        directly; semantic tokens (<code>colour/action/primary</code>) are.</span>
+        <span class="tag info">Source</span>
+      </div>
+      <div class="home">
+        <span class="n">04</span>
+        <span class="k"><code>npm run build</code></span>
+        <span class="v">Style Dictionary compiles <code>dist/{light,dark}/</code>:
+        <code>variables.css</code>, <code>tokens.js</code>, <code>tokens.flat.json</code>.
+        A malformed token or broken alias fails here. Then it snapshots the result into
+        <code>tokens/changelog.json</code> and, when a shipped token changed, writes a
+        changeset: patch for a value, minor for an addition, major for a removal.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="home">
+        <span class="n">05</span>
+        <span class="k">The router</span>
+        <span class="v"><code>design.md</code> and <code>tokens/guidelines.json</code> tell an
+        agent which token to reach for and why. Prose, so it's read rather than enforced;
+        the enforcement is in layer two.</span>
+        <span class="tag info">Prose</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="band">
+    <div class="band-title"><span>Layer two: what a contract carries</span></div>
+    <p class="lede">
+      The contract is the component's specification as data, one JSON file per
+      component. Part of it is <b>derived from the design</b> and part is <b>decided</b>,
+      and the line between them is explicit in the file. This is Button's.
+    </p>
+    <div class="record">
+      <div class="locks">
+        <div class="lock"><span class="k">figma</span><span class="v">The node <code>1596:11918</code> and the mapping between the two sides' names: Figma's <code>Default</code> state is code's <code>rest</code>, <code>Focus</code> is <code>focus-visible</code>.</span><span class="tag info">Mapping</span></div>
+        <div class="lock"><span class="k">tokens</span><span class="v">For every variant and state, which token each CSS property takes: <code>background → --idem-button-primary-bg</code>. <b>Derived from the design</b> by <code>verify:figma --init</code>, never typed. The hand-written original was wrong in four places.</span><span class="tag measure">Derived</span></div>
+        <div class="lock"><span class="k">props · states</span><span class="v">The API. Variants come from Figma; props that are modelling decisions, such as <code>disabled</code>, or a progress bar's <code>value</code>, are authored.</span><span class="tag hyp">Both</span></div>
+        <div class="lock"><span class="k">a11y</span><span class="v">Role, contrast level, minimum target, focus indicator. <b>Policy, so always authored</b>: a contrast bar is a decision, not something to read off a design.</span><span class="tag info">Authored</span></div>
+        <div class="lock"><span class="k">codeOnly</span><span class="v">Properties the design draws as geometry rather than a binding, such as the focus ring's offset. Declared, so a comparison with Figma doesn't flag them.</span><span class="tag info">Authored</span></div>
+        <div class="lock"><span class="k">stories</span><span class="v">The Storybook stories that must exist. Each one is rendered and run through axe in both modes.</span><span class="tag info">Authored</span></div>
+      </div>
+      <div class="counter">
+        <div class="ticks">
+          <span class="tick on" aria-hidden="true">✓</span>
+          <span class="tick half" aria-hidden="true">✓</span>
+          <span class="tick half" aria-hidden="true">✓</span>
+          <span class="tick half" aria-hidden="true">✓</span>
+        </div>
+        <p><code>4 shipped</code> &nbsp;· Button is built from its Figma component. Input,
+        Label and FormField exist only in code, with contracts but no Figma source to check
+        against (ORIN-72).</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="band">
+    <div class="band-title"><span>How a component gets built: the loop</span></div>
+    <p class="lede">
+      PROCESS.md Step 9. Every component goes through the same eight steps, each one a
+      command or a fixed prompt, so <b>the next component is a run, not a project</b>. A
+      step that has to be improvised means the loop gets fixed before the next one.
+    </p>
+    <div class="row4">
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">1</span><span class="step-label">Figma</span></div>
+          <h3>Ready check</h3>
+          <p>The readiness script: nameable variants, zero unbound values, not a duplicate. Not ready goes back to design.</p>
+          <span class="pill quiet">Stop or go</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">2</span><span class="step-label">Layer one</span></div>
+          <h3>Sync</h3>
+          <p>Any new variables the component brought, with <code>--expect</code> naming them.</p>
+          <span class="pill quiet">Tokens first</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">3</span><span class="step-label">Layer two</span></div>
+          <h3>Contract</h3>
+          <p><code>verify:figma --init &lt;node&gt;</code> derives the tokens map; a person fills in a11y, stories and authored props.</p>
+          <span class="pill quiet">Derived + decided</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">4</span><span class="step-label">Layer two</span></div>
+          <h3>Build</h3>
+          <p>The fixed prompt in <code>prompts/build-component.md</code>. Rules live in the contract and checks, not in the prompt.</p>
+          <span class="pill quiet">Same prompt every time</span>
+        </div>
+      </div>
+    </div>
+    <div class="row4">
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">5</span><span class="step-label">Package</span></div>
+          <h3>Wire it in</h3>
+          <p>Export, <code>package.json</code> entry, rendered in the example app, render checks added. The consumer check names each gap.</p>
+          <span class="pill quiet">Checked, not remembered</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">6</span><span class="step-label">Gates</span></div>
+          <h3>Checks</h3>
+          <p><code>npm test</code>, then <code>verify:figma</code> against a live read of the design.</p>
+          <span class="pill quiet">All green</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step bad">
+          <div class="step-head"><span class="dot">7</span><span class="step-label">Not yet</span></div>
+          <h3>Canvas frame</h3>
+          <p>A frame showing the component beside its Figma source and drift status. Skipped until ORIN-67 exists.</p>
+          <span class="pill quiet">Planned</span>
+        </div>
+      </div>
+      <div class="stepwrap">
+        <div class="step">
+          <div class="step-head"><span class="dot">8</span><span class="step-label">The app</span></div>
+          <h3>Release</h3>
+          <p>A minor changeset; the Release workflow opens a PR, merging it publishes. <b>Done means an app installed it.</b></p>
+          <span class="pill">Published</span>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <span class="mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </span>
+      <div>
+        <b>Next through it: Progress Bar, the first run that isn't Button (ORIN-76).</b>
+        <p>Its two design gaps were closed in Figma on 1 October: its height is now the
+        variable <code>progress/height</code>, and both ends are rounded with
+        <code>Radius/full</code>. Its progress amount is geometry in Figma, so the contract
+        authors a <code>value</code> prop.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="band">
+    <div class="band-title"><span>The checks, and what each one proves</span></div>
+    <p class="lede">
+      Each check compares two things and catches a different failure. The point is
+      the seams between them: <b>a component can name the right tokens and still be
+      unreadable</b>, or render perfectly and still not be the component the design drew.
+    </p>
+    <div class="homes">
+      <div class="home">
+        <span class="n">01</span>
+        <span class="k"><code>test:sync</code> · <code>verify</code></span>
+        <span class="v">The pipeline's own logic, and that every output exists in both modes. Every token path names exactly the CSS variable the build emits.</span>
+        <span class="tag gate">npm test</span>
+      </div>
+      <div class="home">
+        <span class="n">02</span>
+        <span class="k"><code>verify:contracts</code></span>
+        <span class="v">Contract against code. The schema holds, every named token is emitted in both modes, no primitives, no literal hex or px in the CSS, contrast passes on the contract's own pairs, every story exists, and <b>the CSS uses no token its contract doesn't list</b>.</span>
+        <span class="tag gate">npm test</span>
+      </div>
+      <div class="home">
+        <span class="n">03</span>
+        <span class="k">Storybook tests</span>
+        <span class="v">Renders every story and runs axe on it in light and dark. The only check that proves the result is usable rather than merely well-named.</span>
+        <span class="tag gate">npm test</span>
+      </div>
+      <div class="home">
+        <span class="n">04</span>
+        <span class="k"><code>test:consumer</code></span>
+        <span class="v">The package as an app gets it. Packs the tarball, installs it into a copy of <code>examples/web</code> outside the repo, typechecks and builds it, then opens it in Chromium with Playwright and confirms each component's computed style equals its token in both themes.</span>
+        <span class="tag gate">npm test · CI</span>
+      </div>
+      <div class="home">
+        <span class="n">05</span>
+        <span class="k">Chromatic</span>
+        <span class="v">Screenshots every story and flags pixel changes against the approved baseline. Builds on <code>main</code> are accepted as the new baseline automatically.</span>
+        <span class="tag measure">CI</span>
+      </div>
+      <div class="home">
+        <span class="n">06</span>
+        <span class="k"><code>verify:figma</code></span>
+        <span class="v">Contract against design. Reads the component in Figma and reports every property where the design binds a different token from the contract. On demand, because it needs a live read of Figma.</span>
+        <span class="tag hyp">On demand</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
+  <section class="band">
+    <div class="band-title"><span>When the design changes</span></div>
+    <div class="twoup">
+      <div class="panel">
+        <div class="panel-title">Case A · the value changes</div>
+        <p>The designer makes the button less round by repointing <code>button/radius</code>.
+        The component still binds <code>button/radius</code>, so <b>no code changes</b>.</p>
+        <pre>edit in Figma → sync → build → npm test → release</pre>
+        <p>The app gets a patch release and a new corner. This is what the component tier
+        of tokens is for, and it should be the common case.</p>
+      </div>
+      <div class="panel stop">
+        <div class="panel-title">Case B · the binding changes</div>
+        <p>The designer points the button at a <b>different token</b>. That's a
+        re-specification, so <code>verify:figma</code> fails and names the property on both
+        sides.</p>
+        <pre>verify:figma fails → talk → --fix the contract → update CSS → npm test</pre>
+        <p>The conversation is the point, and can't be automated. Frequent Case B means the
+        token layer is missing a component token.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 -->
+  <section class="band">
+    <div class="band-title"><span>What the app gets, and what it never does</span></div>
+    <div class="twoup">
+      <div class="panel">
+        <div class="panel-title">The package carries</div>
+        <ul>
+          <li><b>Components</b>, from the root or one entry each: <code>@boyzeeboy/idem-ui/button</code>.</li>
+          <li><b>One stylesheet</b>, <code>tokens.css</code>: both modes, dark switched on by a <code>.dark</code> class or <code>data-theme="dark"</code>.</li>
+          <li><b>Tokens on their own</b> for anything the components don't cover: <code>light.css</code>, <code>dark.css</code>, and JS and JSON forms.</li>
+          <li><b>Types</b>, so props are checked in the app's editor.</li>
+          <li><b>A version</b>, through changesets, so a design change arrives as an upgrade the app chooses to take.</li>
+        </ul>
+      </div>
+      <div class="panel stop">
+        <div class="panel-title">The app never</div>
+        <ul>
+          <li><b>Hardcodes a value.</b> No hex, px or font names; if a token is missing, it's added in Figma.</li>
+          <li><b>Uses a primitive.</b> Colours come through semantic or component tokens.</li>
+          <li><b>Edits the package.</b> A fix in the app is undone by the next release. It goes back to its source layer.</li>
+          <li><b>Restyles a component's tokens.</b> A different look is a new variant, designed in Figma.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="closing">
+    <span class="mark" aria-hidden="true">
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M14 3l9 4.5v6.8c0 5.3-3.8 9.5-9 10.7-5.2-1.2-9-5.4-9-10.7V7.5L14 3z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 14l2.8 2.8L18.5 11" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </span>
+    <div>
+      <h3>One direction, and every handover checked</h3>
+      <p>Nothing in this system generates the design from code or pushes code into Figma.
+      A design change never reaches the app on its own: it travels through a sync, a
+      build, a set of checks and a release, and each of those can stop it and say why.</p>
+      <p>What that buys the app is the right to trust a version number. If
+      <code style="font-family:var(--family-mono);font-size:12.5px">@boyzeeboy/idem-ui</code>
+      installs and renders, it matches the design it was built from.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>
+      <b>Status: built and shipping, as of 2 October 2026.</b> <code>@boyzeeboy/idem-ui</code>
+      1.0.2 on GitHub Packages, from <code>Boyzeeboy/idem-design-tokens</code>. Four components
+      (Button from Figma; Input, Label and FormField code-authored), 305 tokens per mode.
+      The loop is ORIN-71, the inventory ORIN-70 (43 components: 3 ready, 6 duplicates,
+      34 not ready, mostly unbound geometry, which ORIN-77 addresses). Canvas (ORIN-67 to 69)
+      and a React Native target (ORIN-74) are planned, not built.
+    </p>
+    <p>
+      <b>Sources.</b> <code>PROCESS.md</code> Steps 2, 3, 8 and 9; <code>CLAUDE.md</code>;
+      <code>package.json</code>; <code>src/components/button/button.contract.json</code>;
+      <code>scripts/verify-contracts.mjs</code> and <code>scripts/verify-consumer.mjs</code>;
+      <code>runs/component-inventory.md</code>.
+    </p>
+    <p>
+      Colour, type, spacing and radius above are Orin's own tokens, as in
+      <code>pattern-layer-infographic.html</code>. This is a standalone artefact: it does not
+      read <code>vendor/tokens.css</code> and is not covered by <code>npm test</code>.
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
