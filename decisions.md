@@ -8354,3 +8354,107 @@ caught today. Generation stops them being made, which is better, but it
 is a quality improvement over a working check rather than a missing one.
 And it is one component set on one file, so the same warning as ORIN-62
 applies: worth waiting for a second instance to inform the design.
+
+## 2026-10-06 — Page contracts are not the pattern layer
+
+**Decision:** IDEM's page contracts (ORIN-102, ORIN-103) are recorded as
+the component contract extended to a Figma screen, not as the parked
+pattern-layer mechanism and not as a reopening of it. The mechanism stays
+parked.
+
+**What a page contract is.** A Figma screen is a component, so the same
+reader, the same `--init` and the same checks apply. The screen's regions
+become the contract's parts, its gaps, padding and type become tokens, and
+`composes` lists the components it places. The page is built only from the
+package and held to a screen that exists in Figma first. The Images screen
+is one set in two views, `View=Grid|List`, and one page.
+
+**Why it isn't the mechanism.** `notes/pattern-layer-governance.md` has two
+halves. The verification half is the contract diffed against design and
+code (its Phases B to D). The governance half is its reason to exist: an
+agent's third option to propose a pattern, with lock zones, a proposal
+record (Gap, Built from, Why not X, Used in), a counter, an owner's review
+and a skill. ORIN-49 has had the verification half in IDEM, as practice,
+since 19 September. Pages extend it. None of the governance half exists.
+
+**Against the trigger.** IDEM meets condition 1 (component sets), 2 (a code
+library), 3 (a manifest: a `figmaNodeId` in every contract, with the shape
+a node-ID comment lacks) and 5 (agent-assisted component work). It cannot
+meet 4, one owner with no adjudication bottleneck, which the 19 September
+entry already said. And the trigger is client-side by definition. It has
+not fired.
+
+**Recorded so a proposal doesn't overclaim:**
+
+- **The contract's form departs from the governance note.** The note
+  rejects a hand-authored contract and wants it emitted from Figma. IDEM's
+  is a hybrid: tokens, parts and composes derived by `--init`; a11y, stories
+  and `codeOnly` authored. That dates from ORIN-49 and ORIN-65 ("bindings
+  generated, policy authored"), not from pages.
+- **The page runs did something proposal-shaped, informally.** The Images
+  screen produced decisions the system couldn't express: `data-card/width`,
+  the `table/*` column tokens, an Outlined Icon Button, the screens as one
+  set. Each was proposed by the agent with alternatives, chosen by me, and
+  landed in Figma first, as the note demands. None went through a proposal
+  record or a counter. The loop happened; the machinery didn't.
+- **"Pattern" is the word to watch.** The Build promises "page patterns" and
+  the IDEM canvas has a `Patterns/` group. A proposal says "page contracts
+  verify designed screens", never "IDEM has a pattern layer".
+
+**Revisit if:** a page is built from a contract with no Figma screen behind
+it; page compositions are counted or promoted into components; lock zones
+or a proposal record appear in IDEM; or any of this is offered to a client
+as governance.
+
+## 2026-10-06 — The Build says what its component library is
+
+**Decision:** `Offer.md` (version 1.2) and `deliverable.md` describe the
+component layer as it now exists, instead of as a promise. No price
+changes, no new engagement shape, and the Foundation is untouched.
+
+**Reasoning:** the Build has always promised "Tokens. Component library.
+Page patterns. The pipeline". On 19 September the middle was prose. It
+isn't now. IDEM has 40 components held to its Figma file by contracts, one
+screen rebuilt as a page in two views, a canvas showing every story beside
+its source, and a package an app installs, at 1.20.0. So the Build can say
+what its library is and how it's checked, and the deliverable can stop
+describing a metadata file nobody built.
+
+**What changed:**
+
+- `deliverable.md`: the component library line is now contracts, the
+  checks that hold code to them, and the drift check I run. Two new lines:
+  the canvas, and one key screen rebuilt from the package as the library's
+  acceptance test. A new section, "Where the component layer stands", says
+  it was built on IDEM and is not in the baseline yet, so for that line
+  the file is the manifest rather than a fresh clone.
+- `Offer.md`, Diagnostic: a second opening move for a team with a component
+  library, the component ready check, using IDEM's own 43 components and 3
+  ready as the example. **Marked not standard yet.**
+- `Offer.md`, Build: the library held to their design; done means one of
+  their screens rebuilt from the package matches Figma; an explicit line
+  that pattern governance is not part of it. Component-heavy scope comes
+  from the ready-check ratings, not screens, and the £12k to £18k range is
+  a starting point for the first one, to be checked against the work.
+- `Offer.md`, Retainer: new components through the same loop, the drift
+  check and a canvas walk monthly.
+- `notes/idem-system-infographic.html`, refreshed from 1.0.2 to 1.20.0 the
+  same day, with sections for pages, the canvas and icons.
+
+**What it doesn't claim.** Two things stay unproven and both documents
+say so. The component machinery has only read one Figma file, mine, and
+component naming varies far more between files than six collection names
+do: the portability risk the governance note named in September. And it
+assumes React, TypeScript and Storybook. The ready check gets promoted in
+the Diagnostic only after it has worked on a file I didn't design.
+
+**Not done:** the component layer isn't extracted into `Orin Token
+Pipeline`, so the shared core still doesn't contain it. That's the next
+decision, and it waits for the first client file. The Foundation's "about
+eight primitives" could carry contracts too; untested, so not offered.
+Site copy unchanged.
+
+**Revisit if:** the ready check runs on a client file (promote it, or
+record why not); the first component Build lands (check the price against
+the work); or the component layer is extracted into the baseline (this
+file's manifest line goes back to the clone).

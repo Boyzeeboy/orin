@@ -42,13 +42,30 @@ itself):
   product, and the product's existing hardcoded colours, sizes and fonts migrated
   onto semantic tokens — so the codebase reads from one source of truth rather
   than scattered literals.
-- **A component library, as it arrives — and Storybook and `design.md` with it.**
-  Components built on the tokens, each with a metadata file describing variants,
-  states and anti-patterns, documented in Storybook, with `design.md` as the
-  router pointing at that metadata. All three are scoped to this line
-  deliberately: they earn their place when there are components to document,
-  visually regression-test and route to. A pipeline that ships tokens alone gets
-  the generated report and the generated agent docs instead.
+- **A component library, held to the design.** Components built on the tokens,
+  each with a contract: a data file saying which token every property takes, in
+  every variant and state. The token half of the contract is derived from their
+  Figma components, never typed. The rest (accessibility policy, the stories that
+  must exist) is authored, and the file says which half is which.
+
+  Checks hold the code to its contract on every pull request. A component may use
+  no token its contract doesn't name. Text and icons meet contrast in both modes.
+  Every story renders, passes an accessibility scan, and matches its committed
+  screenshot. A drift check holds the contract to Figma, and I run that one: it
+  needs a live read of their file, so it never runs unsupervised.
+
+  Storybook documents the components, and `design.md` routes to their contracts.
+  All of this is scoped to this line deliberately: it earns its place when there
+  are components to check. A pipeline that ships tokens alone gets the generated
+  report and the generated agent docs instead.
+- **A canvas, with the library.** Every story on one page beside its Figma
+  source, marked in sync or drifted. It's the one place a designer and a
+  developer look at the same thing and can see whether they agree.
+- **One key screen, rebuilt from the package.** A screen they already have in
+  Figma, built only from the components they'll ship, then compared with the
+  Figma frame region by region. It's the acceptance test for the library. It also
+  finds what components on their own never surface: layout bound to nothing, and
+  values no component owns.
 - **The routing and usage layer.** The generated `CLAUDE.md` / `AGENTS.md` (the
   router — rendered from one template with the client's own Figma file and token
   prefix, so it cannot drift), per-token usage rules carried as `$description` on
@@ -69,6 +86,23 @@ That the router is **generated** rather than written is the point. It carries th
 client's real Figma file and token prefix because it is rendered from one
 template plus their config, so it cannot quietly describe a system they no longer
 have. A hand-written router is a doc that rots; this one is an output.
+
+## Where the component layer stands
+
+Stated plainly, because the rest of this file defers to the baseline and this
+part can't yet.
+
+The component layer is real, and it isn't in the baseline. I built it on IDEM, my
+own design system: 40 components held to its Figma file, one screen rebuilt as a
+page in both its views, all released as a package an app installs. A fresh clone
+of `Orin Token Pipeline` doesn't contain any of it. Until it's extracted, a
+Build's component work starts from the IDEM machinery, and this file is the
+manifest for that line rather than the clone.
+
+Two things are unproven. It has run against one Figma file, mine, and component
+naming varies far more between files than six collection names do. And it
+assumes React, TypeScript and Storybook. The first client file it meets is the
+test of whether it's a product or a one-off.
 
 ## Whose is what
 

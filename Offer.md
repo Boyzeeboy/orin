@@ -1,6 +1,6 @@
 # Orin — The Offer
 
-*Version 1.1 — 12 August 2026*
+*Version 1.2, 6 October 2026. The component layer exists; the Build says what it ships.*
 
 Four engagement shapes, and two ways in. Each one is optional. Each one
 de-risks the next. Diagnostic feeds Build feeds Retainer for a team that
@@ -67,6 +67,22 @@ reach their code, hardcoded values in their code that bypass the system,
 and whether their dark mode actually resolves — that last one is the check
 that exists because a real dark theme silently carried its light values
 for months, past every other gate.
+
+**If they have a component library, there's a second move.** Point the
+component ready check at their Figma component sets. It rates each one: can it
+be built in code without anyone guessing a value? It names what stops the ones
+that can't. Padding, gaps and radii typed as numbers. A colour bound to another
+file's library. A column width nobody owns. The same component drawn twice.
+
+My own file went through this first. 43 components, and 3 could be built as
+drawn. "Most of your components can't be built without someone guessing" is the
+token audit's hard truth one layer up. It's also the evidence a component Build
+gets scoped from.
+
+**Not standard yet.** It has only ever read my file, and component naming varies
+far more between files than six collection names do. Run it on the first client
+file as an experiment, say so out loud, and promote it here once it has worked on
+a file I didn't design.
 
 This is *"I'd rather tell a client the hard truth about their system than
 sell them polish they don't need"* executed in ten minutes rather than
@@ -278,6 +294,22 @@ to the codebase — Style Dictionary, GitHub, whatever the working thing
 requires. Built iteratively, in their workflow, with their developers —
 not delivered over a wall at the end.
 
+**The component library is held to their design, not just built from it.**
+Each component gets a contract derived from their Figma file. The code is checked
+against it on every pull request, and against an app that installs it. Every
+component sits on a canvas beside its Figma source, marked in sync or drifted.
+`deliverable.md` has the detail.
+
+**It's done when one of their screens is.** I rebuild one key screen from the
+package alone and compare it with their Figma frame, region by region. Done means
+it matches. On my own file that test found what the components never did: 15
+unbound gaps, a table whose column widths nobody owned, and two bugs in components
+that had already shipped.
+
+**What this isn't: pattern governance.** Agents proposing new components, a
+usage counter, lock zones: that mechanism is parked, and nothing in the Build
+sells it.
+
 **What the client gets:** One source of truth their developers ship
 from. Fewer duplicated components. Fewer design calls made in silos.
 Less defect debt. A system that exists in their codebase, not in a
@@ -309,6 +341,12 @@ client gets certainty, Orin isn't punished for being efficient. Agencies
 quote £30k–60k for the same scope and staff it junior. The exact figure
 is always set by the Diagnostic — Orin never quotes blind.
 
+**A component-heavy Build is scoped from the ready check, not from screens.**
+The rating per component is the scope: what can be built as drawn, and what
+needs fixing in Figma first. The range above was set before the component layer
+existed, so I'll treat it as a starting point for the first one and check it
+against what the work actually took.
+
 **Hard rule:** No Build without a Diagnostic or a Foundation first. This
 is the anti-Momentum clause. Orin does not price unscoped work. Which
 door they come through depends on whether a system already exists; that
@@ -328,6 +366,11 @@ there is a door at all does not move.
 system as the product grows. Reviewing new components before they
 fragment. Keeping the pipeline healthy, which includes running the drift
 gate, so Figma and the code are known to agree rather than assumed to.
+
+With a component library, "reviewing new components" has a shape. Each new one
+goes through the same loop the Build used: ready check, contract, checks,
+release. Once a month I run the drift check across the library and walk the
+canvas with whoever owns the design.
 Being the design brain the developers can call on when they're making a
 call they're not sure about.
 
