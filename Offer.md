@@ -294,6 +294,14 @@ to the codebase — Style Dictionary, GitHub, whatever the working thing
 requires. Built iteratively, in their workflow, with their developers —
 not delivered over a wall at the end.
 
+**Some of the work happens in their Figma file.** A component that can't be
+built as drawn gets fixed there first: values bound to tokens, layers named, a
+missing state or variant added, a number nobody owns made into a token. That's
+design-system design, inside the visual language they already have, and it's how
+every component on my own file got built. It isn't product design: I don't
+design their screens or their flows. And it's their file, so I work on a branch
+of it, or on changes their designer approves, never straight over their work.
+
 **The component library is held to their design, not just built from it.**
 Each component gets a contract derived from their Figma file. The code is checked
 against it on every pull request, and against an app that installs it. Every

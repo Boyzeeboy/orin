@@ -8458,3 +8458,14 @@ Site copy unchanged.
 record why not); the first component Build lands (check the price against
 the work); or the component layer is extracted into the baseline (this
 file's manifest line goes back to the clone).
+
+**Added later the same day:** the Build gains a paragraph, "Some of the work
+happens in their Figma file". The version above implied the Figma work
+("built from the brand foundations up", and "what needs fixing in Figma
+first" in the pricing logic) without saying Orin does it. On IDEM every
+component and both screens needed Figma changes before they could be built,
+and making them was the job. The paragraph says what that work is (binding,
+naming, states, variants, tokens), where it stops (not product design: no
+screens, no flows), and whose file it is: a branch of theirs, or changes
+their designer approves, never straight over their work. That last line is a
+commitment to the client, not a description of the pipeline.
