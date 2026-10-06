@@ -12,11 +12,13 @@
      Sibling of pattern-layer-infographic.html, same visual language.
      That one diagrams the pattern layer as a parked mechanism. This
      one diagrams the system as built in idem-design-tokens on
-     2 October 2026: the token pipeline, the component layer above it,
-     and the app that installs both as one package.
+     6 October 2026: the token pipeline, the component layer above it,
+     the pages built from the package, the canvas beside them, and the
+     app that installs the package.
 
      Facts are read from the repo (package.json, PROCESS.md,
-     src/components/, runs/component-inventory.md) on that date.
+     src/components/, src/pages/, canvas/, runs/component-inventory.md)
+     on that date. First drawn 2 October 2026 (1.0.2); updated for 1.20.0.
      Orin's tokens, as in the sibling. Standalone artefact, NOT part
      of site/, not covered by npm test.
      --------------------------------------------------------------- */
@@ -258,7 +260,9 @@
         IDEM is designed in one Figma file and installed by an app as one package.
         Between them sit <b>two layers</b>: a token pipeline that turns design
         decisions into values, and a component layer that turns those values into
-        React. Everything flows one way, and a check stands at every handover.
+        React. Above them, <b>pages</b> build the design's screens from the package
+        alone, and <b>the canvas</b> shows all of it beside Figma. Everything flows one
+        way, and a check stands at every handover.
       </p>
       <div class="rule"></div>
     </div>
@@ -266,7 +270,7 @@
       <div class="promise-head">The rule</div>
       <p>Figma → token files → <code>dist/</code> → components → the package → the app.</p>
       <p><b>A fix is made at the layer that owns it</b>, never downstream, so the next
-      sync can't undo it.</p>
+      sync can't undo it. A design fault is fixed in Figma, then synced.</p>
     </aside>
   </header>
 
@@ -285,7 +289,8 @@
           <div class="step-head"><span class="dot">1</span><span class="step-label">Source</span></div>
           <h3>Figma</h3>
           <p>IDEM Revised. Six variable collections (Primitives, Semantic, Components,
-          Fonts, Spacing, Radius) and 43 components, of which 3 are ready to build.</p>
+          Fonts, Spacing, Radius), 36 components built from it, 3 more ready, and the
+          screens: the Images screen is one set in two views.</p>
           <span class="pill quiet">Where decisions live</span>
         </div>
         <div class="arrow" aria-hidden="true">
@@ -296,9 +301,9 @@
         <div class="step">
           <div class="step-head"><span class="dot">2</span><span class="step-label">Layer one</span></div>
           <h3>The token pipeline</h3>
-          <p>Sync writes DTCG files; Style Dictionary compiles them into 305 CSS
+          <p>Sync writes DTCG files; Style Dictionary compiles them into 350 CSS
           variables per mode, plus JS and JSON, in <code>dist/light</code> and
-          <code>dist/dark</code>.</p>
+          <code>dist/dark</code>. Icons arrive the same way, as SVG.</p>
           <span class="pill">Values</span>
         </div>
         <div class="arrow" aria-hidden="true">
@@ -309,9 +314,9 @@
         <div class="step">
           <div class="step-head"><span class="dot">3</span><span class="step-label">Layer two</span></div>
           <h3>The component layer</h3>
-          <p>Each component has a contract saying which token lands on which property in
-          every variant and state. The React and CSS are built against it and checked
-          against it.</p>
+          <p>40 components, each with a contract saying which token lands on which
+          property in every variant and state. The React and CSS are built against it
+          and checked against it.</p>
           <span class="pill">Components</span>
         </div>
         <div class="arrow" aria-hidden="true">
@@ -326,6 +331,18 @@
           components and one stylesheet, and adds <code>.dark</code> to switch theme.</p>
           <span class="pill">Installs, never edits</span>
         </div>
+      </div>
+    </div>
+    <div class="note">
+      <span class="mark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </span>
+      <div>
+        <b>Beside the four stops: pages and the canvas.</b>
+        <p>A page is one of the design's screens built from the package exactly as an
+        app would build it, held to its Figma screen by a contract, and never shipped.
+        The canvas frames every story beside its Figma source and its drift. Both are
+        in the repository, and both are checked.</p>
       </div>
     </div>
   </section>
@@ -353,8 +370,8 @@
         <span class="v">Writes <code>tokens/tokens.{light,dark}.json</code> from Primitives,
         Semantic and Components. <b>Refuses</b> a dump that's stale, from another file,
         alias-resolved or missing a collection; <code>--expect</code> refuses one that lacks the
-        change you just made. Fonts, Spacing and Radius are still hand-edited in
-        <code>size.json</code> and <code>typography.json</code>.</span>
+        change you just made. Fonts, Spacing and Radius values are still hand-edited in
+        <code>size.json</code> and <code>typography.json</code>; the sync resolves aliases to them.</span>
         <span class="tag gate">Gate</span>
       </div>
       <div class="home">
@@ -378,6 +395,15 @@
       </div>
       <div class="home">
         <span class="n">05</span>
+        <span class="k"><code>npm run sync:icons</code></span>
+        <span class="v">The Icon set (28 icons, Lucide among them) exported as SVG, every colour
+        made <code>currentColor</code>, into a generated module the <code>Icon</code> component
+        draws from. A component never carries a drawing of its own: <b>check 6 fails any
+        other inline SVG</b> its contract doesn't declare as a shape.</span>
+        <span class="tag gate">Gate</span>
+      </div>
+      <div class="home">
+        <span class="n">06</span>
         <span class="k">The router</span>
         <span class="v"><code>design.md</code> and <code>tokens/guidelines.json</code> tell an
         agent which token to reach for and why. Prose, so it's read rather than enforced;
@@ -393,27 +419,28 @@
     <p class="lede">
       The contract is the component's specification as data, one JSON file per
       component. Part of it is <b>derived from the design</b> and part is <b>decided</b>,
-      and the line between them is explicit in the file. This is Button's.
+      and the line between them is explicit in the file. This is Button's, with the
+      fields later components added.
     </p>
     <div class="record">
       <div class="locks">
-        <div class="lock"><span class="k">figma</span><span class="v">The node <code>1596:11918</code> and the mapping between the two sides' names: Figma's <code>Default</code> state is code's <code>rest</code>, <code>Focus</code> is <code>focus-visible</code>.</span><span class="tag info">Mapping</span></div>
+        <div class="lock"><span class="k">figma</span><span class="v">The node <code>1596:11918</code> and the mapping between the two sides' names: Figma's <code>Default</code> state is code's <code>rest</code>, <code>Focus</code> is <code>focus-visible</code>. <code>parts</code> maps a layer below the root to a class: a progress bar's Track and Fill.</span><span class="tag info">Mapping</span></div>
         <div class="lock"><span class="k">tokens</span><span class="v">For every variant and state, which token each CSS property takes: <code>background → --idem-button-primary-bg</code>. <b>Derived from the design</b> by <code>verify:figma --init</code>, never typed. The hand-written original was wrong in four places.</span><span class="tag measure">Derived</span></div>
-        <div class="lock"><span class="k">props · states</span><span class="v">The API. Variants come from Figma; props that are modelling decisions, such as <code>disabled</code>, or a progress bar's <code>value</code>, are authored.</span><span class="tag hyp">Both</span></div>
-        <div class="lock"><span class="k">a11y</span><span class="v">Role, contrast level, minimum target, focus indicator. <b>Policy, so always authored</b>: a contrast bar is a decision, not something to read off a design.</span><span class="tag info">Authored</span></div>
-        <div class="lock"><span class="k">codeOnly</span><span class="v">Properties the design draws as geometry rather than a binding, such as the focus ring's offset. Declared, so a comparison with Figma doesn't flag them.</span><span class="tag info">Authored</span></div>
-        <div class="lock"><span class="k">stories</span><span class="v">The Storybook stories that must exist. Each one is rendered and run through axe in both modes.</span><span class="tag info">Authored</span></div>
+        <div class="lock"><span class="k">composes</span><span class="v">The IDEM components it renders, read from the design's instances: Row Select composes Checkbox. Held to the design, and to the code, which must render each.</span><span class="tag measure">Derived</span></div>
+        <div class="lock"><span class="k">props · states</span><span class="v">The API. Variants come from Figma; props that are modelling decisions, such as <code>disabled</code>, or a progress bar's <code>value</code>, are authored. <code>derivedFrom</code> marks a variant the code computes from another prop.</span><span class="tag hyp">Both</span></div>
+        <div class="lock"><span class="k">a11y</span><span class="v">Role, contrast level, minimum target, focus indicator, and the colour pairs to measure, text and non-text. <b>Policy, so always authored</b>: a contrast bar is a decision, not something to read off a design.</span><span class="tag info">Authored</span></div>
+        <div class="lock"><span class="k">codeOnly · shapes</span><span class="v">Properties with no Figma counterpart by design, such as the focus ring's offset, declared so a comparison doesn't flag them; and any drawing that is the component's outline, not an icon: Tool Tip's arrow.</span><span class="tag info">Authored</span></div>
+        <div class="lock"><span class="k">stories</span><span class="v">The Storybook stories that must exist. Each one is rendered, run through axe in both modes, and compared with its screenshot.</span><span class="tag info">Authored</span></div>
       </div>
       <div class="counter">
         <div class="ticks">
-          <span class="tick on" aria-hidden="true">✓</span>
-          <span class="tick half" aria-hidden="true">✓</span>
-          <span class="tick half" aria-hidden="true">✓</span>
-          <span class="tick half" aria-hidden="true">✓</span>
+          <span class="tick on" aria-hidden="true">36</span>
+          <span class="tick half" aria-hidden="true">4</span>
+          <span class="tick half" aria-hidden="true">1</span>
         </div>
-        <p><code>4 shipped</code> &nbsp;· Button is built from its Figma component. Input,
-        Label and FormField exist only in code, with contracts but no Figma source to check
-        against (ORIN-72).</p>
+        <p><code>36 from Figma · 4 code-authored · 1 page</code> &nbsp;· 36 contracts are held to
+        a Figma component. Input, Label, FormField and Table are authored in code on purpose and
+        marked <code>codeAuthored</code> (ORIN-72). One contract is a page's.</p>
       </div>
     </div>
   </section>
@@ -423,15 +450,16 @@
     <div class="band-title"><span>How a component gets built: the loop</span></div>
     <p class="lede">
       PROCESS.md Step 9. Every component goes through the same eight steps, each one a
-      command or a fixed prompt, so <b>the next component is a run, not a project</b>. A
-      step that has to be improvised means the loop gets fixed before the next one.
+      command or a fixed prompt, so <b>the next component is a run, not a project</b>. It
+      has run some 35 times. A step that has to be improvised means the loop gets fixed
+      before the next one.
     </p>
     <div class="row4">
       <div class="stepwrap">
         <div class="step">
           <div class="step-head"><span class="dot">1</span><span class="step-label">Figma</span></div>
           <h3>Ready check</h3>
-          <p>The readiness script: nameable variants, zero unbound values, not a duplicate. Not ready goes back to design.</p>
+          <p>The readiness script: nameable variants, zero unbound values, no library bindings, no unbound fixed size, and no unbound child width. Not ready goes back to design, or is fixed there.</p>
           <span class="pill quiet">Stop or go</span>
         </div>
       </div>
@@ -447,7 +475,7 @@
         <div class="step">
           <div class="step-head"><span class="dot">3</span><span class="step-label">Layer two</span></div>
           <h3>Contract</h3>
-          <p><code>verify:figma --init &lt;node&gt;</code> derives the tokens map; a person fills in a11y, stories and authored props.</p>
+          <p>A checksummed read of the design, then <code>verify:figma --init &lt;node&gt;</code> derives the tokens, parts and composes; a person fills in a11y, stories and authored props.</p>
           <span class="pill quiet">Derived + decided</span>
         </div>
       </div>
@@ -473,16 +501,16 @@
         <div class="step">
           <div class="step-head"><span class="dot">6</span><span class="step-label">Gates</span></div>
           <h3>Checks</h3>
-          <p><code>npm test</code>, then <code>verify:figma</code> against a live read of the design.</p>
+          <p><code>npm test</code>, then <code>verify:figma</code> against a live read of the design, which records the result for the canvas.</p>
           <span class="pill quiet">All green</span>
         </div>
       </div>
       <div class="stepwrap">
-        <div class="step bad">
-          <div class="step-head"><span class="dot">7</span><span class="step-label">Not yet</span></div>
+        <div class="step">
+          <div class="step-head"><span class="dot">7</span><span class="step-label">Canvas</span></div>
           <h3>Canvas frame</h3>
-          <p>A frame showing the component beside its Figma source and drift status. Skipped until ORIN-67 exists.</p>
-          <span class="pill quiet">Planned</span>
+          <p>Its stories framed beside its Figma source, with drift. Automatic: <code>verify:canvas</code> fails until they're there (ORIN-67 to 69).</p>
+          <span class="pill quiet">Framed</span>
         </div>
       </div>
       <div class="stepwrap">
@@ -499,16 +527,46 @@
         <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 5v4M8 11h.01" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
       </span>
       <div>
-        <b>Next through it: Progress Bar, the first run that isn't Button (ORIN-76).</b>
-        <p>Its two design gaps were closed in Figma on 1 October: its height is now the
-        variable <code>progress/height</code>, and both ends are rounded with
-        <code>Radius/full</code>. Its progress amount is geometry in Figma, so the contract
-        authors a <code>value</code> prop.</p>
+        <b>A design read is carried by hand, so it carries a checksum.</b>
+        <p>The plugin can't write to disk, so its result is copied over. Each read carries a
+        checksum computed in the plugin, and <code>verify:figma</code> refuses a dump that doesn't
+        match it, or is more than 15 minutes old. A slip in the copy fails instead of reporting an
+        agreement that isn't there.</p>
       </div>
     </div>
   </section>
 
   <!-- 5 -->
+  <section class="band">
+    <div class="band-title"><span>Above the components: pages</span></div>
+    <p class="lede">
+      A page is one of the design's screens built <b>only from the package</b>, as an app
+      would build it. It lives in <code>src/pages</code>, is held to its Figma screen by a
+      contract of <code>"kind": "page"</code>, and never ships. PROCESS.md Step 10.
+    </p>
+    <div class="twoup">
+      <div class="panel">
+        <div class="panel-title">What makes it a page</div>
+        <ul>
+          <li><b>The same machinery.</b> A Figma screen is a component, so the ready check, the read and <code>--init</code> work on it unchanged. Its parts are the screen's regions; <code>composes</code> is the components it places.</li>
+          <li><b>Views are variants.</b> The Images screen's Grid and List frames are one set, <code>View=Grid|List</code>, and its View button switches the page between them.</li>
+          <li><b>Built from the entry.</b> Check 7 fails a page that imports a component's own files, or that a package export names.</li>
+          <li><b>Compared by the numbers.</b> Each region's position and size, read from Figma and from the page. Grid matches to the pixel; List is 2px off, because Table's border is drawn outside its rows (ORIN-104).</li>
+        </ul>
+      </div>
+      <div class="panel">
+        <div class="panel-title">What a page has found</div>
+        <ul>
+          <li><b>Layout the components didn't need.</b> The Images screen had 15 unbound gaps, three hidden leftovers and a library fill, all fixed in Figma first.</li>
+          <li><b>Values no component owned.</b> The table's column widths were numbers in the design; they're <code>table/*</code> tokens now, applied by <code>&lt;Table layout="batch"&gt;</code>.</li>
+          <li><b>A gap in the ready check.</b> It read a component's own size, not its children's; it reports unbound child widths now.</li>
+          <li><b>Bugs in shipped components.</b> Button dropped a passed <code>className</code>; Checkbox drew mixed as empty for a frame in production. Both fixed and released.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 -->
   <section class="band">
     <div class="band-title"><span>The checks, and what each one proves</span></div>
     <p class="lede">
@@ -526,37 +584,74 @@
       <div class="home">
         <span class="n">02</span>
         <span class="k"><code>verify:contracts</code></span>
-        <span class="v">Contract against code. The schema holds, every named token is emitted in both modes, no primitives, no literal hex or px in the CSS, contrast passes on the contract's own pairs, every story exists, and <b>the CSS uses no token its contract doesn't list</b>.</span>
+        <span class="v">Contract against code, in seven checks. The schema holds, every named token is emitted in both modes, no primitives, contrast passes on text and non-text pairs, every story exists, no literal hex or px, <b>the CSS uses no token its contract doesn't list</b>, every composed component is rendered, no stray inline SVG, and a page builds only from the package.</span>
         <span class="tag gate">npm test</span>
       </div>
       <div class="home">
         <span class="n">03</span>
         <span class="k">Storybook tests</span>
-        <span class="v">Renders every story and runs axe on it in light and dark. The only check that proves the result is usable rather than merely well-named.</span>
+        <span class="v">Renders every story, runs axe on it in light and dark, and runs its play test if it has one: a menu closes on Escape, Select All goes mixed. The only check that proves the result is usable rather than merely well-named.</span>
         <span class="tag gate">npm test</span>
       </div>
       <div class="home">
         <span class="n">04</span>
-        <span class="k"><code>test:consumer</code></span>
-        <span class="v">The package as an app gets it. Packs the tarball, installs it into a copy of <code>examples/web</code> outside the repo, typechecks and builds it, then opens it in Chromium with Playwright and confirms each component's computed style equals its token in both themes.</span>
-        <span class="tag gate">npm test · CI</span>
+        <span class="k">Screenshots</span>
+        <span class="v">On every pull request, each story's full page compared with its committed baseline, failing on more than 10 changed pixels. Baselines are made by labelling the PR <code>update-screenshots</code> and reviewed as images in the diff. This replaced Chromatic, whose runs on <code>main</code> are now skipped.</span>
+        <span class="tag gate">CI</span>
       </div>
       <div class="home">
         <span class="n">05</span>
-        <span class="k">Chromatic</span>
-        <span class="v">Screenshots every story and flags pixel changes against the approved baseline. Builds on <code>main</code> are accepted as the new baseline automatically.</span>
-        <span class="tag measure">CI</span>
+        <span class="k"><code>test:consumer</code></span>
+        <span class="v">The package as an app gets it. Packs the tarball, installs it into a copy of <code>examples/web</code> outside the repo, resolves every export, typechecks and builds it, then opens it in Chromium with Playwright and confirms each component's computed style equals its token in both themes.</span>
+        <span class="tag gate">npm test · CI</span>
       </div>
       <div class="home">
         <span class="n">06</span>
+        <span class="k"><code>verify:canvas</code></span>
+        <span class="v">Every story a contract lists is framed, every framed component has a Figma source or is marked code-authored, the canvas has no literals, and every frame's drift is recorded.</span>
+        <span class="tag gate">npm test</span>
+      </div>
+      <div class="home">
+        <span class="n">07</span>
         <span class="k"><code>verify:figma</code></span>
-        <span class="v">Contract against design. Reads the component in Figma and reports every property where the design binds a different token from the contract. On demand, because it needs a live read of Figma.</span>
+        <span class="v">Contract against design. Reads every component and page in Figma and reports every property where the design binds a different token from the contract, and writes the verdict to <code>canvas/drift.json</code>. On demand, because it needs a live read of Figma.</span>
         <span class="tag hyp">On demand</span>
       </div>
     </div>
   </section>
 
-  <!-- 6 -->
+  <!-- 7 -->
+  <section class="band">
+    <div class="band-title"><span>The canvas: every story beside its source</span></div>
+    <p class="lede">
+      <code>npm run canvas</code>. One page of frames, every Storybook story but the dark
+      twins and the interaction tests, grouped Pages, Patterns, Components and Design
+      Tokens. Each frame is the story itself in an iframe, <b>never a copy</b>, so it can't
+      drift from what ships.
+    </p>
+    <div class="homes">
+      <div class="home">
+        <span class="n">01</span>
+        <span class="k">Provenance</span>
+        <span class="v">Each component's frames link to its Figma node, each to the very variant it shows, with the verdict from the last <code>verify:figma</code>: in sync, or drifted and by how much. Today: <b>37 in sync, 0 drifted, 4 code-authored</b>.</span>
+        <span class="tag measure">Recorded</span>
+      </div>
+      <div class="home">
+        <span class="n">02</span>
+        <span class="k">Pages</span>
+        <span class="v">Each page beside its Figma frame, exported at 1x, in both views.</span>
+        <span class="tag info">Reference</span>
+      </div>
+      <div class="home">
+        <span class="n">03</span>
+        <span class="k">Foundations</span>
+        <span class="v">Colour ramps, semantic colours with every contrast pair measured from the build, type, spacing, radius, component tokens and the changelog. The semantic colours frame found the promo pair at 1.65:1 in dark mode; it's 9.85:1 now (ORIN-98).</span>
+        <span class="tag info">Docs</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8 -->
   <section class="band">
     <div class="band-title"><span>When the design changes</span></div>
     <div class="twoup">
@@ -571,8 +666,8 @@
       <div class="panel stop">
         <div class="panel-title">Case B · the binding changes</div>
         <p>The designer points the button at a <b>different token</b>. That's a
-        re-specification, so <code>verify:figma</code> fails and names the property on both
-        sides.</p>
+        re-specification, so <code>verify:figma</code> fails, names the property on both
+        sides, and the canvas marks the frame drifted.</p>
         <pre>verify:figma fails → talk → --fix the contract → update CSS → npm test</pre>
         <p>The conversation is the point, and can't be automated. Frequent Case B means the
         token layer is missing a component token.</p>
@@ -580,16 +675,17 @@
     </div>
   </section>
 
-  <!-- 7 -->
+  <!-- 9 -->
   <section class="band">
     <div class="band-title"><span>What the app gets, and what it never does</span></div>
     <div class="twoup">
       <div class="panel">
         <div class="panel-title">The package carries</div>
         <ul>
-          <li><b>Components</b>, from the root or one entry each: <code>@boyzeeboy/idem-ui/button</code>.</li>
+          <li><b>40 components</b>, from the root or one entry each: <code>@boyzeeboy/idem-ui/button</code>.</li>
           <li><b>One stylesheet</b>, <code>tokens.css</code>: both modes, dark switched on by a <code>.dark</code> class or <code>data-theme="dark"</code>.</li>
           <li><b>Tokens on their own</b> for anything the components don't cover: <code>light.css</code>, <code>dark.css</code>, and JS and JSON forms.</li>
+          <li><b>Icons and the logo</b>, drawn in <code>currentColor</code>, so they take the colour around them.</li>
           <li><b>Types</b>, so props are checked in the app's editor.</li>
           <li><b>A version</b>, through changesets, so a design change arrives as an upgrade the app chooses to take.</li>
         </ul>
@@ -597,7 +693,7 @@
       <div class="panel stop">
         <div class="panel-title">The app never</div>
         <ul>
-          <li><b>Hardcodes a value.</b> No hex, px or font names; if a token is missing, it's added in Figma.</li>
+          <li><b>Hardcodes a value.</b> No hex, px or font names; if a token is missing, it's added in Figma. Not even a table's column widths: <code>layout="batch"</code>.</li>
           <li><b>Uses a primitive.</b> Colours come through semantic or component tokens.</li>
           <li><b>Edits the package.</b> A fix in the app is undone by the next release. It goes back to its source layer.</li>
           <li><b>Restyles a component's tokens.</b> A different look is a new variant, designed in Figma.</li>
@@ -615,6 +711,9 @@
       <p>Nothing in this system generates the design from code or pushes code into Figma.
       A design change never reaches the app on its own: it travels through a sync, a
       build, a set of checks and a release, and each of those can stop it and say why.</p>
+      <p>When a check finds the design at fault, the fix is made in Figma, as the layer
+      that owns it, and synced like any other change: a value bound, a frame named, a
+      contrast pair corrected. That's the rule working, not an exception to it.</p>
       <p>What that buys the app is the right to trust a version number. If
       <code style="font-family:var(--family-mono);font-size:12.5px">@boyzeeboy/idem-ui</code>
       installs and renders, it matches the design it was built from.</p>
@@ -623,18 +722,21 @@
 
   <footer>
     <p>
-      <b>Status: built and shipping, as of 2 October 2026.</b> <code>@boyzeeboy/idem-ui</code>
-      1.0.2 on GitHub Packages, from <code>Boyzeeboy/idem-design-tokens</code>. Four components
-      (Button from Figma; Input, Label and FormField code-authored), 305 tokens per mode.
-      The loop is ORIN-71, the inventory ORIN-70 (43 components: 3 ready, 6 duplicates,
-      34 not ready, mostly unbound geometry, which ORIN-77 addresses). Canvas (ORIN-67 to 69)
-      and a React Native target (ORIN-74) are planned, not built.
+      <b>Status: built and shipping, as of 6 October 2026.</b> <code>@boyzeeboy/idem-ui</code>
+      1.20.0 on GitHub Packages, from <code>Boyzeeboy/idem-design-tokens</code>. 40 components
+      (36 from Figma; Input, Label, FormField and Table code-authored), 28 icons, 350 tokens per
+      mode, and one page, Images, in two views. The component framework is ORIN-66, closed
+      5 October; the canvas is ORIN-67 to 69; pages are ORIN-102 and 103. Of the file's
+      components, 3 are ready and not yet built, and none is not ready. Open: ORIN-104 (Table's
+      border), ORIN-105 (four unbound widths), and a React Native target (ORIN-74), planned,
+      not built.
     </p>
     <p>
-      <b>Sources.</b> <code>PROCESS.md</code> Steps 2, 3, 8 and 9; <code>CLAUDE.md</code>;
+      <b>Sources.</b> <code>PROCESS.md</code> Steps 2, 3, 8, 9 and 10; <code>CLAUDE.md</code>;
       <code>package.json</code>; <code>src/components/button/button.contract.json</code>;
-      <code>scripts/verify-contracts.mjs</code> and <code>scripts/verify-consumer.mjs</code>;
-      <code>runs/component-inventory.md</code>.
+      <code>src/pages/images/images.contract.json</code>; <code>scripts/verify-contracts.mjs</code>,
+      <code>verify-consumer.mjs</code> and <code>verify-canvas.mjs</code>; <code>canvas/drift.json</code>;
+      <code>runs/component-inventory.md</code>. First drawn 2 October 2026, at 1.0.2.
     </p>
     <p>
       Colour, type, spacing and radius above are Orin's own tokens, as in
