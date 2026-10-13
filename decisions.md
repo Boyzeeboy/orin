@@ -8557,3 +8557,54 @@ The 3-minute version.
 evidence paragraph goes back to "on my own system" only); ORIN-142 moves the
 Build price; or the first two conversations show buyers without a Figma
 library recognising themselves in 1.1 and not in 2.0.
+
+## 2026-10-13 — ORIN-140: the ready check travels; the token side needs a second mode axis
+
+**Decision (approved by Warren the same day):** the component ready check is
+promoted to standard in the Diagnostic and goes first. `Offer.md` qualifies the
+"runs on a file it has never seen" claim, and `positioning.md`'s "What it does
+not claim yet" says what the check found. Full results are private
+(`notes/orin-140-portability-results.md`, orin-private), because one file is a
+paid kit whose licence terms aren't public.
+
+**What ran.** Two Figma files I didn't design: a commercial kit, and the
+Scottish Government Design System Kit (Figma Community, OGL v3). A third, an
+older system built on styles before Figma had variables, ran privately; its
+results are in the private note and it isn't named here.
+
+**The ready check.** 45 per cent of one kit's 207 components and 14 per cent of
+the other's 180 could be built as drawn, against 7 per cent on my own file at
+the start. It needed three fixes, all about reaching a file rather than rating
+it: IDEM's page ids were hardcoded, a broken component set stopped the run, and
+style use wasn't counted separately. The commonest gap in both files was border
+widths typed as numbers. One finding changed how results get read: 40 of the
+Scottish kit's failures were one cause, bindings to the publisher's library
+with local twins of the same name. That's one rebinding pass (ORIN-145).
+
+**The token side.** The plugin, sink and freshness record worked unchanged.
+Both files matched 0 of 6 collection names on the first pass, and the
+`figma.collections` override mapped every single-mode and light/dark collection
+without a code change. **Neither file's responsive modes could be mapped**: UI
+Prep's Typography (Desktop/Mobile) and five of the Scottish kit's collections
+(Default/Desktop). The pipeline has one mode axis and refuses a second loudly,
+which is right, and config can't route around it. Two independent files, same
+gap, so it's the norm (ORIN-143). The Scottish kit has no dark theme, and mode
+parity failed all 70 of its semantic colours for it (ORIN-144). The report also
+caught one genuine judgement call on the kit, a hover colour identical in both
+modes that's plausibly deliberate.
+
+**The contract side wasn't reached.** The cleanest Button in the kit binds its
+type to the Desktop/Mobile collection, and `lib/token-names.mjs` is IDEM's
+(the prefix and the collection map are hardcoded). Both are now evidence for
+ORIN-141 rather than predictions.
+
+**Styles, decided the same day:** the styles-only file answered it.
+Counting every colour style as bound moved it from 1 ready component in 121 to
+6, because its radius, spacing and borders were never tokens at all. So a
+colour style is neither a binding nor a defect: it's a migration, reported as
+its own category, and a file built that way is "a migration before it's a
+package". Text styles stay counted as bound.
+
+**Revisit if:** ORIN-143 lands (the responsive line in `positioning.md` goes);
+the first client file contradicts either rating; or a styles-based file turns
+up.

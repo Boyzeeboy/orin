@@ -73,9 +73,11 @@ are no longer who the one-liner speaks to.
 
 ## What it does not claim yet
 
-- **That it works on any Figma file.** The component machinery has read one
-  file, mine. Two files I didn't design are being checked first
-  (ORIN-140). Until that's done, say "on my own system" out loud.
+- **That it works on any Figma file without set-up.** It has now run on two
+  files I didn't design (ORIN-140). The ready check travelled. Token sync needed
+  a config entry on both, and neither file's responsive modes, type and spacing
+  that change by screen size, can be synced yet (ORIN-143). The contract step
+  is still IDEM-shaped until ORIN-141.
 - **That it fits any React stack.** It assumes React, TypeScript and
   Storybook. What happens when the client already runs MUI or shadcn isn't
   written into `Offer.md` yet.

@@ -98,3 +98,8 @@ notes/outreach-tracker.md
 # public remote would be the leak. Tracked in orin-private from 2026-09-24,
 # never here.
 notes/leak-denylist.txt
+
+# ORIN-140's results: component-level findings from a paid commercial kit whose
+# licence terms aren't public, and a note on a Rethink client's file that was
+# stopped. Tracked in orin-private from 2026-10-13.
+notes/orin-140-portability-results.md
