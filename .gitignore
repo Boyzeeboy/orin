@@ -99,7 +99,7 @@ notes/outreach-tracker.md
 # never here.
 notes/leak-denylist.txt
 
-# ORIN-140's results: component-level findings from a paid commercial kit whose
-# licence terms aren't public, and a note on a Rethink client's file that was
-# stopped. Tracked in orin-private from 2026-10-13.
-notes/orin-140-portability-results.md
+# ORIN-140's private material: results from files that can't be named in
+# public, and a sample Diagnostic report built from them. Tracked in
+# orin-private from 2026-10-13.
+notes/orin-140-*
