@@ -52,16 +52,19 @@ what they're costing in velocity and defects.
 
 **For a team with a Figma library and a React app, the week answers one
 question: how far is their library from a package?** The component ready
-check is the most direct way to ask it (below). It becomes the first move
-once it has worked on a file I didn't design (ORIN-140). Until then the
-token audit goes first, because it already has.
+check is the most direct way to ask it (below), and since ORIN-140 it goes
+first. The token audit follows it.
 
 **The opening move: point the pipeline at their own Figma file, live.**
 This is the ten-minute conversation, not a chore, and it is the single
 strongest thing I can do in a first meeting. The token pipeline matches
 Figma collections and modes by *name*, so it can be run against a file it
-has never seen without a code change. `npm run sync:figma -- --dry-run`
-prints an audit before anything is written. Read it out loud to them.
+has never seen without a code change. Expect the first pass to match nothing:
+on both files I didn't design it found 0 of its 6 collection names, and a
+config entry mapped them. That's the first finding, not a failure. What config
+can't map yet is a second mode axis, type and spacing that vary by screen size
+(ORIN-143). Both files had one. `npm run sync:figma -- --dry-run` prints an
+audit before anything is written. Read it out loud to them.
 
 Three things it surfaces, in roughly increasing order of discomfort:
 
@@ -90,10 +93,17 @@ drawn. "Most of your components can't be built without someone guessing" is the
 token audit's hard truth one layer up. It's also the evidence a component Build
 gets scoped from.
 
-**Not standard yet.** It has only ever read my file, and component naming varies
-far more between files than six collection names do. Run it on the first client
-file as an experiment, say so out loud, and promote it here once it has worked on
-a file I didn't design.
+**Standard since 13 October.** It ran on two systems I didn't design, a
+commercial kit and the Scottish Government's, with three small fixes and no
+change to how it rates. 45 per cent of one and 14 per cent of the other could be
+built as drawn. The commonest gap in both was the same: border widths typed as
+numbers.
+
+**Read its findings by cause before reading them out.** On the Scottish kit, 40
+components failed for one reason: bound to the publisher's library instead of
+the file's own variables, every one with a local twin of the same name. That's
+one rebinding pass, not 40 problems. The script doesn't group them yet
+(ORIN-145), so I do.
 
 This is *"I'd rather tell a client the hard truth about their system than
 sell them polish they don't need"* executed in ten minutes rather than
