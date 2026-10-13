@@ -8472,7 +8472,7 @@ commitment to the client, not a description of the pipeline.
 
 ## 2026-10-13 — Orin repositions around the Figma-to-React package
 
-**Decision (draft, for Warren's review):** `positioning.md` goes to 2.0 and
+**Decision (approved by Warren the same day):** `positioning.md` goes to 2.0 and
 `Offer.md` to 1.3. The one-liner becomes "I turn your Figma library into the
 React package your developers ship from." The Build is named as the product;
 the Diagnostic and the Foundation stay as the ways in, and the Retainer keeps

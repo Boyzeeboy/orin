@@ -1,6 +1,6 @@
 # Orin — The Offer
 
-*Version 1.3, 13 October 2026. Draft for review. The Build is the product: their Figma library, as the React package their developers ship from.*
+*Version 1.3, 13 October 2026. The Build is the product: their Figma library, as the React package their developers ship from.*
 
 Four engagement shapes, and two ways in. Each one is optional. Each one
 de-risks the next. Diagnostic feeds Build feeds Retainer for a team that

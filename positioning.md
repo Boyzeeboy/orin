@@ -1,6 +1,6 @@
 # Orin — Positioning
 
-*Version 2.0 — 13 October 2026. Draft for review. The product is the React
+*Version 2.0 — 13 October 2026. The product is the React
 package; the pipeline is how it gets built. Version 1.1 (14 July) is in git
 history, and `decisions.md` 2026-10-13 says what changed and why.*
 
