@@ -8560,7 +8560,7 @@ library recognising themselves in 1.1 and not in 2.0.
 
 ## 2026-10-13 — ORIN-140: the ready check travels; the token side needs a second mode axis
 
-**Decision (draft, for Warren's review):** the component ready check is
+**Decision (approved by Warren the same day):** the component ready check is
 promoted to standard in the Diagnostic and goes first. `Offer.md` qualifies the
 "runs on a file it has never seen" claim, and `positioning.md`'s "What it does
 not claim yet" says what the check found. Full results are private
@@ -8598,7 +8598,7 @@ type to the Desktop/Mobile collection, and `lib/token-names.mjs` is IDEM's
 (the prefix and the collection map are hardcoded). Both are now evidence for
 ORIN-141 rather than predictions.
 
-**Styles, recommended and not yet decided:** the styles-only file answered it.
+**Styles, decided the same day:** the styles-only file answered it.
 Counting every colour style as bound moved it from 1 ready component in 121 to
 6, because its radius, spacing and borders were never tokens at all. So a
 colour style is neither a binding nor a defect: it's a migration, reported as
