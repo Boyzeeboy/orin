@@ -8469,3 +8469,91 @@ naming, states, variants, tokens), where it stops (not product design: no
 screens, no flows), and whose file it is: a branch of theirs, or changes
 their designer approves, never straight over their work. That last line is a
 commitment to the client, not a description of the pipeline.
+
+## 2026-10-13 — Orin repositions around the Figma-to-React package
+
+**Decision (approved by Warren the same day):** `positioning.md` goes to 2.0 and
+`Offer.md` to 1.3. The one-liner becomes "I turn your Figma library into the
+React package your developers ship from." The Build is named as the product;
+the Diagnostic and the Foundation stay as the ways in, and the Retainer keeps
+the package alive. Prices are unchanged.
+
+**Why:** the 14 July positioning was written before IDEM's component layer
+existed. Since 6 October there is a working thing to sell: 40 components held
+to Figma by contracts, checked on every pull request, released as a package an
+app installs. It's easier to say out loud than "token pipeline", and it ends in
+something the client owns rather than a diagnosis. The manifesto allows for
+this in so many words ("The service list will change as I change"). The
+worldview underneath doesn't move.
+
+**What changed in `Offer.md`:** a paragraph saying the Build is the product; the
+Diagnostic framed as "how far is their library from a package", with the ready
+check becoming the first move only after ORIN-140; the Build's "What it is" and
+"What the client gets" lead with the package; a placeholder for clients already
+on MUI or shadcn; releases as package versions in the Retainer; and a new
+refusal, **Builds sold on component count**, for the same reason screen-count
+Foundations are refused.
+
+**What 2.0 drops:** "for teams shipping without a full design department". The
+component pipeline reads a Figma library, so its buyer has a designer. Teams
+with no Figma come in through the Foundation and are no longer who the
+one-liner speaks to. Watch whether that loses the developer-carrying-the-load
+story in conversations; it was the part people recognised.
+
+**Tickets opened:** ORIN-140 (portability: ready check and contract fetch on
+two Figma files I didn't design), ORIN-141 (component layer into the baseline
+as an opt-in `react-package` profile, blocked by ORIN-62, ORIN-47 and
+ORIN-140), ORIN-142 (price check of the £12–18k Build against what IDEM took).
+**ORIN-62 decided the same day: option A, as an opt-in profile.** The
+component layer goes into the baseline; the default stays token-only, and
+`scaffold-client --profile react-package` adds it. The repositioning weakens
+both of ORIN-62's objections to A: React is now the declared market, and the
+product is a design-system repo that publishes a package, which is IDEM's
+shape, so the machinery and the components share a repo. The profile keeps
+option C's protection (a token-only clone is unchanged) without C's
+half-present layer. Two of ORIN-62's cautions still hold: ORIN-47 first, so no
+check goes green by reading nothing; and no porting until ORIN-140 has run the
+machinery on files I didn't design. The build is ORIN-141, now blocked only by
+ORIN-47 and ORIN-140. Open: a client with a design-system repo of their own,
+and MUI or shadcn underneath (below).
+
+**Recommended, not adopted: when the client already runs MUI or shadcn.** The
+rule underneath both: Figma decides what exists and how it looks; their React
+library decides how it behaves. The package sits on top of what they have.
+Replacing the library is only on the table when the Diagnostic shows the
+library is itself the source of drift, and then it's separately scoped.
+
+- **shadcn.** The components are already source in their repo, so they own
+  them. The package is their `components/ui`, given contracts from Figma and
+  moved into a package once there's a second app (with one app, the checks can
+  live in the app repo). Radix stays underneath for behaviour and
+  accessibility. The token side is the shadcn adapter already worked
+  (`notes/shadcn-adapter/`): semantic tokens filled into shadcn's fixed
+  variable names, anything shadcn has no word for emitted as `--app-*`.
+  What changes in `verify-contracts`: check 4 can't assume a `--idem-*` prefix,
+  and check 3 has to read Tailwind arbitrary values (`p-[13px]`,
+  `bg-[#fff]`), which is where literals hide on this stack. That's ORIN-47.
+- **MUI.** The components are MUI's, so the package is a generated theme
+  (`cssVariables` and `colorSchemes` on v6/v7; confirm the version first),
+  thin wrappers where their Figma departs from MUI, and new components where
+  MUI has nothing. A Style Dictionary format emits the theme; the shape was
+  worked once in August. Contracts for MUI-owned components point at theme
+  paths, so checks 3 and 4 have to read `styleOverrides` and the `sx` prop
+  as well as component files. If their Figma is built on the MUI for Figma
+  kit, variant names map to MUI props, and the ready check's "nameable
+  variant properties" becomes a mapping check. Risk: MUI's default look
+  showing through wherever Figma is silent, so the contract says what it
+  covers.
+
+Both become adapter tickets now that ORIN-62 is decided. Neither gets written into
+`Offer.md` until the first client on that stack, or Warren decides earlier.
+
+**Not done:** site copy (the homepage hero and `/how-it-works` order would
+follow; the stopping rule allows it for a repositioning, but the site isn't the
+current task, so ask first). Outreach templates A, C and E. The LinkedIn About.
+The 3-minute version.
+
+**Revisit if:** ORIN-140 shows the ready check doesn't travel (then 2.0's
+evidence paragraph goes back to "on my own system" only); ORIN-142 moves the
+Build price; or the first two conversations show buyers without a Figma
+library recognising themselves in 1.1 and not in 2.0.

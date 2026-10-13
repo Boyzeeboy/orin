@@ -1,11 +1,16 @@
 # Orin — The Offer
 
-*Version 1.2, 6 October 2026. The component layer exists; the Build says what it ships.*
+*Version 1.3, 13 October 2026. The Build is the product: their Figma library, as the React package their developers ship from.*
 
 Four engagement shapes, and two ways in. Each one is optional. Each one
 de-risks the next. Diagnostic feeds Build feeds Retainer for a team that
 already has a system; Foundation feeds Build feeds Retainer for a team
 starting from nothing. Priced fixed, against outcomes, never in days.
+
+The Build is the thing being sold. A team's Figma library becomes a
+versioned React package their app installs, held to the Figma file by
+checks. The Diagnostic and the Foundation are the ways in, and the Retainer
+keeps the package alive. `positioning.md` 2.0 says who that is for.
 
 ## Operating posture
 
@@ -44,6 +49,12 @@ and whatever brand or digital guidelines exist. I talk to the developers
 carrying the design load. I find the pressure points — duplicated
 components, broken handoff, token chaos, silo design calls — and trace
 what they're costing in velocity and defects.
+
+**For a team with a Figma library and a React app, the week answers one
+question: how far is their library from a package?** The component ready
+check is the most direct way to ask it (below). It becomes the first move
+once it has worked on a file I didn't design (ORIN-140). Until then the
+token audit goes first, because it already has.
 
 **The opening move: point the pipeline at their own Figma file, live.**
 This is the ten-minute conversation, not a chore, and it is the single
@@ -281,7 +292,9 @@ token layer and about eight primitives. Say that. They'll hear
 
 ## 3. The Build
 
-**What it is:** The design system, built and connected. The working thing.
+**What it is:** Their Figma library, as the React package their developers
+ship from. Tokens, components held to Figma by contracts, and the checks that
+keep the two matching. The working thing, and the thing Orin sells.
 
 **Duration:** 4–6 weeks, scoped from the Diagnostic.
 
@@ -318,8 +331,9 @@ that had already shipped.
 usage counter, lock zones: that mechanism is parked, and nothing in the Build
 sells it.
 
-**What the client gets:** One source of truth their developers ship
-from. Fewer duplicated components. Fewer design calls made in silos.
+**What the client gets:** A versioned React package their app installs,
+built from their Figma file and checked against it. One source of truth
+their developers ship from. Fewer duplicated components. Fewer design calls made in silos.
 Less defect debt. A system that exists in their codebase, not in a
 Figma file they have to translate.
 
@@ -353,7 +367,14 @@ is always set by the Diagnostic — Orin never quotes blind.
 The rating per component is the scope: what can be built as drawn, and what
 needs fixing in Figma first. The range above was set before the component layer
 existed, so I'll treat it as a starting point for the first one and check it
-against what the work actually took.
+against what the work actually took. ORIN-142 checks it against what IDEM's
+component layer took, before it's quoted as the headline product.
+
+**Not yet written: a client who already runs MUI or shadcn.** IDEM's
+components are built from scratch. Most React teams arrive with a library
+underneath, and the Build has to say whether the package sits on it or
+replaces it. Recommendations in `decisions.md` 2026-10-13; this section
+waits for the decision.
 
 **Hard rule:** No Build without a Diagnostic or a Foundation first. This
 is the anti-Momentum clause. Orin does not price unscoped work. Which
@@ -377,7 +398,8 @@ gate, so Figma and the code are known to agree rather than assumed to.
 
 With a component library, "reviewing new components" has a shape. Each new one
 goes through the same loop the Build used: ready check, contract, checks,
-release. Once a month I run the drift check across the library and walk the
+release. Each release is a new version of the package, so their app takes
+changes when it upgrades and never by surprise. Once a month I run the drift check across the library and walk the
 canvas with whoever owns the design.
 Being the design brain the developers can call on when they're making a
 call they're not sure about.
@@ -447,6 +469,10 @@ machine.
 
 - Build requests without a Diagnostic or a Foundation. (The
   anti-Momentum clause.)
+- Builds sold on component count. "How many components do I get for
+  £14,000?" turns the Build into a component factory, and that's a vendor
+  relationship. Scope comes from the ready check: which components can be
+  built as drawn, and what needs fixing in Figma first.
 - Foundation work sold on screen count. If the conversation is "how many
   pages do I get," the ownership layer isn't what they're buying and
   I'm competing with an afternoon of shadcn. Different job, someone
