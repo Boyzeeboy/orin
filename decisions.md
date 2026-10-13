@@ -8568,9 +8568,9 @@ not claim yet" says what the check found. Full results are private
 paid kit whose licence terms aren't public.
 
 **What ran.** Two Figma files I didn't design: a commercial kit, and the
-Scottish Government Design System Kit (Figma Community, OGL v3). A third, a
-Rethink client's system, was dropped as soon as I knew where it came from;
-nothing from it is used, and its name is on the leak denylist.
+Scottish Government Design System Kit (Figma Community, OGL v3). A third, an
+older system built on styles before Figma had variables, ran privately; its
+results are in the private note and it isn't named here.
 
 **The ready check.** 45 per cent of one kit's 207 components and 14 per cent of
 the other's 180 could be built as drawn, against 7 per cent on my own file at
@@ -8598,10 +8598,12 @@ type to the Desktop/Mobile collection, and `lib/token-names.mjs` is IDEM's
 (the prefix and the collection map are hardcoded). Both are now evidence for
 ORIN-141 rather than predictions.
 
-**Not decided:** what a colour style counts as. Neither file used colour styles
-in components, so the styles question is still open. Current behaviour stays (a
-text style counts as bound, a colour style doesn't) until a styles-based client
-file arrives.
+**Styles, recommended and not yet decided:** the styles-only file answered it.
+Counting every colour style as bound moved it from 1 ready component in 121 to
+6, because its radius, spacing and borders were never tokens at all. So a
+colour style is neither a binding nor a defect: it's a migration, reported as
+its own category, and a file built that way is "a migration before it's a
+package". Text styles stay counted as bound.
 
 **Revisit if:** ORIN-143 lands (the responsive line in `positioning.md` goes);
 the first client file contradicts either rating; or a styles-based file turns
