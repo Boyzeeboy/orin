@@ -96,8 +96,8 @@ gets scoped from.
 **Standard since 13 October.** It ran on two systems I didn't design, a
 commercial kit and the Scottish Government's, with three small fixes and no
 change to how it rates. 45 per cent of one and 14 per cent of the other could be
-built as drawn. The commonest gap in both was the same: border widths typed as
-numbers.
+built as drawn. The gaps were the boring ones: spacing and border widths typed
+as numbers, near the top of the list in every file.
 
 **Read its findings by cause before reading them out.** On the Scottish kit, 40
 components failed for one reason: bound to the publisher's library instead of
