@@ -8504,9 +8504,18 @@ story in conversations; it was the part people recognised.
 two Figma files I didn't design), ORIN-141 (component layer into the baseline
 as an opt-in `react-package` profile, blocked by ORIN-62, ORIN-47 and
 ORIN-140), ORIN-142 (price check of the £12–18k Build against what IDEM took).
-ORIN-141 carries a recommendation for ORIN-62: the repositioning weakens both
-of its objections to option A, so A as an opt-in profile. ORIN-62 is still
-Warren's to decide.
+**ORIN-62 decided the same day: option A, as an opt-in profile.** The
+component layer goes into the baseline; the default stays token-only, and
+`scaffold-client --profile react-package` adds it. The repositioning weakens
+both of ORIN-62's objections to A: React is now the declared market, and the
+product is a design-system repo that publishes a package, which is IDEM's
+shape, so the machinery and the components share a repo. The profile keeps
+option C's protection (a token-only clone is unchanged) without C's
+half-present layer. Two of ORIN-62's cautions still hold: ORIN-47 first, so no
+check goes green by reading nothing; and no porting until ORIN-140 has run the
+machinery on files I didn't design. The build is ORIN-141, now blocked only by
+ORIN-47 and ORIN-140. Open: a client with a design-system repo of their own,
+and MUI or shadcn underneath (below).
 
 **Recommended, not adopted: when the client already runs MUI or shadcn.** The
 rule underneath both: Figma decides what exists and how it looks; their React
@@ -8536,7 +8545,7 @@ library is itself the source of drift, and then it's separately scoped.
   showing through wherever Figma is silent, so the contract says what it
   covers.
 
-Both become adapter tickets after ORIN-62 is decided. Neither gets written into
+Both become adapter tickets now that ORIN-62 is decided. Neither gets written into
 `Offer.md` until the first client on that stack, or Warren decides earlier.
 
 **Not done:** site copy (the homepage hero and `/how-it-works` order would
