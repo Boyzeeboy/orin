@@ -8608,3 +8608,28 @@ package". Text styles stay counted as bound.
 **Revisit if:** ORIN-143 lands (the responsive line in `positioning.md` goes);
 the first client file contradicts either rating; or a styles-based file turns
 up.
+
+## 2026-10-13 — Outreach leads with the ready check
+
+**What changed:** the LinkedIn headline and About, the company page, the
+buyer-1 profile and templates A to C in `notes/launch-and-outreach-pack.md`
+(orin-private) now follow `positioning.md` 2.0. The buyer-1 hook moves from
+the token audit to the component ready check: how many of your components
+could be built without guessing. Template E keeps the cost-of-building-twice
+lever and says React.
+
+**Why:** the ready check went standard the same day (ORIN-140), and it asks
+the Figma-to-React question in one sentence. The token audit still runs on
+the call; it just isn't the headline.
+
+**Two rules written into the pack:** the public evidence is "between 14 and 45
+per cent on design systems I didn't build", never the systems' names, because
+one is a paid kit and one a client's. And the free ten minutes is the score
+and the top causes only; the fixes, their order and the sample report are the
+paid Diagnostic.
+
+**Buyer 1 narrowed:** a Figma library and a React front end. No Figma is buyer
+2; Vue, Angular or native is not now.
+
+**Not done:** nothing sent, and the LinkedIn About isn't posted. Whatever goes
+out gets pasted back into the pack word for word, per the 1 September rule.
