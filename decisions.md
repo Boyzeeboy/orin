@@ -8576,8 +8576,9 @@ results are in the private note and it isn't named here.
 the other's 180 could be built as drawn, against 7 per cent on my own file at
 the start. It needed three fixes, all about reaching a file rather than rating
 it: IDEM's page ids were hardcoded, a broken component set stopped the run, and
-style use wasn't counted separately. The commonest gap in both files was border
-widths typed as numbers. One finding changed how results get read: 40 of the
+style use wasn't counted separately. The commonest gaps were spacing and
+border widths typed as numbers (corrected later the same day: border widths
+led on one file only, see "Outreach leads with the ready check"). One finding changed how results get read: 40 of the
 Scottish kit's failures were one cause, bindings to the publisher's library
 with local twins of the same name. That's one rebinding pass (ORIN-145).
 
@@ -8622,7 +8623,7 @@ lever and says React.
 the Figma-to-React question in one sentence. The token audit still runs on
 the call; it just isn't the headline.
 
-**Two rules written into the pack:** the public evidence is "between 14 and 45
+**Two rules written into the pack:** the public evidence is "between 1 and 45
 per cent on design systems I didn't build", never the systems' names, because
 one is a paid kit and one a client's. And the free ten minutes is the score
 and the top causes only; the fixes, their order and the sample report are the
@@ -8630,6 +8631,14 @@ paid Diagnostic.
 
 **Buyer 1 narrowed:** a Figma library and a React front end. No Figma is buyer
 2; Vue, Angular or native is not now.
+
+**Two corrections made before anything was sent.** The first draft quoted 14
+to 45 per cent, the two systems that can be named, while the third, a
+pre-variables file, scored 1 per cent. Quoting the flattering pair would have
+been cherry-picking, so the range is 1 to 45. And `Offer.md` and the ORIN-140
+entry said border widths were the commonest gap in both public files; that was
+true of one. Padding led on the other and on the private file. Corrected to
+spacing and border widths, which are near the top in all three.
 
 **Not done:** nothing sent, and the LinkedIn About isn't posted. Whatever goes
 out gets pasted back into the pack word for word, per the 1 September rule.
