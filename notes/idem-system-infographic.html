@@ -12,14 +12,14 @@
      Sibling of pattern-layer-infographic.html, same visual language.
      That one diagrams the pattern layer as a parked mechanism. This
      one diagrams the system as built in idem-design-tokens on
-     10 October 2026: the token pipeline, the component layer above it,
+     11 October 2026: the token pipeline, the component layer above it,
      the pages built from the package, the canvas and component pages
      beside them, and the app that installs the package.
 
      Facts are read from the repo (package.json, PROCESS.md,
      src/components/, src/pages/, canvas/, runs/component-inventory.md)
      on that date. First drawn 2 October 2026 (1.0.2); updated for 1.20.0,
-     then for 1.20.3.
+     then for 1.20.3, then for 1.21.0.
      Orin's tokens, as in the sibling. Standalone artefact, NOT part
      of site/, not covered by npm test.
      --------------------------------------------------------------- */
@@ -568,6 +568,7 @@
           <li><b>Values no component owned.</b> The table's column widths were numbers in the design; they're <code>table/*</code> tokens now, applied by <code>&lt;Table layout="batch"&gt;</code>.</li>
           <li><b>A gap in the ready check.</b> It read a component's own size, not its children's; it reports unbound child widths now.</li>
           <li><b>Bugs in shipped components.</b> Button dropped a passed <code>className</code>; Checkbox drew mixed as empty for a frame in production. Both fixed and released.</li>
+          <li><b>A promise the code didn't keep.</b> The row's More button announced an ARIA menu, which means arrow keys, where IDEM's menus are disclosures Tab moves through. It's a disclosure now, with <code>moreExpanded</code> and <code>moreControls</code> (ORIN-130, 1.21.0).</li>
         </ul>
       </div>
     </div>
@@ -597,7 +598,7 @@
       <div class="home">
         <span class="n">03</span>
         <span class="k">Storybook tests</span>
-        <span class="v">Renders every story, runs axe on it in light and dark, and runs its play test: a menu closes on Escape, Select All goes mixed. The contract decides which play tests must exist. The only check that proves the result is usable rather than merely well-named: the first round of required tests found Left Navigation's account menu out of the tab order (fixed in 1.20.3).</span>
+        <span class="v">Renders every story, runs axe on it in light and dark, and runs its play test: a menu closes on Escape, Select All goes mixed. The contract decides which play tests must exist. The only check that proves the result is usable rather than merely well-named: the first round of required tests found Left Navigation's account menu out of the tab order (fixed in 1.20.3). The behaviour tests then run again in WebKit and Firefox, so a keyboard fault in one engine fails too; axe and screenshots stay in Chromium (ORIN-135).</span>
         <span class="tag gate">npm test</span>
       </div>
       <div class="home">
@@ -707,7 +708,7 @@
         <ul>
           <li><b>Guidance.</b> A file per component: use it for, don't use it for, behaviour, content, composition, and do and don't pairs. All 40 are written.</li>
           <li><b>Examples are stories.</b> Each do and don't is a story rendered on the page, never a drawing, so it shows the shipped component.</li>
-          <li><b>Storybook around it.</b> A Getting started page from the README, a playground per component with live controls, the version in the sidebar, and the changelog (ORIN-107 to 111).</li>
+          <li><b>Storybook around it.</b> A Getting started page from the README, a playground per component with live controls, the version in the sidebar, and the changelog (ORIN-107 to 111). Storybook 10 (ORIN-137), hosted with the canvas behind Cloudflare Access, with a front page linking both (ORIN-113).</li>
         </ul>
       </div>
     </div>
@@ -784,16 +785,16 @@
 
   <footer>
     <p>
-      <b>Status: built and shipping, as of 10 October 2026.</b> <code>@boyzeeboy/idem-ui</code>
-      1.20.3 on GitHub Packages, from <code>Boyzeeboy/idem-design-tokens</code>. 40 components
+      <b>Status: built and shipping, as of 11 October 2026.</b> <code>@boyzeeboy/idem-ui</code>
+      1.21.0 on GitHub Packages, from <code>Boyzeeboy/idem-design-tokens</code>. 40 components
       (36 from Figma; Input, Label, FormField and Table code-authored), 28 icons, 350 tokens per
       mode, and one page, Images, in two views. The component framework is ORIN-66, closed
       5 October; the canvas is ORIN-67 to 69; pages are ORIN-102 and 103; component pages and
-      Storybook docs are ORIN-106, closed 10 October; behaviours are ORIN-116. Of the file's
-      components, 3 are ready and not yet built, and none is not ready. Open: hosting Storybook
-      and the canvas (ORIN-113), Table's border (ORIN-104), four unbound widths (ORIN-105),
-      behaviour tests in WebKit and Firefox (ORIN-135), dependency updates (ORIN-134), and a
-      React Native target (ORIN-74), planned, not built.
+      Storybook docs are ORIN-106, closed 10 October; behaviours are ORIN-116, tested in three browsers since ORIN-135; Storybook and the
+      canvas are hosted behind Cloudflare Access (ORIN-113, live 11 October), and Dependabot keeps
+      dependencies current (ORIN-134). Of the file's
+      components, 3 are ready and not yet built, and none is not ready. Open: Table's border
+      (ORIN-104), four unbound widths (ORIN-105), and a React Native target (ORIN-74), planned, not built.
     </p>
     <p>
       <b>Sources.</b> <code>PROCESS.md</code> Steps 2, 3, 8, 9, 10 and 11; <code>CLAUDE.md</code>;
