@@ -103,3 +103,6 @@ notes/leak-denylist.txt
 # public, and a sample Diagnostic report built from them. Tracked in
 # orin-private from 2026-10-13.
 notes/orin-140-*
+# ORIN-147's dashboard mock-up, built from those results. Tracked in
+# orin-private from 2026-10-15 (renamed from notes/orin-140-dashboard-mockup.html).
+notes/system-health-dashboard-mockup.html
