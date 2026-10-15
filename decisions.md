@@ -8642,3 +8642,66 @@ spacing and border widths, which are near the top in all three.
 
 **Not done:** nothing sent, and the LinkedIn About isn't posted. Whatever goes
 out gets pasted back into the pack word for word, per the 1 September rule.
+
+## 2026-10-15 — The Build's price, checked against what IDEM took (ORIN-142)
+
+**Decision:** kept the Build at £12,000 to £18,000, and tied the band to the
+component count from the ready check: up to 20 components £12,000, 21 to 35
+£14,000, 36 to 50 £18,000, and anything bigger (or a file still on colour
+styles, or a library underneath) scoped above that or split. A Build moves up a
+band when the Diagnostic shows a slow team. The client still sees one fixed
+price, never a price per component. The Retainer stays at £2,000.
+
+**What I measured.** The component runs on IDEM took 3 to 5 October: 8, 8 and
+4 hours, so 20. About 35 components went through the loop in that time. Roughly
+6 and a half of the hours went on other things: the Figma binding pass
+(ORIN-77), swapping out the last library components (ORIN-87), the canvas
+shell and frames, and a screenshot fix. That leaves about 13 and a half hours,
+or 25 minutes a component. Linear's start and finish times agree on the shape:
+Checkbox and the notification pair took about 20 minutes each, the composed
+table cells 40 minutes to an hour, the navigation set and the Images view a
+few hours. The first runs took 2 to 3 hours, while the loop itself was still
+being fixed.
+
+**What I didn't measure.** The framework week (package, loop, inventory,
+contracts, 26 September to 2 October) and the pages and hosting after it.
+Commit times give an upper bound of about 51 and 58 hours, but I didn't
+record how much of those days was work. A client doesn't pay for that again,
+so it's left out, apart from the setup estimate below.
+
+**The model.** Per Build, at my own pace: setup 3 days (scaffold, sync,
+package, CI, hosting, and porting the component tooling by hand until ORIN-141
+lands), the one-screen test 1 day, handover 1 day, Figma fixes at 0.15 hours a
+component (my binding pass was about 0.1), a page of guidance at 0.4 hours a
+component (ORIN-114), and the components themselves at 0.5 hours on average
+(a mix of 40 per cent simple at 15 minutes, 40 per cent with states at 30, 20
+per cent composed at an hour, set above the measured 25 minutes on purpose).
+Then doubled, because my last client engagement ran at about twice the time
+once meetings, approvals and waiting were in.
+
+| Components | Days at my pace | Days, doubled | At £562 a day | Band | Per day at the band |
+| -- | -- | -- | -- | -- | -- |
+| 15 | 7 | 14 | £7,868 | £12,000 | £857 |
+| 30 | 9 | 18 | £10,116 | £14,000 | £778 |
+| 45 | 11 | 22 | £12,364 | £18,000 | £818 |
+
+So the range holds, about 40 to 50 per cent above the Diagnostic's £562. I
+expected it to need raising, and at double overhead it doesn't. At triple it
+does: 30 components at £14,000 is 27 days, £519 a day. That's why the band
+moves with the Diagnostic's read of the team rather than staying fixed.
+
+**The Retainer.** 3 to 4 days a month is £500 to £667 a day. A new component
+through the loop, with its fixes and guidance, is about 2 hours at double
+overhead, so a month holds about 10 alongside the upkeep. More than that is a
+small scoped Build.
+
+**Caveats.** One file, mine, with my own approvals. The pace is AI-assisted
+and won't carry one to one into an unfamiliar codebase. The overhead figure
+comes from one engagement. The setup, screen and handover days are estimates.
+And the model prices neither a library underneath nor screen-size modes
+(ORIN-143); both push a Build up a band until they're built.
+
+**Revisit if:** the first client Build lands more than a band away from this;
+a Diagnostic measures overhead above about two and a half times; or ORIN-141
+lands and setup shrinks.
+

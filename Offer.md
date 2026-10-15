@@ -1,6 +1,6 @@
 # Orin — The Offer
 
-*Version 1.3, 13 October 2026. The Build is the product: their Figma library, as the React package their developers ship from.*
+*Version 1.4, 15 October 2026. The Build is the product: their Figma library, as the React package their developers ship from. Its price is now checked against what IDEM's component layer actually took (ORIN-142).*
 
 Four engagement shapes, and two ways in. Each one is optional. Each one
 de-risks the next. Diagnostic feeds Build feeds Retainer for a team that
@@ -366,19 +366,41 @@ roughly £70k a month. If duplicated components and design churn are
 costing you even ten per cent of velocity, this pays for itself inside
 two months."
 
-**Pricing logic:** Five weeks of senior design-engineering work at UK
-market rate (£450–650/day for design systems specialists) lands at
-~£14k. But the price is fixed against the outcome, not the days — the
-client gets certainty, Orin isn't punished for being efficient. Agencies
-quote £30k–60k for the same scope and staff it junior. The exact figure
-is always set by the Diagnostic — Orin never quotes blind.
+**Pricing logic:** The price is fixed against the outcome, and the days
+behind it are now measured. On my own file, 35 components went through the
+loop in about 13 and a half of 20 working hours, about 25 minutes each, with
+the tooling already built.
+A client's Build adds setup, Figma fixes, a page of guidance per component,
+the one-screen test and a handover. Then I double the lot, because my last
+client engagement ran at about twice the time once meetings, approvals and
+waiting were counted.
 
-**A component-heavy Build is scoped from the ready check, not from screens.**
-The rating per component is the scope: what can be built as drawn, and what
-needs fixing in Figma first. The range above was set before the component layer
-existed, so I'll treat it as a starting point for the first one and check it
-against what the work actually took. ORIN-142 checks it against what IDEM's
-component layer took, before it's quoted as the headline product.
+That makes a 15-component Build about 14 days, 30 components about 18 and
+45 about 22. At the bands below that's £780 to £860 a day, against the £562
+the Diagnostic implies and the £450–650 market rate. The gap is the outcome
+premium, and it's what absorbs the things my own file never had: their
+designer's approvals, a library like MUI underneath, screen-size modes. The
+client gets certainty, and I'm not punished for being quick. Agencies quote
+£30k–60k for the same scope and staff it junior. The exact figure is always
+set by the Diagnostic. I never quote blind.
+
+**A component-heavy Build is scoped from the ready check.** The rating per
+component is the scope: what can be built as drawn, and what needs fixing in
+Figma first. The count sets the band, which the client sees as one fixed
+price and never as a price per component:
+
+- up to 20 components: £12,000
+- 21 to 35: £14,000
+- 36 to 50: £18,000
+- over 50, a file still on colour styles, or a library underneath: scoped
+  above £18,000, or split into two Builds.
+
+**A Build moves up a band when the Diagnostic shows heavy overhead.** At
+three times my own pace rather than two, 30 components at £14,000 falls to
+£519 a day, under the Diagnostic's rate. So the Diagnostic notes how this team
+works: how often decisions need a meeting, how long a designer takes to approve
+a change. If it's slow, the Build is priced a band up. Checked against IDEM on
+15 October (ORIN-142); the first client Build gets checked against it too.
 
 **Not yet written: a client who already runs MUI or shadcn.** IDEM's
 components are built from scratch. Most React teams arrive with a library
@@ -409,7 +431,9 @@ gate, so Figma and the code are known to agree rather than assumed to.
 With a component library, "reviewing new components" has a shape. Each new one
 goes through the same loop the Build used: ready check, contract, checks,
 release. Each release is a new version of the package, so their app takes
-changes when it upgrades and never by surprise. Once a month I run the drift check across the library and walk the
+changes when it upgrades and never by surprise. A month holds about 10 new
+components through that loop, at twice my own pace and with the upkeep around
+them. A month that needs more is a small scoped Build. Once a month I run the drift check across the library and walk the
 canvas with whoever owns the design.
 Being the design brain the developers can call on when they're making a
 call they're not sure about.
