@@ -8705,3 +8705,29 @@ And the model prices neither a library underneath nor screen-size modes
 a Diagnostic measures overhead above about two and a half times; or ORIN-141
 lands and setup shrinks.
 
+
+## 2026-10-16 — A social strategy for X and LinkedIn, written and kept private
+
+**What changed:** `notes/social-strategy.md`, tracked in orin-private and
+ignored here from creation. It records what the posts are for (credibility for
+the one person who has just looked me up after a cold email, not reach), the
+audience (buyer 1's engineering lead, with the team's designer as the veto;
+the founder is not served by this series), the theme ("what happens between
+the Figma file and the code") and three subjects: drift and handoff, reviewing
+AI-built UI, and what checks miss. It holds seven drafted posts per channel,
+19 October to 5 November.
+
+**The boundary is the pack's:** evidence is free, method is paid. Every finding
+in the drafts is already public in the IDEM essay or the 60-second positioning.
+The series explains no mechanism, so it is compatible with any answer to the
+pack's open question about the public mechanism allowance, and doesn't settle it.
+
+**Rejected from an earlier draft strategy:** "what needs clear instructions" as
+an AI subject (ORIN-39 and ORIN-49 found prose context didn't help agents, and
+the 27 September entry rules out the claim), and "knowing whether information is
+current" (the central idea of the private ORIN-147 dashboard mock-up).
+
+**Not done:** nothing posted. The LinkedIn hold in the outreach pack (since 6
+September) still stands; posting this series ends it, and that gets logged when
+it happens, along with what to do with the pack's three held drafts. A velocity
+maths post for 10 November is proposed and not drafted.

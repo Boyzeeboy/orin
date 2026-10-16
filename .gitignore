@@ -106,3 +106,8 @@ notes/orin-140-*
 # ORIN-147's dashboard mock-up, built from those results. Tracked in
 # orin-private from 2026-10-15 (renamed from notes/orin-140-dashboard-mockup.html).
 notes/system-health-dashboard-mockup.html
+
+# The social strategy: buyer profile, the method held back from posts, and a
+# pointer to the unreleased dashboard. Sibling of the outreach pack, so private
+# from creation. Tracked in orin-private from 2026-10-16.
+notes/social-strategy.md
