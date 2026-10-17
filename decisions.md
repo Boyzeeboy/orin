@@ -8731,3 +8731,95 @@ current" (the central idea of the private ORIN-147 dashboard mock-up).
 September) still stands; posting this series ends it, and that gets logged when
 it happens, along with what to do with the pack's three held drafts. A velocity
 maths post for 10 November is proposed and not drafted.
+
+
+## 2026-10-17 — Composed colours: refused, then resolved to what Figma paints (ORIN-131)
+
+**What changed:** since September a Figma colour variable can be another
+colour at a separate opacity. The baseline's extractor turned that value into
+`#NaNNaNNaN` without throwing, and it would have reached a client's `dist/` as
+invalid CSS with every check green. Pipeline PR #9 made the sync refuse any
+colour it cannot represent, naming each variable and mode. PR #10 then resolved
+composed colours to the 8-digit hex Figma paints. The extractor is now
+version 3.
+
+**Measured, not assumed.** The typings call opacity a "percentage" and say
+nothing more, so I built a throwaway Figma file and read what Figma renders in
+both modes. Opacity is 0 to 100. An opacity variable resolves by mode name
+across collections, so the dark-mode defect doesn't come back this way. And the
+composed opacity replaces the colour's own alpha rather than multiplying it: a
+half-transparent colour composed at 50 paints at 0.5, not 0.25. That last one
+is easy to get wrong, because multiplying looks like the natural reading. The
+forum also had the shape wrong (it's `{ color, opacity }`), and the Plugin API
+does accept writes of it.
+
+**Not done:** none of the clones has a version number on its extractor yet, so
+each would turn a composed colour into `#NaNNaNNaN` on its next sync until it's
+ported. No clone's `dist/` holds one today. ORIN-150 reads the client files
+before each port.
+
+
+## 2026-10-17 — The drift gate refuses a dump it cannot place (ORIN-61)
+
+**What changed:** under `check:figma`, a pipeline with no Figma file name
+configured, or a dump that carries none, is now a refusal rather than a
+warning (pipeline PR #11). A dry run still warns and carries on, so a new
+client's first sync works before anyone knows the file name. I rehearsed it
+through the real sink: the gate exited at provenance, naming the file it got.
+
+`Offer.md` is updated to match, in both places that describe the gate.
+
+**Still not fail-closed.** A dump from before the extractor was versioned
+still only warns under `--check`, so `Offer.md` keeps saying the gate is for
+someone who reads warnings. Decide that one once no live client has an
+unversioned dump.
+
+
+## 2026-10-17 — The report reads a React site's real sources (ORIN-47)
+
+**Decided: option (a), generalise the baseline's scanner.** The report's
+consumer checks read `.css`, `.html` and `.js` only, and skipped any folder
+called `vendor` or `admin`. On a React site they read almost nothing and the
+report went green anyway. Since 13 October React is the market and the package
+profile is in the baseline (ORIN-62), so leaving this to per-client adapters
+would have shipped that false green to exactly the clients I'm selling to.
+
+**What changed** (pipeline PR #12): the scan is configuration, with wider
+defaults that exclude by role (dependencies, build output) rather than by a
+name that was one client's real code. A new `scan-coverage` check says what
+was read, and fails when nothing was, when a configured folder is missing, or
+when `package.json` declares React, Vue or Svelte and none of its files were
+read. An end-to-end test proves the original bug is caught: an undefined token
+in a `.tsx` file now fails the contract, naming the file.
+
+**Not dropped:** the `@shadcn/lint` trial answers a different question,
+Tailwind-class hygiene, and can sit alongside this later.
+
+**For ports:** a clone's first build after this reads more files and may go red
+on real findings. KR needs `admin` added back to its exclusions, with a reason,
+if that folder really shouldn't be scanned.
+
+
+## 2026-10-17 — Two substrate checks: uncompiled token files, and numbers described in units (ORIN-58, ORIN-59)
+
+Both found real defects on IDEM, and they went in one pass (pipeline PR #13)
+because fixing the first exposes the second: a file that is never built is
+never wrong.
+
+**`build-sources` (ORIN-58)** fails on any authored file under `tokens/` the
+build never compiles. On IDEM, `size.json` and `typography.json` sat like that
+for months while `dist/` was colour only. The source list now lives in one
+module shared by the build and the report, so the two can't drift. Files that
+genuinely aren't token sources go in config with a reason; the baseline
+declares its changelog and snapshot.
+
+**`lint-unitless` (ORIN-59)** now also fails on a number token whose
+description gives it a unit, which is how IDEM's 15 letter-spacing tokens
+emitted `letter-spacing: 0.1`. It matches a unit written against a number
+("0.1px"), not the word anywhere, so weights and the pipeline's own ratio
+tokens stay clean and the check isn't switched off on its first run.
+
+Each was broken on purpose through the real report and went red.
+
+**Next in the set:** ORIN-60, literals in the semantic token files. Its care
+is the same: the primitives file is meant to be literals.
