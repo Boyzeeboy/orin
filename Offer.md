@@ -143,10 +143,11 @@ since 30 August the sink records when each dump landed and a hash of its
 bytes, and the gate refuses a dump that is too old, edited since, or
 missing that record (`notes/stale-dump-guard.md`). What remains is the
 part a script cannot supervise. The answer is only worth anything if
-somebody opened the right file and pressed Sync a minute earlier, and two
-of its checks still pass with a warning rather than a refusal: a pipeline
-with no Figma file name configured, and a dump from before the extractor
-was versioned. That is a gate for someone who reads warnings, and it must
+somebody opened the right file and pressed Sync a minute earlier. Since 17
+October it also refuses a dump it cannot place: a pipeline with no Figma
+file name configured, or a dump that carries none. One check still passes
+with a warning rather than a refusal: a dump from before the extractor was
+versioned. That is a gate for someone who reads warnings, and it must
 never be handed to somebody who will run it unsupervised. So the drift
 comparison
 is something I run *with* them during the week, and something that ships
@@ -351,7 +352,8 @@ Figma file they have to translate.
 into the Diagnostic on 2026-08-28 and moved back the same day: it needs a live
 Figma read that a person has to trigger and watch, so it is not a thing to hand
 a client to run unsupervised. It no longer accepts a stale or edited dump; the
-freshness guard refuses both (30 August). What the Diagnostic installs is the
+freshness guard refuses both (30 August). Nor one it cannot place to a Figma
+file (17 October). What the Diagnostic installs is the
 repo-side report. The check compares their Figma file against the tokens in
 their repo and fails when the two disagree, naming exactly what moved. It also names both readings, because what
 a failure means depends on which way truth flows in their setup: where Figma
