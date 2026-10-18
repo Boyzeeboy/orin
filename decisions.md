@@ -8823,3 +8823,51 @@ Each was broken on purpose through the real report and went red.
 
 **Next in the set:** ORIN-60, literals in the semantic token files. Its care
 is the same: the primitives file is meant to be literals.
+
+## 2026-10-18 — The social series rewritten for the engineering lead, and a buyer persona written
+
+**What changed:** `notes/social-strategy.md` (orin-private) reworked against
+Daniel Priestley's argument that recommendation engines now read what a post is
+about and who it's for. A new `notes/buyer-persona.md`, tracked in orin-private
+and ignored here from creation, writes buyer 1 out in full: the engineering lead
+who signs, the designer who can veto, their objections, and the words they use.
+
+**Why:** the 16 October series named the engineering lead as its reader and was
+written for the designer. Half its posts were about what checks miss, in token
+and variable vocabulary, and a recommendation engine reading them would match
+the series to designers and design-systems people. None of them named the
+reader, only two said what I do, and none said what drift costs, which is the
+argument that moves the buyer to spend.
+
+**What the series does now:**
+
+- Two jobs instead of one: credibility for the person who looks me up after a
+  cold email, and being found by engineering leads who haven't. Who sees the
+  posts is the measure, not how many.
+- Four subjects named for what the buyer's team goes through: where your
+  developers guess, looks finished but never used, green build with a broken
+  product, and what the team gets back. "What checks miss" is retired as a
+  subject; its findings moved into the second and third.
+- Every post names its reader in the first line or two and gives one sentence
+  of cost. LinkedIn posts close on a line saying what I do. That line describes
+  rather than asks, so the one-ask rule (first and last post) stands.
+- New posts: the velocity maths (no price named), Vivo, the "between 1 and 45
+  per cent" result on systems I didn't build, ten faults in two days, and an
+  "after" post about developers installing the package. The docs-pages post
+  goes to reserve, and the uncompiled token files go to X only.
+- Three posts a week instead of two, drafted three weeks ahead. Fourteen pieces
+  from 19 October to 12 November.
+- Measurement adds viewer job titles and the share of non-follower viewers for
+  each LinkedIn post. Two posts in a row reaching mostly designers triggers a
+  rewrite.
+
+**Not done:** nothing posted, so the LinkedIn hold still stands. The 11 November
+post uses the July dark-theme fault, which isn't in the IDEM essay. It waits on
+confirming the fault was IDEM's, checking the figure, and deciding to make it
+public; a reserve post takes the slot otherwise. The persona is a hypothesis.
+It gets checked against the first five buyer-1 calls and updated after the
+fifth.
+
+**Rejected:** more faults from IDEM's internals (deeper practitioner territory,
+and closer to method), and any line saying AI builds better from a package (the
+27 September entry).
