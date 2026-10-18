@@ -8897,3 +8897,34 @@ empty until the next drafts.
 **Staying three weeks ahead is ORIN-151:** the three weeks from 17 November are
 due by 26 October, then a week at a time, with the section 11 measurement table
 filled in as posts go out.
+
+## 2026-10-18 — The social posts revised after an editorial review
+
+**What changed:** all fourteen drafts in `notes/social-strategy.md`
+(orin-private) were revised after an outside editorial read, and section 5 gains
+three rules: name the reader by the second sentence rather than the first, claim
+only what the evidence carries, and give each post one job.
+
+**The correction that mattered.** The 5 November draft said the pull request
+flags any drift from the design. That's false for what a client gets: the check
+left in a repository compares code with each component's contract, and the
+Figma comparison needs someone running it (the pack's section 1, corrected 14
+October). The post now says the pull request fails when code breaks the
+contract, which is what `positioning.md` already says publicly.
+
+**Narrowed:** AI "reproduces the mistake faithfully" became a risk ("can turn a
+missing design state into a missing component state very quickly"); "no test of
+yours will catch" became "the checks in my own system missed"; the essay's "a
+system a team has built over three years hides more" became "probably hides
+more"; the £70,000 team cost and the 10 per cent are framed as assumptions; and
+the spec post drops "wrong in four places", since only the shape is on record.
+
+**Also:** twelve of thirteen LinkedIn posts opened "If your…"; now one does, and
+about half lead with the finding. The three posts on developers guessing each
+have one job: the everyday problem, my own library, and three systems I didn't
+build. The closing post asks on X as well as LinkedIn, and asks for a message
+about where the team gets stuck.
+
+**Not done:** the Vivo post keeps the 60 per cent exactly as the case study
+words it. Nothing here records how it was measured or what work it covered, and
+a clause gets added only if that can be said accurately.
