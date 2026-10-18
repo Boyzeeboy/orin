@@ -8871,3 +8871,29 @@ fifth.
 **Rejected:** more faults from IDEM's internals (deeper practitioner territory,
 and closer to method), and any line saying AI builds better from a package (the
 27 September entry).
+
+## 2026-10-18 — The LinkedIn hold ends, and the dark-theme fault stays private
+
+**What changed:** the hold on LinkedIn posting, in place since 6 September in
+section 5 of `notes/launch-and-outreach-pack.md` (orin-private), is ended. Posts
+now go out from `notes/social-strategy.md`, starting Monday 19 October. The
+pack's status line says so.
+
+**Why it can end now:** the hold was there because the public mechanism
+allowance is unresolved. The social series explains no mechanism, so it can go
+out under any answer to that question, including zero. Ending the hold doesn't
+settle the allowance.
+
+**What stays held:** the pack's three 6 September drafts. The series doesn't use
+them, and post 2 would spend the allowance, so they wait on that decision.
+
+**The dark-theme fault is not public.** The 11 November post was to use the July
+2026 fault in which a dark theme carried its light values past every gate. It
+isn't in the IDEM essay and now won't be in the series; the strategy lists it
+under "held back, always". The reserve post on the docs pages' 188 contrast
+failures takes the slot, rewritten for the engineering lead. The reserve is
+empty until the next drafts.
+
+**Staying three weeks ahead is ORIN-151:** the three weeks from 17 November are
+due by 26 October, then a week at a time, with the section 11 measurement table
+filled in as posts go out.
