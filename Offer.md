@@ -50,6 +50,14 @@ carrying the design load. I find the pressure points — duplicated
 components, broken handoff, token chaos, silo design calls — and trace
 what they're costing in velocity and defects.
 
+**I also ask which source wins.** Most teams have more than one thing claiming
+to be the system: the Figma library, the components in code, a published
+package, Storybook, a docs page. I list each one with its version and its
+owner, then ask what happens when two disagree. "Nobody's decided" is a common
+answer and a real finding (nobody's fault: the question never came up). Asking
+costs nothing. Settling it, component by component, is what a Build's drift
+checks do.
+
 **For a team with a Figma library and a React app, the week answers one
 question: how far is their library from a package?** The component ready
 check is the most direct way to ask it (below), and since ORIN-140 it goes
