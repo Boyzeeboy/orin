@@ -9152,6 +9152,6 @@ post is unchanged.
 claim holds either way. The alias not surviving into code is a small drift of
 its own, left for the IDEM project.
 
-**Not done:** the closing line says "build with" where `positioning.md`'s
-locked one-liner says "ship from". It's recorded as Warren wrote it. Whatever
-goes out replaces the draft under the 1 September rule.
+**Closing line:** Warren's draft said "build with", and `positioning.md`'s
+locked one-liner says "ship from". Changed to "ship from" before posting, at
+Warren's call. Whatever goes out replaces the draft under the 1 September rule.
