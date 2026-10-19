@@ -8983,3 +8983,32 @@ recorded a session, so there were no transcripts to keep. The evidence is in
 ref, the staged work as a patch, and a README with restore steps, tested by
 restoring before deleting. A frozen copy left on disk is what this morning's
 advisory nearly missed, so it doesn't stay.
+
+---
+
+## 2026-10-19 — A reserve post on AI output that comes back "close"
+
+**What changed:** `notes/social-strategy.md` (orin-private) holds one reserve
+post in section 9, empty since 18 October. It's LinkedIn only, under "Green
+build, broken product": teams point AI tools at their Figma library, the output
+comes back close, and close means review eats the time the AI saved. The
+evidence is the two uncompiled token files from the IDEM essay, told as values
+that looked finished and never reached the app.
+
+**Why this shape:** the question was whether a prospect's problem, and how the
+IDEM pipeline would solve it, belonged in the series. The problem does, as the
+engineering lead sees it. The prospect doesn't: no name, no meeting detail, and
+nothing that lets them recognise themselves. And "the pipeline solves it" can't
+be said, since that prospect never used it, and explaining how would spend the
+mechanism allowance the series is cleared for by not touching.
+
+**Narrowed:** "close" came from one conversation, so the post says "the last
+time I asked a team" and claims no pattern. "An AI tool can only be as right as
+the design system it reads from" is kept as a ceiling. It goes no further,
+because the 27 September entry rules out saying AI does better with a package.
+The closing question is the 21 September doctrine's discovery question, asked
+in public. That's the question, given away; the answer stays paid.
+
+**Not done:** not scheduled. It's LinkedIn only and should go after 6 November,
+because X runs the same finding that day. Nothing posted, so it stays a draft
+under the 1 September rule.
