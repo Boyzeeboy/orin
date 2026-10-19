@@ -8928,3 +8928,47 @@ about where the team gets stuck.
 **Not done:** the Vivo post keeps the 60 per cent exactly as the case study
 words it. Nothing here records how it was measured or what work it covered, and
 a clause gets added only if that can be said accurately.
+
+## 2026-10-19 — The 16 October research brief: one patch, one check, one question
+
+**What changed:** a research brief dated 16 October was reviewed against the
+repos rather than taken on trust. Three things came out of it.
+
+**Storybook patched in four places.** Two advisories published 12 October
+(GHSA-f2ph-cmg5-wxc8, critical; GHSA-px85-f4q5-jh77, high) cover the dev server
+in `storybook` 8.0.0 to 8.6.18 and 10.x before 10.6.2. All four local installs
+were in range: the IDEM pipeline (10.6.1), the KR pipeline, acme-tokens and
+the agent lab clone (8.6.18). The brief found three and missed the agent lab.
+IDEM and KR are merged (idem-design-tokens #166 and #167, kr-token-pipeline #25)
+after full test runs. acme-tokens is fast-forwarded locally, since it has no
+remote. The agent lab clone is patched on disk and left uncommitted, because it
+holds staged work from an experiment. Only `storybook dev` was exposed; built
+Storybooks, which CI tests, never were. None of them had `@storybook/addon-mcp`,
+so the brief's point about agents getting write access didn't apply here.
+
+Dependabot had opened the same bump 7 hours earlier, split badly: `storybook`
+in one PR, its addons in another, though `dependabot.yml` groups `@storybook/*`
+together. #164 was closed as superseded. If next Monday splits them again, the
+grouping needs a look.
+
+**The consumer check now tabs through the installed app** (idem-design-tokens
+#168). Every tab stop, in both themes, has to look different focused and
+unfocused, compared over the element and its component root. It's shown to
+fail: a global outline and box-shadow reset made 70 of 116 stops fail. The
+consumer app had no inherited reset to begin with, so the brief's worry about
+one was checked and wasn't true here.
+
+**The Diagnostic asks which source wins** (`Offer.md`, section 1): every source
+claiming to be the system, with version and owner, and what happens when two
+disagree. Asking is free; settling it is the Build's drift checks.
+
+**The three-edge drift question went to its own session,** and is now ORIN-152
+and ORIN-153 under ORIN-66. The canvas's "In sync" reflects only contract
+against Figma; two of four planted mismatches still read "In sync".
+
+**Not done, deliberately:** the brief's sales lines (one is the negative
+parallelism `voice.md` §4F rules out, and leading with AI would move the locked
+positioning), a multi-source reconciliation module (no prospect has asked), its
+metrics list (too much for one person before the first Build), and any reliance
+on Figma's beta code-source features. Heading semantics in the consumer app
+weren't checked: the app's headings are the app's, not the package's.
