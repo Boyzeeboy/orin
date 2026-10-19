@@ -8941,8 +8941,8 @@ were in range: the IDEM pipeline (10.6.1), the KR pipeline, acme-tokens and
 the agent lab clone (8.6.18). The brief found three and missed the agent lab.
 IDEM and KR are merged (idem-design-tokens #166 and #167, kr-token-pipeline #25)
 after full test runs. acme-tokens is fast-forwarded locally, since it has no
-remote. The agent lab clone is patched on disk and left uncommitted, because it
-holds staged work from an experiment. Only `storybook dev` was exposed; built
+remote. The agent lab clone, a 27 September experiment copy that was never
+written up, is archived and deleted (see below). Only `storybook dev` was exposed; built
 Storybooks, which CI tests, never were. None of them had `@storybook/addon-mcp`,
 so the brief's point about agents getting write access didn't apply here.
 
@@ -8972,3 +8972,14 @@ positioning), a multi-source reconciliation module (no prospect has asked), its
 metrics list (too much for one person before the first Build), and any reliance
 on Figma's beta code-source features. Heading semantics in the consumer app
 weren't checked: the app's headings are the app's, not the package's.
+
+**Later the same day: the agent lab is archived and deleted.** It held four
+experiment starting states, tagged `a-bare`, `b-context`, `c-figma` and
+`d-pattern` (ORIN-49's protocol arms), three commits that existed nowhere else,
+and staged FormField work on `d-pattern` from 27 September. The FormField that
+IDEM `main` has since shipped supersedes that work. Its Claude config never
+recorded a session, so there were no transcripts to keep. The evidence is in
+`~/Developer/Claude/Archive/idem-agent-lab-2026-09-27/`: a git bundle of every
+ref, the staged work as a patch, and a README with restore steps, tested by
+restoring before deleting. A frozen copy left on disk is what this morning's
+advisory nearly missed, so it doesn't stay.
