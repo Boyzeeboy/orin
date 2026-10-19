@@ -9043,3 +9043,51 @@ Nothing in the series relied on the agent lab or the Storybook dev server.
 **Not done:** `positioning.md`'s "checked against that contract on every pull
 request" is still true, so it stays. Offer.md's and deliverable.md's canvas
 wording waits on ORIN-152, as that issue says.
+
+---
+
+## 2026-10-19 — Every social post traced to its evidence, and five lines narrowed
+
+**What changed:** a new `notes/social-evidence.md`, tracked in orin-private and
+ignored here from creation, gives each post in the series its claims, a source
+for each, a strength (measured, recorded, reasoned or assumed), and an answer
+for the challenges most likely to come. Outside sources were checked at source:
+Figma's Dev Mode and Code Connect docs, zeroheight's 2026 report, Figma's
+design-system study, and UK pay figures.
+
+**Why:** a review of the introduction said "looking at a screen and making a
+reasonable guess" understated Dev Mode. It was right, and the series is
+written for an engineering lead whose team probably uses Dev Mode. Warren asked
+for every post to rest on data he can produce when challenged, including his
+own findings.
+
+**What the research changed in the posts** (`notes/social-strategy.md`):
+
+- **Introduction and 20 October.** Dev Mode shows a value's variable when one
+  is bound, so "whether that 16px is the system's spacing" was only true of
+  typed-in values. Both now claim the gap only there: a padding typed in rather
+  than taken from the system's spacing, and a disabled state nobody drew.
+  Typed-in numbers were the ready check's commonest gap (13 October).
+  The X post is at 280 characters.
+- **20 October:** "which of the four greys" invented a number. It's now
+  "which grey is this, by name".
+- **28 October:** "and everything else was built from it" is cut, because
+  nothing on record says so.
+- **Reserve post:** "the last time I asked a team" became "the last time a
+  team told me", which is what happened.
+- **22 October note:** it said nothing recorded how Vivo's 60 per cent was
+  measured. The 20 September entry does: the client's Technical Officer, from
+  over 100 UI defects to around 13, December 2023 to April 2024. The post is
+  unchanged, and the note now points there.
+
+**Checked and holding:** 3 of 43, 7 per cent, 1 to 45 per cent, 40 components,
+ten faults in two days, the font weight, the focus state, the pill, 188
+contrast failures, the uncompiled files, and the versioned package (1.21.1).
+
+**Not done:** the £70,000 sum rests on third-party reports of ONS pay
+(about £55,000 to £57,000 median) and a 15 to 25 per cent on-cost. Both are to be checked at
+ONS and HMRC before 27 October. No study puts a figure on developer time lost
+to drift, so the 10 per cent stays an assumption the post asks the reader to
+replace. Figma's 34 per cent measured designers and isn't used. The zeroheight
+figures aren't in any post yet. Code Connect goes in the persona's objections
+only if calls raise it.
