@@ -9091,3 +9091,39 @@ to drift, so the 10 per cent stays an assumption the post asks the reader to
 replace. Figma's 34 per cent measured designers and isn't used. The zeroheight
 figures aren't in any post yet. Code Connect goes in the persona's objections
 only if calls raise it.
+
+---
+
+## 2026-10-19 — The introduction's example, checked in the Figma file
+
+**What changed:** the introduction's Dev Mode paragraph (`notes/social-strategy.md`,
+orin-private) now uses an example read from IDEM Revised rather than reasoned
+about. Its evidence entry in `notes/social-evidence.md` is updated to match.
+
+**What was checked.** Figma's help says Dev Mode suggests a variable for a
+typed value only when it has the same value and a suitable scope. Read through
+the plugin API today, IDEM Revised has four variables worth 16 that qualify
+for padding: Spacing `scale/16` and `m`, and Radius `scale/16` and `l`. Each
+pair is a scale value and an alias of it, and all four are scoped to all
+properties. The Fonts variables worth 16 are scoped to font size and line
+height, so they don't qualify.
+
+**So the post says:** a padding typed in as 16px gets a suggestion by value
+only, and in my own file that's four names, two of them corner sizes. Pick the
+wrong one and the screen doesn't follow the next change.
+
+**Rejected along the way, by the same research:** "library twins" as an
+example of a wrong variable, because Dev Mode shows a variable's host file and
+the record doesn't say which binding was wrong. And "the button's corners were
+set by hand", which was false: `button/radius` was a Figma variable, and the
+gap was on the code side. The font-weight finding holds, but only as "looks
+right", and stays with the 4 November post.
+
+**Corrected in the evidence file:** "an undrawn disabled state" was marked as
+measured by the ready check, and nothing records that. It's now reasoned, with
+the practitioner sources named and no study claimed.
+
+**Not done:** the Dev Mode panel itself wasn't observed, only the rule it
+follows. IDEM's variable scopes are left as they are. Scoping radius to corner
+radius is a real fix, but it would change the file the post describes, and it
+belongs in the IDEM project rather than here.
