@@ -9012,3 +9012,34 @@ in public. That's the question, given away; the answer stays paid.
 **Not done:** not scheduled. It's LinkedIn only and should go after 6 November,
 because X runs the same finding that day. Nothing posted, so it stays a draft
 under the 1 September rule.
+
+---
+
+## 2026-10-19 — The social posts checked against today's findings
+
+**What changed:** all fifteen drafts in `notes/social-strategy.md` (orin-private)
+were checked against today's work. Three lines changed, all in the same
+direction: a check described as more complete than it is.
+
+- **5 November, LinkedIn:** "When someone's code breaks that contract, the pull
+  request fails before it merges" became "every pull request checks the code
+  against it". ORIN-153 planted a break that passes: a token the contract names,
+  used on the wrong variant. The new line is what `positioning.md` already says,
+  and it claims no catch rate. This line was last corrected on 18 October.
+- **5 November, opening:** "each one checked against its Figma source" became
+  "each one built from its Figma file". The Figma comparison runs when someone
+  runs it, and its last reading was 8 October (ORIN-152).
+- **19 October introduction:** "checks say whether the two still match" became
+  "I check the two against each other", for the same reason. If the
+  introduction has already gone out, the sent text replaces the draft anyway
+  under the 1 September rule.
+
+**Checked and holding:** 40 components (40 in `src/components`); "for months"
+on the uncompiled files (typography and size files added 20 May, found in
+late September); the 28 October keyboard post, which the new consumer focus
+check supports. Its 70 of 116 is a planted test and stays out of the posts.
+Nothing in the series relied on the agent lab or the Storybook dev server.
+
+**Not done:** `positioning.md`'s "checked against that contract on every pull
+request" is still true, so it stays. Offer.md's and deliverable.md's canvas
+wording waits on ORIN-152, as that issue says.
