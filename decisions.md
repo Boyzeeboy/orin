@@ -9155,3 +9155,19 @@ its own, left for the IDEM project.
 **Closing line:** Warren's draft said "build with", and `positioning.md`'s
 locked one-liner says "ship from". Changed to "ship from" before posting, at
 Warren's call. Whatever goes out replaces the draft under the 1 September rule.
+
+---
+
+## 2026-10-19 — The introduction's second paragraph restructured
+
+**What changed:** Warren restructured the introduction's second paragraph
+(`notes/social-strategy.md`, orin-private) so it answers the opening question:
+a component can look finished with padding typed in as 16px rather than bound
+to a variable, and if several variables fit, someone still has to establish
+which token belongs there. The rest of the post is unchanged, and so are the
+evidence entry's sources. One row was added for "look finished", resting on the ready check and
+the IDEM essay.
+
+**The closing line stays "ship from".** The pasted version said "build with",
+which the previous entry changed at Warren's call to match `positioning.md`.
+Kept, and flagged to Warren in case the paste was deliberate.
