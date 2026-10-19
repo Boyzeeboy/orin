@@ -9127,3 +9127,31 @@ the practitioner sources named and no study claimed.
 follows. IDEM's variable scopes are left as they are. Scoping radius to corner
 radius is a real fix, but it would change the file the post describes, and it
 belongs in the IDEM project rather than here.
+
+---
+
+## 2026-10-19 — The introduction's final wording, recorded before posting
+
+**What changed:** the LinkedIn introduction in `notes/social-strategy.md`
+(orin-private) is replaced with Warren's final wording, marked not yet posted.
+Its evidence entry in `notes/social-evidence.md` is rewritten to match. The X
+post is unchanged.
+
+**What the final wording settled.** It came from two outside reviews.
+- "The question I'm working on" replaces a claim of frequency.
+- The alias sentence now says only that the named token can move to a
+  different value, which is the case where the two diverge.
+- The cost is "can become a bug report" rather than "nobody notices".
+- "Where those gaps create extra work" replaces a promise to estimate cost.
+- The zeroheight figure is cut, because token automation doesn't bear on
+  choosing the wrong one of two valid names.
+- The ask is back, since the introduction is one of the two posts allowed one.
+
+**Found while checking:** in IDEM Revised `spacing/m` is an alias of
+`spacing/scale/16`, but in `tokens/size.json` it's a literal 16px. The post's
+claim holds either way. The alias not surviving into code is a small drift of
+its own, left for the IDEM project.
+
+**Not done:** the closing line says "build with" where `positioning.md`'s
+locked one-liner says "ship from". It's recorded as Warren wrote it. Whatever
+goes out replaces the draft under the 1 September rule.
