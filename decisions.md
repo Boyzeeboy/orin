@@ -9263,3 +9263,33 @@ Warren than it needed to.
 
 **Not done:** the LinkedIn headline and About section, and the `MANIFESTO.md`
 Vivo wording. Both are flagged and both are Warren's to change.
+
+---
+
+## 2026-10-20 — Last edits to the founder series before the first post
+
+**What changed:** small edits from a second review of Part 1 of
+`notes/social-strategy.md` and its evidence (orin-private). There was no rewrite.
+
+- **21 October.** "It's the work I do for founders" became "That's the work I
+  want to bring to founders". No founder has bought The Foundation yet, so the
+  old line implied delivery that hasn't happened. The opening now says
+  "reusable components for a working app", and the long second paragraph is
+  split.
+- **28 October.** "While it's still a conversation" became "as both develop",
+  because it was unclear what changes later.
+- **4 November.** "A second developer" was a team change, not a product
+  change, and "each shared decision in one place" was broader than the colour
+  example shows. It now reads "I'd expect the product and the team to change",
+  with a clear place to change a shared colour. The repeated "building towards"
+  paragraph is cut.
+- **11 November.** "The checks" became "the token checks I'd been relying on",
+  which matches the essay. The post is now provisional: decide after the first
+  two or three posts whether to publish the number.
+- **Strategy.** Paragraph counts are guidance. Comments get open answers, with
+  client detail and long technical answers taken private and the post
+  corrected if needed. The profile line should ideally be in place before the
+  introduction goes out.
+
+**Not done:** the LinkedIn headline and About section, which are Warren's to
+change.
