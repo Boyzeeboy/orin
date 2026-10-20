@@ -9330,3 +9330,15 @@ but stay available for outreach.
 what went out (the 1 September rule). The locked positioning one-liner in
 `positioning.md` is unchanged. The profile no longer quotes it, which is a
 choice about the profile, not about the positioning.
+
+---
+
+## 2026-10-20 — The founder-first headline is live
+
+**What changed:** Warren's LinkedIn headline is now "Design foundations from
+Figma to code, for founders and product teams.", the shorter of the two drafts.
+It's recorded as live in section 1 of `notes/launch-and-outreach-pack.md`
+(orin-private), word for word.
+
+**Not done:** the About and Experience role are still marked final but not yet
+live, until the text that went out is pasted back.
