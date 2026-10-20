@@ -9293,3 +9293,40 @@ Vivo wording. Both are flagged and both are Warren's to change.
 
 **Not done:** the LinkedIn headline and About section, which are Warren's to
 change.
+
+---
+
+## 2026-10-20 — The LinkedIn profile turns founder-first
+
+**What changed:** section 1 of `notes/launch-and-outreach-pack.md` (orin-private)
+records a new headline and About, both final and not yet live, and redrafts the
+Experience role to match.
+
+- **Headline:** "Design foundations for founders and product teams, from Figma
+  to the code you ship | Orin Systems". It has to work for both readers:
+  founders arriving from the social series, and engineering leads arriving from
+  outreach, which still targets buyer 1.
+- **About:** founder-first, built around "foundations". It covers the
+  Foundation (two weeks, one working screen), then the Diagnostic (one week),
+  then the Build as the follow-on, and the 40 components in IDEM's package.
+- **Experience role:** the same order and claims, plus the Diagnostic's
+  component rating and the repo-side checks it leaves running.
+
+**Rejected:** "Product designer helping founders turn ideas into working
+digital products" (an outside suggestion). `Offer.md` says the Figma work stops
+short of product design (no screens, no flows), and the line overpromises what
+the Foundation delivers. "Product designer" would also file the work on one side
+of the handoff the manifesto says doesn't exist.
+
+**Corrected on the way:** the live About was never recorded. The pack held a
+draft with a Vivo paragraph that the live text didn't have. The live About and
+the Experience role also carried the two claims narrowed on 19 October
+("checks… that fail when the code drifts" and "each checked against its Figma
+source"). Neither new text makes either claim. "3 of 43" and "between 1 and 45
+per cent" are out of the profile, because they need their criteria explained,
+but stay available for outreach.
+
+**Not done:** nothing is live until Warren changes the profile and pastes back
+what went out (the 1 September rule). The locked positioning one-liner in
+`positioning.md` is unchanged. The profile no longer quotes it, which is a
+choice about the profile, not about the positioning.
