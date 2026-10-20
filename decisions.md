@@ -9214,6 +9214,7 @@ positioning.
 
 **Not done:** `MANIFESTO.md` still says "the 60% defect reduction at Vivo
 Energy", the wording corrected on 14 July. It's flagged and not fixed here,
-because the manifesto is a locked document and the change is Warren's to make.
+because the manifesto is the source of truth for judgement calls and changing
+it is Warren's call.
 ORIN-151's deadline in Linear still reads 26 October. The strategy now says
 4 November.
