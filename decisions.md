@@ -9171,3 +9171,49 @@ the IDEM essay.
 **The closing line stays "ship from".** The pasted version said "build with",
 which the previous entry changed at Warren's call to match `positioning.md`.
 Kept, and flagged to Warren in case the paste was deliberate.
+
+---
+
+## 2026-10-20 — The social series turns to founders, and starts gentler
+
+**What changed:** `notes/social-strategy.md` (orin-private) is rewritten around
+founders building digital products. The engineering-lead series of 16 to 19
+October is paused before any of it went out, and kept whole as Part 2.
+`notes/social-evidence.md` gains a founder section at the top.
+
+**Why:** Warren hasn't posted much before, and the engineering-lead series was
+built from findings and numbers, each one something he might have to defend in
+public. Two outside reviews and this session agreed on a softer start: vision
+told through ambition and his own experience, to the reader who buys that way.
+Founders buy into a person and a direction more than evidence, and the offer
+for them already exists: The Foundation.
+
+**The new shape:**
+- **Reader:** founders building digital products, through The Foundation
+  (`Offer.md` section 2).
+- **Three themes:** what I want to make possible, what I'm building towards,
+  what I'm learning. The manifesto's beliefs feed them.
+- **The writing rule:** an ambition as an ambition, an observation as my
+  observation, a measured result as a measured result. Four checks before
+  posting. No claim of a saving, nothing about anyone else's system, and no AI
+  claims.
+- **Cadence:** LinkedIn only, one post a week on Wednesdays for four weeks,
+  then two a week from 17 November. X is paused.
+- **Each post closes** on a question or a thought, then one descriptive line
+  from the Foundation's wording. There's no sales ask.
+- **Four drafts:** 21 October (the introduction), 28 October (the spec without
+  the design), 4 November (one place to change a colour), and 11 November (the
+  Vivo checkout). Ten faults in two days is a spare. Every factual line is traced
+  in the evidence file.
+
+**This reverses, for social posts only,** the 18 October choice of the
+engineering lead as the reader. Buyer 1 is unchanged everywhere else: outreach,
+`Offer.md` and `positioning.md`. The locked one-liner is untouched; the founder
+closing lines borrow the Foundation's own wording rather than adding a second
+positioning.
+
+**Not done:** `MANIFESTO.md` still says "the 60% defect reduction at Vivo
+Energy", the wording corrected on 14 July. It's flagged and not fixed here,
+because the manifesto is a locked document and the change is Warren's to make.
+ORIN-151's deadline in Linear still reads 26 October. The strategy now says
+4 November.
