@@ -9342,3 +9342,18 @@ It's recorded as live in section 1 of `notes/launch-and-outreach-pack.md`
 
 **Not done:** the About and Experience role are still marked final but not yet
 live, until the text that went out is pasted back.
+
+---
+
+## 2026-10-20 — The founder-first About is live
+
+**What changed:** Warren's LinkedIn About is live as the final version he
+pasted on 20 October. Section 1 of `notes/launch-and-outreach-pack.md`
+(orin-private) marks it live. The headline went live earlier the same day, so
+the profile now matches the founder series before its first post on
+21 October.
+
+**Not done:** the Experience role (Founder, Orin) is still marked final but not
+yet live, and it still carries the two claims narrowed on 19 October until it's
+changed. The introduction goes out on 21 October, and its sent text gets pasted
+back into `notes/social-strategy.md`.
