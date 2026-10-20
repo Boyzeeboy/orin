@@ -9218,3 +9218,48 @@ because the manifesto is the source of truth for judgement calls and changing
 it is Warren's call.
 ORIN-151's deadline in Linear still reads 26 October. The strategy now says
 4 November.
+
+---
+
+## 2026-10-20 — The founder series revised after an outside review
+
+**What changed:** Part 1 of `notes/social-strategy.md` and the founder section of
+`notes/social-evidence.md` (both orin-private) were revised the same day they
+were written, after a review said the strategy still put more pressure on
+Warren than it needed to.
+
+**The strategy:**
+- **The accuracy rule** replaces the defensive checks. Write from experience I
+  can explain, describe ambitions as ambitions, and give factual claims enough
+  context to be understood fairly. "I think" doesn't turn a factual claim into
+  an opinion.
+- **One post a week, with no increase planned.** The month is reviewed after 11
+  November.
+- **Only the introduction says what I do for founders.** Other posts end when
+  their idea is complete. The LinkedIn headline still carries the
+  engineering-lead line, so the profile needs a founder-facing line before the
+  second post. That's Warren's change to make.
+- **The design system can be the subject.** It's the first-hand material.
+- **Founders are an audience to explore.** Team size, tooling and the Foundation
+  route are kept as internal hypotheses rather than written into the posts.
+- **The first month is measured by comfort** (comfortable publishing, sounded
+  like me, conversations started), with viewer titles as context only.
+
+**The posts:**
+- **21 October.** "Decisions already made, and made once" became "a few shared
+  design decisions connected to the code, and room to change them". The time
+  benefit is now an intention. "Before the first screen is built" became "as its
+  first screens are built", because the Foundation ends with a working screen.
+- **28 October.** The general claim about handoffs became a personal one: "It
+  reminded me why I want to stay close to both the design and what gets built."
+- **4 November.** The colour change is now carried through "in a package
+  update". The earlier wording could be read as the live app changing by itself.
+- **11 November** is the ten-faults post, rewritten as learning. Its absolute
+  "a system only gets tested when something is built from it" is now "building
+  from it found what those checks had missed".
+- **Vivo** moves to reserve. It describes a client's product, which contradicted
+  the new rule and the evidence note that said no post did.
+- **Closing lines are removed from every post but the introduction.**
+
+**Not done:** the LinkedIn headline and About section, and the `MANIFESTO.md`
+Vivo wording. Both are flagged and both are Warren's to change.
