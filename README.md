@@ -33,14 +33,15 @@ Orin is the vehicle for that work.
   v1 since August 2026. Consumes the semantic token layer only.
 - `SETUP.md` — the runbook: the one loop, the guardrails, the deploy.
 - `design.md` — layout principles; how tokens become page composition.
-- `HANDOVER.md`, `PHASE5-BUILD.md`, `BUILD-SEQUENCE.md` — the briefs the site
-  was built from, kept current rather than archived.
+- `archive/` — the briefs the site was built from (`HANDOVER.md`,
+  `PHASE5-BUILD.md`, `BUILD-SEQUENCE.md`), finished notes, superseded
+  commercial documents, and decisions from before October 2026.
 
 **The client-facing work**
 
 - `deliverable.md` — what a client actually receives.
-- `PIPELINE-LEDGER.md`, `PIPELINE-REVIEW.md` — the client token pipeline this
-  one was abstracted from.
+- `PIPELINE-LEDGER.md` — the client token pipeline this one was abstracted
+  from.
 - `/case-studies` — long-form drafts. Vivo Energy is written; the shipped
   version lives at `/site/work/vivo-energy`.
 - `/notes` — scratchpad for anything code-adjacent that doesn't yet have a home.
