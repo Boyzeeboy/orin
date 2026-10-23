@@ -1266,5 +1266,5 @@ brochure-site work the overview doesn't promise.
 **Not done:** the services page has no media yet. The Vivo Energy case study
 (orinsystems.co/work/vivo-energy) is the suggested first item. Whether Open
 Profile messaging was switched on wasn't confirmed from the published page.
-The headline and the profile's location line now show Bath, which covers the
-missing contact line noted in the About entry above.
+The profile's location line shows Bath and Contact info sits beside it, which
+covers the missing contact line noted in the About entry above.
