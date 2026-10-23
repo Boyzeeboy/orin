@@ -1230,3 +1230,41 @@ Agency work is left out as well, for the same reason.
 the email relies on the profile's contact info and website link. The record
 of earlier live profile text is in `notes/archive/launch-and-outreach-pack.md`
 (orin-private), which is archived; this entry is the record from here on.
+
+---
+
+## 2026-10-23 — The LinkedIn headline and services page are live
+
+**What changed:** two more parts of Warren's LinkedIn profile now match the
+one-page offer, both live on 23 October.
+
+The headline, verbatim, replacing "Design foundations from Figma to code, for
+founders and product teams." from 20 October:
+
+> UI design and React implementation for founders and small product teams | Orin
+
+The services page, published from a page that had previously been unpublished.
+Its overview, verbatim:
+
+> I build approved Figma designs into working React screens and reusable
+> components, for founders and small product teams. Bring me a design that
+> needs building, an interface that needs improving, or a component library
+> that needs connecting to your app. I look at the files first, then agree one
+> prioritised piece of work at a fixed price and build from there.
+
+- **Services provided:** Application Development, Web Development, User
+  Experience Design (UED), Visual Design. Visual Design stands in for user
+  interface design, which LinkedIn's list didn't offer.
+- **Availability:** remote or in person (Bath).
+- **Pricing:** contact for pricing. An hourly figure was rejected because it
+  contradicts the fixed price in the overview and the day rate in `Offer.md`.
+
+**Rejected:** Engineering Design and Web Design, added at first and then
+removed. The first brings mechanical and CAD enquiries; the second brings
+brochure-site work the overview doesn't promise.
+
+**Not done:** the services page has no media yet. The Vivo Energy case study
+(orinsystems.co/work/vivo-energy) is the suggested first item. Whether Open
+Profile messaging was switched on wasn't confirmed from the published page.
+The profile's location line shows Bath and Contact info sits beside it, which
+covers the missing contact line noted in the About entry above.
