@@ -1322,3 +1322,34 @@ Vivo's 60 per cent saving was measured. "Substrate" and "source of truth"
 remain inside the Vivo story and on `/tokens`, where they describe the work
 itself. `notes/pipeline-setup-sheet.html` still carries the old strapline; it
 isn't a public page.
+
+---
+
+## 2026-10-23 — Follow-up copy fixes from the second review
+
+**Why:** a second outside review of the copy alignment (PR 148, already
+merged) found three lines that claimed more than the offer or the evidence
+supports, and two smaller inconsistencies.
+
+**What changed:**
+
+- **Home section 03** no longer implies every job includes the token
+  pipeline. It says each screen is built from shared decisions, which "can
+  include tokens, reusable components and checks between Figma and code,
+  depending on what the work needs", matching `Offer.md`: clients buy the
+  finished work, not the pipeline.
+- **Home section 02:** "An approved design that has waited weeks for a
+  developer" became "An approved design waiting to be built", so no one is
+  cast as the bottleneck (`voice.md` §3). The closing line is now "Nobody's
+  fault. The reusable foundation was missing, and the team had other work to
+  ship."
+- **Home Proof heading:** "This works. I've measured it." became "What
+  changed at Vivo." The site doesn't yet say how the 60 per cent was
+  measured, so the heading shouldn't claim the measurement.
+- **Work, Vivo card:** two fragments became two sentences, and the saving is
+  now "contributing to" rather than the result of the system alone.
+- **IDEM page title** uses "| Orin" like every other page.
+
+**Not done:** the Vivo method sentence (what was compared, over what period,
+who calculated it, measured or reported). It waits on Warren. Once it exists,
+the Proof heading and "contributing to" can be revisited.
