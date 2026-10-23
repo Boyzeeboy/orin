@@ -74,8 +74,8 @@ clarified what Orin's ideal engagement actually looks like.
 
 Live. The site shipped as v1 on 16 August 2026 at
 [orinsystems.co](https://orinsystems.co), running on its own token pipeline.
-The offer went to one page on 23 October 2026; the site still describes the
-older four-shape offer until it's updated. The Vivo Energy
+The offer went to one page on 23 October 2026, and the site describes it. The
+Vivo Energy
 case study is published; the IDEM and KRM essays are still to write.
 
 Current work is the commercial layer, not the site.

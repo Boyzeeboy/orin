@@ -81,7 +81,7 @@ keeps telling the truth after Orin leaves. The router, tokens, guardrails,
 and delivery loop exist so the client can keep building without needing
 Warren to interpret everything by hand.
 
-The Retainer is care, not captivity.
+Ongoing work is care, not captivity.
 
 ## 6. Rest
 
@@ -105,7 +105,9 @@ Before a yes, ask:
 - Would I still make this decision if I trusted God for provision?
 - What would obedience look like if this opportunity disappeared?
 
-If the answer does not fit, Orin says no, even if it pays.
+If the work can't be done with integrity, or the yes is coming from fear,
+Orin says no, even if it pays. Whether a job fits commercially is a
+separate, smaller question, and `Offer.md` answers it.
 
 ## 8. Scorecards
 
@@ -129,15 +131,12 @@ Month:
 
 ### Pipeline
 
-- New qualified conversations:
-- Diagnostics proposed:
-- Diagnostics won:
-- Foundations proposed:
-- Foundations won:
-- Builds proposed:
-- Builds won:
-- Retainers active:
-- Retainers at risk:
+- Conversations held:
+- Proposals sent:
+- Deposits taken:
+- Jobs completed:
+- Capacity days booked:
+- Hours spent selling:
 
 ### Delivery
 
