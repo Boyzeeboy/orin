@@ -1418,3 +1418,27 @@ Home, How it works, Work or Contact, no console errors. `npm test` green with
 **Not done:** the panel's body text stays `text/inverse`; the mock-up's
 dimmer grey would have needed a second new token. The rest of the mock-up
 (figure strip, numbered cards) belongs to the deferred redesign.
+
+---
+
+## 2026-10-23 — The footer loses its rule, and the panel heading drops to h2 size
+
+**Why:** Warren looked at the live closing panel. The rule above the footer
+was redundant under a panel that already closes the page, the footer text
+started at the window's edge rather than the content's, and the panel heading
+at 56px out-shouted every other section heading.
+
+**What changed:**
+
+- The footer's top border is gone.
+- `.site-footer` takes `.container`'s measure and inline padding, so its text
+  starts on the content's left edge. Measured: footer text and closing panel
+  both at 144px at 1440px, both at 24px at 360px.
+- `.closing-panel h2` drops its size, line-height and letter-spacing
+  overrides and uses the ordinary h2 (`font-size/800`, 32px), the same as the
+  other section headings. The 24ch measure stays.
+
+**Not done:** on the prose pages (Principles, the case studies) the content
+is the centred 68ch `.wrap`, so the footer aligns with the container edge
+there rather than with the text. That matches the nav, which already sits on
+that edge.
