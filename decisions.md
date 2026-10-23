@@ -1380,3 +1380,41 @@ technical identity stays; the labels go.
 **Not done:** no visual artefact joins the hero yet; that belongs to the
 deferred redesign. The `01`–`06` section rails elsewhere on the home page are
 navigation labels, not the overlay, and stay.
+
+---
+
+## 2026-10-23 — The closing band becomes an inset panel, with one new token
+
+**Why:** Warren liked the closing section in a September review mock-up
+(`orin-home-infographic-direction.html`, outside the repo) and asked for its
+styling on the site. Its copy was the old Diagnostic text and was not taken.
+
+**What changed:**
+
+- **Token proposal, accepted:** `colour/text/accent-on-inverse` → teal 300,
+  added to `semantic.json`, built and synced, and shown on `/tokens`
+  (fourteen roles now). It measures 6.3:1 on the inverse ground. It is for
+  labels and the focus ring, not links: the 2026-07-09 rule that inverse
+  grounds stay link-free, so no `link-on-inverse` token, is unchanged.
+- **Home, How it works, Work:** the full-bleed inverse band became
+  `.closing-panel`, an inset panel inside the container with `radius/md`
+  corners and `space/16` padding (`space/8` below 48rem). One column: the
+  eyebrow in the new token, a larger heading scaling between `font-size/900`
+  and `font-size/1100` within 24ch, the existing line, one button. The home
+  page's `06` rail went with the two-column layout. Copy unchanged.
+  `.section--inverse` is gone from the site.
+- **Every "Get in touch" button** (nine, across all pages) ends in an arrow,
+  `<span aria-hidden="true">→</span>`; `.button` is now `inline-flex` with a
+  `space/3` gap.
+- **A fault fixed on the way:** the focus ring on a button over the inverse
+  ground was `text/link` (teal 500), 2.4:1, under the 3:1 a focus indicator
+  needs. On the panel it now uses the new token. Checked with a real
+  keyboard Tab: 2px solid teal 300.
+
+Checked in the browser: panel and button at 1440px and 360px, no overflow on
+Home, How it works, Work or Contact, no console errors. `npm test` green with
+118 tokens.
+
+**Not done:** the panel's body text stays `text/inverse`; the mock-up's
+dimmer grey would have needed a second new token. The rest of the mock-up
+(figure strip, numbered cards) belongs to the deferred redesign.

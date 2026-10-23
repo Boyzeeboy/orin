@@ -7,7 +7,8 @@
       "inverse":    { "$value": "{neutral.50}" },
       "link":       { "$value": "{teal.500}" },
       "link-hover": { "$value": "{teal.600}" },
-      "on-accent":  { "$value": "{neutral.0}" }
+      "on-accent":  { "$value": "{neutral.0}" },
+      "accent-on-inverse": { "$value": "{teal.300}" }
     },
     "background": {
       "default":      { "$value": "{neutral.50}" },
