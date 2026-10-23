@@ -1353,3 +1353,30 @@ supports, and two smaller inconsistencies.
 **Not done:** the Vivo method sentence (what was compared, over what period,
 who calculated it, measured or reported). It waits on Warren. Once it exists,
 the Proof heading and "contributing to" can be revisited.
+
+---
+
+## 2026-10-23 — The hero grid becomes quiet scaffolding
+
+**Why:** Warren asked for it. The numbered 01–12 columns over the hero read
+as a design-debug overlay rather than a finished composition. The grid's
+technical identity stays; the labels go.
+
+**What changed:**
+
+- The hero overlay's 12 spans are empty: no column numbers.
+- The lines sit at 0.6 opacity on `border/divider`, slightly quieter than
+  before, and fade out toward the bottom of the hero through a mask (opaque
+  to 30 per cent, transparent at the foot). The mask's opaque stop borrows
+  `text/default` so no literal colour enters `styles.css`; a mask reads only
+  alpha, so nothing is painted with it.
+- Alignment was already structural and is now written down beside the rule:
+  the overlay shares `.section-grid`'s columns, gap and padding, so line 1
+  sits on the rail, line 2 on the headline's left edge, and line 7 where a
+  future visual artefact in `.col-body` would start. Measured at 1440px:
+  rail and line 1 both at 144px, headline and line 2 both at 242px.
+- Still hero only, and still hidden below 64rem.
+
+**Not done:** no visual artefact joins the hero yet; that belongs to the
+deferred redesign. The `01`–`06` section rails elsewhere on the home page are
+navigation labels, not the overlay, and stay.

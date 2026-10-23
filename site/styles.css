@@ -162,15 +162,20 @@ a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offse
   margin-inline: auto;
   padding-inline: var(--orin-space-6);
   pointer-events: none;
+  /* Quiet scaffolding, not a debug overlay (2026-10-23): no column numbers,
+     lines at reduced strength, fading out toward the bottom of the hero. The
+     mask only reads alpha, so the opaque stop borrows a token colour rather
+     than introducing a literal; nothing here is painted. */
+  opacity: 0.6;
+  -webkit-mask-image: linear-gradient(to bottom, var(--orin-colour-text-default) 30%, transparent);
+  mask-image: linear-gradient(to bottom, var(--orin-colour-text-default) 30%, transparent);
 }
+/* Same 12 columns, gap and padding as .section-grid inside .container, so
+   each line sits on a column's left edge: line 1 on the rail, line 2 on the
+   headline's left edge (.col-main starts at column 2), and line 7 where
+   .col-body would begin if a visual artefact joins the hero. */
 .grid-overlay span {
   border-left: 1px solid var(--orin-colour-border-divider);
-  padding-top: var(--orin-space-2);
-  padding-left: var(--orin-space-2);
-  font-family: var(--orin-font-family-ui);
-  font-size: var(--orin-font-size-100);
-  color: var(--orin-colour-text-muted);
-  opacity: 0.6;
 }
 
 /* --- pricing cards row (Step 0.5; 2×2 since The Foundation made four) --- */
