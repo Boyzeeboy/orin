@@ -1442,3 +1442,40 @@ at 56px out-shouted every other section heading.
 is the centred 68ch `.wrap`, so the footer aligns with the container edge
 there rather than with the text. That matches the nav, which already sits on
 that edge.
+
+---
+
+## 2026-10-23 — The nav splits, marks the current page, and text stops stranding words
+
+**Why:** Warren preferred the September mock-up's navigation (brand left,
+links right, a bar under the current page), and asked why the closing
+panel's heading and line broke awkwardly. The heading broke because of the
+24ch cap kept from the larger panel heading; the line broke because the 68ch
+measure left "price." alone.
+
+**What changed:**
+
+- **Split nav:** "Orin" (`.brand`, display face, `font-size/600`, semibold)
+  sits left with the page links pushed right. The nav's inline padding puts
+  the brand on the content edge, the same edge as the rail, closing panel and
+  footer (144px at 1440px; the last link ends at 1296px); the rule still runs
+  full width. The mock-up's 48px padding and tinted nav background were not
+  taken.
+- **Current page:** `includes.js` marks the matching link after the nav loads,
+  `aria-current="page"` on the page itself and `"true"` inside its section, so
+  Work is marked on a case study. The brand is never marked, so the home page
+  has none. A `space/1` bar in `background/accent` draws from the attribute
+  and sits on the rule.
+- **Targets:** page links carry `space/6` block padding (69px tall on desktop,
+  45px on phones), well over the 24px minimum.
+- **Phones:** below 48rem the brand takes its own row and the four links sit
+  in one row beneath.
+- **Wrapping, sitewide:** `text-wrap: balance` on h1 to h3, `text-wrap: pretty`
+  on paragraphs. The closing panel's heading lost its 24ch cap and now sits on
+  one line at 1440px; its line ends "a fixed price." rather than "price." on
+  its own. Browsers without the keywords wrap as before.
+
+Checked in the browser at 1440px and 360px: alignment, the bar on How it
+works and on a case study, none on Home, keyboard focus on nav links, no
+overflow, no console errors. The nav is still a client-side include; its
+height is close to before, and the logged CLS (2026-08-16) is not touched.
