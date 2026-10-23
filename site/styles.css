@@ -46,7 +46,7 @@ body {
 .col-body { grid-column: 7 / -1; }
 /* Closing panel (2026-10-23): the inverse ground as an inset, rounded panel
    inside the container rather than a full-bleed band. One column: eyebrow,
-   heading, line, button. Still link-free apart from its one button
+   heading at the ordinary h2 size, line, button. Still link-free apart from its one button
    (2026-07-09). The eyebrow takes text/accent-on-inverse (teal 300, 6.3:1 on
    the inverse ground); text/muted would land near 2:1 here. */
 .closing-panel {
@@ -56,13 +56,7 @@ body {
   padding: var(--orin-space-16);
 }
 .closing-panel .eyebrow { color: var(--orin-colour-text-accent-on-inverse); margin: 0 0 var(--orin-space-8); }
-.closing-panel h2 {
-  margin-top: 0;
-  max-width: 24ch;
-  font-size: clamp(var(--orin-font-size-900), 3vw + 1.25rem, var(--orin-font-size-1100));
-  line-height: var(--orin-font-line-height-display-medium);
-  letter-spacing: var(--orin-font-letter-spacing-display-medium);
-}
+.closing-panel h2 { margin-top: 0; max-width: 24ch; }
 .closing-panel p:last-child { margin-bottom: 0; }
 /* The default ring is text/link (teal 500), 2.4:1 on the inverse ground and
    under the 3:1 a focus indicator needs. On the panel it uses teal 300. */
@@ -233,7 +227,10 @@ a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offse
 .site-nav { display: flex; flex-wrap: wrap; gap: var(--orin-space-6); padding: var(--orin-space-6); border-bottom: 1px solid var(--orin-colour-border-divider); }
 .site-nav a { text-decoration: none; color: var(--orin-colour-text-default); }
 .site-nav a:hover { color: var(--orin-colour-text-link); }
-.site-footer { padding: var(--orin-space-8) var(--orin-space-6); border-top: 1px solid var(--orin-colour-border-divider); color: var(--orin-colour-text-muted); }
+/* Same measure and inline padding as .container, so the footer text starts on
+   the content's left edge (the closing panel's edge). No rule above it since
+   2026-10-23: the panel already closes the page. */
+.site-footer { max-width: var(--orin-container-max); margin-inline: auto; padding: var(--orin-space-8) var(--orin-space-6); color: var(--orin-colour-text-muted); }
 
 /* --- specimen: pipeline proof, lives at /tokens. Do not delete — it's the
    proof artefact for technical buyers ("this site runs on its own pipeline").
