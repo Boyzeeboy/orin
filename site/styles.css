@@ -26,10 +26,9 @@ body {
   font-weight: var(--orin-font-weight-regular);
 }
 
-/* section band (full-bleed background) + wrap (68ch measure, inline padding only) */
+/* section band + wrap (68ch measure, inline padding only) */
 .section { padding-block: var(--orin-space-16); }
 .section--hero { padding-block: var(--orin-space-24); }
-.section--inverse { background: var(--orin-colour-background-inverse); color: var(--orin-colour-text-inverse); }
 .wrap { max-width: var(--orin-measure-prose); margin-inline: auto; padding-inline: var(--orin-space-6); }
 
 /* --- 12-col grid scaffolding (Step 0.5). .container is the wide (75rem)
@@ -45,12 +44,29 @@ body {
 .col-main { grid-column: 2 / -1; }
 .col-heading { grid-column: 2 / 7; }
 .col-body { grid-column: 7 / -1; }
-/* On an inverse band both the rail and the eyebrow have to flip. --ink-muted
-   is a mid neutral chosen against paper; on the inverse ground it lands at
-   2:1, well under AA. The rail was flipped in Step 0 and the eyebrow was not,
-   which is the same defect twice — so they are one rule now. */
-.section--inverse .rail,
-.section--inverse .eyebrow { color: var(--orin-colour-text-inverse); }
+/* Closing panel (2026-10-23): the inverse ground as an inset, rounded panel
+   inside the container rather than a full-bleed band. One column: eyebrow,
+   heading, line, button. Still link-free apart from its one button
+   (2026-07-09). The eyebrow takes text/accent-on-inverse (teal 300, 6.3:1 on
+   the inverse ground); text/muted would land near 2:1 here. */
+.closing-panel {
+  background: var(--orin-colour-background-inverse);
+  color: var(--orin-colour-text-inverse);
+  border-radius: var(--orin-radius-md);
+  padding: var(--orin-space-16);
+}
+.closing-panel .eyebrow { color: var(--orin-colour-text-accent-on-inverse); margin: 0 0 var(--orin-space-8); }
+.closing-panel h2 {
+  margin-top: 0;
+  max-width: 24ch;
+  font-size: clamp(var(--orin-font-size-900), 3vw + 1.25rem, var(--orin-font-size-1100));
+  line-height: var(--orin-font-line-height-display-medium);
+  letter-spacing: var(--orin-font-letter-spacing-display-medium);
+}
+.closing-panel p:last-child { margin-bottom: 0; }
+/* The default ring is text/link (teal 500), 2.4:1 on the inverse ground and
+   under the 3:1 a focus indicator needs. On the panel it uses teal 300. */
+.closing-panel .button:focus-visible { outline-color: var(--orin-colour-text-accent-on-inverse); }
 
 h1, h2, h3 {
   font-family: var(--orin-font-family-display);
@@ -108,7 +124,9 @@ a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offse
 }
 
 .button {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--orin-space-3);
   font-family: var(--orin-font-family-ui);
   font-size: var(--orin-font-size-300);
   font-weight: var(--orin-font-weight-medium);
@@ -286,6 +304,7 @@ a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offse
    9rem label — it overflowed 360px by 7px before this. Stacking fixes the whole
    scale rather than the one row that happened to show it. */
 @media (max-width: 47.9375rem) {
+  .closing-panel { padding: var(--orin-space-8); }
   .specimen-row { flex-direction: column; align-items: flex-start; gap: var(--orin-space-1); }
   .specimen-row .label { min-width: 0; }
 }
