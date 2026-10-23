@@ -1199,3 +1199,34 @@ sheets, `foundation-shadcn-runbook.html`, `notes/shadcn-adapter/`, and
 by their old paths. They are records and stay as written. Two live HTML
 sheets (`client-site-setup-sheet.html`, `idem-system-infographic.html`) name
 archived files in their source notes, which is harmless.
+
+---
+
+## 2026-10-23 — The LinkedIn About is live for the one-page offer
+
+**What changed:** Warren's LinkedIn About now matches the one-page offer.
+It's live as the final version he pasted on 23 October, replacing the
+founder-first About from 20 October. The text that went up, verbatim:
+
+> I help founders and small product teams turn interface designs into working
+> React screens and reusable components.
+>
+> I connect the colours, typography and components defined in Figma with their
+> implementation, so the product has a consistent feel and a clear foundation
+> for future changes.
+>
+> You can bring me an approved design that needs building, an existing
+> interface that needs improving, or a component library that needs connecting
+> to your application.
+>
+> I start with one prioritised piece of work, at a fixed price, and build from
+> there.
+
+**Left out on purpose:** IDEM, at Warren's choice. It stays as the proof for
+direct conversations with designers and agencies rather than the profile.
+Agency work is left out as well, for the same reason.
+
+**Not done:** the profile no longer names Bath or gives a contact line, so
+the email relies on the profile's contact info and website link. The record
+of earlier live profile text is in `notes/archive/launch-and-outreach-pack.md`
+(orin-private), which is archived; this entry is the record from here on.
