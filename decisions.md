@@ -1479,3 +1479,13 @@ Checked in the browser at 1440px and 360px: alignment, the bar on How it
 works and on a case study, none on Home, keyboard focus on nav links, no
 overflow, no console errors. The nav is still a client-side include; its
 height is close to before, and the logged CLS (2026-08-16) is not touched.
+
+---
+
+## 2026-10-23 — The closing panel heading sits one step above h2
+
+**What changed:** at Warren's request, `.closing-panel h2` uses
+`font-size/900` (36px), one step above the ordinary h2 (`font-size/800`,
+32px), so the panel reads as the page's close without returning to the 56px
+it started at. It stays on one line at 1440px and fits at 360px with no
+overflow.
