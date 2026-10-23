@@ -13,10 +13,10 @@ so how it's built matters as much as what it says.
    the area you're touching
 
 `MANIFESTO.md` sits behind all four. For site work only, which needs
-asking first: `HANDOVER.md`, `PHASE5-BUILD.md`, `design.md`,
-`BUILD-SEQUENCE.md` and `SETUP.md`. Superseded commercial documents are
-in `archive/` and `notes/archive/` (private); read them for history, not
-as rules.
+asking first: `design.md` and `SETUP.md`. Finished and superseded
+documents, including the site's original briefs and decisions from before
+October 2026, are in `archive/` and `notes/archive/` (private); read them
+for history, not as rules.
 
 Values and commercial rules are held differently. A move that conflicts
 with `OPERATING_MODEL.md` is a real blocker. The prices and rules in
@@ -70,7 +70,7 @@ did: question them when evidence says so, and log the change.
   the developers are not careless.
 - **One CTA sitewide: "Get in touch."** No newsletter, no chat widget,
   no secondary asks.
-- **Component budget** (PHASE5-BUILD.md): primitives only — heading set,
+- **Component budget** (`design.md`): primitives only — heading set,
   body, link, one primary button, nav, footer, section wrapper,
   case-study card. Build nothing else unless a page demands it.
 - **Client material goes to `orin-private` from its first commit.** Anything
@@ -146,8 +146,8 @@ saying so. Ask before starting site work.
 
 Read `decisions.md` from the most recent entry backwards far enough to
 cover the area you're touching. It is the log of what was already
-decided, and it is long — the stale block this section replaced is what
-happens when a task description outlives the work it described.
+decided. Entries before October 2026, including the v1 and QA entries
+cited above, are in `archive/decisions-2026-07-to-09.md`.
 
 `cd tokens && npm test` → 9/9, verify clean, before every push. Log what
 you change in `decisions.md` (date, what changed, what was deferred).

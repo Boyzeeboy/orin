@@ -82,7 +82,7 @@ doesn't · **Deferred** = out for Orin v1, cheap to add later.
 | **Per-client scaffold** | `scaffold-client.mjs` + `pipeline.config.mjs` — parameterised (`projectName`, `prefix`, `figmaFileName`, `figmaFileKey`, `siteDir`), reusable across clients. Since 2026-07-28 it carries **no Figma collection or mode ids at all**: the transform matches both by name, so a new client is a naming convention rather than a code edit | None — Orin is a singleton; prefix fixed to `--orin-` | **Dropped** |
 | **Theming** | Multi-mode: `tokens.{light,dark}.json` → `dist/{light,dark}` | Light only (`decisions.md` 2026-07-06); semantics-only so dark is authoring, not retrofit | **Deferred** |
 | **Token layers** | primitives + semantic + **component** (`button/*`, `input/*`, `nav/*`) | primitives + semantic **only** (`CLAUDE.md`: "no component-token layer yet") | **Dropped** (component layer) |
-| **Component library** | Yes — components + per-component metadata files (the "Build deliverable") | None — primitive kit for a 5-page site (`PHASE5-BUILD.md` component budget) | **Dropped** |
+| **Component library** | Yes — components + per-component metadata files (the "Build deliverable") | None — primitive kit for a 5-page site (`design.md` component budget) | **Dropped** |
 | **Visual regression** | Storybook + Chromatic CI, enforced as a PR gate (`.github/workflows/chromatic.yml`) | None (`decisions.md` 2026-07-05: dropped — "not for a five-page marketing site") | **Dropped** |
 | **Source lint / guards** | `verify-build` (all 6 `dist/` outputs exist, non-empty) **+ a 9-check generated `report`** [§]: build integrity per mode, **mode parity by value**, dist↔vendor sync, consumer contract, fonts-link↔tokens, no doubled segments, no unitless font numbers, colour audit | `verify-build` + an **8-check `report`**: dist↔vendor sync, no doubled segments, dimensions carry units, no `$value`+children, no hardcoded hex, no hardcoded font-family, semantic-only consumption, fonts-link↔tokens match | **Convergent** — both grew a static-lint report; the checks differ because the surfaces do |
 | **Usage prose** | `guidelines.json` → baked into `dist` CSS comments; the "leave nothing to interpretation" layer the AI reads | None — site is small enough not to earn it | **Dropped** |
@@ -109,7 +109,7 @@ dropping the cross-repo `sync-tokens.sh` copy, not the vendor file itself.
 
 **[‡] Update (2026-07-26).** The sibling-path copy described above is itself now
 superseded — this row was accurate on 2026-07-20 but KR closed the transport
-seam the next day. Per `PIPELINE-REVIEW.md` §3.1 (done 2026-07-21) and verified
+seam the next day. Per `archive/PIPELINE-REVIEW.md` §3.1 (done 2026-07-21) and verified
 directly against the live `sync-tokens.sh`, the site no longer copies from a
 hardcoded `../KR Token Pipeline` sibling path. It installs
 `kirsten-rossiter-tokens` as a pinned git-tag `devDependency`
@@ -205,7 +205,7 @@ reached.
   Storybook, stop being "Dropped" and this ledger changes (and `decisions.md`
   gets an entry). A parked mechanism for governing that layer once it exists —
   lock zones, a two-use review trigger, and a "why not X" field per proposal —
-  is filed in `notes/pattern-layer-governance.md`. Nothing there is adopted;
+  is filed in `archive/notes/pattern-layer-governance.md`. Nothing there is adopted;
   read it at the moment this row moves.
 - Dark mode comes into Orin's scope → the Theming row moves from Deferred to
   Kept.

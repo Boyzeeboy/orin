@@ -2,19 +2,17 @@
 node_modules/
 tokens/dist/
 
-# Working brief, kept locally — deliberately untracked (decisions.md 2026-07-30)
-EXTRACTION-BRIEF.md
-
 # The shared core, kept local. `deliverable.md` ("Whose is what") says the build
 # machinery is Orin's own IP, reused across clients and never handed over — and
 # this remote is public, so tracking it would hand it over. A working adapter
 # with its own guardrail and fixtures, not a note about one.
 notes/shadcn-adapter/
 
-# The contract templates: MSA and the Diagnostic engagement letter. This remote
-# is public, and these carry the legal name, the address line, and the
-# commercial terms Orin contracts on. Templates today, filled instruments tomorrow, and the moment a real client
-# name or address lands in one there is no undo on a public remote. Untracked
+# The contract templates: the engagement letter, the MSA and the DPA. This
+# remote is public, and these carry the legal name, the address line, and the
+# commercial terms Orin contracts on. Templates today, filled instruments
+# tomorrow, and the moment a real client name or address lands in one there
+# is no undo on a public remote. Untracked
 # 2026-08-16; they were tracked before that, so they remain in the history.
 notes/contracts/
 
@@ -22,38 +20,16 @@ notes/contracts/
 # tree, own index, tracks only the paths excluded above. See scripts/private.
 .private.git/
 
-# The Pragma client material. Between them these name Pragma's staff, quote
-# what each person said in a real meeting, describe their systems as broken,
-# and set out how to sell to them. None of it is untrue and some of it is the
-# analysis that won their architect over, but it reads differently to the
-# person named than to the person who wrote it. Tracked in orin-private from
-# 2026-08-25; they were tracked here before that, so they remain in the history.
-notes/pragma-*
-scripts/derive-team-proposal.mjs
-
-# The prospect ledger. Same public-remote reasoning as the Pragma block above:
-# it names live prospects, records what each arc was worth, and tracks how I
+# The prospect ledger. This remote is public, and the ledger
+# names live prospects, records what each arc was worth, and tracks how I
 # sell. The instrument is a practice decision and is logged in decisions.md
 # (2026-08-28); the rows are client material and are not.
 notes/prospect-ledger.md
 
-# Praelexis, the second referral. Same reasoning as the Pragma block: outreach
+# Praelexis, the second referral. Kept off the public remote: outreach
 # notes, session questions and anything that names their people. Tracked in
 # orin-private from 2026-09-14. Never tracked here.
 notes/praelexis-*
-
-# The GitHub support ticket about this repository's own history. The subject
-# makes it look like practice material, but it is a working note written to be
-# sent to a third party, and it carries the operational specifics of the
-# 2026-08-25 split. It is for me, not for the public index. Tracked in
-# orin-private from 2026-08-31.
-notes/github-gc-ticket.md
-
-# The verbatim copy of pull requests #21–#42, taken before asking GitHub to
-# delete them. Their bodies are the reason for the deletion: they name the
-# client and four of their people, and quote the proposal. Keeping the copy
-# public would undo the deletion. Tracked in orin-private from 2026-09-02.
-notes/github-gc-pr-archive.md
 
 # The outreach tracker. Empty today, but its first filled row names a live
 # prospect, their employer, and how to sell to them, which is exactly the
@@ -74,19 +50,13 @@ notes/outreach-tracker.md
 # never here.
 notes/leak-denylist.txt
 
-# ORIN-140's private material: results from files that can't be named in
-# public, and a sample Diagnostic report built from them. Tracked in
-# orin-private from 2026-10-13.
-notes/orin-140-*
-# ORIN-147's dashboard mock-up, built from those results. Tracked in
-# orin-private from 2026-10-15 (renamed from notes/orin-140-dashboard-mockup.html).
-notes/system-health-dashboard-mockup.html
-
 # Superseded commercial notes, archived 2026-10-23 when the offer went to one
 # page (decisions.md 2026-10-23): the commercial operating model, outreach pack,
 # client situations, buyer persona, social strategy, social evidence and the
 # Diagnostic walkthrough script. Each was private for its own reason (it names
-# Pragma, live prospects, or how I sell), and those reasons still hold. Each
-# file's original ignore entry and reasoning is in git history. Tracked in
-# orin-private.
+# Pragma, live prospects, or how I sell), and those reasons still hold.
+# On 2026-10-23 the Pragma material (notes/archive/pragma/), the ORIN-140
+# results and mock-up, the GitHub clean-up ticket and PR copy, and the
+# extraction brief joined them, for the same reasons. Each file's original
+# ignore entry and reasoning is in git history. Tracked in orin-private.
 notes/archive/

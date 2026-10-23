@@ -6,9 +6,10 @@ it records the intent that isn't already written down, and defers to the
 canonical files for everything that is.*
 
 *Where the real values live: `tokens/src/*.json` (the scale), `site/styles.css`
-(the composition), `PHASE5-BUILD.md` (approved copy + section structure),
-`voice.md` (how prose gets written), `HANDOVER.md` (attribution, separators,
-the "deliberately absent" list). If this doc ever disagrees with those, they
+(the composition), the pages themselves (copy and section structure),
+`voice.md` (how prose gets written), and `CLAUDE.md` (attribution and the
+guardrails). The original briefs are `archive/PHASE5-BUILD.md` and
+`archive/HANDOVER.md`. If this doc ever disagrees with the live files, they
 win — fix this doc. The shipped site outranks all of them.*
 
 ---
@@ -64,7 +65,7 @@ Content sits in one of two arrangements, both starting at column 2:
 Below 64rem the grid collapses to one column and everything stacks in DOM
 order. Compose within this — don't invent new layout
 primitives unless a page genuinely demands one (and if it does, that's a
-conversation, not a silent addition — component budget in `PHASE5-BUILD.md`).
+conversation, not a silent addition — see the component budget below).
 
 ## Vertical rhythm
 
@@ -132,6 +133,24 @@ they contain is generic SaaS marketing, which is exactly the look Orin defines
 itself against. Pull a reference to unstick a particular problem, screenshot it
 for Claude, then set it down. Never let it set the overall style.
 
+## Component budget
+
+Primitives only: heading set, body text, link, one primary button,
+nav header, footer, section wrapper, case-study card. Build nothing
+else unless a page demands it. This is a five-page site, not a
+component library project.
+
+*Held at v1, and audited 2026-08-16. What exists beyond the eight is
+either an accessibility utility (`.skip-link`, `.visually-hidden`), a
+typographic label rather than a component (`.eyebrow`, `.rail`,
+`.card__index`), grid scaffolding (`.container`, `.section-grid`), the
+hero's decorative overlay, or confined to `/tokens` (`.swatch`,
+`.specimen-row`) which is machinery, not one of the five. The case-study
+card is reused for the pricing cards rather than a second card being
+built. Nine pages shipped against a sitemap of five; the budget still
+governs the five. Moved here from `PHASE5-BUILD.md` on 2026-10-23, when
+that file was archived.*
+
 ## Two quick tests before shipping a page
 
 - **Squint test.** Blur your eyes. Is the hierarchy still legible? (Colour and
@@ -142,7 +161,8 @@ for Claude, then set it down. Never let it set the overall style.
 
 ---
 
-*What this doc is not: a re-spec of page copy or section order (that's
-`PHASE5-BUILD.md`), of voice or exclusions (`HANDOVER.md`), or of any concrete
-value (`tokens/src/*.json`). Keep it thin. If it grows into a second source of
+*What this doc is not: a re-spec of page copy or section order (the
+pages themselves are the copy now; the original spec is
+`archive/PHASE5-BUILD.md`), of voice (`voice.md`), or of any concrete value
+(`tokens/src/*.json`). Keep it thin. If it grows into a second source of
 truth, it has failed.*
