@@ -56,16 +56,20 @@ body {
   padding: var(--orin-space-16);
 }
 .closing-panel .eyebrow { color: var(--orin-colour-text-accent-on-inverse); margin: 0 0 var(--orin-space-8); }
-.closing-panel h2 { margin-top: 0; max-width: 24ch; }
+.closing-panel h2 { margin-top: 0; }
 .closing-panel p:last-child { margin-bottom: 0; }
 /* The default ring is text/link (teal 500), 2.4:1 on the inverse ground and
    under the 3:1 a focus indicator needs. On the panel it uses teal 300. */
 .closing-panel .button:focus-visible { outline-color: var(--orin-colour-text-accent-on-inverse); }
 
+/* Headings that have to wrap split into even lines rather than leaving one
+   word behind; paragraphs avoid a lone word on the last line. Keywords, not
+   values, and browsers without them wrap as before (2026-10-23). */
 h1, h2, h3 {
   font-family: var(--orin-font-family-display);
   font-weight: var(--orin-font-weight-semibold);
   margin: 0 0 var(--orin-space-6);
+  text-wrap: balance;
 }
 h1 {
   font-size: var(--orin-font-size-1000);
@@ -84,7 +88,7 @@ h3 {
   letter-spacing: var(--orin-font-letter-spacing-headline-medium);
 }
 
-p { margin: 0 0 var(--orin-space-4); max-width: var(--orin-measure-prose); }
+p { margin: 0 0 var(--orin-space-4); max-width: var(--orin-measure-prose); text-wrap: pretty; }
 
 a { color: var(--orin-colour-text-link); text-underline-offset: 0.15em; transition: color var(--orin-motion-duration-fast) var(--orin-motion-easing-standard); }
 a:hover { color: var(--orin-colour-text-link-hover); }
@@ -224,9 +228,31 @@ a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offse
 
 /* --- shared chrome --- */
 .site-nav, .site-footer { font-family: var(--orin-font-family-ui); font-size: var(--orin-font-size-300); }
-.site-nav { display: flex; flex-wrap: wrap; gap: var(--orin-space-6); padding: var(--orin-space-6); border-bottom: 1px solid var(--orin-colour-border-divider); }
-.site-nav a { text-decoration: none; color: var(--orin-colour-text-default); }
+/* Split nav (2026-10-23): brand left, page links right. The inline padding
+   puts "Orin" on the same left edge as .container's content (and the footer),
+   while the bottom rule still runs full width. The links carry the block
+   padding, so each is well over 24px tall and the current page's bar lands on
+   the rule. includes.js marks the current link with aria-current. */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--orin-space-8);
+  padding-inline: max(var(--orin-space-6), calc((100% - var(--orin-container-max)) / 2 + var(--orin-space-6)));
+  border-bottom: 1px solid var(--orin-colour-border-divider);
+}
+.site-nav a { text-decoration: none; color: var(--orin-colour-text-default); padding-block: var(--orin-space-6); }
 .site-nav a:hover { color: var(--orin-colour-text-link); }
+.site-nav .brand {
+  margin-right: auto;
+  padding-block: var(--orin-space-4);
+  font-family: var(--orin-font-family-display);
+  font-size: var(--orin-font-size-600);
+  font-weight: var(--orin-font-weight-semibold);
+}
+/* The bar sits over the rule (-1px pulls the link onto it). Page links only:
+   includes.js never marks the brand. */
+.site-nav a[aria-current] { margin-bottom: -1px; box-shadow: inset 0 calc(-1 * var(--orin-space-1)) 0 var(--orin-colour-background-accent); }
 /* Same measure and inline padding as .container, so the footer text starts on
    the content's left edge (the closing panel's edge). No rule above it since
    2026-10-23: the panel already closes the page. */
@@ -302,6 +328,9 @@ a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offse
    scale rather than the one row that happened to show it. */
 @media (max-width: 47.9375rem) {
   .closing-panel { padding: var(--orin-space-8); }
+  .site-nav { column-gap: var(--orin-space-4); }
+  .site-nav .brand { flex-basis: 100%; margin-right: 0; padding-block: var(--orin-space-4) 0; }
+  .site-nav a:not(.brand) { padding-block: var(--orin-space-3); }
   .specimen-row { flex-direction: column; align-items: flex-start; gap: var(--orin-space-1); }
   .specimen-row .label { min-width: 0; }
 }
