@@ -113,8 +113,8 @@ projected"). The distinction matters for what the client owns:
   Orin's own IP, reused across clients. It is not sold or handed over.
 - **The client gets their instance** — their tokens, their outputs, their
   pipeline, their component library — running in their own repositories, which
-  they own and ship from. The Retainer (see `Offer.md`) is what keeps that
-  instance alive rather than decaying back into an artefact.
+  they own and ship from. Ongoing work, when a client wants it, is what
+  keeps that instance alive rather than decaying back into an artefact.
 - **Dependency updates come through the shared core, not a bot in their
   repo.** The instance ships without Dependabot. A version bump is tested once,
   in the baseline, and reaches each instance as part of keeping the pipeline
@@ -125,11 +125,8 @@ projected"). The distinction matters for what the client owns:
 
 ## What the deliverable is not
 
-From `Offer.md`'s "what triggers a no": it is not brand guidelines, marketing
-surfaces or social assets; not a strategy deck; not an unscoped "build me a
-pipeline" without a Diagnostic first; and not a vendor relationship. Advice
-without building is not the offer. The deliverable is always a built, connected
-system.
+It is not a strategy deck: advice without building is not the offer. The
+deliverable is always a built, connected system.
 
 ## Related
 

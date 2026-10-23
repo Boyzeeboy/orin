@@ -6,24 +6,22 @@ so how it's built matters as much as what it says.
 
 ## Read first, in this order
 
-1. `MANIFESTO.md` — source of truth for every judgement call
-2. `OPERATING_MODEL.md` — how Orin behaves when money, pressure,
-   opportunity, fear, and client power enter the room
-3. `positioning.md` — locked one-liner and 60-second version
-4. `Offer.md` — engagement shapes, prices, refusals
-5. `voice.md` — how prose gets written; governs every word of page copy
-6. `HANDOVER.md` — sitemap, site-specific copy rules, attribution,
-   exclusions. Its tone notes predate `voice.md` and defer to it.
-7. `PHASE5-BUILD.md` — approved page copy and the constraints
-8. `design.md` — layout principles; how tokens become page composition
-9. `BUILD-SEQUENCE.md` — the build order and the Step-0 foundation gaps
-10. `SETUP.md` — the token pipeline runbook and the one loop
-11. `decisions.md` — why things are the way they are
+1. `OPERATING_MODEL.md` — how Orin behaves; the values that don't move
+2. `Offer.md` — one page: what I sell, how it's priced, five rules
+3. `voice.md` — how prose gets written; governs every word anyone reads
+4. `decisions.md` — the most recent entries, back far enough to cover
+   the area you're touching
 
-Do not relitigate locked decisions. If something genuinely doesn't work,
-flag it to Warren and log it in `decisions.md`. If a commercially sensible
-move conflicts with `OPERATING_MODEL.md`, treat that as a real blocker,
-not a branding problem.
+`MANIFESTO.md` sits behind all four. For site work only, which needs
+asking first: `HANDOVER.md`, `PHASE5-BUILD.md`, `design.md`,
+`BUILD-SEQUENCE.md` and `SETUP.md`. Superseded commercial documents are
+in `archive/` and `notes/archive/` (private); read them for history, not
+as rules.
+
+Values and commercial rules are held differently. A move that conflicts
+with `OPERATING_MODEL.md` is a real blocker. The prices and rules in
+`Offer.md` are working assumptions, reviewed monthly against what buyers
+did: question them when evidence says so, and log the change.
 
 ## How this repo works
 
@@ -137,10 +135,9 @@ token exists) — both from 2026-07-09.
 
 ## What is actually active
 
-Since 2026-08-05 the work has been the commercial layer, and v1 changes
-nothing about that: the positioning word, `Offer.md`, **The Foundation**
-(greenfield entry engagement, 2026-08-12), the contract templates, and the
-material in `notes/`.
+Since 2026-08-05 the work has been the commercial layer. Since
+2026-10-23 that means finding the first paid job against the one-page
+`Offer.md`, not writing more doctrine. Social posts are on hold.
 
 So: **the site is not the current task**, and now has a declared version
 saying so. Ask before starting site work.

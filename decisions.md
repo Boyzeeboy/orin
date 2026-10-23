@@ -9357,3 +9357,65 @@ the profile now matches the founder series before its first post on
 yet live, and it still carries the two claims narrowed on 19 October until it's
 changed. The introduction goes out on 21 October, and its sent text gets pasted
 back into `notes/social-strategy.md`.
+
+---
+
+## 2026-10-23 — The offer goes to one page, and the commercial doctrine is archived
+
+**Why:** Orin had about 112,000 words of documentation and no paid
+engagement. The commercial layer alone ran to the 4,900-word four-shape
+offer, a commercial operating model with a ten-measure scorecard, a buyer
+persona, client situations, and a social strategy. Two arcs show what the
+rules cost. Praelexis, a referral for four hours a week of paid design
+support, was read as "not the offer" because Orin priced fixed and
+never in days. Pragma took about eight pre-sale days and was lost at the
+entry gate, and the response was more machinery (counting mechanisms
+explained, gating demo audiences) built from one loss. Warren asked for one
+simple offer that one person can sell. An outside review (pasted in this
+session) reached the same place.
+
+**What changed:**
+
+- `Offer.md` is now v2.0, one page. One promise: approved designs built in
+  React, existing interfaces improved, components made reusable, at a fixed
+  price after seeing the files. A day rate (£560, the figure already used to
+  cost pre-sale time) for capacity work, and a component library quoted
+  when a team clearly needs one. Five rules: deliver well, agree it in
+  writing, deposit first, price extras first, one main project at a time.
+  About two hours of free effort before a proposal.
+- Removed: the compulsory Diagnostic or Foundation before a Build, the bans
+  on day rates and on scoping by screens or components, "partner or
+  nothing", the marketing-surfaces refusal, and the retainer as a default
+  continuation. No retainer is offered until a finished job shows what
+  continuing help is worth.
+- The old offer and positioning 2.0 moved to `archive/` (`Offer-v1.4.md`,
+  `positioning-v2.0.md`). Seven private notes moved to `notes/archive/` in
+  orin-private: the commercial operating model, the outreach pack, client
+  situations, the buyer persona, the social strategy, the social evidence,
+  and the Diagnostic walkthrough script. `.gitignore` covers them with one
+  `notes/archive/` entry in place of seven.
+- `CLAUDE.md`'s read-first list went from eleven documents to four, and
+  "do not relitigate locked decisions" became: values in
+  `OPERATING_MODEL.md` are blockers, the prices and rules in `Offer.md` are
+  working assumptions reviewed monthly.
+- `deliverable.md` and `README.md` no longer point at the refusal list,
+  the Retainer, or `positioning.md`.
+
+**Kept:** `OPERATING_MODEL.md`, the public/private split and leak check
+(2026-08-25 is why), deposits and written scope, the prospect ledger and
+outreach tracker (live state), and the site's guardrails.
+
+**Not done:**
+
+- The site still describes the four-shape offer and its prices on six
+  pages. Updating it is site work and needs asking first.
+- `OPERATING_MODEL.md` still says Orin says no "even if it pays" and its
+  commercial scorecard counts Diagnostics, Foundations and Builds. Both want
+  aligning with the new offer.
+- The contract templates in orin-private (letter, MSA, DPA) are built
+  around the Diagnostic engagement letter and need a check against the
+  one-page offer before first use.
+- The prospect ledger keeps its long row format; cutting it to who, need,
+  source, next action and date, value and outcome is still to do.
+- The £560 day rate and the £1,500 to £3,000 first-job range are starting
+  points to confirm, not tested prices.
