@@ -3,21 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>The token pipeline — Orin</title>
-  <meta name="description" content="This page renders entirely from Orin's own token pipeline — DTCG JSON built and synced straight into the CSS below.">
+  <title>The token pipeline | Orin</title>
+  <meta name="description" content="This page renders entirely from Orin's own token pipeline: DTCG JSON built and synced straight into the CSS below.">
 
   <!-- Open Graph / X. Absolute URLs: unfurlers do not resolve relative paths,
        and they do not run JavaScript, so these cannot come from a partial. -->
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Orin">
   <meta property="og:locale" content="en_GB">
-  <meta property="og:title" content="The token pipeline — Orin">
-  <meta property="og:description" content="This page renders entirely from Orin's own token pipeline — DTCG JSON built and synced straight into the CSS below.">
+  <meta property="og:title" content="The token pipeline | Orin">
+  <meta property="og:description" content="This page renders entirely from Orin's own token pipeline: DTCG JSON built and synced straight into the CSS below.">
   <meta property="og:url" content="https://orinsystems.co/tokens/">
   <meta property="og:image" content="https://orinsystems.co/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Orin — the design system your developers ship from.">
+  <meta property="og:image:alt" content="Orin: UI design and React implementation for founders and small product teams.">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="https://orinsystems.co/tokens/">
   <!-- Icons. PNG only, declared here: sips cannot write .ico, and nothing
@@ -52,7 +52,7 @@
             <p>This page renders entirely from tokens. Every colour, size, space and
                radius below resolves through <code>vendor/tokens.css</code>, which is
                built from DTCG JSON and synced by the pipeline. There is no hand-written
-               value on this page to fall back on — which is the whole point. The values
+               value on this page to fall back on, which is the whole point. The values
                printed beside each token are read back out of the rendered page, not
                typed in, so if a token changed and this page disagreed, it could only
                disagree with itself.</p>
@@ -73,7 +73,7 @@
             <h2>Semantic colours</h2>
             <p>Thirteen roles, each an alias onto a primitive. The role is what a page
                consumes; the primitive underneath can move without a single consumer
-               changing. Two roles here resolve to the same value — <code>text/default</code>
+               changing. Two roles here resolve to the same value: <code>text/default</code>
                and <code>background/inverse</code> are both the darkest neutral, because
                ink on paper and the ground of an inverse band are the same colour asked
                for two different reasons. That is the layer working, not a duplicate.</p>
@@ -142,7 +142,7 @@
           <p class="rail">03</p>
           <div class="col-main">
             <h2>Spacing</h2>
-            <p>The scale has deliberate gaps — no 5, 7, 9, 10, 11. Reaching repeatedly
+            <p>The scale has deliberate gaps: no 5, 7, 9, 10, 11. Reaching repeatedly
                for a value between two steps is a signal the scale needs a step, not a
                reason to hardcode one. Bars are drawn at the token's own width.</p>
     <ul class="scale-list">
@@ -169,7 +169,7 @@
           <p class="rail">04</p>
           <div class="col-main">
             <h2>Radius</h2>
-            <p>Four steps. <code>radius/md</code> does most of the work — it is on the
+            <p>Four steps. <code>radius/md</code> does most of the work. It is on the
                button, the cards, and the swatches above.</p>
     <ul class="token-grid">
       <li class="token-item"><span class="radius-sample" style="border-radius:var(--orin-radius-none)"></span><span class="token-meta"><span class="token-name">radius/none</span><span class="token-value" data-token="--orin-radius-none">…</span></span></li>

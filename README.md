@@ -1,9 +1,10 @@
 # Orin
 
-Orin is a systems practice. For teams shipping product without a full
-design department: Orin builds the design system your developers ship from.
+Orin is a systems practice in Bath: UI design and React implementation for
+founders and small product teams. Approved designs built in React, existing
+interfaces improved, and repeated components made reusable, at a fixed price.
 
-It exists because the work usually happens at the wrong altitude —
+It exists because the work usually happens at the wrong altitude:
 either too high (strategy decks) or too shallow (Figma files).
 The real value lives in the middle: building working systems that
 businesses can grow with, iterating them as the business changes,
@@ -68,15 +69,17 @@ token architecture, and the designer-engineer boundary.
 Notable prior work includes a 60 per cent saving in development time at
 Vivo Energy through design system architecture (contracted via Rethink),
 the IDEM design system and token pipeline (personal rebuild),
-and Kirsten Rossiter Ministries — the full-vertical build that
+and Kirsten Rossiter Ministries, the full-vertical build that
 clarified what Orin's ideal engagement actually looks like.
 
 ## Status
 
 Live. The site shipped as v1 on 16 August 2026 at
 [orinsystems.co](https://orinsystems.co), running on its own token pipeline.
-The offer went to one page on 23 October 2026, and the site describes it. The
-Vivo Energy
-case study is published; the IDEM and KRM essays are still to write.
+The offer went to one page on 23 October 2026, and the site's copy was
+aligned to it the same day. The Vivo Energy and IDEM case studies are
+published; the KRM essay is still to write, so it has no card on the Work
+page.
 
-Current work is the commercial layer, not the site.
+Current work is finding the first paid job against the one-page offer. A
+visual redesign of the site is deferred until after it.
