@@ -1268,3 +1268,57 @@ brochure-site work the overview doesn't promise.
 Profile messaging was switched on wasn't confirmed from the published page.
 The profile's location line shows Bath and Contact info sits beside it, which
 covers the missing contact line noted in the About entry above.
+
+---
+
+## 2026-10-23 — The site's copy matches the LinkedIn headline, and the redesign waits
+
+**Why:** an outside review of the repo and the site found the live positioning
+behind the offer. The home hero, title, footer, social card and the Work and
+Principles openings still sold "the design system your developers ship from"
+to "teams without a full design department", while `Offer.md`, the LinkedIn
+headline, About and services page sell finished UI and React work to founders
+and small product teams. Someone clicking through from LinkedIn read two
+different services. That's a reason under the stopping rule. The review's
+visual redesign is not, yet.
+
+**What changed (copy and metadata only):**
+
+- **Home:** the hero is the LinkedIn headline, "UI design and React
+  implementation for founders and small product teams.", with one supporting
+  sentence. Section 02 now names three recognisable stalled situations in
+  place of "Developers are carrying the design load". Section 03 explains the
+  system behind each screen without "substrate". The terms card left the
+  offer: three cards now sit three across at 64rem and above, one column
+  below (`.cards--three`, using the existing literal-breakpoint exception),
+  with the terms as a line beneath.
+- **Titles and metadata:** every page title and `og:title` uses "| Orin" in
+  place of an em dash; the home description and every `og:image:alt` carry
+  the new line. `og.png` was regenerated from `/og/`, which now carries the
+  headline.
+- **Footer, Work, Principles, Contact:** the footer carries the headline. Work
+  opens "Work that shipped, and what changed after." and closes "Let's finish
+  the next one."; the KRM card with "Essay coming" is gone. Principles opens
+  with finished product work and systems thinking as the way it's done.
+  Contact asks what's unfinished and for a useful link.
+- **Em dashes:** none visible on any public page. The Vivo heading takes a
+  colon; four on `/tokens` became colons or full stops.
+- **README and `CLAUDE.md`:** README opens with the new positioning and its
+  status says the IDEM case study is published and a redesign is deferred.
+  `CLAUDE.md` no longer claims `styles.css` holds local variables; check 9
+  forbids them.
+
+Checked in the browser: no overflow at 360px on the changed pages, three
+cards across at 1440px, no console errors.
+
+**Deferred:** the visual redesign the review proposed (real artefacts, Vivo
+metrics as large figures, a founder section, varied section rhythm). It waits
+until after the first paid job, which is also the likeliest source of real
+before-and-after material. Starting it means rewriting `design.md` ("the type
+scale is the visual") and the stopping rule first, as the review said.
+
+**Left for Warren:** whether `SOUL.md` stays public, and one sentence on how
+Vivo's 60 per cent saving was measured. "Substrate" and "source of truth"
+remain inside the Vivo story and on `/tokens`, where they describe the work
+itself. `notes/pipeline-setup-sheet.html` still carries the old strapline; it
+isn't a public page.

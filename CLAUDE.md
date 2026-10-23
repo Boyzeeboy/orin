@@ -33,8 +33,9 @@ did: question them when evidence says so, and log the change.
   plus both guardrails.
 - `site/` consumes the **semantic** token layer only, via `vendor/
   tokens.css` (synced from the build — never edit it by hand, never read
-  from `dist/`). `site/styles.css` holds semantic aliases + local layout
-  vars only.
+  from `dist/`). `site/styles.css` uses the `--orin-*` tokens directly and
+  defines no custom properties of its own; report check 9 fails the build
+  if it does.
 - **Two repos, one working tree.** This remote is public. `orin-private`
   holds everything client-specific; `.gitignore` lists the paths with the
   reason for each. Same files on disk, separate gitdir at `.private.git`,

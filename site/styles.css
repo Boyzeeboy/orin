@@ -187,6 +187,17 @@ a:focus-visible { outline: 2px solid var(--orin-colour-text-link); outline-offse
 @media (min-width: 48rem) {
   .cards { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Three cards (the home page's offer, since 2026-10-23): two per row at
+   tablet would orphan the third, so at breakpoint.lg (64rem, same literal
+   exception) they sit three across. Below that they stay one column rather
+   than two-and-one. */
+@media (min-width: 48rem) and (max-width: 63.9375rem) {
+  .cards--three { grid-template-columns: 1fr; }
+}
+@media (min-width: 64rem) {
+  .cards--three { grid-template-columns: repeat(3, 1fr); }
+}
 /* margin-top: auto pushes the rule + link to the card bottom, so slack from
    shorter cards sits above the rule and links align across the row */
 .card-rule { border: none; border-top: 1px solid var(--orin-colour-border-divider); margin: auto 0 var(--orin-space-4); }
