@@ -9419,3 +9419,59 @@ outreach tracker (live state), and the site's guardrails.
   source, next action and date, value and outcome is still to do.
 - The £560 day rate and the £1,500 to £3,000 first-job range are starting
   points to confirm, not tested prices.
+
+---
+
+## 2026-10-23 — The site, the operating model, the contracts and the ledger follow the one-page offer
+
+**Why:** the four things left open by the entry above. Warren asked for all
+four the same day. Under the stopping rule a site change needs a reason
+beyond "it could be better"; the site publishing an offer that no longer
+exists, with its prices, is that reason.
+
+**What changed:**
+
+- **Site, six pages.** `/how-it-works` is rewritten around the one-page
+  offer: a defined job at a fixed price, capacity at £560 a day, a component
+  library at usually £12,000 to £18,000, and the terms. The "When it's a no"
+  section is gone. The home page's four cards became the same four, linking
+  to the new anchors (`#fixed-price`, `#day-rate`, `#component-library`,
+  `#terms`); old `#diagnostic`-style links still land on the page, at the
+  top. The closing lines on `/work`, `/work/idem`, `/work/vivo-energy` and
+  the principles page no longer send people to a Diagnostic. Checked in the
+  browser: no overflow at 360px, no console errors, every card anchor
+  resolves. No new components, tokens or styles.
+- **`OPERATING_MODEL.md`.** "Says no, even if it pays" now applies to
+  integrity and fear, and commercial fit is left to `Offer.md`. The pipeline
+  scorecard counts conversations, proposals, deposits, jobs, capacity days
+  and selling hours in place of Diagnostics, Foundations, Builds and
+  Retainers. "The Retainer is care" became "ongoing work is care".
+- **Contracts (orin-private).** `diagnostic-engagement-letter.md` became
+  `engagement-letter.md`: one letter for a defined job or a block of
+  capacity, with a "finished means" line, one review round, free corrections
+  for 30 days, and either a 50/50 fixed fee or the day rate. The services
+  agreement now covers fixed-price and capacity SOWs (40/30/30 and monthly in
+  advance), gains a corrections clause at 2.6, and drops the Foundation,
+  Build and Retainer names. Clause 6, the liability cap and the deposit floor
+  are unchanged in substance. The data processing addendum lost one stale
+  example.
+- **Prospect ledger (orin-private).** One line per person: who, need,
+  source, next action and date, value, outcome. A short referrers table
+  stays. The long rows, the sent text and the research move to
+  `notes/archive/prospect-ledger-to-2026-10-23.md`, and the old measures
+  table goes with them.
+
+**Not done:**
+
+- The 30-day correction period, half days at half rate, and capacity billed
+  monthly in advance are new terms with no buyer behind them yet. Each is
+  marked as a starting figure in the template notes.
+- The solicitor's pass, PI cover and the Claude Code commercial plan still
+  stand before first use, as they did on 2026-09-12. The solicitor's brief
+  now also covers the corrections promise.
+- The site's hero and "What Orin does" sections still lead on the design
+  system and the substrate. They don't contradict the offer, so they stay
+  until a real conversation shows they confuse someone. Older copy on the
+  home, work and Vivo pages still has em dashes from before `voice.md`.
+- `HANDOVER.md` still describes the four-shape offer. It's a record of the
+  site build and stays as written.
