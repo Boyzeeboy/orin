@@ -19,8 +19,8 @@ Orin is the vehicle for that work.
 - `MANIFESTO.md` — the founding document. Everything Orin does points back to this.
 - `OPERATING_MODEL.md` — how Orin behaves when money, pressure,
   opportunity, fear, and client power enter the room.
-- `positioning.md` — the locked one-liner and the longer versions.
-- `Offer.md` — the four engagement shapes, prices, and refusals.
+- `Offer.md` — one page: what Orin sells, how it's priced, and five rules.
+- `archive/` — the superseded four-shape offer and positioning 2.0.
 - `voice.md` — how prose gets written. Governs every word on the site.
 - `SOUL.md` — personal context file. Pasted into Claude conversations to skip the calibration phase.
 - `decisions.md` — dated log of significant decisions and the reasoning behind them. Oldest first.
@@ -74,7 +74,8 @@ clarified what Orin's ideal engagement actually looks like.
 
 Live. The site shipped as v1 on 16 August 2026 at
 [orinsystems.co](https://orinsystems.co), running on its own token pipeline.
-Manifesto, positioning and the four-shape offer are locked. The Vivo Energy
+The offer went to one page on 23 October 2026; the site still describes the
+older four-shape offer until it's updated. The Vivo Energy
 case study is published; the IDEM and KRM essays are still to write.
 
 Current work is the commercial layer, not the site.

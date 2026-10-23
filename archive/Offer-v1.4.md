@@ -1,0 +1,561 @@
+# Orin — The Offer
+
+*Version 1.4, 15 October 2026. The Build is the product: their Figma library, as the React package their developers ship from. Its price is now checked against what IDEM's component layer actually took (ORIN-142).*
+
+Four engagement shapes, and two ways in. Each one is optional. Each one
+de-risks the next. Diagnostic feeds Build feeds Retainer for a team that
+already has a system; Foundation feeds Build feeds Retainer for a team
+starting from nothing. Priced fixed, against outcomes, never in days.
+
+The Build is the thing being sold. A team's Figma library becomes a
+versioned React package their app installs, held to the Figma file by
+checks. The Diagnostic and the Foundation are the ways in, and the Retainer
+keeps the package alive. `positioning.md` 2.0 says who that is for.
+
+## Operating posture
+
+Orin is stewardship, not identity. The business has to be commercially
+serious, but it does not get to become the source of security, worth, or
+control.
+
+The offer is built to keep that posture under pressure: scoped entry
+points before large commitments, fixed prices where the outcome is known,
+clear refusals, and work that leaves the client stronger after Orin
+leaves.
+
+Truth is part of the product. So is the way truth is delivered.
+
+- Developers are burdened, not stupid.
+- Design drift is a system failure, not a character failure.
+- The buyer is responsible, but not shamed.
+- Orin brings clarity without humiliation.
+
+The fuller rule of life for the business lives in `OPERATING_MODEL.md`.
+
+---
+
+## 1. The Diagnostic
+
+**What it is:** A short, bounded engagement to find where the substrate
+— the design system, tokens and pipeline underneath the product — is
+broken and what it's costing the business.
+
+**Duration:** 1 week.
+
+**Price:** £4,500 fixed.
+
+**What happens:** I get into the product, the codebase, the Figma files,
+and whatever brand or digital guidelines exist. I talk to the developers
+carrying the design load. I find the pressure points — duplicated
+components, broken handoff, token chaos, silo design calls — and trace
+what they're costing in velocity and defects.
+
+**I also ask which source wins.** Most teams have more than one thing claiming
+to be the system: the Figma library, the components in code, a published
+package, Storybook, a docs page. I list each one with its version and its
+owner, then ask what happens when two disagree. "Nobody's decided" is a common
+answer and a real finding (nobody's fault: the question never came up). Asking
+costs nothing. Settling it, component by component, is what a Build's drift
+checks do.
+
+**For a team with a Figma library and a React app, the week answers one
+question: how far is their library from a package?** The component ready
+check is the most direct way to ask it (below), and since ORIN-140 it goes
+first. The token audit follows it.
+
+**The opening move: point the pipeline at their own Figma file, live.**
+This is the ten-minute conversation, not a chore, and it is the single
+strongest thing I can do in a first meeting. The token pipeline matches
+Figma collections and modes by *name*, so it can be run against a file it
+has never seen without a code change. Expect the first pass to match nothing:
+on both files I didn't design it found 0 of its 6 collection names, and a
+config entry mapped them. That's the first finding, not a failure. What config
+can't map yet is a second mode axis, type and spacing that vary by screen size
+(ORIN-143). Both files had one. `npm run sync:figma -- --dry-run` prints an
+audit before anything is written. Read it out loud to them.
+
+Three things it surfaces, in roughly increasing order of discomfort:
+
+- **A collection the convention doesn't know.** Their variables live
+  somewhere no pipeline will look. Either it's genuinely out of scope, or
+  their design system has a layer nothing downstream can reach.
+- **A mode that maps to nothing.** A theme that exists in Figma and cannot
+  exist in code. Ask what they believed was shipping.
+- **A collection that isn't there at all.** The layer is missing, not
+  misnamed.
+
+Then the harder ones the build surfaces: variables in Figma that never
+reach their code, hardcoded values in their code that bypass the system,
+and whether their dark mode actually resolves — that last one is the check
+that exists because a real dark theme silently carried its light values
+for months, past every other gate.
+
+**If they have a component library, there's a second move.** Point the
+component ready check at their Figma component sets. It rates each one: can it
+be built in code without anyone guessing a value? It names what stops the ones
+that can't. Padding, gaps and radii typed as numbers. A colour bound to another
+file's library. A column width nobody owns. The same component drawn twice.
+
+My own file went through this first. 43 components, and 3 could be built as
+drawn. "Most of your components can't be built without someone guessing" is the
+token audit's hard truth one layer up. It's also the evidence a component Build
+gets scoped from.
+
+**Standard since 13 October.** It ran on two systems I didn't design, a
+commercial kit and the Scottish Government's, with three small fixes and no
+change to how it rates. 45 per cent of one and 14 per cent of the other could be
+built as drawn. The gaps were the boring ones: spacing and border widths typed
+as numbers, near the top of the list in every file.
+
+**Read its findings by cause before reading them out.** On the Scottish kit, 40
+components failed for one reason: bound to the publisher's library instead of
+the file's own variables, every one with a local twin of the same name. That's
+one rebinding pass, not 40 problems. The script doesn't group them yet
+(ORIN-145), so I do.
+
+This is *"I'd rather tell a client the hard truth about their system than
+sell them polish they don't need"* executed in ten minutes rather than
+asserted in a deck. It is also the manifesto's *"understanding the whole
+system end-to-end"* — done before they've paid.
+
+**Findings get read aloud before they get written up.** A generated audit
+produces evidence, not conclusions. Run against my own design system, it
+flagged nine colours as identical in light and dark — the signature of a
+broken theme. Eight were real: white text sitting at 1.16:1 in dark mode,
+unreadable. The ninth was a transparent border, which was always going to
+be identical. Waving all nine through would have buried the eight behind a
+green build. No tool draws that line. That's the part you're paying for.
+
+**It installs something. It does not only describe something.** The
+engagement ends with the generated report running in their own
+repository: the repo-side checks, reading their code and their token
+source. Values hardcoded past the system. Semantics bound to a literal
+instead of an alias, so they cannot flip between modes or brands. Theme
+keys the build never fills. A token present in one mode and missing in
+another. The scorecard is what that report prints, so "measured again in
+three months" is a thing they can run rather than a promise I made.
+
+Three reasons that matters more than the writing it replaces. A document
+is complete and portable, so a capable team can absorb it and proceed
+without me, which is a design brief for not needing Orin. A report keeps
+naming what is still unfixed, in their build, every time it runs. And the
+Build stops being "trust the diagnosis and commit fourteen thousand
+pounds" and becomes **make the report pass**, which is bounded and
+checkable.
+
+**The drift gate is not what gets installed, and the distinction is
+load-bearing.** `check:figma` needs a live Figma read, which means the
+plugin installed and the sink running, and on a Professional plan there
+is no variables API to fall back on. The worst trap it had is closed:
+since 30 August the sink records when each dump landed and a hash of its
+bytes, and the gate refuses a dump that is too old, edited since, or
+missing that record (`notes/stale-dump-guard.md`). What remains is the
+part a script cannot supervise. The answer is only worth anything if
+somebody opened the right file and pressed Sync a minute earlier. Since 17
+October it also refuses a dump it cannot place: a pipeline with no Figma
+file name configured, or a dump that carries none. One check still passes
+with a warning rather than a refusal: a dump from before the extractor was
+versioned. That is a gate for someone who reads warnings, and it must
+never be handed to somebody who will run it unsupervised. So the drift
+comparison
+is something I run *with* them during the week, and something that ships
+with the Build, where the person triggering it is me.
+
+The split is also the honest one commercially. The repo-side checks need
+nothing from Figma, no plugin, no sink and no seat, so they genuinely
+keep working after I leave. That is what "run it again in three months"
+can truthfully promise.
+
+It also puts the Diagnostic back inside the manifesto. Orin builds
+working things, and this was the one shape in the offer whose only output
+was paper.
+
+**What the client gets:** The report, installed and running in their
+repository. The scorecard it prints. And the diagnosis: where the
+substrate is broken, what it's costing, and what fixing it would involve,
+scoped and priced. All of it theirs whether or not they proceed to the
+Build.
+
+**Why it exists:**
+- Gives a new client a low-risk way to start with Orin.
+- Gives Orin a values-fit filter before committing to a long engagement.
+- Means the Build is scoped from evidence, never from a sales call.
+- Leaves something running behind it even if they stop there.
+
+**The defence on a call:** "It's fixed, it's a week, and you finish with
+checks running in your own repo that tell you how much of your code is
+bypassing your own design system, plus the diagnosis of what it's costing you.
+Both are yours whether or not you work with me afterwards."
+
+**And when they say "so you ran a script":** "The script takes ten
+minutes and I'd run it for free. The week is me telling you which of its
+findings matter, and leaving the checks behind wired into your build so
+they keep telling you."
+
+**Pricing logic:** Priced on the fully loaded day, which is the delivery
+week plus the three-day pre-sale budget. Eight days at £4,500 is £562 a
+day, the rate the Build's own logic implies. The two-week version at
+£3,000 was £231 a day on the same basis, and £167 on the one arc where
+the pre-sale ran to eight days. Still under the ~£5k discretionary
+threshold most technical leaders hold, so no procurement process
+required.
+
+**The week is what makes the price work.** The second week existed
+because of the document. Remove the seven-part written diagnosis, have
+the report generate the scorecard, and walk the findings live because the
+evidence-and-method boundary requires that anyway, and what is left is a
+week. Price alone would have left it below the floor, and compression
+alone would too.
+
+**And a number that is too small carries its own risk.** £3,000 for two
+weeks of writing things down sits exactly where a proud, competent team's
+pride can reach it, and "why can't we absorb this internally" is an easy
+sentence to say in a room. A figure implying a scale of work a team
+cannot self-evidently absorb is doing something the smaller one wasn't.
+
+---
+
+## 2. The Foundation
+
+*The other way in. For a product that doesn't exist yet.*
+
+**What it is:** The design system's first layer, installed and connected,
+before there's a product to fix. The greenfield equivalent of the
+Diagnostic: paid, bounded, and the thing that scopes the Build.
+
+**Duration:** 2 weeks.
+
+**Price:** £6,500 fixed.
+
+**What happens:** There's nothing to audit, so this one earns its scope by
+building. I take the brand foundations, or whatever exists of them, and
+author the token layer properly: DTCG source, primitives and semantics,
+light and dark resolved and checked. It's wired into whatever the team is
+shipping on, which for most new products means shadcn and Tailwind. Then
+the build step, the generated file your components already read, and the
+guardrails that stop it drifting. It ends with one real screen shipped
+from the system, not a page of swatches.
+
+**On shadcn, since most founders arrive holding it.** shadcn already gives
+you semantic variables (`--background`, `--primary`, `--border`) with a
+dark block over the top. That's genuinely useful and I build on it rather
+than replacing it. What it hasn't got is a layer above: no authored
+source, no build, nothing that regenerates the file, no guardrail. The
+values are typed inline. So you have the names without the ownership,
+which works fine until the first rebrand or the second developer, at which
+point there's nothing upstream to change and forty files to edit by hand.
+
+**What the client gets:** A token layer they own, connected to the code
+they ship. One place to change a colour. A build that fails loudly when
+someone bypasses the system. One screen already running on it, and a
+scoped, priced Build if they want the rest.
+
+**Why it exists:**
+- A founder has no existing system, so the Diagnostic can't route. This
+  gate can be walked through.
+- Same three protections as the Diagnostic: never price unscoped work,
+  filter for values fit before committing weeks, scope the Build from
+  evidence rather than a sales call.
+- Leaves something working behind even if they stop there.
+
+**The defence on a call:** "You'll restyle at least once and add a second
+developer before you raise. Doing this now is £6,500. Doing it after sixty
+components exist costs several times that, plus a freeze while it lands."
+
+**And when they say "I can install shadcn myself in an afternoon":**
+"You can, and you should. That's not what you're paying for. You're paying
+for the layer above it, the one that means changing your brand is one edit
+rather than a fortnight, and that still holds when I'm not here."
+
+**Pricing logic:** Priced on the fully loaded day, same as the
+Diagnostic. Two weeks of delivery plus the three-day pre-sale budget is
+thirteen days, and £6,500 is £500 a day. That sits inside the £450–650
+range for this work and slightly under the Build's implied £560, which is
+deliberate: a first engagement earns a small discount for being the
+low-risk way in, and that is a reason I can say out loud rather than an
+accident of arithmetic.
+
+**It does not compress the way the Diagnostic did.** The Diagnostic's
+second week existed because of a document, so removing the document
+removed the week. Here the two weeks is construction: the token layer
+authored, light and dark resolved and checked, the wiring, the build step,
+the guardrails, and one real screen shipped. Cutting a week cuts the thing
+being bought. So this one costs more instead of taking less. If the
+scaffold makes it faster in practice, the fixed price rewards that, which
+is the posture this file already takes.
+
+**The ~£5k threshold does not apply to this buyer and should never have
+been quoted here.** It exists because a technical leader inside a company
+holds a discretionary limit and going over it triggers procurement. A
+founder spending their own money or a recent raise has no procurement to
+avoid. This section already says the buyer is different; it then borrowed
+the corporate buyer's constraint anyway. What governs the number here is a
+founder's sense of proportion against their runway.
+
+**The risk this carries, stated plainly.** £6,500 may price out the
+pre-seed founder and pull the Foundation towards funded ones. That is a
+change of segment rather than a change of price, and it is worth watching.
+Reversing it is one edit if the first two conversations bounce off the
+number.
+
+Note the buyer is different here: a founder can't run the velocity maths,
+because nobody's burning money on rework yet. Their fear is time to launch
+and the cost of building it twice. Price against that fear, not against a
+spreadsheet they can't fill in.
+
+**Never say "custom design system" to a founder.** What this is, is a
+token layer and about eight primitives. Say that. They'll hear
+"40-component library" and either price it accordingly or walk.
+
+---
+
+## 3. The Build
+
+**What it is:** Their Figma library, as the React package their developers
+ship from. Tokens, components held to Figma by contracts, and the checks that
+keep the two matching. The working thing, and the thing Orin sells.
+
+**Duration:** 4–6 weeks, scoped from the Diagnostic.
+
+**Price:** £14,000 base. Scoped £12,000–£18,000 depending on Diagnostic
+findings.
+
+**What happens:** Design system built from the brand foundations up.
+Tokens. Component library. Page patterns. The pipeline connecting Figma
+to the codebase — Style Dictionary, GitHub, whatever the working thing
+requires. Built iteratively, in their workflow, with their developers —
+not delivered over a wall at the end.
+
+**Some of the work happens in their Figma file.** A component that can't be
+built as drawn gets fixed there first: values bound to tokens, layers named, a
+missing state or variant added, a number nobody owns made into a token. That's
+design-system design, inside the visual language they already have, and it's how
+every component on my own file got built. It isn't product design: I don't
+design their screens or their flows. And it's their file, so I work on a branch
+of it, or on changes their designer approves, never straight over their work.
+
+**The component library is held to their design, not just built from it.**
+Each component gets a contract derived from their Figma file. The code is checked
+against it on every pull request, and against an app that installs it. Every
+component sits on a canvas beside its Figma source, marked in sync or drifted.
+`deliverable.md` has the detail.
+
+**It's done when one of their screens is.** I rebuild one key screen from the
+package alone and compare it with their Figma frame, region by region. Done means
+it matches. On my own file that test found what the components never did: 15
+unbound gaps, a table whose column widths nobody owned, and two bugs in components
+that had already shipped.
+
+**What this isn't: pattern governance.** Agents proposing new components, a
+usage counter, lock zones: that mechanism is parked, and nothing in the Build
+sells it.
+
+**What the client gets:** A versioned React package their app installs,
+built from their Figma file and checked against it. One source of truth
+their developers ship from. Fewer duplicated components. Fewer design calls made in silos.
+Less defect debt. A system that exists in their codebase, not in a
+Figma file they have to translate.
+
+**The drift gate ships with the Build, and only here.** It was briefly written
+into the Diagnostic on 2026-08-28 and moved back the same day: it needs a live
+Figma read that a person has to trigger and watch, so it is not a thing to hand
+a client to run unsupervised. It no longer accepts a stale or edited dump; the
+freshness guard refuses both (30 August). Nor one it cannot place to a Figma
+file (17 October). What the Diagnostic installs is the
+repo-side report. The check compares their Figma file against the tokens in
+their repo and fails when the two disagree, naming exactly what moved. It also names both readings, because what
+a failure means depends on which way truth flows in their setup: where Figma
+authors, their tokens are stale and the answer is to sync; where code authors
+and Figma mirrors, someone has edited a generated file. Descriptions count as
+well as values, so a usage rule quietly rewritten in Figma is caught by it too.
+It runs on demand rather than in CI, because it needs a live read from Figma
+that a person has to trigger.
+
+**The defence on a call:** "Your team of twelve developers costs you
+roughly £70k a month. If duplicated components and design churn are
+costing you even ten per cent of velocity, this pays for itself inside
+two months."
+
+**Pricing logic:** The price is fixed against the outcome, and the days
+behind it are now measured. On my own file, 35 components went through the
+loop in about 13 and a half of 20 working hours, about 25 minutes each, with
+the tooling already built.
+A client's Build adds setup, Figma fixes, a page of guidance per component,
+the one-screen test and a handover. Then I double the lot, because my last
+client engagement ran at about twice the time once meetings, approvals and
+waiting were counted.
+
+That makes a 15-component Build about 14 days, 30 components about 18 and
+45 about 22. At the bands below that's £780 to £860 a day, against the £562
+the Diagnostic implies and the £450–650 market rate. The gap is the outcome
+premium, and it's what absorbs the things my own file never had: their
+designer's approvals, a library like MUI underneath, screen-size modes. The
+client gets certainty, and I'm not punished for being quick. Agencies quote
+£30k–60k for the same scope and staff it junior. The exact figure is always
+set by the Diagnostic. I never quote blind.
+
+**A component-heavy Build is scoped from the ready check.** The rating per
+component is the scope: what can be built as drawn, and what needs fixing in
+Figma first. The count sets the band, which the client sees as one fixed
+price and never as a price per component:
+
+- up to 20 components: £12,000
+- 21 to 35: £14,000
+- 36 to 50: £18,000
+- over 50, a file still on colour styles, or a library underneath: scoped
+  above £18,000, or split into two Builds.
+
+**A Build moves up a band when the Diagnostic shows heavy overhead.** At
+three times my own pace rather than two, 30 components at £14,000 falls to
+£519 a day, under the Diagnostic's rate. So the Diagnostic notes how this team
+works: how often decisions need a meeting, how long a designer takes to approve
+a change. If it's slow, the Build is priced a band up. Checked against IDEM on
+15 October (ORIN-142); the first client Build gets checked against it too.
+
+**Not yet written: a client who already runs MUI or shadcn.** IDEM's
+components are built from scratch. Most React teams arrive with a library
+underneath, and the Build has to say whether the package sits on it or
+replaces it. Recommendations in `decisions.md` 2026-10-13; this section
+waits for the decision.
+
+**Hard rule:** No Build without a Diagnostic or a Foundation first. This
+is the anti-Momentum clause. Orin does not price unscoped work. Which
+door they come through depends on whether a system already exists; that
+there is a door at all does not move.
+
+---
+
+## 4. The Retainer
+
+**What it is:** Orin stays close. The system keeps living.
+
+**Duration:** Ongoing, monthly. Cancellable with 30 days' notice.
+
+**Price:** £2,000/month.
+
+**What happens:** Roughly 3–4 days of attention a month. Iterating the
+system as the product grows. Reviewing new components before they
+fragment. Keeping the pipeline healthy, which includes running the drift
+gate, so Figma and the code are known to agree rather than assumed to.
+
+With a component library, "reviewing new components" has a shape. Each new one
+goes through the same loop the Build used: ready check, contract, checks,
+release. Each release is a new version of the package, so their app takes
+changes when it upgrades and never by surprise. A month holds about 10 new
+components through that loop, at twice my own pace and with the upkeep around
+them. A month that needs more is a small scoped Build. Once a month I run the drift check across the library and walk the
+canvas with whoever owns the design.
+Being the design brain the developers can call on when they're making a
+call they're not sure about.
+
+**What the client gets:** The system doesn't decay back into an
+artefact. New features ship consistent with the system. The design
+load their developers carry stays light.
+
+**The defence on a call:** "A fraction of what one junior designer costs
+you, and the system stays alive instead of decaying into an artefact."
+
+**Pricing logic:** Meaningfully below the cost of any hire, high enough
+to justify real ongoing attention. Cancellable-anytime removes lock-in
+fear. Good retainers don't get cancelled — they get expanded.
+
+**Why it matters to Orin:** The retainer is the consistency engine.
+Builds are lumpy; retainers are what make the practice sustainable.
+Every Build proposal presents the Retainer as the default continuation,
+not an upsell.
+
+**The trigger to watch for on a Foundation client: they hire a designer.**
+That is the moment the direction of truth has to be settled, and it cannot
+be settled before it happens. A Foundation ships code-first, because a
+founder with no designer has nobody to author in Figma. The day someone
+arrives who expects to author there, the question is whether to flip them
+onto the Figma-first pipeline, and that is a real piece of work with a real
+decision inside it. Not something to pre-build during the Foundation, and
+not something to improvise in a Slack message either.
+
+**Two answers, when it comes up.** Flipping means Figma becomes the
+source: the designer authors variables there, `sync:figma` pulls them, the
+code follows. The smaller one is a mirror. The code stays the source, and
+I generate the Figma variable collection from it once, each semantic
+aliased to its primitive exactly as the JSON resolves, so the designer has
+something real to design against from their first day. A mirror is
+included rather than billed. The boundary that makes that sustainable is
+that it is generated once and not maintained. I say that part plainly,
+because a Figma file drifting quietly from the source is worse than no
+Figma file at all. Keeping it current is either the flip or a Retainer
+line.
+
+What to say when a founder asks about Figma before that day comes: the
+token source is DTCG, the format design tooling imports, so nothing is
+locked away and their future designer starts from what exists. What we are
+not doing today is building a Figma file nobody is opening yet.
+
+---
+
+## The model against the floor
+
+Floor: ~£5,500–6,000/month revenue (£4k after tax, sole trader).
+
+- Two retainers: £4,000/month. Near the floor.
+- Three retainers: £6,000/month. Floor cleared, no builds required.
+- Target state (4 retainers + builds in flight): £14k–20k/month.
+
+The plan is not the target state. The plan is: first way in, first
+Build, first Retainer. One client, one complete arc, done properly.
+Whether that arc opens with a Diagnostic or a Foundation depends on
+who emails first, and it doesn't change what has to be proved.
+The model scales from there or it doesn't — but one arc proves the
+machine.
+
+---
+
+## What triggers a no
+
+- Build requests without a Diagnostic or a Foundation. (The
+  anti-Momentum clause.)
+- Builds sold on component count. "How many components do I get for
+  £14,000?" turns the Build into a component factory, and that's a vendor
+  relationship. Scope comes from the ready check: which components can be
+  built as drawn, and what needs fixing in Figma first.
+- Foundation work sold on screen count. If the conversation is "how many
+  pages do I get," the ownership layer isn't what they're buying and
+  I'm competing with an afternoon of shadcn. Different job, someone
+  else's.
+- "Can you do it in 40 hours" budget-first scoping. Treats the system
+  as a commodity. It isn't one.
+- Brand guidelines, marketing surfaces, social media assets. Legitimate
+  needs, not Orin's work.
+- Strategy-deck-only engagements. Orin builds. Advice without building
+  is not the offer.
+- Clients who want a vendor. Orin is a partner or nothing.
+- Discounting under pressure. The first client pays full rate. Every
+  client pays full rate. Generosity is deliberate and bounded, not a
+  reaction to fear, embarrassment, or the need to close a gap.
+
+---
+
+## Pricing posture
+
+Prices are claims about the value of outcomes, not reflections of
+worth or availability. The buyer is technical — a head of engineering,
+a CTO, a Technical Officer — because they can do the velocity maths
+themselves. Price for the buyer who can see the value, not the
+budget-holder who can't.
+
+The Foundation is the one exception, and it's a change of argument
+rather than a change of posture. A founder can't do the velocity maths,
+so the value gets shown a different way: what the second build costs,
+and what a rebrand costs once sixty components exist. Same fixed price,
+same no-discount rule, different sum on the whiteboard.
+
+The test for whether the token layer is worth installing at all is not
+"is it an app rather than a site." It's how many people will change this
+after I leave, multiplied by how often. A brochure site a marketing team
+edits monthly drifts hard. An app built by two people and frozen for a
+year doesn't.
+
+Say the number without flinching. The flinch costs more than any
+discount.
+
+*Review prices after the first three complete engagements. Expect
+them to go up, not down.*
