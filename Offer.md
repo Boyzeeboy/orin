@@ -2,7 +2,8 @@
 
 *Version 2.1, 24 October 2026. One page. It replaces the four-shape offer
 (v1.4) and positioning 2.0, both kept in `archive/`. Why: `decisions.md`
-2026-10-23. The day rate moved from £560 to £600 on 24 October.*
+2026-10-23. The day rate moved from £560 to £600 on 24 October, and fixed
+prices follow a stated rule from the same day.*
 
 ## What I do
 
@@ -33,6 +34,13 @@ the finished work. They don't need to buy or understand the pipeline.
 
 Screens, states and components are fine ways to describe a job, as long as
 the price accounts for how complex they are.
+
+**How a fixed price is worked out:** days of building × £600, plus 25% for
+the review round, calls, handover and the risk of overrunning, rounded to
+the nearest £250. So £1,500 is 2 days of building and £3,000 is 4. £1,500 is
+also the smallest job I take. If the files are unclear, the margin goes to
+50%, or the investigation becomes a small paid job first. The component
+library follows the same rule: £12,000 to £18,000 is 16 to 24 days.
 
 There's no retainer yet. After a finished job I ask what continuing help
 would actually be useful, and price that.
