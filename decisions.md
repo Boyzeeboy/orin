@@ -1543,3 +1543,31 @@ on the quote.
 
 - £600 is still untested with a buyer. Review it after the first two paid
   jobs; £650, roughly the upper quarter, is defensible once there's evidence.
+
+---
+
+## 2026-10-24 — Fixed prices come from the day rate by a stated rule
+
+**Why:** with the day rate set at £600 (entry above), Warren asked for the
+defined-job range, £1,500 to £3,000, to be rationalised the same way.
+
+**What changed:** `Offer.md` states the rule. A fixed price is days of
+building × £600, plus 25%, rounded to the nearest £250. £1,500 is the
+smallest job taken. The ORIN Pricing sheet gained a "Quote a defined job"
+section that applies the rule, and its fixed-price table now shows days of
+building rather than days at the day rate.
+
+**Reasoning:** the 25% pays for what a fixed price includes besides
+building: the one review round (rule 4), calls and approvals, handover, and
+the overrun risk the client doesn't carry. Sales and the free two hours
+before a proposal are not in it; the day rate already covers them through the
+45% of working time that isn't billable. On this rule the existing range
+holds without change: £1,500 is 2 days of building, £3,000 is 4, and
+"a few days" now has a number. The component library lands at 16 to 24
+days, close to Offer v1.4's estimate of 14 to 22 days for 15 to 45
+components, so all three prices come from one rate.
+
+**Not done:** 25% is an assumption. The last client job ran at about twice
+Warren's own pace once meetings and waiting were counted, so the first fixed-price
+jobs should log actual hours against the estimate. If the margin is
+regularly eaten, raise it rather than the day rate.
