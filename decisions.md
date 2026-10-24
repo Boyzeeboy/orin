@@ -1489,3 +1489,57 @@ height is close to before, and the logged CLS (2026-08-16) is not touched.
 32px), so the panel reads as the page's close without returning to the 56px
 it started at. It stays on one line at 1440px and fits at 360px with no
 overflow.
+
+---
+
+## 2026-10-24 — The day rate goes to £600, with the working-time model behind it
+
+**Why:** a prospect asked for 20 hours a month of usability work, and quoting
+it exposed that £560 had never been set as a day rate. It was the Diagnostic's
+£4,500 divided across eight loaded days (2026-08-28), carried into Offer v2.0
+as "the figure already used to cost pre-sale time". As a straight day rate it
+undersold the practice: the £562 had been spread across three unpaid pre-sale
+days, so the paid days were really earning about £900.
+
+**What changed:**
+
+- `Offer.md` v2.1: £600 a day, £80 an hour for small regular commitments sold
+  as a monthly block, and a short "How the day rate works" section. The first
+  client in the practice can have £525 a day for three months, named as an
+  introductory rate.
+- The site follows, at Warren's request: the home page's Capacity card and
+  How it works' day-rate eyebrow now say £600 a day. Only the number changed;
+  the introductory rate stays off the site.
+- A Google Sheet, ORIN Pricing, holds the model. "Pricing Calculation" turns
+  the rate and the working year into monthly revenue against the floor;
+  "Daily Work Routine" turns the split into a working day and a timetable.
+
+**The working-time model:** five working days a week, Sabbath kept. 20 holiday
+days, 8 bank holidays and 5 sick or slack days leave 227 working days. Of
+those, 25% is sales, 10% admin, 10% practice and IDEM, so 55% is billable:
+about 10.4 billable days a month. At £600 that is £6,240 a month fully booked,
+£490 over the £5,750 floor. At £525 it is £5,460, £290 under it, which is why
+the introductory rate has an end date. Averaged over every working day, £600
+billed is about £330 earned, and each paid hour carries about 49 unpaid
+minutes.
+
+**The market check (ITJobsWatch, six months to 24 October 2026):** React
+contracts median £525 (799 rates; 75th percentile £638, 90th £800); London
+£575, outside London £475. Contracts citing Storybook, the nearest stand-in
+for design-system work, median £560 (24 rates; 75th £625, 90th £775).
+UI/UX designer median £450. One published G-Cloud agency card lists £750 for
+a senior front-end developer and £780 for a senior UX designer. The
+"senior React developer" median of £875 was ignored: 46 rates, up 46% in a
+year and 112% outside London, which reads as a few unusual listings. These
+are advertised rates, mostly silent on IR35.
+
+**How it's invoiced:** a day rate bills the full days worked (7.5 hours; part
+days as halves or at £80 an hour). A monthly block bills the same amount each
+month with a time log kept, unused hours not carried over, and calls and
+email counted. A fixed price bills the price, and the hours are only my check
+on the quote.
+
+**Not done:**
+
+- £600 is still untested with a buyer. Review it after the first two paid
+  jobs; £650, roughly the upper quarter, is defensible once there's evidence.
