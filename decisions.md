@@ -1675,3 +1675,53 @@ are kept for a possible client build.
 **Revisit if:** runs are missed often enough to matter (three in a quarter),
 or the run needs systems Claude can't reach from the desktop app. Either is
 the trigger for the SDK service.
+
+## 2026-10-30 — A reserve, and a rule for lean seasons
+
+**Why:** Warren asked for the story of Joseph (Genesis 37 to 50) to be used
+as a framework for provision, commerce and stewardship, and then applied to
+Orin. Most of it was already in `OPERATING_MODEL.md`: price honestly, give
+deliberately, don't hoard power, keep Sabbath. The missing piece was the
+storehouse. The commercial scorecard measured cash runway, but nothing said
+how much to keep, where, how it fills, or what Orin does when it runs low.
+
+**What changed:**
+
+- `OPERATING_MODEL.md`, §3 Money: Orin keeps a reserve, filled first and
+  drawn on by a rule set in advance. And a client's scarcity is no reason
+  to raise the price, just as mine is no reason to lower it (Genesis 47,
+  where the famine let Pharaoh take the people's land, turned outwards).
+- `OPERATING_MODEL.md`, commercial scorecard: runway is counted in months
+  of the floor, with two new lines: reserve held against target, and the
+  largest client's share of revenue. Rule 5 (one main project at a time)
+  means a single client can easily be all of it.
+- `Offer.md` v2.2, a section called "The reserve": a fifth of every invoice
+  into a separate account, tax kept apart; a target of three months of the
+  floor, then six; a three-step lean-season rule where the kind of work
+  changes and the prices don't; practice and IDEM time kept even in a lean
+  season; the reserve refilled before new spending.
+
+**Reasoning:** Warren confirmed that the £5,750 floor already includes tax,
+pension and saving, so a fifth comes out of the floor and not on top of it.
+The target goes on to six months because three is thin for a one-person
+practice. Giving stays unquantified, at
+Warren's choice: "give deliberately" keeps no pound figure and the Kingdom
+scorecard question is unchanged.
+
+**What the numbers mean:** fully booked at £600 (10.4 billable days, £6,240),
+a fifth is about £1,250 a month, so three months of reserve takes about 14
+fully booked months to fill. Until then the lean-season rule will usually
+read under 2 months, which points at short day-rate contracts alongside
+fixed-price jobs. That fits the 23 October lesson from Praelexis, where
+paid capacity work was turned down as "not the offer".
+
+**Not done:**
+
+- The ORIN Pricing sheet doesn't show the reserve or the time to fill it
+  yet.
+- The separate account isn't opened, or not recorded here if it is.
+- Nothing on the site changes. The reserve is internal.
+
+**Revisit if:** a fifth can't be met at the floor (cut the rate before
+cutting the floor, and log it), a single client passes about 60% of a
+quarter's revenue, or the reserve reaches six months.
