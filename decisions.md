@@ -1603,3 +1603,36 @@ still verified. Nothing was changed.
 
 **Revisit if:** the forwarded count stops matching received, or DMARC is
 added (log it here).
+
+---
+
+## 2026-10-30 — DMARC added at p=none, reports to Cloudflare
+
+**Why:** the hello@ check earlier today found no DMARC record (entry above).
+
+**What changed:** Warren enabled Cloudflare DMARC Management on
+orinsystems.co, which added a TXT record at `_dmarc`:
+`v=DMARC1; p=none; rua=mailto:…@dmarc-reports.cloudflare.net`. Confirmed
+live at Cloudflare's nameserver, 1.1.1.1 and 8.8.8.8 the same day. Aggregate
+reports go to the DMARC Management dashboard, not the Gmail inbox.
+
+**Reasoning:** as far as is known, nothing sends mail as orinsystems.co:
+Email Routing forwards with the original sender intact and replies go from
+Gmail. That would justify `p=reject` straight away, but an unknown sender
+(a form tool, a mailing platform) would be silently blocked. Two weeks at
+`p=none` shows every source in the reports at no cost. The dashboard kept a
+"no default RUA" banner and "DMARC policy N/A" after the record was live;
+that was its own lag, not the record.
+
+**Not done:**
+
+- Read the reports around 13 November. If the only sources are forwarders
+  relaying through Cloudflare, move to `p=quarantine`, then `p=reject` a
+  fortnight later, and tighten SPF from `~all` to `-all` at the same time.
+- Anything set up to send as `hello@` before then (Gmail "Send mail as",
+  Cloudflare Email Sending) needs SPF and DKIM alignment first, or the
+  stricter policy blocks Warren's own replies.
+- BIMI shows as failing in the dashboard. Ignored: it needs an enforced
+  policy and usually a paid logo certificate, and earns nothing here.
+
+**Revisit if:** the reports show a sending source nobody recognises.
