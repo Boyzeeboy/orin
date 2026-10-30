@@ -1636,3 +1636,42 @@ that was its own lag, not the record.
   policy and usually a paid logo certificate, and earns nothing here.
 
 **Revisit if:** the reports show a sending source nobody recognises.
+
+## 2026-10-30 — A weekly run prepares outreach follow-ups, and sends nothing
+
+**Why:** follow-ups were slipping. On 29 October two of the four rows in the
+prospect ledger (private) were past their next-action date. There's no
+shortage of prospects: ten researched targets in the outreach Sheet are
+still unworked. What was missing was the remembering and the preparing.
+
+**What changed:** a scheduled Claude task, `orin-outreach-followups`, runs
+every Monday at 09:00 from the Claude desktop app (ORIN-163). It reads the
+ledger, `Offer.md`, `voice.md` and the operating model, lists the actions due
+that week or overdue, drafts each message from the sent text of that thread,
+works out any quote by the `Offer.md` rule, and flags ledger gaps (a missing
+source or date, sent text not pasted back, a referrer not told the outcome).
+The task's instructions and its weekly briefs live under
+`~/.claude/scheduled-tasks/`, outside both repos, because they name
+prospects. A dry run against the live ledger on 30 October found three
+actions due, two overdue, and two gaps.
+
+**Reasoning:** it prepares and never sends. LinkedIn's terms forbid automated
+messaging, the jobs are £1,500 to £3,000 and sold on trust, and both real
+leads so far came by referral, so volume isn't the constraint. Sending by
+hand also keeps the 2026-09-01 rule true: the ledger records what went,
+pasted back after sending. Two heavier options were weighed and recorded in
+ORIN-163: an Agent SDK service (hosted, API-billed, its own tools) and a
+Clay-plus-sequencer stack (rented, sends at volume). The SDK service waits
+for its stated triggers. The sequencer stack isn't for Orin, and its notes
+are kept for a possible client build.
+
+**Not done:**
+
+- Finding, qualifying and first-messaging new targets. Reviewed on
+  27 November 2026, once the current ten have been worked through.
+- Running prospect data through Claude still waits on commercial terms
+  (ORIN-148).
+
+**Revisit if:** runs are missed often enough to matter (three in a quarter),
+or the run needs systems Claude can't reach from the desktop app. Either is
+the trigger for the SDK service.
