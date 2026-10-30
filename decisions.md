@@ -1571,3 +1571,35 @@ components, so all three prices come from one rate.
 Warren's own pace once meetings and waiting were counted, so the first fixed-price
 jobs should log actual hours against the estimate. If the margin is
 regularly eaten, raise it rather than the day rate.
+
+---
+
+## 2026-10-30 — hello@ checked end to end; DMARC still missing
+
+**Why:** Warren asked whether `hello@orinsystems.co` still works, since it is
+the address behind the one CTA.
+
+**What was checked:** public DNS and the Email Routing overview in the
+Cloudflare dashboard. DNS matches the 2026-07-14 setup (in the archive): MX to
+`route1/2/3.mx.cloudflare.net`, SPF `include:_spf.mx.cloudflare.net ~all`,
+DKIM at `cf2024-1._domainkey`. The dashboard shows routing enabled, DNS
+records locked, one rule, one destination address, and 11 received / 11
+forwarded in the seven days to 30 October, with nothing dropped or failed.
+Forwarding only reaches a verified destination, so the Gmail destination is
+still verified. Nothing was changed.
+
+**Not done:**
+
+- No DMARC record exists at `_dmarc.orinsystems.co`. Without one, a receiver
+  has no policy for mail that spoofs the domain. Start at
+  `v=DMARC1; p=none; rua=mailto:hello@orinsystems.co`, or use Cloudflare's
+  DMARC Management, and tighten once the reports are clean.
+- No catch-all rule, so mail to any other address at the domain is
+  rejected. Fine while `hello@` is the only address published.
+- Replies still go out from the personal Gmail address. Cloudflare now lists
+  Email Sending (beta) under Email Service; worth checking before a client
+  reply needs to come from `hello@`. Adding any sender means adding it to the
+  SPF record too.
+
+**Revisit if:** the forwarded count stops matching received, or DMARC is
+added (log it here).
