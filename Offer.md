@@ -1,9 +1,10 @@
 # Orin: the offer
 
-*Version 2.1, 24 October 2026. One page. It replaces the four-shape offer
+*Version 2.2, 30 October 2026. One page. It replaces the four-shape offer
 (v1.4) and positioning 2.0, both kept in `archive/`. Why: `decisions.md`
 2026-10-23. The day rate moved from £560 to £600 on 24 October, and fixed
-prices follow a stated rule from the same day.*
+prices follow a stated rule from the same day. The reserve and what happens
+in a lean season were added on 30 October.*
 
 ## What I do
 
@@ -66,6 +67,29 @@ the deliberate, bounded generosity `OPERATING_MODEL.md` asks for, decided
 before any client is in the room.
 
 The working-time model behind these numbers is the ORIN Pricing sheet.
+
+## The reserve
+
+A fifth of every invoice goes into a separate reserve account the day it's
+paid. Tax is set aside on its own and doesn't count towards it. The £5,750
+monthly floor already allows for saving, and this is where that saving goes
+first.
+
+The target is three months of the floor (£17,250), then six (£34,500). At
+six I review the rate.
+
+**In a lean season the lever is the kind of work, and the prices on this
+page hold.** Runway is cash in hand divided by the floor:
+
+- More than 3 months: sell the offer as written.
+- 2 to 3 months: sell capacity work hard, a regular day a week or agency
+  overflow.
+- Under 2 months: take short contracts at the day rate.
+
+The £525 introductory rate stays the only discount, and it was set before
+anyone asked. The time for practice and IDEM is kept in a lean season too,
+because it's what the next job is built with. After a lean season the
+reserve is refilled before anything new is spent.
 
 ## Five rules
 

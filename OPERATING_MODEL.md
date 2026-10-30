@@ -51,6 +51,15 @@ Generosity is deliberate. It is chosen before pressure enters the room,
 bounded clearly, and never used to avoid the discomfort of stating the
 real price.
 
+Orin keeps a reserve. Joseph stored grain in the good years so the lean
+ones met a plan, and a practice that lives invoice to invoice ends up
+pricing from fear. The reserve is filled first and drawn on by a rule set
+in advance. The numbers are in `Offer.md`.
+
+A client's scarcity is no more a reason to raise the price than mine is a
+reason to lower it. A deadline they can't move gets the same price as one
+they can.
+
 The rule is:
 
 > Price honestly. Give deliberately. Do neither from fear.
@@ -127,7 +136,9 @@ Month:
 - Revenue received:
 - Recurring revenue:
 - One-off revenue:
-- Cash runway:
+- Cash runway (months of the floor):
+- Reserve held, against target:
+- Largest client's share of revenue:
 
 ### Pipeline
 
